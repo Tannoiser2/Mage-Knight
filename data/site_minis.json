@@ -1,0 +1,457 @@
+{
+ "_notes": {
+  "what": "Calibrazione delle miniature 3D dei siti sul disegno stampato della tessera (tools/site_calib.py). Unità: 1 = raggio dell'esagono; x verso est, z verso sud (verso chi guarda).",
+  "transform": "Il modello (coordinate native del .glb) è ancorato al centro del suo AABB in x/z e alla base (y minima), scalato di `scale`, ruotato di `yaw` gradi attorno alla verticale (rotazione Godot), messo in (dx, dz) rispetto al centro dell'esagono e abbassato di `sink` sotto la faccia della tessera (le parti sotterranee, es. le scale del Sotterraneo, restano nascoste dalla tessera).",
+  "fit": "yaw/scale/posizione massimizzano la sovrapposizione (iou) tra la sagoma del modello come la vede la telecamera iniziale (pitch 55°: v = z - 0.70·y) e la sagoma del disegno, penalizzando la parte della pianta del modello (vista dall'alto) che esce dal disegno (outside); l'orientamento di partenza è scelto a occhio confrontando la struttura (scale, ingressi, torri). Lo stesso disegno è ritrovato su ogni tessera con template matching: `hexes` dà la posizione per tessera|direzione; `sites` i valori comuni e la posizione predefinita.",
+  "iou": "sovrapposizione sagoma modello/disegno (1 = perfetta)",
+  "front": "z (unità esagono) della fila di segnalini/eroi davanti all'edificio, scelta perché i dischi non coprano la pianta del modello (limitata a 0.56–0.78)."
+ },
+ "sites": {
+  "village": {
+   "yaw": 170.0,
+   "scale": 1.1202,
+   "sink": 0.0045,
+   "dx": 0.1597,
+   "dz": 0.081,
+   "iou": 0.631,
+   "outside": 0.133,
+   "front": 0.71
+  },
+  "monastery": {
+   "yaw": 312.5,
+   "scale": 1.074,
+   "sink": 0.0043,
+   "dx": 0.0195,
+   "dz": 0.0994,
+   "iou": 0.678,
+   "outside": 0.137,
+   "front": 0.69
+  },
+  "keep": {
+   "yaw": 297.5,
+   "scale": 0.8766,
+   "sink": 0.0035,
+   "dx": 0.0276,
+   "dz": 0.1249,
+   "iou": 0.771,
+   "outside": 0.026,
+   "front": 0.69
+  },
+  "mage_tower": {
+   "yaw": 291.0,
+   "scale": 1.242,
+   "sink": 0.005,
+   "dx": 0.0587,
+   "dz": 0.0654,
+   "iou": 0.769,
+   "outside": 0.073,
+   "front": 0.6
+  },
+  "dungeon": {
+   "yaw": 46.0,
+   "scale": 1.1425,
+   "sink": 0.1428,
+   "dx": 0.0244,
+   "dz": 0.0177,
+   "iou": 0.634,
+   "outside": 0.108,
+   "front": 0.56
+  },
+  "tomb": {
+   "yaw": 53.5,
+   "scale": 0.9789,
+   "sink": 0.0147,
+   "dx": 0.0215,
+   "dz": 0.0376,
+   "iou": 0.753,
+   "outside": 0.038,
+   "front": 0.62
+  },
+  "ruins": {
+   "yaw": 311.0,
+   "scale": 1.0986,
+   "sink": 0.0044,
+   "dx": 0.1621,
+   "dz": -0.0775,
+   "iou": 0.675,
+   "outside": 0.082,
+   "front": 0.63
+  },
+  "camp": {
+   "yaw": 31.5,
+   "scale": 1.0234,
+   "sink": 0.0041,
+   "dx": 0.0531,
+   "dz": -0.0072,
+   "iou": 0.632,
+   "outside": 0.076,
+   "front": 0.56
+  },
+  "maze": {
+   "yaw": 166.0,
+   "scale": 1.2214,
+   "sink": 0.0049,
+   "dx": 0.0697,
+   "dz": 0.0636,
+   "iou": 0.808,
+   "outside": 0.039,
+   "front": 0.78
+  },
+  "labyrinth": {
+   "yaw": 29.0,
+   "scale": 1.2309,
+   "sink": 0.0049,
+   "dx": 0.0908,
+   "dz": 0.0182,
+   "iou": 0.787,
+   "outside": 0.031,
+   "front": 0.7
+  },
+  "pyramid": {
+   "yaw": 316.0,
+   "scale": 0.8637,
+   "sink": 0.0035,
+   "dx": -0.02,
+   "dz": 0.0294,
+   "iou": 0.815,
+   "outside": 0.057,
+   "front": 0.63
+  },
+  "ziggurat": {
+   "yaw": 314.0,
+   "scale": 0.8182,
+   "sink": 0.0033,
+   "dx": -0.118,
+   "dz": -0.1127,
+   "iou": 0.747,
+   "outside": 0.033,
+   "front": 0.58
+  }
+ },
+ "hexes": {
+  "c01|180": {
+   "site": "village",
+   "dx": 0.1597,
+   "dz": 0.081,
+   "front": 0.74
+  },
+  "c02|180": {
+   "site": "village",
+   "dx": 0.1521,
+   "dz": 0.0074,
+   "front": 0.66
+  },
+  "c03|60": {
+   "site": "village",
+   "dx": 0.1597,
+   "dz": 0.0582,
+   "front": 0.7
+  },
+  "c04|120": {
+   "site": "village",
+   "dx": 0.1927,
+   "dz": 0.0632,
+   "front": 0.72
+  },
+  "c08|120": {
+   "site": "village",
+   "dx": 0.1902,
+   "dz": 0.0582,
+   "front": 0.7
+  },
+  "c14|120": {
+   "site": "village",
+   "dx": 0.1825,
+   "dz": 0.0556,
+   "front": 0.7
+  },
+  "c16|300": {
+   "site": "village",
+   "dx": 0.0633,
+   "dz": 0.1038,
+   "front": 0.76
+  },
+  "k05|240": {
+   "site": "village",
+   "dx": 0.1851,
+   "dz": 0.081,
+   "front": 0.74
+  },
+  "k11|60": {
+   "site": "village",
+   "dx": 0.0607,
+   "dz": 0.0429,
+   "front": 0.7
+  },
+  "volkare_camp|120": {
+   "site": "village",
+   "dx": 0.0556,
+   "dz": 0.048,
+   "front": 0.7
+  },
+  "c05|240": {
+   "site": "monastery",
+   "dx": 0.0195,
+   "dz": 0.0994,
+   "front": 0.7
+  },
+  "c07|0": {
+   "site": "monastery",
+   "dx": -0.0363,
+   "dz": 0.0816,
+   "front": 0.7
+  },
+  "c12|180": {
+   "site": "monastery",
+   "dx": 0.017,
+   "dz": 0.0182,
+   "front": 0.62
+  },
+  "k01|center": {
+   "site": "monastery",
+   "dx": -0.0287,
+   "dz": 0.0537,
+   "front": 0.68
+  },
+  "k06|240": {
+   "site": "monastery",
+   "dx": 0.0195,
+   "dz": 0.1349,
+   "front": 0.74
+  },
+  "k12|0": {
+   "site": "monastery",
+   "dx": -0.0363,
+   "dz": 0.0715,
+   "front": 0.7
+  },
+  "c03|240": {
+   "site": "keep",
+   "dx": 0.0403,
+   "dz": -0.0477,
+   "front": 0.62
+  },
+  "c09|180": {
+   "site": "keep",
+   "dx": 0.0885,
+   "dz": -0.0096,
+   "front": 0.66
+  },
+  "c10|60": {
+   "site": "keep",
+   "dx": -0.0003,
+   "dz": -0.2685,
+   "front": 0.56
+  },
+  "c14|240": {
+   "site": "keep",
+   "dx": 0.0352,
+   "dz": 0.0868,
+   "front": 0.76
+  },
+  "c17|180": {
+   "site": "keep",
+   "dx": 0.0276,
+   "dz": 0.1249,
+   "front": 0.78
+  },
+  "k04|180": {
+   "site": "keep",
+   "dx": -0.1221,
+   "dz": -0.0223,
+   "front": 0.6
+  },
+  "k07|0": {
+   "site": "keep",
+   "dx": -0.0181,
+   "dz": 0.0944,
+   "front": 0.76
+  },
+  "k10|0": {
+   "site": "keep",
+   "dx": 0.0809,
+   "dz": 0.163,
+   "front": 0.78
+  },
+  "c04|center": {
+   "site": "mage_tower",
+   "dx": 0.0562,
+   "dz": -0.0412,
+   "front": 0.56
+  },
+  "c09|60": {
+   "site": "mage_tower",
+   "dx": 0.0511,
+   "dz": 0.0324,
+   "front": 0.56
+  },
+  "c11|center": {
+   "site": "mage_tower",
+   "dx": 0.0587,
+   "dz": 0.0654,
+   "front": 0.56
+  },
+  "c13|center": {
+   "site": "mage_tower",
+   "dx": 0.0485,
+   "dz": 0.1238,
+   "front": 0.62
+  },
+  "c15|240": {
+   "site": "mage_tower",
+   "dx": 0.0282,
+   "dz": 0.2558,
+   "front": 0.76
+  },
+  "k02|60": {
+   "site": "mage_tower",
+   "dx": 0.0993,
+   "dz": -0.0082,
+   "front": 0.56
+  },
+  "k03|180": {
+   "site": "mage_tower",
+   "dx": 0.0435,
+   "dz": 0.1289,
+   "front": 0.62
+  },
+  "k09|240": {
+   "site": "mage_tower",
+   "dx": -0.02,
+   "dz": 0.0629,
+   "front": 0.56
+  },
+  "c07|120": {
+   "site": "dungeon",
+   "dx": 0.0244,
+   "dz": 0.0177,
+   "front": 0.56
+  },
+  "c09|300": {
+   "site": "dungeon",
+   "dx": 0.0168,
+   "dz": 0.0152,
+   "front": 0.56
+  },
+  "k01|240": {
+   "site": "tomb",
+   "dx": 0.0215,
+   "dz": 0.0376,
+   "front": 0.6
+  },
+  "k03|0": {
+   "site": "tomb",
+   "dx": 0.052,
+   "dz": 0.0655,
+   "front": 0.64
+  },
+  "c08|240": {
+   "site": "ruins",
+   "dx": 0.19,
+   "dz": -0.0623,
+   "front": 0.66
+  },
+  "c10|120": {
+   "site": "ruins",
+   "dx": 0.1875,
+   "dz": -0.1257,
+   "front": 0.58
+  },
+  "c11|0": {
+   "site": "ruins",
+   "dx": 0.1621,
+   "dz": -0.0775,
+   "front": 0.64
+  },
+  "k02|240": {
+   "site": "ruins",
+   "dx": 0.1799,
+   "dz": -0.0369,
+   "front": 0.68
+  },
+  "k03|240": {
+   "site": "ruins",
+   "dx": 0.1773,
+   "dz": -0.0267,
+   "front": 0.7
+  },
+  "k04|60": {
+   "site": "ruins",
+   "dx": 0.1799,
+   "dz": -0.1232,
+   "front": 0.6
+  },
+  "k08|300": {
+   "site": "ruins",
+   "dx": 0.1443,
+   "dz": -0.1181,
+   "front": 0.6
+  },
+  "k11|0": {
+   "site": "ruins",
+   "dx": 0.1316,
+   "dz": -0.108,
+   "front": 0.6
+  },
+  "c12|0": {
+   "site": "camp",
+   "dx": 0.0607,
+   "dz": -0.0656,
+   "front": 0.56
+  },
+  "k09|120": {
+   "site": "camp",
+   "dx": 0.0531,
+   "dz": -0.0072,
+   "front": 0.56
+  },
+  "c12|60": {
+   "site": "maze",
+   "dx": 0.0697,
+   "dz": 0.0636,
+   "front": 0.78
+  },
+  "c14|180": {
+   "site": "maze",
+   "dx": 0.0595,
+   "dz": 0.0788,
+   "front": 0.78
+  },
+  "k09|300": {
+   "site": "labyrinth",
+   "dx": 0.0908,
+   "dz": 0.0182,
+   "front": 0.68
+  },
+  "k10|180": {
+   "site": "labyrinth",
+   "dx": 0.0502,
+   "dz": 0.0309,
+   "front": 0.72
+  },
+  "k11|240": {
+   "site": "pyramid",
+   "dx": -0.0251,
+   "dz": -0.0036,
+   "front": 0.62
+  },
+  "k12|180": {
+   "site": "pyramid",
+   "dx": -0.02,
+   "dz": 0.0294,
+   "front": 0.64
+  },
+  "c16|180": {
+   "site": "ziggurat",
+   "dx": -0.0622,
+   "dz": -0.0518,
+   "front": 0.6
+  },
+  "c17|60": {
+   "site": "ziggurat",
+   "dx": -0.118,
+   "dz": -0.1127,
+   "front": 0.56
+  }
+ }
+}

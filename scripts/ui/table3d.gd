@@ -22,21 +22,24 @@ const FIG_H := 0.95                      # altezza delle figure degli eroi
 const MINI_H := 0.5                      # altezza massima delle miniature dei nemici
 const MINI_W := 0.62                     # ingombro massimo in pianta: il segnalino fa da basetta
 const SITE_H := 0.5                      # altezza delle miniature dei siti (vedi SITE_SIZE)
-## Miniature dei siti, al centro dell'esagono sopra il disegno stampato e sempre con lo stesso orientamento:
-## [altezza massima, ingombro massimo in pianta] (1 = raggio dell'esagono).
+## Miniature dei siti: di norma calibrate sul disegno stampato (data/site_minis.json: posizione, orientamento,
+## scala e affondamento per tessera|direzione, ricavati da tools/site_calib). SITE_SIZE resta solo come
+## ripiego per un sito senza calibrazione: [altezza massima, ingombro massimo in pianta] (1 = raggio dell'esagono).
 const SITE_SIZE := {
 	"village": [0.42, 1.0], "monastery": [0.6, 1.02], "keep": [0.62, 0.92], "mage_tower": [1.0, 0.8],
 	"dungeon": [0.3, 0.95], "tomb": [0.42, 0.9], "ruins": [0.36, 0.95], "camp": [0.4, 1.05],
 	"maze": [0.32, 1.05], "labyrinth": [0.5, 1.0], "pyramid": [0.55, 0.95], "ziggurat": [0.45, 1.0],
 }
-## Quota (frazione dell'altezza) da affondare nella tessera: il sotterraneo è un'entrata con scale che
-## scendono, va appoggiato a filo del terreno e non deve "galleggiare".
-const SITE_SINK := {"dungeon": 0.3}
 const SITE_MINIS := ["village", "monastery", "keep", "mage_tower", "dungeon", "tomb", "ruins", "camp",
 	"maze", "labyrinth", "pyramid", "ziggurat"]
-## Con la miniatura del sito al centro, segnalini ed eroi stanno nella fascia davanti (verso +Z).
+const SITE_CALIB := "res://data/site_minis.json"
+## Direzioni degli esagoni di una tessera (chiavi di data/tiles.json) nell'ordine di MKHexMesh.DIRS.
+const TILE_DIR_KEYS := ["0", "60", "120", "180", "240", "300"]
+## Con la miniatura del sito al centro, segnalini ed eroi stanno nella fascia davanti (verso +Z);
+## con la calibrazione la fascia di ogni esagono è in site_minis.json ("front"), qui il valore predefinito.
 const FRONT_Z := 0.56
 const FRONT_K := 0.62                    # scala dei segnalini davanti a un sito
+static var _site_calib = null            # data/site_minis.json (caricato una volta)
 const KINDS := {
 	"move": Color("#59d98a"), "explore": Color("#ffd36b"), "target": Color("#ff5a48"),
 	"attack": Color("#ff5a48"), "danger": Color("#ff9a3a"), "select": Color("#f2ecd8"),
@@ -774,7 +777,7 @@ func _token_pos(hk: String, i: int, n: int, has_city: bool) -> Vector3:
 		if hero:
 			x0 = 0.24
 		var x := x0 + (i - (n - 1) / 2.0) * step
-		var z := FRONT_Z + (0.08 if has_city else 0.0)
+		var z := FRONT_Z + 0.08 if has_city else _front_z(hk)
 		# la fila segue un poco il bordo dell'esagono
 		return base + Vector3(x, 0, z - absf(x) * 0.25)
 	var shift := Vector3(0.2, 0, -0.12) if hero else Vector3.ZERO
@@ -931,7 +934,7 @@ func _sync_heroes(anim: bool) -> void:
 			var on_city := hd is Dictionary and MKUI.norm(hd.get("site", "")) == "city"
 			if _site_mini_on(pos) or on_city:
 				# davanti all'edificio, a sinistra (i segnalini stanno a destra)
-				dest = hex_pos(pos) + Vector3(-0.52 if has_en else -0.36, 0, FRONT_Z + 0.02) + _hero_offset(j, arr.size()) * 0.45
+				dest = hex_pos(pos) + Vector3(-0.52 if has_en else -0.36, 0, (FRONT_Z if on_city else _front_z(pos)) + 0.02) + _hero_offset(j, arr.size()) * 0.45
 				fsc *= 0.8
 			elif has_en:
 				dest += Vector3(-0.5, 0, 0.3)
@@ -1186,7 +1189,7 @@ func PolygonMesh_make(poly: PackedVector2Array, h: float) -> ArrayMesh:
 func _sync_ruins_pos() -> void:
 	for key in ruin_nodes:
 		var k := str(key).split("|")[0]
-		ruin_nodes[key].position = hex_pos(k) + (Vector3(-0.5, 0, FRONT_Z - 0.05) if _site_mini_on(k) else Vector3(0.42, 0, 0.3))
+		ruin_nodes[key].position = hex_pos(k) + (Vector3(-0.5, 0, _front_z(k) - 0.05) if _site_mini_on(k) else Vector3(0.42, 0, 0.3))
 
 
 func _sync_ruins() -> void:
@@ -1243,8 +1246,13 @@ func _sync_sites() -> void:
 			seen[key] = true
 			if site_nodes.has(key):
 				continue
-			var sz: Array = SITE_SIZE.get(site, [SITE_H, 0.6])
-			var n: Node3D = MKMiniatures.site(site, sz[0], sz[1])
+			var cal := _site_fit(k, site)
+			var n: Node3D = null
+			if float(cal.get("scale", 0.0)) > 0.0:
+				n = MKMiniatures.site_fitted(site, float(cal["scale"]))
+			else:
+				var sz: Array = SITE_SIZE.get(site, [SITE_H, 0.6])
+				n = MKMiniatures.site(site, sz[0], sz[1])
 			if n == null:
 				continue
 			n.set_meta("hex", k)
@@ -1266,13 +1274,72 @@ func _place_mini(m: Node3D) -> void:
 	m.rotation = Vector3.ZERO
 
 
-## Le strutture dei siti non si muovono mai: centro dell'esagono, orientamento fisso.
+## Le strutture dei siti non si muovono mai: sopra il disegno stampato, con la posizione, l'orientamento e
+## l'affondamento della calibrazione (le parti sotterranee, come le scale del sotterraneo, restano sotto la
+## tessera, che è opaca). Senza calibrazione: centro dell'esagono, orientamento fisso.
 func _place_site(n: Node3D) -> void:
 	var k := str(n.get_meta("hex", ""))
 	var site := str(n.get_meta("site", ""))
-	var sink: float = float(SITE_SINK.get(site, 0.0)) * MKMiniatures.scene_aabb(n).size.y
-	n.position = hex_pos(k) + Vector3(0, 0.002 - sink, 0)
-	n.rotation = Vector3.ZERO
+	var cal := _site_fit(k, site)
+	if cal.is_empty():
+		n.position = hex_pos(k) + Vector3(0, 0.002, 0)
+		n.rotation = Vector3.ZERO
+		return
+	n.position = hex_pos(k) + Vector3(float(cal.get("dx", 0.0)), 0.002 - float(cal.get("sink", 0.0)), float(cal.get("dz", 0.0)))
+	n.rotation = Vector3(0, deg_to_rad(float(cal.get("yaw", 0.0))), 0)
+
+
+static func _calib() -> Dictionary:
+	if _site_calib == null:
+		_site_calib = {}
+		if FileAccess.file_exists(SITE_CALIB):
+			var j = JSON.parse_string(FileAccess.get_file_as_string(SITE_CALIB))
+			if j is Dictionary:
+				_site_calib = j
+	return _site_calib
+
+
+## Tessera e direzione ("c07|120") dell'esagono k, dallo stato della mappa; "" se non si trova.
+func _tile_dir(k: String) -> String:
+	var h = _map_hex().get(k)
+	if not (h is Dictionary):
+		return ""
+	var tid := str(h.get("tile", ""))
+	var m = s.get("map", {})
+	if tid == "" or not (m is Dictionary):
+		return ""
+	for t in m.get("tiles", []):
+		if t is Dictionary and str(t.get("id", "")) == tid:
+			var d := MKHexMesh.parse(k) - MKHexMesh.parse(str(t.get("slot", "")))
+			if d == Vector2i.ZERO:
+				return tid + "|center"
+			var i := MKHexMesh.DIRS.find(d)
+			return tid + "|" + TILE_DIR_KEYS[i] if i >= 0 else ""
+	return ""
+
+
+## Calibrazione della miniatura del sito sull'esagono k: valori del sito ({yaw, scale, sink, dx, dz, front})
+## con posizione e fascia davanti dell'esagono preciso, se calibrato; {} se il sito non ha calibrazione.
+func _site_fit(k: String, site: String) -> Dictionary:
+	var C := _calib()
+	var sd = C.get("sites", {}).get(site)
+	if not (sd is Dictionary):
+		return {}
+	var out: Dictionary = sd.duplicate()
+	var hd = C.get("hexes", {}).get(_tile_dir(k))
+	if hd is Dictionary and str(hd.get("site", "")) == site:
+		for f in ["dx", "dz", "front", "yaw", "scale", "sink"]:
+			if hd.has(f):
+				out[f] = hd[f]
+	return out
+
+
+## Fascia (z) dei segnalini e degli eroi davanti alla miniatura del sito dell'esagono k.
+func _front_z(k: String) -> float:
+	var h = _map_hex().get(k)
+	if not (h is Dictionary):
+		return FRONT_Z
+	return float(_site_fit(k, MKUI.norm(h.get("site", ""))).get("front", FRONT_Z))
 
 
 ## Mostra o nasconde le miniature 3D (nemici scoperti e siti); la scelta resta in MKMiniatures.enabled.

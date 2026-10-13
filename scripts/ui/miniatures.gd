@@ -84,6 +84,22 @@ static func site(site_id: String, height := 0.6, max_w := 0.9) -> Node3D:
 	return load_for("site_" + site_id, height, max_w)
 
 
+## Struttura di un sito calibrata sul disegno della tessera (data/site_minis.json): il modello non è
+## normalizzato ma scalato di `scale` (unità del tavolo per unità del .glb) e ancorato al centro del suo
+## AABB in x/z e alla base (y minima), come nella calibrazione; la rotazione la decide chi lo piazza.
+static func site_fitted(site_id: String, scale: float) -> Node3D:
+	var root := load_for("site_" + site_id, 1.0, 1.0)
+	if root == null:
+		return null
+	var hold: Node3D = root.get_child(0)
+	var inst: Node = hold.get_child(0)
+	var ab := scene_aabb(inst)
+	hold.scale = Vector3.ONE * scale
+	hold.position = Vector3(-(ab.position.x + ab.size.x / 2.0) * scale, -ab.position.y * scale, -(ab.position.z + ab.size.z / 2.0) * scale)
+	root.rotation = Vector3.ZERO
+	return root
+
+
 ## AABB di tutte le mesh della scena, nel sistema di `n`.
 static func scene_aabb(n: Node) -> AABB:
 	var out := AABB()
