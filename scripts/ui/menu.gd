@@ -14,11 +14,18 @@ const SCENARIOS := [
 	{"id": "full_conquest", "n": "Conquista Totale", "players": [2, 4],
 		"d": "Da 2 a 4 eroi in competizione per la Fama: si esplora, si combatte e si conquistano le città. Alla fine vince chi ha più Fama (con i titoli)."},
 ]
-const HEROES := ["arythea", "goldyx", "norowas", "tovak"]
+const HEROES := ["arythea", "goldyx", "norowas", "tovak", "wolfhawk", "krang", "braevalar"]
 const HERO_SUB := {
 	"arythea": "la Signora del Sangue", "goldyx": "il Drago Cristallino", "norowas": "il Signore degli Elfi",
-	"tovak": "il Cavaliere Nero",
+	"tovak": "il Cavaliere Nero", "wolfhawk": "la Cacciatrice (La Legione Perduta)", "krang": "lo Sciamano Orco (Krang)",
+	"braevalar": "il Druido Mutaforma (Shades of Tezla)",
 }
+## Contenuti della partita (MKDB.CONTENT_SETS): tessere, nemici, carte, unità e rovine delle espansioni.
+const CONTENTS := [
+	{"id": "base", "n": "Base", "d": "Solo il gioco base."},
+	{"id": "ll", "n": "+ La Legione Perduta", "d": "Tessere con Campo Profughi, Dedalo, Labirinto, Miniere Profonde e mura; nuovi nemici, carte, Unità e Rovine."},
+	{"id": "tezla", "n": "+ Shades of Tezla", "d": "Come sopra, più i nemici di Shades of Tezla (Vampirico, Difensore…) nelle pile."},
+]
 const LEVELS := ["Facile", "Normale", "Difficile"]
 
 var main
@@ -26,6 +33,7 @@ var scenario := 0
 ## Combattimento tra giocatori negli scenari competitivi (Conquista completa)
 var pvp_on := true
 var _pvp_row: Control
+var content := 0
 ## posti: {on, hero, ai, level(1..3), name}
 var seats := [
 	{"on": true, "hero": "arythea", "ai": false, "level": 2, "name": "Giocatore 1"},
@@ -38,6 +46,7 @@ var bg_table: MKTable3D
 var page: Control
 var msg: Label
 var _scen_desc: RichTextLabel
+var _content_desc: Label
 var _seats_box: HBoxContainer
 
 
@@ -48,6 +57,7 @@ func _ready() -> void:
 		scenario = int(main.menu_state["scenario"])
 		seats = main.menu_state["seats"].duplicate(true)
 		pvp_on = bool(main.menu_state.get("pvp", true))
+		content = clampi(int(main.menu_state.get("content", 0)), 0, CONTENTS.size() - 1)
 	_build_background()
 	show_home()
 
@@ -58,7 +68,7 @@ func _exit_tree() -> void:
 
 func _store() -> void:
 	if main != null:
-		main.menu_state = {"scenario": scenario, "seats": seats.duplicate(true), "pvp": pvp_on}
+		main.menu_state = {"scenario": scenario, "seats": seats.duplicate(true), "pvp": pvp_on, "content": content}
 
 
 ## Tavolo 3D di sfondo (non interattivo) che ruota piano, scurito ai bordi.
@@ -211,6 +221,24 @@ func show_new_game() -> void:
 	_pvp_row = pr
 	vb.add_child(pr)
 	vb.add_child(HSeparator.new())
+	var crow := HBoxContainer.new()
+	crow.add_theme_constant_override("separation", 18)
+	vb.add_child(crow)
+	crow.add_child(MKUI.title("Contenuti", 28, MKUI.GOLD))
+	var cnames := []
+	for c in CONTENTS:
+		cnames.append(c["n"])
+	var seg := _segmented(cnames, content, func(k):
+		content = k
+		_refresh_new_game(), 300)
+	for k in seg.get_child_count():
+		(seg.get_child(k) as Button).tooltip_text = CONTENTS[k]["d"]
+	crow.add_child(seg)
+	_content_desc = MKUI.label("", 17, Color("#cbbf9f"), MKUI.font_italic)
+	_content_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_content_desc.custom_minimum_size = Vector2(560, 0)
+	_content_desc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	crow.add_child(_content_desc)
 	vb.add_child(MKUI.title("Eroi", 32, MKUI.GOLD))
 	_seats_box = HBoxContainer.new()
 	_seats_box.add_theme_constant_override("separation", 18)
@@ -267,6 +295,8 @@ func _refresh_new_game() -> void:
 	_scen_desc.text = "[b]%s[/b] · %s\n[i]%s[/i]" % [sc["n"], pl, sc["d"]]
 	if _pvp_row != null:
 		_pvp_row.visible = sc["id"] in ["full_conquest", "blitz_conquest"]
+	if _content_desc != null:
+		_content_desc.text = CONTENTS[content]["d"]
 	if msg:
 		msg.text = ""
 	for c in _seats_box.get_children():
@@ -421,7 +451,7 @@ func config() -> Dictionary:
 		if st["ai"]:
 			nm += " (IA)"
 		pl.append({"hero": st["hero"], "ctrl": "ai" if st["ai"] else "human", "ai_level": int(st["level"]), "name": nm})
-	var opts := {"set": "base"}
+	var opts := {"content": CONTENTS[content]["id"]}
 	if SCENARIOS[scenario]["id"] in ["full_conquest", "blitz_conquest"]:
 		opts["pvp"] = pvp_on
 	return {"scenario": SCENARIOS[scenario]["id"], "seed": 1 + randi() % 2000000000, "players": pl,

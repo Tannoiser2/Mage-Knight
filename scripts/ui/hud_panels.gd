@@ -342,6 +342,14 @@ static func unit_widget(v, i: int, u: Dictionary, details: bool) -> Control:
 			rr.append(MKHud.RESIST_IT.get(str(r), str(r)))
 		info += "\n" + ", ".join(rr)
 	info += "\n[i]Stato: %s[/i]" % state
+	if str(u.get("token", "")) != "":
+		info += "\n[b]Segnalino mana: %s[/b]" % MKMana.color_it(str(u.token))
+		var tk := ColorRect.new()
+		tk.color = MKUI.MANA_COL.get(str(u.token), Color.WHITE)
+		tk.size = Vector2(16, 16)
+		tk.position = Vector2(78, 4)
+		tk.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		c.add_child(tk)
 	c.mouse_entered.connect(func(): v.show_zoom(MKHud.unit_img(id), info, Vector2(300, 420)))
 	c.mouse_exited.connect(func(): v.hide_zoom())
 	var uid := int(u.get("uid", -1))
@@ -374,6 +382,15 @@ static func skill_widget(v, _i: int, sk: Dictionary) -> Control:
 		im.modulate = Color(0.5, 0.5, 0.5)
 	var usage: String = {"turn": "una volta per turno", "round": "una volta per round", "passive": "passiva", "interactive": "interattiva"}.get(str(d.get("usage", "")), "")
 	var info := "[b]%s[/b] (%s)\n%s%s" % [str(d.get("name_it", id)), usage, str(d.get("text_it", "")), "\n[i]Già usata[/i]" if used else ""]
+	if sk.has("chaos"):
+		info += "\n[b]Colore attuale: %s[/b]" % MKSpecialsExp.CHAOS_IT.get(str(sk.chaos), str(sk.chaos))
+	if sk.get("flipped", false):
+		info += "\n[i]Girata: %s[/i]" % ("si rigira riposando" if str(sk.get("unflip", "")) == "rest" else "si rigira pagando un mana verde")
+	if id == "krang_puppet_master" and _i >= 0 and _i < eng.s.players.size() and not eng.P(_i).get("kept_enemies", []).is_empty():
+		var names := []
+		for ty in eng.P(_i).kept_enemies:
+			names.append(MKSpecialsExp._ename(str(ty)))
+		info += "\n[b]Segnalini conservati:[/b] " + ", ".join(names)
 	im.mouse_entered.connect(func(): v.show_zoom(MKHud.skill_img(id), info, Vector2(360, 240)))
 	im.mouse_exited.connect(func(): v.hide_zoom())
 	im.gui_input.connect(func(ev):

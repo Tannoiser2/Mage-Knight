@@ -72,7 +72,11 @@ static func model_type(eng, type_id: String, fort_site: bool, city: String, ramp
 	if rampage:
 		rep = 2 if str(d.get("color", "")) == "red" else 1
 	rep += int(d.get("rep", 0))
-	return {"eid": eid if eid != "" else "t:" + type_id, "armor": int(d.get("armor", 1)) + (1 if city == "white" else 0),
+	var arm0 = int(d.get("armor", 1))
+	if "elusive" in abil:
+		# Elusive: the higher armour unless every attack gets blocked (planning: the safe value)
+		arm0 = maxi(arm0, int(d.get("elusive_armor", arm0)))
+	return {"eid": eid if eid != "" else "t:" + type_id, "armor": arm0 + (1 if city == "white" else 0),
 		"fame": int(d.get("fame", 0)), "resist": d.get("resist", []).duplicate(), "fort": fort or sfort, "dfort": fort and sfort,
 		"swift": "swift" in abil, "brutal": brutal, "poison": poison, "paralyze": "paralyze" in abil,
 		"summon": "summon" in abil, "summoned": false, "hidden": false, "site_def": fort_site or eid.begins_with("site"),
@@ -1006,6 +1010,9 @@ static func decide_damage(eng, p: int, ctx: Dictionary) -> Dictionary:
 	if best_e == null:
 		return {"t": "next"}
 	var e2: Dictionary = best_e
+	var fu = MKCombatExp.forced_unit(eng, p, e2, best_i)
+	if fu >= 0:
+		return {"t": "damage", "eid": str(e2.eid), "attack": best_i, "to": fu}
 	var at = {"n": best_d, "elem": MKCombat.attack_elem(e2, best_i), "brutal": false, "poison": MKCombat.has_ab(e2, "poison"),
 		"paralyze": MKCombat.has_ab(e2, "paralyze")}
 	var hero = {"t": "damage", "eid": str(e2.eid), "attack": best_i, "to": "hero"}

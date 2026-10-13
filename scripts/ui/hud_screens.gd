@@ -538,6 +538,9 @@ static func rules(v) -> void:
 	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	sc.add_child(r)
 	r.text = scenario_text(str(s.get("scn", {}).get("id", s.cfg.get("scenario", "")))) + "\n\n" + RULES_IT
+	var sets: Array = s.get("scn", {}).get("sets", ["base"])
+	if "ll" in sets or "tezla" in sets:
+		r.text += "\n\n" + MKSitesExp.RULES_TEXT
 	vb.add_child(_shrink(MKHud.btn("Chiudi", func(): v.close_modal("screen"), 160, 46, true)))
 
 

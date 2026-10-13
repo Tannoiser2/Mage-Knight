@@ -1,7 +1,8 @@
 # Mage Knight — adattamento digitale (Godot 4)
 
-Versione digitale per uso personale di **Mage Knight** (Vlaada Chvátil, WizKids), Ultimate Edition,
-gioco base. Componenti, illustrazioni e regole © dei rispettivi autori: le immagini vengono dal modulo
+Versione digitale per uso personale di **Mage Knight** (Vlaada Chvátil, WizKids), Ultimate Edition:
+gioco base, eroi delle espansioni (Wolfhawk, Krang, Braevalar) e, a scelta, i contenuti di *La Legione
+Perduta* e *Shades of Tezla*. Componenti, illustrazioni e regole © dei rispettivi autori: le immagini vengono dal modulo
 Tabletop Simulator «Mage Knight Plus (Highly Scripted)» e non vanno distribuite pubblicamente.
 
 **Gioca nel browser:** https://tannoiser2.github.io/Mage-Knight/
@@ -14,8 +15,16 @@ Tabletop Simulator «Mage Knight Plus (Highly Scripted)» e non vanno distribuit
 - **Scenari**: *Prima Ricognizione* (introduttivo), *Conquista in solitario* (con il giocatore Neutrale),
   *Cooperazione Totale* (2–3 eroi contro le città), *Conquista completa* (competitiva, 2–4 eroi,
   città di livello 4) e le varianti Blitz.
-- **Eroi**: Arythea, Goldyx, Norowas, Tovak. Ogni posto può essere **Umano** o **IA** (Facile, Normale,
-  Difficile); più umani sullo stesso dispositivo giocano a turno con la schermata *Passa il dispositivo*.
+- **Eroi**: Arythea, Goldyx, Norowas, Tovak, **Wolfhawk**, **Krang** e **Braevalar** (con le loro carte base,
+  tutte le abilità comprese quelle interattive, figure 3D e ritratti). Ogni posto può essere **Umano** o **IA**
+  (Facile, Normale, Difficile); più umani sullo stesso dispositivo giocano a turno con la schermata *Passa il
+  dispositivo*.
+- **Contenuti** (nuova partita): *Base*, *+ La Legione Perduta* (tessere Campagna 12–14 e Centrali 9–10 con
+  Campo Profughi, Dedalo, Labirinto, Miniere Profonde e mura; nemici con Elusivo, Ingombrante, Assassinio,
+  Immunità arcana, Reputazione alla sconfitta, Evocatore di Draghi; Azioni Avanzate, Incantesimi, Artefatti,
+  Unità – Esploratori, Teppisti, Truppe d'Assalto, Famigli Magici, Stregoni, Maestri Delphana, Eroi – e Rovine
+  dell'espansione; più le carte Ultimate Edition e il Forziere Misterioso) oppure *+ Shades of Tezla* (in più i
+  nemici di Tezla: Vampirico, Difensore…). Vedi *Espansioni* più sotto.
 - **Regole complete del gioco base**: Giorno/Notte, Riserva di mana con dadi, cristalli e gettoni,
   tattiche, movimento ed esplorazione, nemici scatenati e provocazione, tutti i siti (villaggi,
   monasteri, castelli, torri della magia, sotterranei, tombe, tane, terreni di nidificazione, antiche
@@ -42,6 +51,30 @@ Tabletop Simulator «Mage Knight Plus (Highly Scripted)» e non vanno distribuit
   gli invitati saltano il turno successivo. Gli alleati IA propongono, accettano e si avvicinano alle città
   dove un compagno aspetta.
 - **Salvataggio automatico**: dal menu, *Continua partita*.
+
+## Espansioni
+Regole implementate (dalle carte descrizione sito italiane del modulo per Campo Profughi, Dedalo, Labirinto,
+Miniere Profonde e Mura; il resto dal regolamento dell'espansione a memoria):
+- **Mura**: attraversarle costa 1 Movimento in più (gli sconti sul terreno non lo tolgono, i movimenti speciali
+  degli effetti sì); niente provocazione attraverso un muro; sfida attraverso un muro = nemici fortificati;
+  assalto attraverso un muro = guarnigione fortificata doppia.
+- **Campo Profughi**: si recluta qualsiasi Unità dell'offerta, +0 se si recluta al villaggio, +1 se al castello /
+  torre / monastero, +3 se solo in città (vale l'opzione più conveniente).
+- **Dedalo / Labirinto**: una sola Unità al seguito, Movimento 2/4/6 generato dopo essere entrati, nemico
+  marrone/rosso scartato comunque; ricompense 2 cristalli / Incantesimo / Artefatto (+ Azione Avanzata nel
+  Labirinto); ogni sentiero una volta, ogni eroe una volta per sito. **Miniere Profonde**: colore a scelta.
+- **Nemici**: Elusivo, Difensore, Ingombrante (si spende Movimento nella fase di Blocco), Assassinio, Vampirico,
+  Immunità arcana, Evocatore di Draghi (due mostri), Teppisti/Eroi (Reputazione ±1).
+- **Abilità interattive**: la parte del proprietario si applica subito; quella per gli altri giocatori resta in
+  gioco fino al suo turno successivo (Ululato del Lupo: Unità avversarie −1; Ululato del Branco: il prossimo
+  alleato che combatte toglie 1 Armatura e 1 attacco a un nemico; Vendetta della Natura: attacchi nemici +1 in
+  fase di Blocco per gli avversari / stesso effetto per un alleato; Soppressione del Mana: il primo mana base
+  degli avversari costa un mana in più, poi Krang prende un cristallo; Potenziamento del Mana: cristallo per Krang
+  e gettone per un alleato).
+- **Esclusi**: tessere e scenari di Volkare (accampamento di Volkare), tessere *Apocalypse Dragon*, contenuti
+  dei fan; le ricompense di fazione dei nemici di Tezla (servono solo negli scenari delle fazioni). Le basi
+  Meshy dei nuovi nemici non ci sono ancora: si vedono i segnalini.
+- L'IA usa i nuovi eroi, carte, Unità e nemici e recluta al Campo Profughi; non entra nei Dedali/Labirinti.
 
 ## Comandi
 - **Telecamera**: tasto destro trascinato = ruota e inclina; rotella o pizzico = zoom; sinistro
@@ -123,8 +156,9 @@ scripts/core/             motore delle regole (nessuna dipendenza dall'interfacc
 scripts/net/              Firebase (REST), partita online in lockstep, stanza d'attesa
 scripts/ui/               menu, tavolo 3D, interfaccia di gioco, controller
 tests/                    engine_test, qa_test (regole), pvp_test (giocatore contro giocatore e assalto
-                          cooperativo), sim (partite casuali), ai_sim (IA), ui_play/qa_ui/pvp_ui (interfaccia
-                          con screenshot), online_play (online con Firebase finto)
+                          cooperativo), exp_test (espansioni), sim (partite casuali, SIM_SETS=base,ll,…),
+                          ai_sim (IA, AI_SETS=…), ui_play/qa_ui/pvp_ui/exp_shot (interfaccia con screenshot),
+                          online_play (online con Firebase finto)
 tools/                    estrazione di dati e immagini dal modulo TTS, carte base in italiano
 meshy/                    generazione delle miniature
 docs/SPEC.md              specifica tecnica
@@ -149,3 +183,12 @@ docs/SPEC.md              specifica tecnica
   saltato può essere il primo del round successivo).
 - Non ancora presenti: pesca delle tessere dalla scatola a mazzo esaurito, saccheggio fuori dal proprio turno.
 - Nomi italiani dei nemici: traduzioni (i segnalini non hanno testo).
+- Espansioni (da confermare col regolamento): Elusivo usa l'armatura bassa solo nella fase di Attacco se tutti
+  gli attacchi del nemico sono stati bloccati (o ridotti a 0); Difensore aggiunge il bonus a un bersaglio non
+  ancora difeso (anche a se stesso), una volta per combattimento, e in un attacco di gruppo valgono i bonus più
+  alti; Vampirico +1 Armatura per ogni Ferita in mano o Unità ferita (non per le ferite del veleno negli
+  scarti); Ululato del Lupo: +4 alla carta di lato solo per Movimento/Attacco/Blocco; Soppressione del Mana: il
+  mana in più si prende da un gettone o cristallo dello stesso colore, se non c'è non si paga; Sentieri Druidici
+  (base) riducono il primo spazio in cui la riduzione conta; Forziere Misterioso: gli stendardi rivelati non si
+  possono assegnare (il Forziere torna in mano); Famigli Magici: il mantenimento si chiede a inizio round e
+  senza cristalli se ne vanno; non si reclutano nelle Radure.

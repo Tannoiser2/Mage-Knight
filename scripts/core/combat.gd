@@ -37,6 +37,7 @@ static func start(eng, eids: Array, opts: Dictionary) -> void:
 		"assault": bool(opts.get("assault", false)), "retreat": str(opts.get("retreat", "")), "units_allowed": units_ok,
 		"night_rules": night_rules, "wounds_hand": 0, "fame": 0, "fortified_site": fort_site, "city": city_color,
 		"ruins": str(opts.get("ruins", "")), "first_time": bool(opts.get("first_time", true)), "summoned": []}
+	MKCombatExp.on_start(eng, opts)
 	var t: Dictionary = s.turn
 	t.acted = true
 	t.started = true
@@ -83,7 +84,7 @@ static func _entry(eng, eid: String, d: Dictionary, fort_site: bool, is_def: boo
 		"fame": int(d.get("fame", 0)), "resist": d.get("resist", []).duplicate(), "abilities": abil,
 		"fortified": self_fort or fort_site, "dfort": self_fort and fort_site, "attacks": attacks, "defeated": false,
 		"site_def": is_def, "summoned": false, "by": "", "hidden": false, "color": str(d.get("color", "")),
-		"rep": int(d.get("rep", 0)), "armor_mod": 0}
+		"rep": int(d.get("rep", 0)), "armor_mod": 0, "elusive_armor": int(d.get("elusive_armor", 0))}
 
 static func entry(eng, eid: String) -> Variant:
 	var c = eng.s.combat
@@ -101,7 +102,7 @@ static func is_double_fortified(e: Dictionary) -> bool:
 	return (e.get("self_fort", false) and not e.get("self_fort_lost", false)) and (e.get("site_fort", false) and not e.get("site_fort_lost", false))
 
 static func armor_of(eng, e: Dictionary) -> int:
-	return maxi(1, int(e.armor) + int(e.get("armor_mod", 0)))
+	return MKCombatExp.armor_full(eng, e)
 
 static func has_ab(e: Dictionary, ab: String) -> bool:
 	return ab in e.get("abilities", []) and not ab in e.get("lost", [])
@@ -155,6 +156,9 @@ static func effective_attack(eng, targets: Array) -> int:
 			ineff += int(pool[key])
 		else:
 			eff += int(pool[key])
+	var tb: Array = MKCombatExp.target_bonus(eng, targets)
+	eff += int(tb[0])
+	ineff += int(tb[1])
 	return eff + ineff / 2
 
 static func block_efficient(block_elem: String, attack_elem: String) -> bool:
@@ -262,7 +266,8 @@ static func check(eng, p: int, a: Dictionary) -> String:
 				var e = entry(eng, str(eid))
 				if e == null or not targetable(eng, e):
 					return "Bersaglio non valido"
-				arm += armor_of(eng, e)
+				arm += MKCombatExp.armor_core(eng, e)
+			arm += MKCombatExp.defend_extra(eng, targets)
 			var ea := effective_attack(eng, targets)
 			if ea < arm:
 				return "Attacco insufficiente (%d contro Armatura %d)" % [ea, arm]
@@ -295,6 +300,9 @@ static func check(eng, p: int, a: Dictionary) -> String:
 			if ai3 < 0 or ai3 >= e3.attacks.size() or int(e3.attacks[ai3].rem) <= 0:
 				return "Nessun danno da assegnare per questo nemico"
 			var to = a.get("to", "hero")
+			var forced := MKCombatExp.forced_unit(eng, p, e3, ai3)
+			if forced >= 0 and str(to) != str(forced):
+				return "I danni di questo attacco vanno prima all'Unità che ha attirato il fuoco"
 			if str(to) == "hero":
 				return ""
 			if not c.units_allowed:
@@ -308,6 +316,9 @@ static func check(eng, p: int, a: Dictionary) -> String:
 				return "Non puoi assegnare danni a un'unità ferita"
 			if int(u.uid) in e3.attacks[ai3].units_hit or int(u.uid) in c.get("units_absorbed", []):
 				return "Questa unità ha già assorbito danni"
+			var why := MKCombatExp.unit_damage_block(eng, e3, ai3, u)
+			if why != "":
+				return why
 			var dc = MKSpecials.unit_rule(eng.unit_def(u), "unit_damage_cost")
 			if dc != null and not u.get("dmg_paid", false) and int(eng.s.turn.pool.influence) < int(dc.get("influence", 2)):
 				return "Per assegnare danni a questa unità servono %d Influenza" % int(dc.get("influence", 2))
@@ -330,6 +341,8 @@ static func do(eng, p: int, a: Dictionary) -> void:
 			var targets: Array = a.targets
 			var keys := _attack_keys(eng, targets)
 			var val := effective_attack(eng, targets)
+			MKCombatExp.apply_defend(eng, targets)
+			MKCombatExp.consume_target_bonus(eng, targets)
 			for k in keys:
 				eng.s.turn.pool.attack.erase(k)
 			var names: Array = []
@@ -398,8 +411,10 @@ static func next_phase(eng) -> void:
 	match c.phase:
 		"ranged":
 			s.turn.pool.attack = {}
+			MKCombatExp.on_phase_end(eng, "ranged")
 			c.phase = "block"
 			_summon(eng)
+			MKCombatExp.on_block_phase(eng)
 			eng.add_log("combat_phase", "Fase di blocco", {"phase": "block"})
 			if _alive(c).is_empty():
 				c.phase = "end"
@@ -458,17 +473,18 @@ static func _summon(eng) -> void:
 		if e.defeated or e.summoned or not has_ab(e, "summon"):
 			continue
 		var col: String = str(MKDB.enemies.get(e.type, {}).get("summon", "brown"))
-		var eid: String = eng.draw_enemy(col, true, "")
-		if eid == "":
-			continue
-		var d: Dictionary = MKDB.enemies.get(str(s.enemies[eid].type), {})
-		var ent := _entry(eng, eid, d, false, false, "")
-		ent.summoned = true
-		ent.by = e.eid
-		add.append(ent)
-		e.hidden = true
-		c.summoned.append(eid)
-		eng.add_log("summon", "%s evoca %s" % [e.name, ent.name], {"eid": e.eid, "summoned": eid})
+		for si in MKCombatExp.summon_count(e):
+			var eid: String = eng.draw_enemy(col, true, "")
+			if eid == "":
+				continue
+			var d: Dictionary = MKDB.enemies.get(str(s.enemies[eid].type), {})
+			var ent := _entry(eng, eid, d, false, false, "")
+			ent.summoned = true
+			ent.by = e.eid
+			add.append(ent)
+			e.hidden = true
+			c.summoned.append(eid)
+			eng.add_log("summon", "%s evoca %s" % [e.name, ent.name], {"eid": e.eid, "summoned": eid})
 	c.enemies.append_array(add)
 
 static func assign_damage(eng, p: int, e: Dictionary, ai: int, to) -> void:
@@ -501,6 +517,7 @@ static func assign_damage(eng, p: int, e: Dictionary, ai: int, to) -> void:
 				eng.add_wound(p, false)
 		c.wounds_hand = int(c.wounds_hand) + w
 		pl.wounds_this_combat = int(pl.wounds_this_combat) + w
+		MKCombatExp.on_wounds(eng, e, w)
 		eng.add_log("wound", "%s subisce %d danni da %s: %d Ferit%s%s" % [eng.pname(p), dmg, e.name, w, "a" if w == 1 else "e",
 			" (veleno: altrettante negli scarti)" if poison else ""], {"p": p, "n": w, "eid": e.eid, "poison": poison})
 		if paralyze and w > 0:
@@ -540,6 +557,7 @@ static func assign_damage(eng, p: int, e: Dictionary, ai: int, to) -> void:
 		dmg -= uarm
 	at.rem = maxi(0, dmg)
 	if wounded:
+		MKCombatExp.on_wounds(eng, e, 1)
 		if paralyze:
 			eng.remove_unit(p, u)
 			eng.add_log("unit_destroyed", "%s viene distrutta (paralisi)" % eng.unit_name(u), {"p": p, "uid": u.uid})
@@ -612,7 +630,7 @@ static func finish(eng) -> void:
 			continue
 		if e.defeated or e.summoned:
 			eng.discard_enemy(eid)
-		elif c.kind in ["site", "burn"] and c.site_type in ["dungeon", "tomb", "monastery"]:
+		elif c.kind in ["site", "burn"] and c.site_type in ["dungeon", "tomb", "monastery", "maze", "labyrinth"]:
 			eng.discard_enemy(eid)
 		else:
 			s.enemies[eid].face_up = true

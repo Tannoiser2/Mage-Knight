@@ -17,6 +17,19 @@ static func inst() -> MKSpecials:
 		_inst = MKSpecials.new()
 	return _inst
 
+static var _exp = null
+
+## Object implementing `method`: this registry or the expansions registry (specials_exp.gd).
+static func obj(method: String) -> Object:
+	var o := inst()
+	if o.has_method(method):
+		return o
+	if _exp == null:
+		_exp = load("res://scripts/core/specials_exp.gd").new()
+	if _exp.has_method(method):
+		return _exp
+	return o
+
 static func implemented() -> Array[String]:
 	var out: Array[String] = []
 	for k in implemented_set():
@@ -26,10 +39,12 @@ static func implemented() -> Array[String]:
 
 static func implemented_set() -> Dictionary:
 	if _impl_cache.is_empty():
-		for m in inst().get_method_list():
-			var n: String = m.name
-			if n.begins_with("sp_"):
-				_impl_cache[n.substr(3)] = true
+		obj("")
+		for o in [inst(), _exp]:
+			for m in o.get_method_list():
+				var n: String = m.name
+				if n.begins_with("sp_"):
+					_impl_cache[n.substr(3)] = true
 		for n in ENGINE_MODS:
 			_impl_cache[n] = true
 	return _impl_cache
@@ -38,7 +53,7 @@ static func has(name: String) -> bool:
 	return implemented_set().has(name)
 
 static func run(eng, ctx: Dictionary, name: String, params) -> void:
-	var o := inst()
+	var o := obj("sp_" + name)
 	if o.has_method("sp_" + name):
 		o.call("sp_" + name, eng, ctx, params if params != null else {})
 	else:
@@ -49,17 +64,18 @@ const COST_SPECIALS := ["take_wound", "motivation_lock", "roll_wound", "use_as_a
 	"return_card_end_turn", "fame_per_kill", "opponents_exhaust_unit"]
 
 static func can(eng, ctx: Dictionary, name: String, params) -> bool:
-	var o := inst()
+	var o := obj("sp_" + name)
 	if not o.has_method("sp_" + name):
 		return false
 	if name in COST_SPECIALS:
 		return false
+	o = obj("can_" + name)
 	if o.has_method("can_" + name):
 		return bool(o.call("can_" + name, eng, ctx, params if params != null else {}))
 	return true
 
 static func run_mod(eng, ctx: Dictionary, name: String, params) -> void:
-	var o := inst()
+	var o := obj("sp_" + name)
 	if o.has_method("sp_" + name):
 		o.call("sp_" + name, eng, ctx, params if params != null else {})
 		return
@@ -77,7 +93,7 @@ static func can_mod(eng, ctx: Dictionary, name: String, params) -> bool:
 	return can(eng, ctx, name, params)
 
 static func cond(eng, ctx: Dictionary, c: String) -> bool:
-	var o := inst()
+	var o := obj("cond_" + c)
 	if o.has_method("cond_" + c):
 		return bool(o.call("cond_" + c, eng, ctx))
 	return false
@@ -92,7 +108,7 @@ static func resolve(eng, pend: Dictionary, v) -> void:
 	var name: String = str(pend.handler).substr(3)
 	var ctx: Dictionary = pend.get("ctx", {})
 	var queue: Array = pend.get("queue", [])
-	var o := inst()
+	var o := obj("res_" + name)
 	eng._q = queue
 	if o.has_method("res_" + name):
 		o.call("res_" + name, eng, ctx, pend.get("data", {}), v)
@@ -188,7 +204,7 @@ static func choose(eng, ctx: Dictionary, name: String, prompt: String, options: 
 	if options.is_empty():
 		return
 	if options.size() == 1 and not data.get("always_ask", false):
-		var o := inst()
+		var o := obj("res_" + name)
 		if o.has_method("res_" + name):
 			o.call("res_" + name, eng, ctx, data, options[0].v)
 		return
@@ -255,6 +271,7 @@ static func adjust(eng, ctx: Dictionary, op: String, n: int, elem: String, kind:
 				n += int(fb.get(op, 0))
 				remove_mod(eng, fb)
 			if from_unit:
+				n = MKSpecialsExp.adjust_unit(eng, p, op, n)
 				var ub = get_mod(eng, "unit_activation_bonus")
 				if ub != null and not ctx.get("_ub_used", false):
 					var add := 0
@@ -299,7 +316,9 @@ static func adjust(eng, ctx: Dictionary, op: String, n: int, elem: String, kind:
 					n *= 2
 	return [n, elem, kind]
 
-static func side_value(eng, p: int, side: String, iid: String, base: int) -> int:
+## Value of a sideways play; `consume` = the card is really being played (one-shot mods are used up),
+## false for previews (UI / AI), which must never change the state.
+static func side_value(eng, p: int, side: String, iid: String, base: int, consume: bool = false) -> int:
 	var v := base
 	var c: Dictionary = eng.card(iid)
 	for m in eng.mods_named("sideways_bonus"):
@@ -315,24 +334,27 @@ static func side_value(eng, p: int, side: String, iid: String, base: int) -> int
 		if str(sm.get("color", "")) in card_colors(c) and str(c.get("type", "")) in ["basic", "aa", "spell"]:
 			b2 = int(sm.get("same_color", 4))
 		v = maxi(v, b2)
-		remove_mod(eng, sm)
+		if consume:
+			remove_mod(eng, sm)
 	if side == "attack":
 		var dm = get_mod(eng, "deadly_aim")
 		if dm != null and phase(eng) == "attack":
 			v += 2
-			remove_mod(eng, dm)
+			if consume:
+				remove_mod(eng, dm)
 	if side in ["attack", "block"]:
 		var fb = get_mod(eng, "first_attack_or_block_bonus")
 		if fb != null:
 			v += int(fb.get(side, 0))
-			remove_mod(eng, fb)
+			if consume:
+				remove_mod(eng, fb)
 	if side == "move":
 		var mb = get_mod(eng, "move_card_bonus")
 		if mb != null and iid != mb.src:
 			v += int(mb.get("n", 1))
-			if str(mb.get("cards", "1")) != "all":
+			if str(mb.get("cards", "1")) != "all" and consume:
 				remove_mod(eng, mb)
-	return v
+	return MKSpecialsExp.side_bonus(eng, p, side, iid, v, consume)
 
 static func on_card_played(eng, p: int, iid: String, mode: String) -> void:
 	var c: Dictionary = eng.card(iid)
@@ -368,6 +390,7 @@ static func on_block(eng, p: int, e: Dictionary) -> void:
 			c.delayed.append({"n": int(sb.attack), "elem": str(sb.get("elem", "fire"))})
 
 static func on_defeat(eng, p: int, e: Dictionary) -> void:
+	MKSpecialsExp.on_defeat(eng, p, e)
 	for m in eng.mods_named("fame_per_kill"):
 		if m.get("once", false):
 			if m.get("_done", false):
@@ -429,7 +452,7 @@ static func on_combat_start(eng, p: int) -> void:
 				e.armor_mod = int(e.get("armor_mod", 0)) - int(m.armor)
 
 static func on_mana_used(eng, p: int, color: String) -> void:
-	pass
+	MKSpecialsExp.on_mana_used(eng, p, color)
 
 static func on_wound(eng, p: int, iid: String, to_hand: bool) -> void:
 	var t: Dictionary = eng.s.turn
@@ -460,6 +483,7 @@ static func on_heal(eng, p: int) -> void:
 
 static func on_recruit(eng, p: int, id: String) -> void:
 	eng.s.turn["recruited"] = int(eng.s.turn.get("recruited", 0)) + 1
+	MKSpecialsExp.on_recruit(eng, p, id)
 	for m in eng.mods_named("per_recruit"):
 		eng.change_rep(p, int(m.get("rep", 0)))
 		eng.gain_fame(p, int(m.get("fame", 0)))
@@ -489,6 +513,7 @@ static func on_interaction(eng, p: int) -> void:
 
 static func on_turn_start(eng, p: int) -> void:
 	var pl: Dictionary = eng.P(p)
+	MKSpecialsExp.on_turn_start(eng, p)
 	if pl.get("mana_claim_color", "") != "":
 		eng.gain_token(p, pl.mana_claim_color)
 	if int(pl.get("frozen_die", -1)) >= 0:
@@ -506,6 +531,7 @@ static func on_round_start(eng) -> void:
 		if pl.get("set_aside", []).size() > 0:
 			pl.deck.append_array(pl.set_aside)
 			pl.set_aside = []
+	MKSpecialsExp.on_round_start(eng)
 
 ## Extra end-of-turn decisions (before cleanup). Returns true if it asked.
 static func end_turn_pending(eng, p: int) -> bool:
@@ -539,6 +565,7 @@ static func res_return_card(eng, ctx: Dictionary, data: Dictionary, v) -> void:
 static func on_cleanup(eng, p: int) -> void:
 	var t: Dictionary = eng.s.turn
 	var pl: Dictionary = eng.P(p)
+	MKSpecialsExp.on_cleanup(eng, p)
 	if get_mod(eng, "crystals_return") != null:
 		for c in t.get("crystals_spent", []):
 			if int(pl.crystals.get(c, 0)) < 3:
@@ -639,6 +666,7 @@ static func actions(eng, p: int) -> Array:
 				out.append({"a": {"t": "sp", "name": "banner_fear", "uid": int(uid), "eid": e.eid}, "label": "Stendardo della Paura: annulla l'attacco di %s" % e.name, "group": "unit"})
 		if bp.get("ready_once_round", false) and cb == null and not u.ready and not eng.P(p).get("banner_used", {}).has(str(uid)):
 			out.append({"a": {"t": "sp", "name": "banner_ready", "uid": int(uid)}, "label": "Stendardo del Coraggio: prepara %s" % eng.unit_name(u), "group": "unit"})
+	out.append_array(MKSpecialsExp.actions(eng, p))
 	return out
 
 static func check_action(eng, p: int, a: Dictionary) -> String:
@@ -758,6 +786,8 @@ static func do_action(eng, p: int, a: Dictionary) -> void:
 			u3.ready = true
 			eng.P(p).banner_used[str(a.uid)] = true
 			eng.add_log("unit", "%s è pronta (Stendardo del Coraggio)" % eng.unit_name(u3), {"p": p})
+		_:
+			MKSpecialsExp.do_action(eng, p, a)
 
 # ======================================================================
 # Tactics (logic in MKSites, keyed by tactic number)
@@ -1100,7 +1130,8 @@ func sp_reduce_enemy_attack(eng, ctx, params):
 		for i in e.attacks.size():
 			if MKCombat.attack_value(eng, e, i) > 0:
 				opts.append({"v": e.eid + "|" + str(i), "label": "%s (attacco %d)" % [e.name, MKCombat.attack_value(eng, e, i)]})
-	choose(eng, ctx, "reduce_enemy_attack", "Scegli l'attacco nemico da ridurre", opts, {"n": _pi(params, "n", 1), "left": _pi(params, "attacks", 1)}, "enemy")
+	choose(eng, ctx, "reduce_enemy_attack", "Scegli l'attacco nemico da ridurre", opts, {"n": _pi(params, "n", 1), "left": _pi(params, "attacks", 1),
+		"draw_fire": _pi(params, "draw_fire", -1)}, "enemy")
 
 func can_reduce_enemy_attack(eng, ctx, params) -> bool:
 	return phase(eng) in ["ranged", "block"] and not enemy_targets(eng, {"need_attack": true}).is_empty()
@@ -1110,6 +1141,9 @@ func res_reduce_enemy_attack(eng, ctx, data, v):
 	var e = MKCombat.entry(eng, parts[0])
 	var at: Dictionary = e.attacks[int(parts[1])]
 	at["mod"] = int(at.get("mod", 0)) - int(data.n)
+	if int(data.get("draw_fire", -1)) >= 0:
+		# Shocktroops: the damage of this attack goes first to that unit (even against Assassination)
+		at["draw_fire"] = int(data.draw_fire)
 	eng.add_log("info", "Attacco di %s ridotto di %d" % [e.name, int(data.n)])
 	if int(data.get("left", 1)) > 1:
 		var opts: Array = []
@@ -2932,7 +2966,7 @@ func res_stout_more(eng, ctx, data, v):
 	_stout_more(eng, ctx, data)
 
 func sp_draw_fire_unit(eng, ctx, params):
-	sp_reduce_enemy_attack(eng, ctx, {"n": _pi(params, "reduce", 3)})
+	sp_reduce_enemy_attack(eng, ctx, {"n": _pi(params, "reduce", 3), "draw_fire": int(ctx.get("uid", -1))})
 
 func can_draw_fire_unit(eng, ctx, params) -> bool:
 	return can_reduce_enemy_attack(eng, ctx, params)

@@ -284,6 +284,11 @@ static func _norm_enemy(r: Dictionary) -> Dictionary:
 	e["img"] = r.get("img", "")
 	e["rep"] = int(r.get("rep", r.get("reputation", 0)))
 	e["rep_bonus"] = int(r.get("rep_bonus", 0))
+	# expansions: Elusive (higher armour value), faction (Shades of Tezla)
+	if r.has("elusive_armor"):
+		e["elusive_armor"] = int(r.elusive_armor)
+	if r.has("faction"):
+		e["faction"] = str(r.faction)
 	# attacks
 	var atk: Array = []
 	var ra = r.get("attacks", r.get("attack", []))
@@ -337,6 +342,7 @@ static func _norm_enemy(r: Dictionary) -> Dictionary:
 				res.append(rel)
 		elif x.begins_with("summon:"):
 			e["summon"] = _color(x.substr(7))
+			e["summon_n"] = int(e.get("summon_n", 0)) + 1
 			parsed.append("summon")
 		elif x.begins_with("rep_on_defeat:"):
 			e["rep"] = int(x.substr(14))
@@ -441,6 +447,16 @@ static func _norm_tile(r: Dictionary) -> Dictionary:
 	if t.city == "" and r.has("city"):
 		t.city = _color(r.get("city"))
 	t["hexes"] = hexes
+	# walls (expansions): {dirkey: [dirkeys of the neighbouring hexes of the same tile behind a wall]}
+	var w = r.get("walls", {})
+	if w is Dictionary and not w.is_empty():
+		var wn := {}
+		for k in w:
+			var lst: Array = []
+			for x in (w[k] if w[k] is Array else []):
+				lst.append(_dirkey(str(x)))
+			wn[_dirkey(str(k))] = lst
+		t["walls"] = wn
 	return t
 
 static func _dirkey(k: String) -> String:
@@ -562,3 +578,15 @@ static func skill_ok(id: String) -> bool:
 
 static func set_ok(rec: Dictionary, sets: Array) -> bool:
 	return str(rec.get("set", "base")) in sets
+
+## New-game option "Contenuti": cumulative content levels -> data sets.
+## base = gioco base; ll = + La Legione Perduta (con le carte Ultimate Edition/promo e Krang);
+## tezla = + Shades of Tezla (nemici di Tezla, Braevalar). I set "fan" e "apocalypse" restano esclusi.
+const CONTENT_SETS := {
+	"base": ["base"],
+	"ll": ["base", "ll", "ue", "promo", "krang"],
+	"tezla": ["base", "ll", "ue", "promo", "krang", "tezla"],
+}
+
+static func content_sets(level: String) -> Array:
+	return CONTENT_SETS.get(level, ["base"]).duplicate()

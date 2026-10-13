@@ -68,6 +68,7 @@ static func _n(e: Array, i: int, ctx: Dictionary) -> int:
 static func exec(eng, e: Array, ctx: Dictionary, queue: Array) -> void:
 	var s: Dictionary = eng.s
 	var p: int = int(ctx.get("p", s.turn.get("player", 0)))
+	e = MKSpecialsExp.convert_op(eng, ctx, e, true)
 	var op: String = e[0]
 	var boost := int(ctx.get("boost", 0))
 	var pool: Dictionary = s.turn.pool
@@ -391,13 +392,15 @@ static func can(eng, e, ctx: Dictionary) -> bool:
 	var p: int = int(ctx.get("p", s.turn.get("player", 0)))
 	var cb = s.get("combat")
 	var in_combat: bool = cb != null
+	e = MKSpecialsExp.convert_op(eng, ctx, e, false)
 	var op: String = e[0]
 	match op:
 		"move":
 			if in_combat:
-				# Agility & co.: Move points can be converted into attacks during this combat
-				return eng.flag(p, "move_to_attack")
-			return eng.can_still_move(p)
+				# Agility & co.: Move points can be converted into attacks during this combat;
+				# Cumbersome enemies: Move points reduce their attacks in the Block phase
+				return eng.flag(p, "move_to_attack") or MKCombatExp.move_usable(eng)
+			return eng.can_still_move(p) or MKSitesExp.paying(eng, p)
 		"influence":
 			if in_combat:
 				# Diplomacy: Influence can be used as Block in this turn

@@ -348,7 +348,8 @@
   "desc": "Gira il segnalino: per il turno ignora tutti gli effetti della tua posizione sul tracciato Reputazione. Si rigira pagando un mana verde in un qualsiasi turno.",
   "used_by": [
    "krang_arcane_disguise"
-  ]
+  ],
+  "label_it": "Ignora gli effetti della Reputazione per questo turno"
  },
  "influence_per_crystal_color": {
   "desc": "Influenza +1 per ogni diverso colore di cristallo nel tuo Inventario (solo per interazioni).",

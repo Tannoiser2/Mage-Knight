@@ -841,7 +841,7 @@ func move_paths() -> Dictionary:
 		for nk in MKHex.neighbors(cur):
 			if eng._hex_blocked(p, nk) != "":
 				continue
-			var c := eng.move_cost(nk)
+			var c := eng.move_cost(nk, cur)
 			if c >= 999:
 				continue
 			var nd: int = dist[cur] + c
@@ -872,7 +872,7 @@ func _provokes(path: Array) -> bool:
 		for nk in MKHex.neighbors(k):
 			var h := eng.hex(nk)
 			if not h.is_empty() and h.get("rampage", false) and not h.get("enemies", []).is_empty():
-				if MKHex.adjacent(from, nk):
+				if MKHex.adjacent(from, nk) and nk != k and not eng.has_wall(nk, k):
 					return true
 		from = k
 	return false
@@ -992,6 +992,18 @@ func hex_tip(k: String) -> String:
 			st += " %s (livello %d)" % [{"green": "verde", "blue": "blu", "red": "rossa", "white": "bianca"}.get(str(h.city.get("color", "")), ""), int(h.city.get("level", 0))]
 		if str(h.get("mine", "")) != "":
 			st += " (%s)" % MKHud.COLOR_IT.get(str(h.mine), str(h.mine))
+		elif h.get("mines", []) is Array and not h.get("mines", []).is_empty():
+			var mc := []
+			for c in h.mines:
+				mc.append(MKHud.COLOR_IT.get(str(c), str(c)))
+			st += " profonda (%s, a scelta)" % ", ".join(mc)
+		if site in MKSitesExp.MAZE_SITES:
+			var fp := []
+			for c in MKSitesExp.free_paths(eng, h):
+				fp.append(str(c))
+			st += " · sentieri liberi: %s" % (", ".join(fp) if not fp.is_empty() else "nessuno")
+		if site == "camp":
+			st += " · recluta Unità (+0 villaggio, +1 castello/torre/monastero, +3 città)"
 		if h.get("conquered", false):
 			var ow := int(h.get("owner", -1))
 			st += " · conquistato" + ((" da " + eng.pname(ow)) if ow >= 0 and ow < s.players.size() else "")
@@ -1022,6 +1034,12 @@ func hex_tip(k: String) -> String:
 			lines.append("• " + MKHud.enemy_tip(str(e.get("type", ""))))
 		else:
 			lines.append("• Nemico coperto (%s)" % MKHud.ENEMY_COLOR_IT.get(str(e.get("color", "")), str(e.get("color", ""))))
+	var nwall := 0
+	for nk in MKHex.neighbors(k):
+		if eng.has_wall(k, nk):
+			nwall += 1
+	if nwall > 0:
+		lines.append("Mura su %d lat%s: attraversarle costa 1 Movimento in più; niente provocazione attraverso le mura" % [nwall, "o" if nwall == 1 else "i"])
 	if h.get("rampage", false) and not h.get("enemies", []).is_empty():
 		lines.append("[color=#ff9a3a]Nemici scatenati: non si può entrare; passare accanto da un esagono adiacente all'altro li provoca.[/color]")
 	for i in range(s.players.size()):
