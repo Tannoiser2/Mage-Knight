@@ -668,6 +668,7 @@ static func finish(eng) -> void:
 				won = true
 				MKSites.monastery_burned(eng, p, site)
 	s.combat = null
+	MKScn.after_combat(eng, c)
 	s.turn.pool.attack = {}
 	s.turn.pool.block = {}
 	for u in pl.units:

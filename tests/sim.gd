@@ -32,6 +32,17 @@ func _init():
 		["coop_conquest", [{"hero": "goldyx"}, {"hero": "tovak"}]],
 		["full_conquest", [{"hero": "arythea"}, {"hero": "norowas"}, {"hero": "tovak"}]],
 		["blitz_conquest", [{"hero": "goldyx"}, {"hero": "arythea"}]],
+		["coop_blitz", [{"hero": "arythea"}, {"hero": "goldyx"}]],
+		["solo_blitz", [{"hero": "tovak"}]],
+		["mines_liberation", [{"hero": "goldyx"}, {"hero": "norowas"}]],
+		["mines_liberation", [{"hero": "arythea"}]],
+		["druid_nights", [{"hero": "norowas"}, {"hero": "tovak"}, {"hero": "goldyx"}]],
+		["druid_nights", [{"hero": "goldyx"}]],
+		["dungeon_lords", [{"hero": "tovak"}, {"hero": "arythea"}]],
+		["dungeon_lords", [{"hero": "norowas"}, {"hero": "goldyx"}, {"hero": "tovak"}, {"hero": "arythea"}]],
+		["conquer_hold", [{"hero": "arythea"}, {"hero": "goldyx"}]],
+		["conquer_hold", [{"hero": "tovak"}, {"hero": "norowas"}, {"hero": "goldyx"}, {"hero": "arythea"}]],
+		["one_to_return", [{"hero": "goldyx"}, {"hero": "tovak"}, {"hero": "norowas"}]],
 	]
 	var t0 := Time.get_ticks_msec()
 	var total_actions := 0
@@ -165,6 +176,8 @@ func choose(e: MKEngine, av: Array) -> Dictionary:
 				w = 0.2
 			"pvp_attack", "coop":
 				w = 25.0
+			"scn":
+				w = 20.0 if str(a.get("op", "")) == "incant" else 3.0
 			"pvp":
 				w = 6.0 if str(a.get("op", "")) != "pass" else 1.5
 			"discard":

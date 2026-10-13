@@ -11,6 +11,9 @@ static func here(eng, p: int) -> Dictionary:
 static func interaction_site(eng, p: int) -> String:
 	## Returns the site type if p can interact with the inhabitants here, else "".
 	var h := here(eng, p)
+	var si = MKScn.interaction_site(eng, p, h)
+	if si != null:
+		return str(si)
 	match str(h.get("site", "")):
 		"village":
 			return "village"
@@ -99,7 +102,7 @@ static func unit_recruitable_here(eng, p: int, uid: String) -> bool:
 		return "city" in rec
 	if site == "camp":
 		return MKSitesExp.camp_surcharge(ud) >= 0
-	return site in rec
+	return site in rec or MKScn.recruit_extra(eng, site, rec)
 
 # ================================================================ checks
 static func check(eng, p: int, a: Dictionary) -> String:
@@ -143,6 +146,9 @@ static func check(eng, p: int, a: Dictionary) -> String:
 			if e3 != "":
 				return e3
 			var st: String = str(h.get("site", ""))
+			var sc_chk = MKScn.site_check(eng, p, h)
+			if sc_chk != null:
+				return str(sc_chk)
 			if not st in eng.ADVENTURE_SITES:
 				return "Qui non c'è un sito avventura"
 			if st in ["monster_den", "spawning_grounds"] and h.conquered:
@@ -422,6 +428,8 @@ static func _enter_adventure(eng, p: int) -> void:
 	if st in MKSitesExp.MAZE_SITES:
 		MKSitesExp.enter(eng, p)
 		return
+	if MKScn.enter_site(eng, p):
+		return
 	match st:
 		"dungeon":
 			var e1: String = eng.draw_enemy("brown", true, "")
@@ -460,6 +468,8 @@ static func _garrison_adv(eng, k: String, colors: Array) -> void:
 static func conquer(eng, p: int, k: String) -> void:
 	var h: Dictionary = eng.hex(k)
 	if h.is_empty():
+		return
+	if MKScn.conquer(eng, p, k):
 		return
 	match str(h.site):
 		"keep":
@@ -501,6 +511,8 @@ static func adventure_won(eng, p: int, k: String, c: Dictionary) -> void:
 	var st: String = h.site
 	if st in MKSitesExp.MAZE_SITES:
 		MKSitesExp.won(eng, p, k)
+		return
+	if MKScn.site_won(eng, p, k):
 		return
 	var first: bool = not h.conquered
 	var rw: Array = eng.s.turn.rewards

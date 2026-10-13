@@ -12,9 +12,27 @@ Tabletop Simulator «Mage Knight Plus (Highly Scripted)» e non vanno distribuit
 2. Premi **F5**.
 
 ## Cosa c'è
-- **Scenari**: *Prima Ricognizione* (introduttivo), *Conquista in solitario* (con il giocatore Neutrale),
-  *Cooperazione Totale* (2–3 eroi contro le città), *Conquista completa* (competitiva, 2–4 eroi,
-  città di livello 4) e le varianti Blitz.
+- **Scenari** (tutti quelli del *Manuale degli Scenari* del gioco base, regolamento italiano pp. 18–22; nella
+  schermata *Nuova partita* sono raggruppati, con numero di eroi, durata, descrizione e regole complete):
+  - *Introduttivi*: **La Prima Ricognizione** (p. 18; 2–4 eroi, variante in solitario).
+  - *Competitivi*: **Conquista Totale** e **Conquista Blitz** (p. 19), **Liberazione delle Miniere** (pp. 20–21:
+    miniere sorvegliate da liberare, 4/7 Fama per miniera, Più Grande Liberatore), **Le Notti del Druido** (p. 21:
+    Scudi sulle radure e incantesimo notturno che evoca mostri a Fama doppia), **I Signori del Sotterraneo** (p. 21:
+    entrate segrete accanto a villaggi e monasteri, sotterranei e tombe da 4 punti, gallerie), **Conquista e
+    Mantieni** (p. 22: mappa predefinita, castelli e torri da 3/2 punti Vittoria, a 4 in due squadre) e **Solo Uno
+    Tornerà** (p. 22: il portale si chiude dopo il primo Giorno, vince chi vi si trova alla fine). Miniere, Druido e
+    Sotterraneo si giocano anche **in solitario** (p. 20, «Altre missioni in solitario»).
+  - *Cooperativi*: **Cooperazione Totale** e **Cooperazione Blitz** (p. 20; 2–3 eroi, 4 come variante della Nota 3
+    a p. 15: il Neutrale usa il mazzo di un altro eroe; a 4 non si tolgono tattiche se non ne restano
+    abbastanza per tutti).
+  - *Solitario*: **Conquista in Solitario** (pp. 19–20) e **Conquista Blitz in Solitario** (preparazione del modulo
+    TTS: 4 round, una città di livello 6).
+  - Non disponibili: gli scenari di **Volkare** (*Volkare's Return*, *Volkare's Quest* e le varianti Blitz,
+    La Legione Perduta: serve tutto il sistema di Volkare – esercito, movimento, assalti alla città – non
+    implementato), gli scenari delle fazioni di **Shades of Tezla** (*Life and Death*, *The Realm of the Dead*, *The Hidden
+    Valley*, *The Lost Relic*: capi fazione, cimiteri, ricompense di fazione), quelli di **Apocalypse
+    Dragon** e quelli dei fan presenti nel modulo TTS. Le varianti opzionali del manuale (Megalopoli, Furioso!,
+    asta degli eroi…) non sono selezionabili.
 - **Eroi**: Arythea, Goldyx, Norowas, Tovak, **Wolfhawk**, **Krang** e **Braevalar** (con le loro carte base,
   tutte le abilità comprese quelle interattive, figure 3D e ritratti). Ogni posto può essere **Umano** o **IA**
   (Facile, Normale, Difficile); più umani sullo stesso dispositivo giocano a turno con la schermata *Passa il
@@ -36,8 +54,11 @@ Tabletop Simulator «Mage Knight Plus (Highly Scripted)» e non vanno distribuit
   con il testo leggibile allo zoom.
 - **Mappa 3D** ruotabile e zoomabile: le tessere del modulo, le figure degli eroi e delle città, i
   segnalini dei nemici con le **miniature 3D generate con Meshy** (tutti i 29 tipi di nemico del gioco
-  base, più villaggio, monastero, castello e torre della magia). Si possono spegnere dal menu di gioco
-  (*Miniature 3D: Sì/No*).
+  base, in piedi al centro del loro segnalino che fa da basetta; più le strutture dei siti, ricavate dal
+  disegno delle tessere e posate al centro dell'esagono: villaggio, monastero, castello, torre della magia,
+  sotterraneo, tomba, antiche rovine, campo profughi, dedalo, labirinto, piramide, ziggurat). Le miniature
+  non girano con la telecamera; i valori del nemico sono anche nel suggerimento dell'esagono. Si possono
+  spegnere dal menu di gioco (*Miniature 3D: Sì/No*).
 - **Combattimento tra giocatori** (Conquista Totale; nel menu *Combattimento tra giocatori: Sì/No*): chi
   entra nello spazio di un altro eroe può attaccarlo (fermarsi lì è già un attacco). Il difensore sceglie se
   affrontarlo *completamente* (gioca subito il suo turno successivo, con dado e abilità, poi lo salta) o
@@ -156,7 +177,8 @@ scripts/core/             motore delle regole (nessuna dipendenza dall'interfacc
 scripts/net/              Firebase (REST), partita online in lockstep, stanza d'attesa
 scripts/ui/               menu, tavolo 3D, interfaccia di gioco, controller
 tests/                    engine_test, qa_test (regole), pvp_test (giocatore contro giocatore e assalto
-                          cooperativo), exp_test (espansioni), sim (partite casuali, SIM_SETS=base,ll,…),
+                          cooperativo), exp_test (espansioni), scn_test (scenari: regole e partite IA),
+                          sim (partite casuali, SIM_SETS=base,ll,…), menu_shot (schermata Nuova partita),
                           ai_sim (IA, AI_SETS=…), ui_play/qa_ui/pvp_ui/exp_shot (interfaccia con screenshot),
                           online_play (online con Firebase finto)
 tools/                    estrazione di dati e immagini dal modulo TTS, carte base in italiano
@@ -183,6 +205,16 @@ docs/SPEC.md              specifica tecnica
   saltato può essere il primo del round successivo).
 - Non ancora presenti: pesca delle tessere dalla scatola a mazzo esaurito, saccheggio fuori dal proprio turno.
 - Nomi italiani dei nemici: traduzioni (i segnalini non hanno testo).
+- Scenari (scelte dove il manuale è vago): Liberazione delle Miniere — in parità per il Più Grande Liberatore +2 a
+  testa (come per le città); il dono dei minatori all'inizio di ogni Giorno/Notte non vale per il primo round.
+  Notti del Druido — la radura si attiva terminando il turno su di essa; l'incantesimo richiede almeno una radura
+  segnata ed è vietato in villaggi, monasteri, castelli, torri, città e campi; i mostri evocati non sconfitti
+  scompaiono. Signori del Sotterraneo — entrate segrete solo su spazi senza sito né nemici, non palude/lago/
+  montagna; se c'è un solo spazio valido (o in preparazione) la scelta è automatica; le gallerie non provocano i
+  nemici scatenati; l'IA non le usa. Conquista e Mantieni — le Campagna coperte sono nelle due posizioni più vicine
+  (4,-5 e 5,-1 dell'immagine), le Principali nelle altre quattro; la Fama dei difensori è dimezzata nemico per
+  nemico; con 4 giocatori le squadre sono Posti 1+2 e 3+4; sono escluse tutte le Unità di livello IV. Solo Uno
+  Tornerà — l'eroe eliminato esce dalla mappa; se tutti sono eliminati la partita finisce senza vincitori.
 - Espansioni (da confermare col regolamento): Elusivo usa l'armatura bassa solo nella fase di Attacco se tutti
   gli attacchi del nemico sono stati bloccati (o ridotti a 0); Difensore aggiunge il bonus a un bersaglio non
   ancora difeso (anche a se stesso), una volta per combattimento, e in un attacco di gruppo valgono i bonus più

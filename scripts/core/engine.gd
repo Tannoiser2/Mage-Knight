@@ -210,6 +210,13 @@ func _setup(cfg: Dictionary) -> void:
 		for h in _hero_ids():
 			if not h in used_heroes:
 				cands.append(h)
+		if cands.is_empty():
+			# 4 eroi in cooperativa (regolamento p. 15, Nota 3): il Neutrale usa il mazzo di un altro eroe
+			var all_h: Array = MKDB.heroes.keys()
+			all_h.sort()
+			for h in all_h:
+				if not h in used_heroes and not build_deck(h).is_empty():
+					cands.append(h)
 		if not cands.is_empty():
 			var dh: String = MKRng.pick(s, cands)
 			var deck: Array = []
@@ -230,6 +237,7 @@ func _setup(cfg: Dictionary) -> void:
 	_setup_decks(sets)
 	_setup_enemies(sets)
 	_setup_map(sc, sets)
+	MKScn.after_setup(self)
 	# skills pile per player
 	for pl in s.players:
 		var pile: Array = []
@@ -415,7 +423,7 @@ static func _formula(v, np: int, def: int) -> int:
 
 func _scenario_from_data(sc: Dictionary, d: Dictionary, np: int) -> void:
 	sc.name_it = str(d.get("name_it", sc.name_it))
-	sc.rounds = int(d.get("rounds", sc.rounds))
+	sc.rounds = int(_by_np(d.get("rounds", sc.rounds), np, sc.rounds))
 	if np == 1 and d.has("rounds_solo"):
 		sc.rounds = int(d.rounds_solo)
 	var mp = d.get("map", {})
@@ -431,6 +439,11 @@ func _scenario_from_data(sc: Dictionary, d: Dictionary, np: int) -> void:
 		sc.core = _formula(tl.get("core_noncity", null), np, int(sc.core))
 		sc.city = _formula(tl.get("city", null), np, int(sc.city))
 		sc["country_order"] = str(tl.get("country_order", ""))
+		var tr := {}
+		for key in ["country_first", "country_only", "core_only", "core_include", "city_color"]:
+			if tl.has(key):
+				tr[key] = tl[key]
+		sc["tile_rules"] = tr
 	var cl = d.get("city_levels", null)
 	var levels: Array = []
 	if cl is Dictionary:
@@ -443,6 +456,10 @@ func _scenario_from_data(sc: Dictionary, d: Dictionary, np: int) -> void:
 				levels.append(int(cl.all))
 			if cl.has("last"):
 				levels[levels.size() - 1] = int(_by_np(cl.last, np, cl.all))
+	if cl is Dictionary and cl.get("by_np", null) is Dictionary and cl.by_np.has(str(np)):
+		levels = []
+		for lv0 in cl.by_np[str(np)]:
+			levels.append(int(lv0))
 	if levels.is_empty():
 		levels = [1]
 	sc.city_levels = levels
@@ -458,6 +475,21 @@ func _scenario_from_data(sc: Dictionary, d: Dictionary, np: int) -> void:
 	else:
 		sc.mode = "competitive" if np > 1 else "solo"
 	sc.end = "city_revealed" if str(d.get("end", "")).find("rivela una città") >= 0 else "cities"
+	if d.has("end_kind"):
+		sc.end = str(d.end_kind)
+	sc["rules"] = str(d.get("rules", ""))
+	sc["friendly_city"] = bool(d.get("friendly_city", false))
+	if mp is Dictionary and mp.get("predefined", null) is Dictionary:
+		sc["predefined"] = mp.predefined
+	var tm = _by_np(d.get("teams", null), np, null) if d.get("teams", null) is Dictionary and d.teams.has(str(np)) else null
+	if tm is Array:
+		var teams: Array = []
+		for g in tm:
+			var tg: Array = []
+			for x in g:
+				tg.append(int(x))
+			teams.append(tg)
+		sc["teams"] = teams
 	sc["scoring"] = str(d.get("scoring", "standard"))
 	sc["titles"] = bool(d.get("titles", np > 1)) and np > 1
 	sc["score_extra"] = d.get("score_extra", {})
@@ -494,9 +526,11 @@ func _scenario_from_data(sc: Dictionary, d: Dictionary, np: int) -> void:
 				sc.dummy_no_final = true
 			"remove_competitive_spells":
 				sc["no_competitive_cards"] = true
-	if np == 1 and sc.id == "first_recon":
+	if np == 1 and (sc.id == "first_recon" or d.get("solo_variant", false)):
 		sc.tactics_removed_solo = true
 		sc.mode = "solo"
+		if sc.id != "first_recon":
+			sc["dummy_no_final"] = true
 
 func _setup_decks(sets: Array) -> void:
 	var ids: Array = MKDB.cards.keys()
@@ -633,6 +667,7 @@ func _setup_map(sc: Dictionary, sets: Array) -> void:
 	MKRng.shuffle(s, cities)
 	if sc.id == "first_recon":
 		country.sort_custom(func(a, b): return int(MKDB.tiles[a].number) < int(MKDB.tiles[b].number))
+	MKScn.pick_tiles(self, sc, country, core, cities)
 	if cities.size() < int(sc.city):
 		# not enough city tiles in the chosen sets: the objective counts only the cities that exist
 		sc.city = cities.size()
@@ -678,6 +713,7 @@ func _setup_map(sc: Dictionary, sets: Array) -> void:
 		if s.map.tile_deck.is_empty():
 			break
 		place_tile(s.map.tile_deck.pop_front(), sl, -1)
+	MKScn.after_map(self)
 
 func _tile_supported(t: Dictionary) -> bool:
 	# exclude tiles with sites the engine does not know (expansions)
@@ -750,6 +786,7 @@ func place_tile(tid: String, slot: String, by: int) -> void:
 				_setup_city(k)
 	var lbl := "Rivelata la tessera %s" % _tile_label(t)
 	add_log("reveal", lbl, {"tile": tid, "slot": slot, "p": by})
+	MKScn.on_tile_placed(self, tid, placed_hexes, by)
 	if by >= 0:
 		_reveal_adjacent(by)
 
@@ -780,6 +817,8 @@ func _setup_city(k: String) -> void:
 	var levels: Array = s.scn.city_levels
 	var lv: int = int(levels[mini(idx, levels.size() - 1)]) if not levels.is_empty() else 5
 	h.city.level = lv
+	if MKScn.friendly_city(self, k):
+		return
 	var cd: Dictionary = MKDB.cities.get(col, {})
 	if cd.is_empty():
 		for cid in MKDB.cities:
@@ -834,6 +873,7 @@ func _start_round(first: bool) -> void:
 	_new_unit_offer()
 	_roll_source()
 	MKSpecials.on_round_start(self)
+	MKScn.on_round_start(self, first)
 	for i in s.players.size():
 		var pl: Dictionary = P(i)
 		for u in pl.units:
@@ -894,6 +934,7 @@ func _start_round(first: bool) -> void:
 		return ia > ib)
 	if s.scn.mode == "solo":
 		order = [0]
+	order = order.filter(func(i): return not MKScn.eliminated(self, i))
 	s.tactic_pick = order
 	if s.dummy != null and s.scn.get("dummy_first", false):
 		_dummy_pick_tactic()
@@ -943,7 +984,8 @@ func _next_tactic_pick() -> void:
 func _begin_turns() -> void:
 	var order: Array = []
 	for i in s.players.size():
-		order.append(i)
+		if not MKScn.eliminated(self, i):
+			order.append(i)
 	if s.dummy != null:
 		order.append(DUMMY)
 	order.sort_custom(func(a, b): return _tactic_num_of(a) < _tactic_num_of(b))
@@ -1025,6 +1067,7 @@ func _start_player_turn(p: int) -> void:
 		_finish_turn_now()
 		return
 	MKSpecials.on_turn_start(self, p)
+	MKScn.on_turn_start(self, p)
 	# glade: mana token at start of turn
 	var h := hex(pl.pos)
 	if h.get("site", "") == "glade":
@@ -1100,10 +1143,17 @@ func _end_round() -> void:
 		if s.dummy != null and s.dummy.tactic != "":
 			s.tactics_removed.append(s.dummy.tactic)
 	elif s.scn.get("remove_one_tactic", false):
-		for pl in s.players:
-			if pl.tactic != "":
-				s.tactics_removed.append(pl.tactic)
-				break
+		# si toglie una tattica solo se ne restano abbastanza per tutti (cooperazione a 4: variante)
+		var left := 0
+		for t0 in MKDB.tactics:
+			if bool(MKDB.tactics[t0].day) == s.day and not t0 in s.tactics_removed:
+				left += 1
+		var pickers: int = s.players.size() + (1 if s.dummy != null else 0)
+		if left - 1 >= pickers:
+			for pl in s.players:
+				if pl.tactic != "":
+					s.tactics_removed.append(pl.tactic)
+					break
 	if s.dummy != null:
 		s.dummy.tactic = ""
 	for pl in s.players:
@@ -1111,6 +1161,7 @@ func _end_round() -> void:
 		if not pl.tactic_store.is_empty():
 			pl.deck.append_array(pl.tactic_store)
 			pl.tactic_store = []
+	MKScn.on_round_end(self)
 	if _game_over_check():
 		_game_over()
 		return
@@ -1152,7 +1203,7 @@ func _new_unit_offer() -> void:
 		s.decks.aa.append(a)
 	s.offers.monastery = []
 	var n: int = s.players.size() + 2 + int(s.scn.get("extra_unit", 0))
-	var elite_ok: bool = s.core_revealed and s.scn.get("elite", true)
+	var elite_ok: bool = MKScn.elite_ok(self, s.core_revealed and s.scn.get("elite", true))
 	for i in n:
 		var from := "units_elite" if elite_ok and i % 2 == 0 else "units_reg"
 		if s.decks[from].is_empty():
@@ -1280,16 +1331,25 @@ func teleport(p: int, to: String, no_provoke: bool, assault: bool = false) -> vo
 	var h := hex(to)
 	if h.site in FORTIFIED_SITES and not _is_safe_fortified(p, to):
 		var defenders: Array = []
-		if h.site == "keep" and int(h.owner) >= 0 and int(h.owner) != p and h.enemies.is_empty():
-			var eid := draw_enemy("gray", true, to)
-			if eid != "":
-				h.enemies.append(eid)
-				s.enemies[eid]["half_fame"] = true
+		_owned_site_defenders(p, to)
 		for eid in h.enemies:
 			defenders.append(eid)
-		change_rep(p, -1)
+		if MKScn.assault_rep(self, str(h.site)):
+			change_rep(p, -1)
 		add_log("assault", "%s assalta %s" % [pname(p), _hex_label(to)], {"p": p, "hex": to})
 		MKCombat.start(self, defenders, {"site": to, "kind": "assault", "assault": true, "defenders": defenders, "retreat": from})
+
+## Assalto a un castello (o torre, in Conquista e Mantieni) posseduto da un altro eroe e vuoto: si pescano i
+## difensori (grigi per i castelli, viola per le torri) che danno metà Fama.
+func _owned_site_defenders(p: int, to: String) -> void:
+	var h := hex(to)
+	if not str(h.site) in MKScn.owned_sites(self) or int(h.owner) < 0 or int(h.owner) == p or not h.enemies.is_empty():
+		return
+	for i in MKScn.owned_defenders(self):
+		var eid := draw_enemy("gray" if h.site == "keep" else "violet", true, to)
+		if eid != "":
+			h.enemies.append(eid)
+			s.enemies[eid]["half_fame"] = true
 
 func discard_from_hand(p: int, iid: String) -> void:
 	var pl: Dictionary = P(p)
@@ -1528,15 +1588,11 @@ func _do_move(p: int, to: String) -> void:
 		return
 	if h.site in FORTIFIED_SITES and not _is_safe_fortified(p, to):
 		assault = true
-		if h.site == "keep" and int(h.owner) >= 0 and int(h.owner) != p and h.enemies.is_empty():
-			var eid := draw_enemy("gray", true, to)
-			if eid != "":
-				h.enemies.append(eid)
-				s.enemies[eid]["half_fame"] = true
+		_owned_site_defenders(p, to)
 		for eid in h.enemies:
 			defenders.append(eid)
 	if assault or not provoked.is_empty():
-		if assault:
+		if assault and MKScn.assault_rep(self, str(h.site)):
 			change_rep(p, -1)
 			add_log("assault", "%s assalta %s" % [pname(p), _hex_label(to)], {"p": p, "hex": to})
 		if not provoked.is_empty():
@@ -1551,6 +1607,9 @@ func _do_move(p: int, to: String) -> void:
 
 func _is_safe_fortified(p: int, hk: String) -> bool:
 	var h := hex(hk)
+	var sf = MKScn.safe_fortified(self, p, h)
+	if sf != null:
+		return bool(sf)
 	match h.site:
 		"keep":
 			return int(h.owner) == p or (h.conquered and int(h.owner) == -1) or (not is_competitive() and h.conquered)
@@ -1649,8 +1708,18 @@ func explorable_slots(p: int) -> Array:
 			cand[c] = true
 	var next_tile: String = s.map.tile_deck[0]
 	var next_core: bool = MKDB.tiles.get(next_tile, {}).get("kind", "") == "core"
+	var predef = s.map.get("predef", null)
 	for c in cand:
 		if placed.has(c):
+			continue
+		if predef is Dictionary:
+			# mappa predefinita (Conquista e Mantieni): solo le posizioni fissate, accanto all'eroe
+			if not predef.has(c):
+				continue
+			for hk0 in MKHex.tile_hexes(c):
+				if MKHex.distance(hk0, pos) <= reach:
+					out.append(c)
+					break
 			continue
 		if not MKHex.in_shape(c, s.map.shape):
 			continue
@@ -1732,7 +1801,7 @@ func _do_explore(p: int, slot: String) -> void:
 	s.turn.pool.move = int(s.turn.pool.move) - explore_cost(p)
 	s.turn.started = true
 	s.turn.explored = int(s.turn.explored) + 1
-	var tid: String = s.map.tile_deck.pop_front()
+	var tid: String = MKScn.take_tile(self, slot)
 	place_tile(tid, slot, p)
 	if int(s.scn.get("fame_per_tile", 0)) > 0:
 		gain_fame(p, int(s.scn.fame_per_tile))
@@ -1848,7 +1917,7 @@ func check(a0: Dictionary) -> String:
 		var ge := MKPvP.gate(self, p, a)
 		if ge != "":
 			return ge
-	if t in ["site", "altar", "burn", "challenge", "recruit", "buy"] and MKPvP.crowded(self, p):
+	if t in ["site", "altar", "burn", "challenge", "recruit", "buy", "scn"] and MKPvP.crowded(self, p):
 		return "Nel tuo spazio c'è un altro eroe: non puoi compiere altre azioni"
 	match t:
 		"pvp_attack":
@@ -1886,6 +1955,8 @@ func check(a0: Dictionary) -> String:
 			return MKSites.check_tactic_use(self, p, a)
 		"sp":
 			return MKSpecials.check_action(self, p, a)
+		"scn":
+			return MKScn.check(self, p, a)
 		"attack", "block", "damage", "next":
 			return MKCombat.check(self, p, a)
 		_:
@@ -1955,6 +2026,8 @@ func _do(a: Dictionary) -> void:
 			MKSites.do_tactic_use(self, p, a)
 		"sp":
 			MKSpecials.do_action(self, p, a)
+		"scn":
+			MKScn.do(self, p, a)
 		"attack", "block", "damage", "next":
 			MKCombat.do(self, p, a)
 		_:
@@ -1972,6 +2045,9 @@ func _resolve(pend: Dictionary, v) -> void:
 		return
 	if h.begins_with("coop:"):
 		MKCoop.resolve(self, pend, v)
+		return
+	if h.begins_with("scn:"):
+		MKScn.resolve(self, pend, v)
 		return
 	match h:
 		"rest_card", "rest_wound":
@@ -2477,7 +2553,8 @@ func _continue_end_turn() -> bool:
 					if w != "":
 						throw_away(p, w)
 						add_log("site", "Radura magica: %s getta via una Ferita" % pname(p), {"p": p})
-				if h.get("mine", "") != "" or h.has("mines"):
+				MKScn.on_end_turn_site(self, p)
+				if (h.get("mine", "") != "" or h.has("mines")) and MKScn.mine_produces(self, pl.pos):
 					var cols: Array = h.get("mines", [h.mine])
 					if cols.size() > 1:
 						var opts: Array = []
@@ -2587,7 +2664,7 @@ func _is_safe(p: int, k: String) -> bool:
 			return false
 	if h.site in FORTIFIED_SITES and not _is_safe_fortified(p, k):
 		return false
-	if h.site == "portal" or (h.site == "city" and h.conquered):
+	if (h.site == "portal" and MKScn.portal_open(self)) or (h.site == "city" and h.conquered):
 		return true
 	for i in s.players.size():
 		if i != p and P(i).pos == k:
@@ -2630,6 +2707,8 @@ func throw_away_played(p: int, iid: String) -> void:
 
 func _check_objectives(p: int) -> void:
 	if s.game_end_pending:
+		return
+	if MKScn.check_end(self, p):
 		return
 	if s.scn.end == "cities":
 		var total := 0
@@ -2709,6 +2788,7 @@ func _game_over() -> void:
 		if all_lead:
 			team += int(ex.get("every_player_leader", 10))
 		res["team_score"] = team
+	MKScn.finalize(self, res, scores)
 	s.result = res
 	var txt := "Partita finita."
 	if s.scn.mode in ["solo", "coop"]:
@@ -2753,7 +2833,7 @@ func score(i: int) -> Dictionary:
 		if h.get("site", "") in ["keep", "mage_tower", "monastery"]:
 			conq += 2
 		elif h.get("site", "") in ADVENTURE_SITES:
-			adv += 2
+			adv += MKScn.adv_points(self, str(h.site))
 	var ach := {"knowledge": spells * 2 + aas, "loot": arts * 2 + cr / 2, "leader": leader, "conqueror": conq,
 		"adventurer": adv, "beating": -2 * wounds}
 	var titles := {}
@@ -2771,7 +2851,7 @@ func score(i: int) -> Dictionary:
 			else:
 				var mx: int = vals.max()
 				if mx > 0 and mine == mx:
-					titles[key] = 3 if vals.count(mx) == 1 else 1
+					titles[key] = MKScn.title_bonus(self, key, vals.count(mx) == 1)
 	var cities := 0
 	if str(s.scn.get("scoring", "")).find("cities") >= 0:
 		var cv: Array = []
@@ -2803,8 +2883,10 @@ func score(i: int) -> Dictionary:
 		total += int(ach[key])
 	for key in titles:
 		total += int(titles[key])
-	total += cities + obj
-	return {"fame": pl.fame, "achievements": ach, "titles": titles, "cities": cities, "objective": obj, "total": total}
+	var scn_pts := MKScn.score_points(self, i)
+	total += cities + obj + scn_pts
+	return {"fame": pl.fame, "achievements": ach, "titles": titles, "cities": cities, "objective": obj, "scenario": scn_pts,
+		"scenario_raw": MKScn.points(self, i), "total": total}
 
 func _city_points(i: int) -> int:
 	var v := 0
@@ -2846,7 +2928,7 @@ func _ach_value(j: int, key: String) -> int:
 		"adventurer":
 			for k in pl.shields:
 				if hex(k).get("site", "") in ADVENTURE_SITES:
-					v += 2
+					v += MKScn.adv_points(self, str(hex(k).site))
 		"beating":
 			for iid in all:
 				if is_wound(iid):

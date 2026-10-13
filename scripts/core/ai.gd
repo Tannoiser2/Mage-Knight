@@ -30,6 +30,7 @@ const CB = preload("res://scripts/core/ai_combat.gd")
 const TU = preload("res://scripts/core/ai_turn.gd")
 const PE = preload("res://scripts/core/ai_pending.gd")
 const PV = preload("res://scripts/core/ai_pvp.gd")
+const SC = preload("res://scripts/core/ai_scn.gd")
 
 ## Time budget per decision (µs) by level; the web build is slower, callers may lower it.
 static var budget_us = {1: 60000, 2: 120000, 3: 150000}
@@ -153,6 +154,9 @@ static func _decide(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary
 	var hk = PV.turn_hook(eng, p, ctx, mem)
 	if not hk.is_empty() and eng.check(hk) == "":
 		return hk
+	var hs = SC.turn_hook(eng, p, ctx, mem, TU)
+	if not hs.is_empty() and eng.check(hs) == "":
+		return hs
 	return TU.decide(eng, p, ctx, mem)
 
 ## Safe legal action when the planner fails.

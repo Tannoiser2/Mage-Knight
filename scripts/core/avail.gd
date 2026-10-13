@@ -107,6 +107,8 @@ static func list(eng) -> Array:
 				out.append({"a": {"t": "explore", "slot": sl}, "label": "Esplora una nuova tessera (%s)" % sl, "group": "move"})
 	# --- site actions
 	_sites(eng, p, out)
+	# --- azioni degli scenari (incantesimo del druido, gallerie)
+	out.append_array(MKScn.actions(eng, p))
 	# --- combattimento tra giocatori / assalto cooperativo
 	if eng.check({"t": "pvp_attack"}) == "":
 		out.append({"a": {"t": "pvp_attack"}, "label": "Attacca %s (combattimento tra giocatori)" % eng.pname(MKPvP.other_here(eng, p)), "group": "combat"})

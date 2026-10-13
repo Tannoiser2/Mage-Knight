@@ -25,6 +25,8 @@ static func shareable(eng, k: String) -> bool:
 	var h: Dictionary = eng.hex(k)
 	if h.is_empty():
 		return false
+	if str(h.get("site", "")) == "portal" and not MKScn.portal_open(eng):
+		return false
 	return str(h.get("site", "")) in SHAREABLE or (str(h.get("site", "")) == "city" and h.get("conquered", false))
 
 static func other_here(eng, p: int) -> int:
@@ -64,6 +66,8 @@ static func check_attack(eng, p: int) -> String:
 	var j := other_here(eng, p)
 	if j < 0:
 		return "Non c'è nessun altro eroe nel tuo spazio"
+	if MKScn.allies(eng, p, j):
+		return "%s è della tua squadra" % eng.pname(j)
 	if shareable(eng, str(eng.P(p).pos)):
 		return "Sul portale e nelle città non si combatte tra giocatori"
 	var h: Dictionary = eng.hex(str(eng.P(p).pos))
@@ -310,15 +314,16 @@ static func start(eng, p: int) -> void:
 ## Ingresso in un castello posseduto da un altro eroe che si trova lì: assalto + combattimento tra giocatori.
 static func keep_attack(eng, p: int, to: String) -> bool:
 	var h: Dictionary = eng.hex(to)
-	if str(h.get("site", "")) != "keep" or int(h.get("owner", -1)) < 0 or int(h.get("owner", -1)) == p:
+	if not str(h.get("site", "")) in MKScn.owned_sites(eng) or int(h.get("owner", -1)) < 0 or int(h.get("owner", -1)) == p:
 		return false
 	var j := int(h.owner)
 	if j >= eng.s.players.size() or str(eng.P(j).pos) != to:
 		return false
 	if check_attack(eng, p) != "":
 		return false
-	eng.change_rep(p, -1)
-	eng.add_log("assault", "%s assalta il castello di %s" % [eng.pname(p), eng.pname(j)], {"p": p, "hex": to})
+	if MKScn.assault_rep(eng, str(h.site)):
+		eng.change_rep(p, -1)
+	eng.add_log("assault", "%s assalta %s di %s" % [eng.pname(p), "il castello" if h.site == "keep" else "la torre", eng.pname(j)], {"p": p, "hex": to})
 	start(eng, p)
 	return true
 

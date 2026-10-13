@@ -118,6 +118,9 @@ def site_refs(ids):
     for s, v in SITE_TILE.items():
         if v is None or (ids and s not in ids):
             continue
+        # i riferimenti dei siti ora sono l'edificio scontornato a mano (vedi LEGGIMI): non sovrascriverli
+        if os.path.exists(os.path.join(RIF, "site_%s.png" % s)) and not ids:
+            continue
         im = Image.open(os.path.join(ROOT, v[0])).convert("RGBA")
         w, h = im.size
         k = w / 2048.0

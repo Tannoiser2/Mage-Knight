@@ -614,6 +614,8 @@ static func end_screen(v) -> void:
 			winners.append(eng.pname(int(w)))
 		if s.players.size() > 1 and not winners.is_empty() and str(s.scn.get("mode", "")) != "coop":
 			head += ("\n" if head != "" else "") + "[font_size=28][color=#f2d78c]Vince: %s[/color][/font_size]" % ", ".join(winners)
+		for ln in res.get("scn_notes", []):
+			head += "\n" + str(ln)
 		head += "\nRound giocati: %d" % int(res.get("rounds", s.round))
 		if res.has("team_score"):
 			head += "\nPunteggio della squadra: [b]%d[/b]" % int(res.team_score)
@@ -628,6 +630,9 @@ static func end_screen(v) -> void:
 			cols.append("Città")
 		if show_obj:
 			cols.append("Obiettivo")
+		var scn_col := str(res.get("scn_col", ""))
+		if scn_col != "":
+			cols.append(scn_col)
 		cols.append("Totale")
 		g.columns = cols.size()
 		g.add_theme_constant_override("h_separation", 18)
@@ -656,6 +661,8 @@ static func end_screen(v) -> void:
 				ol.tooltip_text = "10 per città conquistata; se le conquisti tutte +15, +30 per ogni round d'anticipo, +1 per carta rimasta nel mazzo del Neutrale, +5 se la fine dell'ultimo round non era stata annunciata."
 				ol.mouse_filter = Control.MOUSE_FILTER_PASS
 				g.add_child(ol)
+			if scn_col != "":
+				g.add_child(MKUI.label(str(int(sc.get(str(res.get("scn_key", "scenario")), 0))), 20))
 			g.add_child(MKUI.label(str(int(sc.get("total", 0))), 24, MKUI.GOLD_LIGHT, MKUI.font_bold))
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 12)

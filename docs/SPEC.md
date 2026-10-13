@@ -14,7 +14,7 @@ Repo: `/home/claude/mage-knight` (GitHub `Tannoiser2/Mage-Knight`, Pages attivo 
   del modulo — Wolfhawk, Krang, Braevalar — se il tempo lo permette).
 - Carte: tutte quelle presenti nei mazzi del modulo vengono **trascritte** (dati + immagine); ogni carta ha
   `impl: true/false`. Il setup della partita usa solo le carte `impl:true` del set scelto (default `base`).
-- Scenari: *Prima ricognizione* (introduttivo), *Conquista in solitario* (con il giocatore fantoccio),
+- Scenari: tutti quelli del Manuale degli Scenari (vedi Appendice, «Scenari»); in origine *Prima ricognizione* (introduttivo), *Conquista in solitario* (con il giocatore fantoccio),
   *Conquista cooperativa* (2–4 eroi umani/IA contro le città), *Conquista completa* (competitiva, 2–4 eroi,
   con il combattimento tra giocatori, opzionale) e l'assalto cooperativo alle città in *Cooperazione totale*.
 - IA per gli eroi non umani (alleati in cooperativa, avversari in competitiva).
@@ -453,3 +453,47 @@ s.combat += units_only (uid dell'unica Unità ammessa nel dedalo); enemies[] += 
 Mod nuovi in `s.turn.mods`: `wolfs_howl{n}`, `mana_enhancement`, `shapeshift{from,to,card}`, `crystal_on_move{times,used}`,
 `reduce_space_cost{n,min,terrain,hex}`, `banner_command`. Correzione: alla salita di livello il Comando tiene conto di
 `extra_command` (Legami di Lealtà).
+
+### Scenari del Manuale degli Scenari (agente SCENARI) — `scripts/core/scenarios.gd` (MKScn), `ai_scn.gd`, `data/scenarios.json`
+Tutti gli scenari del gioco base (regolamento pp. 18–22) + *Conquista Blitz in Solitario* (modulo TTS). Ogni voce di
+`scenarios.json` ha `group` (intro|competitive|coop|solo, per il menu), `page`, `short_it` (menu), `desc_it` (regole
+complete), `players:[min,max]`, `solo_variant` (1 giocatore = Neutrale + tattiche della Conquista in solitario, niente
+titoli, il Neutrale non ha l'ultimo turno). Campi nuovi letti da `_scenario_from_data`: `rounds` anche per numero di
+giocatori, `rules` (mines|druid|dungeon|conquer_hold|one_return → `s.scn.rules`), `end_kind` (`s.scn.end`: cities |
+city_revealed | mines | druid | dungeon | rounds), `friendly_city`, `tiles.country_first|country_only|core_only|
+core_include|city_color` (→ `s.scn.tile_rules`, applicate da `MKScn.pick_tiles`), `map.predefined` (→ `s.scn.predefined`,
+`s.map.predef = {slot: tessera}`: l'esplorazione rivela la tessera assegnata a quella posizione), `teams` per numero di
+giocatori (→ `s.scn.teams = [[0,1],[2,3]]`), `city_levels.by_np`. Cooperazione a 4 (variante p. 15, Nota 3): il
+Neutrale usa il mazzo di un eroe non in gioco anche fuori dal contenuto scelto.
+
+**Stato** (`s.scn_state`): `glades {"q,r": [giocatori]}`, `incant {"2": [...], "4": [...]}`, `secret_q [{kind, near, p}]`,
+`eliminated [giocatori]`. Esagoni: `guarded` (miniera sorvegliata da un nemico verde/rosso scoperto + marrone coperto,
+non scatenati), `secret` (sotterraneo/tomba segreti: `site` diventa dungeon/tomb, segnalino coperto in `enemies`),
+`friendly` (città amica: conquistata, Scudi di tutti, `leader:-1`, nessun difensore). Giocatori: `eliminated`
+(pos = ""; esclusi da tattiche e ordine di turno). `s.result += scn_notes:[testo], scn_col, scn_key, mission`;
+`score(i) += scenario` (punti di scenario nel totale: miniere + Più Grande Liberatore) e `scenario_raw` (miniere /
+punti Vittoria). Titoli: Signori del Sotterraneo → Avventuriero +5/+2 e sotterranei/tombe a 4 punti.
+
+**Azioni**: `{t:"scn", op:"incant"}` (Notti del Druido, round 2 e 4, è l'Azione: combattimento `kind:"incant"` contro i
+mostri evocati a Fama doppia, ricompensa `crystal_roll`), `{t:"scn", op:"tunnel", to}` (gallerie: 2 + distanza su spazi
+rivelati senza laghi/paludi, `teleport` senza provocazione). Decisione `scn:secret` (v = esagono dell'entrata segreta,
+la sceglie chi ha rivelato la tessera). L'azione `site` vale anche sulle miniere sorvegliate (`site_type:"mine"`,
+regole della Notte, Unità ammesse).
+
+**Hook nel motore** (nessun effetto negli altri scenari): `_setup` → `after_setup` (Conquista e Mantieni: niente Unità di
+livello IV); `_setup_map` → `pick_tiles`, `after_map`; `place_tile` → `on_tile_placed` (guardiani, entrate segrete);
+`_setup_city` → `friendly_city`; `_start_round` → `on_round_start` (cristalli dei minatori) ed esclusione degli
+eliminati; `_end_round` → `on_round_end` (Scudi delle radure, chiusura del portale); `_new_unit_offer` → `elite_ok`;
+`_start_player_turn` → `on_turn_start` (mana delle torri); fine turno → `on_end_turn_site`, `mine_produces`;
+`_do_explore`/`explorable_slots` → `take_tile`/`predef`; `_do_move`/`teleport` → `_owned_site_defenders` (1/2/3 difensori
+a metà Fama per castelli – e torri in Conquista e Mantieni – di altri eroi), `assault_rep`; `_is_safe_fortified` →
+`safe_fortified` (squadre, torri come castelli); `_is_safe` e `MKPvP.shareable` → `portal_open`; `_check_objectives` →
+`check_end`; `_game_over` → `finalize` (vincitori per punti Vittoria / portale); `score`/`_ach_value` → `adv_points`,
+`title_bonus`, `score_points`. MKSites: `interaction_site`, `recruit_extra`, `site_check`, `enter_site`, `site_won`,
+`conquer`; MKCombat.finish → `after_combat`; MKPvP: niente combattimento tra alleati, torri in `keep_attack`.
+UI: `goal_text` (barra in alto), `hex_note` (riquadro dell'esagono), note e colonna di scenario nella schermata finale;
+le azioni `scn` compaiono come bottoni. **IA** (`ai_scn.gd`): incantesimo quando la mano basta (o a fine round),
+valore delle radure da segnare, miniere sorvegliate come siti avventura (+ bonus), sotterranei ×1,5, castelli/torri
+altrui, portale da evitare nel round 1 e da raggiungere nell'ultimo.
+Test: `tests/scn_test.gd` (regole + partite IA contro IA per ogni scenario), `tests/menu_shot.gd` (screenshot).
+

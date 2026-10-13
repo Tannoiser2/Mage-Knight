@@ -167,10 +167,7 @@ func _hero_name(h: String) -> String:
 
 
 func _scenario_name(id: String) -> String:
-	for sc in MKMenu.SCENARIOS:
-		if sc["id"] == id:
-			return str(sc["n"])
-	return id
+	return str(MKDB.scenarios.get(id, {}).get("name_it", id))
 
 
 func _show_proposal() -> void:

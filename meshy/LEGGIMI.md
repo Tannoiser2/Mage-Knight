@@ -2,7 +2,8 @@
 
 Nel gioco da tavolo i nemici sono segnalini piatti. Per una mappa 3D più ricca si possono generare con
 [Meshy](https://www.meshy.ai) delle miniature: **una per tipo di nemico del gioco base (29)** e
-**4 strutture dei siti** (villaggio, monastero, fortezza, torre magica). Sono facoltative: se il file
+**12 strutture dei siti** (villaggio, monastero, fortezza, torre magica, sotterraneo, tomba, antiche rovine,
+campo profughi, dedalo, labirinto, piramide, ziggurat). Sono facoltative: se il file
 `assets/miniatures/<id>.glb` c'è, il gioco lo usa; se non c'è, resta il segnalino.
 
 ## Cosa è già pronto
@@ -10,13 +11,21 @@ Nel gioco da tavolo i nemici sono segnalini piatti. Per una mappa 3D più ricca 
   1024 px del modulo TTS) senza l'anello, con le icone dei valori cancellate e il soggetto scontornato
   su fondo trasparente. Prodotte da `prepara_riferimenti.py` (si può rilanciare: serve `pip install
   "rembg[cpu]" opencv-python-headless`).
-  `riferimenti/site_<sito>.png` — l'esagono del sito ritagliato dalla tessera, solo come promemoria visivo.
+  `riferimenti/site_<sito>.png` — l'edificio del sito **scontornato su fondo trasparente**, il più grande
+  possibile, usato come riferimento per immagine → 3D (così la miniatura somiglia al disegno della tessera):
+  fortezza, torre magica e sotterraneo dal retro dei segnalini grigio/viola/marrone (1024 px, lo stesso
+  disegno della tessera ma pulito); gli altri ritagliati dalla texture della tessera (rembg `u2net`, oppure
+  GrabCut con un'ellisse per rovine, campo, dedalo e labirinto) e ingranditi 2×; sui siti con i numeri
+  stampati (dedalo, labirinto, piramide, ziggurat) i numeri sono cancellati con l'inpainting di OpenCV.
+  Esclusi i siti «naturali» (radura, miniere, tana del mostro, terreni di nidificazione: sono buche o
+  cristalli disegnati sul terreno) e i campi di orchi/draconum (sono solo nemici).
 - `genera_miniature.py` — manda le richieste a Meshy e salva i `.glb` in `assets/miniatures/`.
   - nemici: **immagine → 3D** dal riferimento; per 10 nemici con il segnalino troppo affollato
     o sfumato (Maghi di Altem, Balestrieri, Congelatori, Illusionisti, Monaci, Artiglieri, Maghi del Fuoco,
     Drago di Fuoco, Drago di Palude, Verme delle Cripte) **testo → 3D** con una descrizione
     (elenco `DA_TESTO` e descrizioni `PROMPT_NEMICI` in cima allo script);
-  - siti: **testo → 3D** con i prompt `SITI`;
+  - siti: **immagine → 3D** dal ritaglio `riferimenti/site_<sito>.png` (con `--siti-da-testo` invece
+    testo → 3D con i prompt `SITI`);
   - modelli leggeri per il web (≈8000 triangoli i nemici, 10000 i siti), salta quelli già fatti.
 
 **Prima di spendere crediti guarda i riferimenti** (cartella `riferimenti/`): alcuni segnalini sono
@@ -41,7 +50,8 @@ In alternativa chiedi a Claude (con il plugin Meshy) di eseguire lo script o di 
 con le stesse impostazioni. Altre opzioni: `nemici`, `siti`, `--rifai <id>`, `--da-testo <id>`,
 `--da-immagine <id>`, `--siti-da-immagine`.
 
-Costo indicativo: un credito Meshy per ogni compito, testo → 3D ne usa due (anteprima + texture);
+Costo indicativo: immagine → 3D con texture ≈ 15 crediti a modello (ottobre 2026); testo → 3D due compiti
+(anteprima + texture);
 controlla il saldo prima di lanciare tutto.
 
 ## Compressione (automatica)
@@ -55,7 +65,8 @@ immagine → 3D). Per questo `genera_miniature.py`, subito dopo lo scaricamento,
 2. `resize` delle texture a 1024 px; poi normal map e metallic/roughness a 512 px (con Pillow);
 3. l'originale resta in `meshy/originali/` (escluso da git), se un giorno servisse rifarla meglio.
 
-Risultato: 0,5–1,4 MB per modello (villaggio 2,2 MB), 25 MB in tutto per 33 miniature.
+Risultato: 0,5–1,4 MB per modello, 27 MB in tutto per 41 miniature (29 nemici + 12 siti); nel `.pck`
+per il web i 12 siti pesano ~9 MB.
 Per comprimere a mano i `.glb` già presenti (gratis, non chiama Meshy):
 ```
 python3 meshy/genera_miniature.py --comprimi              # tutti quelli > 3 MB (+ mappe a 512 px)
@@ -77,9 +88,15 @@ Id: il tipo di nemico (`high_dragon`, `minotaur`…) e `site_keep`, `site_mage_t
 sono). Dopo aver aggiunto i `.glb` riapri il progetto in Godot (o rifai la build: la action di GitHub
 li importa da sola). Tieni d'occhio il peso (vedi «Compressione»).
 
-Sul tavolo (`scripts/ui/table3d.gd`): la miniatura del nemico sta in piedi **subito dietro il suo
-segnalino** rispetto alla telecamera (così i valori stampati restano leggibili) e gira con la
-telecamera; quelle dei siti (villaggio, monastero, fortezza, torre magica) stanno sul lato destro
-dell'esagono, sempre visibili (il monastero bruciato sparisce). Nel menu di gioco c'è
+Sul tavolo (`scripts/ui/table3d.gd`): la miniatura del nemico sta **al centro del suo segnalino**, che
+le fa da basetta, e **non gira** con la telecamera (è rivolta verso sud, verso la vista iniziale); i
+valori stampati restano sul bordo del segnalino e sono comunque nel suggerimento dell'esagono
+(Armatura, Attacco, Fama). Più nemici nello stesso esagono non si impilano: si affiancano, rimpiccioliti.
+Le strutture dei siti stanno **al centro dell'esagono**, sopra il disegno stampato, ferme e sempre con lo
+stesso orientamento (dimensioni in `SITE_SIZE`; il monastero bruciato sparisce); i segnalini della
+guarnigione (per esempio il segnalino viola coperto della torre, il cui retro mostra proprio la torre),
+il segnalino Rovine e l'eroe si mettono nella fascia davanti all'edificio. Lo stesso nelle città. Nel menu di gioco c'è
 **Miniature 3D: Sì/No** (si ricorda in `user://mk_settings.cfg`). Verifica visiva:
-`tests/mini_shot.gd` (tutti i tipi di nemico scoperti, i siti, notte, telecamera ruotata, menu).
+`tests/mini_shot.gd` (tutti i tipi di nemico scoperti, i siti, notte, telecamera ruotata, menu) e
+`tests/site_shot.gd` (ogni tipo di sito da vicino, anche delle espansioni, nemici affiancati, guarnigione
+scoperta con l'eroe, telecamera ruotata, notte).

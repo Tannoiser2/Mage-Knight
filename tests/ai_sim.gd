@@ -1,7 +1,8 @@
 extends SceneTree
 ## AI benchmark (agent AI): plays whole games with AI heroes and reports statistics per scenario/level.
 ## Usage: godot --headless --path . -s res://tests/ai_sim.gd -- [games] [scenario|all] [level|all] [seed] [players]
-##   scenario: solo_conquest | first_recon | coop_conquest | full_conquest | all
+##   scenario: solo_conquest | first_recon | coop_conquest | full_conquest | all | qualsiasi id di data/scenarios.json
+##             (es. mines_liberation, druid_nights, dungeon_lords, conquer_hold, one_to_return, coop_blitz, solo_blitz)
 ##   players: number of heroes for multi-player scenarios (default: coop 2, full 3)
 ## Env: AI_TRACE=1 (print every action + log), AI_QUIET=1 (only the summary).
 ## Reports: fame, level, cities conquered / victory, wounds, decision time (avg/max), illegal actions, stuck games.
@@ -32,6 +33,10 @@ func _init():
 				np = np_arg if np_arg > 0 else 3
 			elif sc == "first_recon" and np_arg > 0:
 				np = np_arg
+			elif not sc in ["solo_conquest", "first_recon"]:
+				# altri scenari: numero minimo di giocatori dello scenario (almeno 2 se non è un solitario)
+				var pr: Array = MKDB.scenarios.get(sc, {}).get("players", [1, 1])
+				np = np_arg if np_arg > 0 else clampi(maxi(int(pr[0]), 2), 1, int(pr[1]))
 			var agg = {"fame": 0.0, "lvl": 0.0, "cities": 0.0, "vict": 0.0, "wounds": 0.0, "rounds": 0.0, "acts": 0.0, "stuck": 0,
 				"heroes": 0, "games": 0, "us": 0, "calls": 0, "max_us": 0, "illegal": 0, "forced": 0, "cities_total": 0.0}
 			var kagg := {}

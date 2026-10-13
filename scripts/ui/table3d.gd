@@ -19,13 +19,21 @@ const TH := 0.09                         # spessore delle tessere (faccia superi
 const TOKEN_R := 0.40
 const TOKEN_H := 0.05
 const FIG_H := 0.95                      # altezza delle figure degli eroi
-const MINI_H := 0.5                      # altezza delle miniature dei nemici
-const MINI_W := 0.55                     # ingombro massimo in pianta
-const MINI_OFS := Vector3(0, -TOKEN_H, -0.44)  # in piedi subito dietro il segnalino: la faccia resta leggibile
-const SITE_H := 0.48                     # altezza delle miniature dei siti (vedi SITE_SIZE)
-const SITE_OFS := Vector3(0.62, 0, -0.1) # sul lato destro dell'esagono (eroe e segnalini restano visibili)
-const SITE_SIZE := {"village": [0.42, 0.6], "monastery": [0.46, 0.6], "keep": [0.5, 0.58], "mage_tower": [0.66, 0.5]}
-const SITE_MINIS := ["village", "monastery", "keep", "mage_tower"]
+const MINI_H := 0.5                      # altezza massima delle miniature dei nemici
+const MINI_W := 0.62                     # ingombro massimo in pianta: il segnalino fa da basetta
+const SITE_H := 0.5                      # altezza delle miniature dei siti (vedi SITE_SIZE)
+## Miniature dei siti, al centro dell'esagono sopra il disegno stampato e sempre con lo stesso orientamento:
+## [altezza massima, ingombro massimo in pianta] (1 = raggio dell'esagono).
+const SITE_SIZE := {
+	"village": [0.42, 1.0], "monastery": [0.6, 1.02], "keep": [0.62, 0.92], "mage_tower": [1.0, 0.8],
+	"dungeon": [0.3, 0.95], "tomb": [0.42, 0.9], "ruins": [0.36, 0.95], "camp": [0.4, 1.05],
+	"maze": [0.32, 1.05], "labyrinth": [0.5, 1.0], "pyramid": [0.55, 0.95], "ziggurat": [0.45, 1.0],
+}
+const SITE_MINIS := ["village", "monastery", "keep", "mage_tower", "dungeon", "tomb", "ruins", "camp",
+	"maze", "labyrinth", "pyramid", "ziggurat"]
+## Con la miniatura del sito al centro, segnalini ed eroi stanno nella fascia davanti (verso +Z).
+const FRONT_Z := 0.56
+const FRONT_K := 0.62                    # scala dei segnalini davanti a un sito
 const KINDS := {
 	"move": Color("#59d98a"), "explore": Color("#ffd36b"), "target": Color("#ff5a48"),
 	"attack": Color("#ff5a48"), "danger": Color("#ff9a3a"), "select": Color("#f2ecd8"),
@@ -59,7 +67,6 @@ var city_nodes := {}      # esagono -> nodo
 var shield_nodes := {}    # "i|esagono|n" -> nodo
 var ruin_nodes := {}      # esagono -> nodo
 var site_nodes := {}      # "esagono|sito" -> miniatura 3D del sito (assets/miniatures/site_*.glb)
-var _mini_yaw := 0.0      # angolo della telecamera per cui sono orientate le miniature
 var lanterns := {}        # indice giocatore -> OmniLight3D (di notte)
 var hl := {}              # chiave -> {kind, color, label, nodes:[...]}
 var hl_hex := {}          # esagono -> chiave dell'evidenziazione (anche i 7 esagoni di un posto)
@@ -725,13 +732,19 @@ func _sync_enemies(anim: bool) -> void:
 				pieces_root.add_child(n)
 				enemy_nodes[eid] = n
 				n.position = _token_pos(hk, i, arr.size(), has_city)
-				n.scale = Vector3.ONE * (0.8 if has_city else 1.0)
+				n.scale = Vector3.ONE * _token_scale(hk, arr.size(), has_city)
 				if anim:
 					_anim_drop(n)
 			else:
 				if bool(n.get_meta("up")) != up:
 					_flip_token(n, type, color, up, anim)
 				_move_to(n, _token_pos(hk, i, arr.size(), has_city), anim, 0.35)
+				var tsc := _token_scale(hk, arr.size(), has_city)
+				if not is_equal_approx(n.scale.x, tsc):
+					if anim:
+						create_tween().tween_property(n, "scale", Vector3.ONE * tsc, 0.3)
+					else:
+						n.scale = Vector3.ONE * tsc
 	for eid in enemy_nodes.keys():
 		if not seen.has(eid):
 			var n: Node3D = enemy_nodes[eid]
@@ -745,15 +758,55 @@ func _sync_enemies(anim: bool) -> void:
 				n.queue_free()
 
 
-## Pila di segnalini: si sale di spessore e si sposta un poco, così si vede quanti sono.
-## Sulle città la pila sta di lato al modello.
+## Posizione dei segnalini (che fanno da basetta alle miniature): affiancati, mai impilati.
+## Esagono libero: uno al centro, più segnalini in cerchio (rimpiccioliti). Città o sito con miniatura:
+## in fila nella fascia davanti all'edificio. Se c'è anche un eroe, si spostano un po' a destra.
 func _token_pos(hk: String, i: int, n: int, has_city: bool) -> Vector3:
 	var base := hex_pos(hk)
-	var k := 1.0
-	if has_city:
-		base += Vector3(0.52, 0, 0.5)
-		k = 0.8
-	return base + (Vector3(0.06 * i, 0, -0.08 * i) - Vector3(0.03 * (n - 1), 0, -0.04 * (n - 1))) * k + Vector3(0, (TOKEN_H * k + 0.004) * i, 0)
+	var k := _token_scale(hk, n, has_city)
+	var hero := _hero_on(hk)
+	if has_city or _site_mini_on(hk):
+		var step := 2.0 * TOKEN_R * k + 0.03
+		var x0 := 0.0
+		if hero:
+			x0 = 0.24
+		var x := x0 + (i - (n - 1) / 2.0) * step
+		var z := FRONT_Z + (0.08 if has_city else 0.0)
+		# la fila segue un poco il bordo dell'esagono
+		return base + Vector3(x, 0, z - absf(x) * 0.25)
+	var shift := Vector3(0.2, 0, -0.12) if hero else Vector3.ZERO
+	if n <= 1:
+		return base + shift
+	var rho := {2: 0.42, 3: 0.46, 4: 0.5}.get(n, 0.54) as float
+	var a := TAU * i / n + (PI if n == 2 else -PI / 2.0)
+	return base + shift * 0.5 + Vector3(cos(a), 0, sin(a)) * rho
+
+
+func _token_scale(hk: String, n: int, has_city: bool) -> float:
+	if has_city or _site_mini_on(hk):
+		return FRONT_K if n <= 3 else FRONT_K * 3.0 / n
+	var k := {1: 1.0, 2: 1.0, 3: 0.86, 4: 0.75}.get(n, 0.62) as float
+	if _hero_on(hk):
+		k *= 0.85
+	return k
+
+
+func _hero_on(hk: String) -> bool:
+	for p in _players():
+		if p is Dictionary and str(p.get("pos", "")) == hk:
+			return true
+	return false
+
+
+## C'è (o ci sarà) la miniatura 3D di un sito al centro dell'esagono?
+func _site_mini_on(hk: String) -> bool:
+	if not MKMiniatures.enabled:
+		return false
+	var h = _map_hex().get(hk)
+	if not (h is Dictionary):
+		return false
+	var site := MKUI.norm(h.get("site", ""))
+	return site in SITE_MINIS and not bool(h.get("burned", false)) and MKMiniatures.has("site_" + site)
 
 
 func _make_token(type: String, color: String, up: bool) -> Node3D:
@@ -871,8 +924,15 @@ func _sync_heroes(anim: bool) -> void:
 			var dest := hex_pos(pos) + _hero_offset(j, arr.size())
 			var fsc := 1.0 if arr.size() == 1 else 0.68
 			var has_en := _enemies_by_hex().has(pos)
-			if has_en:
-				dest += Vector3(-0.3, 0, 0.25)
+			var hd = _map_hex().get(pos)
+			var on_city := hd is Dictionary and MKUI.norm(hd.get("site", "")) == "city"
+			if _site_mini_on(pos) or on_city:
+				# davanti all'edificio, a sinistra (i segnalini stanno a destra)
+				dest = hex_pos(pos) + Vector3(-0.52 if has_en else -0.36, 0, FRONT_Z + 0.02) + _hero_offset(j, arr.size()) * 0.45
+				fsc *= 0.8
+			elif has_en:
+				dest += Vector3(-0.5, 0, 0.3)
+				fsc *= 0.8
 			if n == null:
 				n = _make_hero(hero)
 				n.name = "Hero_%d" % i
@@ -1119,6 +1179,13 @@ func PolygonMesh_make(poly: PackedVector2Array, h: float) -> ArrayMesh:
 	return m
 
 
+## Segnalino Rovine: con la miniatura delle rovine al centro va davanti, a sinistra; altrimenti di lato.
+func _sync_ruins_pos() -> void:
+	for key in ruin_nodes:
+		var k := str(key).split("|")[0]
+		ruin_nodes[key].position = hex_pos(k) + (Vector3(-0.5, 0, FRONT_Z - 0.05) if _site_mini_on(k) else Vector3(0.42, 0, 0.3))
+
+
 func _sync_ruins() -> void:
 	var seen := {}
 	var H := _map_hex()
@@ -1145,18 +1212,19 @@ func _sync_ruins() -> void:
 		mi.set_surface_override_material(1, _mat_col(Color("#5a4a20"), 0.6))
 		mi.set_surface_override_material(2, _mat_col(Color("#5a4a20"), 0.6))
 		n.add_child(mi)
-		n.position = hex_pos(k) + Vector3(0.42, 0, 0.3)
 		pieces_root.add_child(n)
 		ruin_nodes[key] = n
 	for key in ruin_nodes.keys():
 		if not seen.has(key):
 			ruin_nodes[key].queue_free()
 			ruin_nodes.erase(key)
+	_sync_ruins_pos()
 
 
 
-## Miniature 3D dei siti (villaggio, monastero, fortezza, torre magica) in un angolo dell'esagono,
-## sempre visibili (il monastero bruciato sparisce). Ci sono solo se esiste il .glb.
+## Miniature 3D dei siti (villaggio, monastero, fortezza, torre magica, sotterraneo, tomba, rovine…) al
+## centro dell'esagono, sopra il disegno stampato, ferme e sempre orientate allo stesso modo (il monastero
+## bruciato sparisce). Ci sono solo se esiste il .glb.
 func _sync_sites() -> void:
 	var seen := {}
 	if MKMiniatures.enabled:
@@ -1186,33 +1254,19 @@ func _sync_sites() -> void:
 			site_nodes.erase(key)
 
 
-## La miniatura di un nemico sta dietro il suo segnalino rispetto alla telecamera (non copre i valori
-## stampati) ed è rivolta verso chi guarda; si riorienta quando la telecamera gira attorno al tavolo.
+## La miniatura di un nemico sta al centro del suo segnalino, che le fa da basetta, sempre rivolta verso
+## sud (verso chi guarda dalla posizione iniziale): non gira con la telecamera. I valori stampati si leggono
+## sul bordo del segnalino e nel suggerimento dell'esagono.
 func _place_mini(m: Node3D) -> void:
-	var y := deg_to_rad(_mini_yaw)
-	if not m.has_meta("r"):
-		var ab := MKMiniatures.scene_aabb(m)
-		m.set_meta("r", maxf(ab.size.x, ab.size.z) / 2.0)
-	# le miniature larghe si allontanano un po' di più, così il bordo non copre i valori
-	var d := maxf(absf(MINI_OFS.z), TOKEN_R + float(m.get_meta("r")) * 0.75 - 0.08)
-	m.position = Vector3(-sin(y), 0, -cos(y)) * d + Vector3(0, MINI_OFS.y + TOKEN_H / 2.0, 0)
-	m.rotation.y = y
+	m.position = Vector3(0, TOKEN_H / 2.0 + 0.002, 0)
+	m.rotation = Vector3.ZERO
 
 
+## Le strutture dei siti non si muovono mai: centro dell'esagono, orientamento fisso.
 func _place_site(n: Node3D) -> void:
 	var k := str(n.get_meta("hex", ""))
-	n.position = hex_pos(k) + SITE_OFS.rotated(Vector3.UP, deg_to_rad(_mini_yaw))
-	n.rotation_degrees.y = _mini_yaw - 20.0
-
-
-func _orient_minis() -> void:
-	_mini_yaw = rig._yaw
-	for eid in enemy_nodes:
-		var m: Node3D = enemy_nodes[eid].get_node("spin").get_node_or_null("mini")
-		if m != null:
-			_place_mini(m)
-	for key in site_nodes:
-		_place_site(site_nodes[key])
+	n.position = hex_pos(k) + Vector3(0, 0.002, 0)
+	n.rotation = Vector3.ZERO
 
 
 ## Mostra o nasconde le miniature 3D (nemici scoperti e siti); la scelta resta in MKMiniatures.enabled.
@@ -1233,6 +1287,10 @@ func set_miniatures(on: bool) -> void:
 		if m != null:
 			m.visible = on and bool(n.get_meta("up"))
 	_sync_sites()
+	# segnalini ed eroi cambiano posto (davanti all'edificio oppure al centro)
+	_sync_enemies(false)
+	_sync_heroes(false)
+	_sync_ruins_pos()
 
 # ------------------------------------------------------------------ telecamera
 
@@ -1440,8 +1498,6 @@ func _update_hover(sp: Vector2) -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
-	if rig != null and absf(wrapf(rig._yaw - _mini_yaw, -180.0, 180.0)) > 3.0:
-		_orient_minis()
 	# le evidenziazioni pulsano piano
 	var p := 0.75 + 0.25 * sin(_time * 3.2)
 	for key in _hl_mats:

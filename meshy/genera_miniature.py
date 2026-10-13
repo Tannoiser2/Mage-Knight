@@ -5,7 +5,7 @@ Uso:
     export MESHY_API_KEY=la_tua_chiave
     python3 meshy/genera_miniature.py                 # tutte quelle che mancano (nemici + siti)
     python3 meshy/genera_miniature.py nemici          # solo i 29 tipi di nemico del gioco base
-    python3 meshy/genera_miniature.py siti            # solo le 4 strutture dei siti
+    python3 meshy/genera_miniature.py siti            # solo le strutture dei siti (12)
     python3 meshy/genera_miniature.py high_dragon minotaur site_keep   # solo alcune
     python3 meshy/genera_miniature.py --rifai medusa  # rigenera anche se esiste già
     python3 meshy/genera_miniature.py --elenco        # mostra l'elenco e cosa manca
@@ -19,8 +19,9 @@ Senza MESHY_API_KEY usa la riga di comando di Meshy (`meshy`, oppure
     meshy auth login --device
 
 Nemici: immagine → 3D, da meshy/riferimenti/<id>.png (preparate da prepara_riferimenti.py).
-Siti (site_village, site_monastery, site_keep, site_mage_tower): testo → 3D con i prompt qui sotto
-(con --siti-da-immagine si usano invece i ritagli meshy/riferimenti/site_<id>.png).
+Siti (site_village, site_monastery, site_keep, site_mage_tower, site_dungeon, site_tomb, site_ruins,
+site_camp, site_maze, site_labyrinth, site_pyramid, site_ziggurat): immagine → 3D dal disegno scontornato
+meshy/riferimenti/site_<id>.png (con --siti-da-testo invece testo → 3D con i prompt SITI).
 Il modello si salva in assets/miniatures/<id>.glb: il gioco lo usa da solo (MKMiniatures), basta
 riaprire il progetto in Godot o rifare la build (la action di GitHub importa i .glb).
 
@@ -115,6 +116,15 @@ SITI = {
                   "short curtain wall and a wooden gate, " + STILE),
     "site_mage_tower": ("Torre magica", "a tall slender fantasy mage tower of dark stone with a pointed violet roof, "
                         "glowing arcane windows and floating crystals, " + STILE),
+    # siti aggiunti (solo immagine → 3D dal disegno della tessera; il prompt serve solo con --siti-da-testo)
+    "site_dungeon": ("Sotterraneo", "ruined stone entrance to an underground dungeon, broken walls and stairs, " + STILE),
+    "site_tomb": ("Tomba", "ancient pale stone tomb with obelisks and a dark entrance, " + STILE),
+    "site_ruins": ("Antiche Rovine", "ancient circular stone ruins with broken columns, " + STILE),
+    "site_camp": ("Campo Profughi", "refugee camp of striped tents and carts on a sandy base, " + STILE),
+    "site_maze": ("Dedalo", "three round stone mazes joined together, sandstone walls, " + STILE),
+    "site_labyrinth": ("Labirinto", "ancient sandstone labyrinth city with round towers, " + STILE),
+    "site_pyramid": ("Piramide", "stepped sandstone pyramid with a gate building, " + STILE),
+    "site_ziggurat": ("Ziggurat", "mesopotamian sandstone ziggurat with terraces and gate, " + STILE),
 }
 
 
@@ -152,7 +162,7 @@ def scarica(st, mid):
     dest = os.path.join(OUT, mid + ".glb")
     urllib.request.urlretrieve(url, dest)
     print(f"  salvato {os.path.relpath(dest)} ({os.path.getsize(dest) // 1024} KB)")
-    comprimi(dest, POLY_SITI if mid in SITI else POLY_NEMICI)
+    comprimi(dest, POLY_SITI if mid in SITI else POLY_NEMICI, nuovo=True)
     return True
 
 
@@ -267,7 +277,7 @@ def imposta_import():
     return n
 
 
-def comprimi(path, poly=POLY_NEMICI):
+def comprimi(path, poly=POLY_NEMICI, nuovo=False):
     """Rende leggero un .glb di Meshy (20–180 MB → ~1–2 MB): texture a 1024 e, se i triangoli sono
     troppi (testo → 3D ignora il limite), weld + simplify. L'originale resta in meshy/originali/."""
     g = gltf_tool()
@@ -276,7 +286,7 @@ def comprimi(path, poly=POLY_NEMICI):
         return False
     os.makedirs(ORIGINALI, exist_ok=True)
     orig = os.path.join(ORIGINALI, os.path.basename(path))
-    if not os.path.exists(orig):
+    if nuovo or not os.path.exists(orig):   # appena scaricato: sostituisce l'originale vecchio
         shutil.copy2(path, orig)
     tmp = path + ".tmp.glb"
     try:
@@ -426,7 +436,8 @@ def main():
     argv = sys.argv[1:]
     rifai = "--rifai" in argv
     prova = "--prova" in argv
-    da_img = "--siti-da-immagine" in argv
+    # siti: immagine → 3D dal ritaglio del disegno (riferimenti/site_<id>.png); testo solo se richiesto
+    testo_siti = "--siti-da-testo" in argv
     testo_forzato = set(argv[argv.index("--da-testo") + 1:]) if "--da-testo" in argv else set()
     img_forzata = set(argv[argv.index("--da-immagine") + 1:]) if "--da-immagine" in argv else set()
     args = [a for a in argv if not a.startswith("--")]
@@ -475,7 +486,7 @@ def main():
             print(f"{mid}: c'è già, salto")
             continue
         img = os.path.join(RIF, mid + ".png")
-        testo = (mid in SITI and not da_img) or (mid in NEMICI and (mid in DA_TESTO or mid in testo_forzato)
+        testo = (mid in SITI and testo_siti) or (mid in NEMICI and (mid in DA_TESTO or mid in testo_forzato)
                                                  and mid not in img_forzata)
         if not testo and not os.path.exists(img):
             print(f"{mid}: manca l'immagine {os.path.relpath(img)} (python3 meshy/prepara_riferimenti.py)")

@@ -4,6 +4,7 @@ extends RefCounted
 
 const C = preload("res://scripts/core/ai_cards.gd")
 const CB = preload("res://scripts/core/ai_combat.gd")
+const SC = preload("res://scripts/core/ai_scn.gd")
 const BIG := 1.0e9
 
 # ================================================================ tactics
@@ -180,7 +181,16 @@ static func slots_from(eng, p: int, pos: String) -> Array:
 			cand[MKHex.key(MKHex.parse(nk) - MKHex.TILE_KEYS[kk])] = true
 	var next_tile: String = eng.s.map.tile_deck[0]
 	var next_core: bool = MKDB.tiles.get(next_tile, {}).get("kind", "") == "core"
+	var predef = eng.s.map.get("predef", null)
 	for c in cand:
+		if predef is Dictionary:
+			if placed.has(c) or not predef.has(c):
+				continue
+			for hk0 in MKHex.tile_hexes(c):
+				if MKHex.distance(hk0, pos) <= 1:
+					out.append(c)
+					break
+			continue
 		if placed.has(c) or not MKHex.in_shape(c, eng.s.map.shape):
 			continue
 		if eng.s.map.shape == "open" and not eng._open_cols_ok(c):
@@ -369,9 +379,9 @@ static func site_models(eng, p: int, k: String, kind: String, full: bool) -> Arr
 			var known: Array = []
 			match st:
 				"dungeon":
-					colors = ["brown"]
+					colors = [] if h.get("secret", false) and not h.enemies.is_empty() else ["brown"]
 				"tomb":
-					colors = ["red"]
+					colors = [] if h.get("secret", false) and not h.enemies.is_empty() else ["red"]
 				"monster_den":
 					if h.enemies.is_empty():
 						colors = ["brown"]
@@ -571,7 +581,19 @@ static func strategic(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Array:
 		var st = str(h.site)
 		var v = 0.0
 		var models: Array = []
+		if MKScn.is_adventure(eng, h):
+			st = "scn_site"
+		if st in ["dungeon", "tomb"] and h.conquered and MKScn.site_check(eng, p, h) != null:
+			continue
 		match st:
+			"scn_site":
+				var alts6 = site_models(eng, p, k, "adventure", false)
+				if not alts6.is_empty():
+					models = alts6[0][1]
+				var fm6 = 0.0
+				for m6 in models:
+					fm6 += float(m6.fame)
+				v = fm6 + SC.site_bonus(eng, p, k)
 			"keep":
 				if not eng._is_safe_fortified(p, k):
 					var alts = site_models(eng, p, k, "assault", false)
@@ -647,6 +669,7 @@ static func strategic(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Array:
 			for m2 in models:
 				fm2 += float(m2.fame) + 0.6 * float(m2.rep)
 			v = fm2
+		v = SC.target_value(eng, p, k, h, v)
 		if v <= 0.0:
 			continue
 		if not models.is_empty():
@@ -967,10 +990,10 @@ static func end_bonus(eng, p: int, k: String) -> float:
 			if eng.is_wound(iid):
 				v += 2.0
 				break
-	if str(h.get("mine", "")) != "":
+	if str(h.get("mine", "")) != "" and MKScn.mine_produces(eng, k):
 		if int(pl.crystals.get(str(h.mine), 0)) < 3:
 			v += 0.9
-	return v
+	return v + SC.end_bonus(eng, p, k)
 
 # ================================================================ mission planning
 ## Returns the best mission: {kind, hex, path, cost, value, ...}
@@ -1072,8 +1095,10 @@ static func plan(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary:
 			pass
 		# adventure sites
 		# (the AI does not explore mazes / labyrinths: the Move payment after entering is not modelled)
-		if action_free and st in MKEngine.ADVENTURE_SITES and not st in MKSitesExp.MAZE_SITES and not late and (k == here or not other_hero_at(eng, p, k)):
+		if action_free and (st in MKEngine.ADVENTURE_SITES or MKScn.is_adventure(eng, h)) and not st in MKSitesExp.MAZE_SITES and not late and (k == here or not other_hero_at(eng, p, k)):
 			var ok = true
+			if st in ["dungeon", "tomb"] and h.conquered and MKScn.site_check(eng, p, h) != null:
+				ok = false
 			if st in ["monster_den", "spawning_grounds"] and h.conquered:
 				ok = false
 			if st == "ruins":
@@ -1256,7 +1281,7 @@ static func _fight_mission(eng, p: int, ctx: Dictionary, k: String, kind: String
 		cfg.units = []
 	var bonus = 0.0
 	if kind == "assault" or kind == "adventure":
-		bonus = CB.site_bonus(eng, p, st, k)
+		bonus = CB.site_bonus(eng, p, st, k) + (SC.site_bonus(eng, p, k) if kind == "adventure" else 0.0)
 	var alts = site_models(eng, p, k, kind, int(ctx.level) >= 3 and C.T("full_alts") > 0.5)
 	if alts.is_empty():
 		return {}

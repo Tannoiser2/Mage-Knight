@@ -1010,6 +1010,9 @@ func hex_tip(k: String) -> String:
 		if h.get("burned", false):
 			st += " · bruciato"
 		lines.append(st)
+	var sn := MKScn.hex_note(eng, k)
+	if sn != "":
+		lines.append(sn)
 	var ru = h.get("ruins", "")
 	if ru is String and ru != "":
 		var rtxt := "Segnalino Rovine " + ("scoperto" if h.get("ruins_face_up", false) else "coperto")

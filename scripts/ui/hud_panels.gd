@@ -83,6 +83,9 @@ static func build_top(v, bar: PanelContainer) -> void:
 static func goal_text(v) -> String:
 	var s: Dictionary = v.s
 	var scn: Dictionary = s.get("scn", {})
+	var sg := MKScn.goal_text(v.eng)
+	if sg != "":
+		return sg
 	match str(scn.get("end", "")):
 		"cities":
 			var conq := 0
@@ -677,7 +680,7 @@ static func action_buttons(v) -> Array:
 					"Combattimento tra giocatori (è la tua azione del turno): prima gli attacchi a distanza e d'assedio, poi il corpo a corpo, alternandovi. Vince chi costringe l'altro a ritirarsi.", func(): v.submit(a)), 0, 48, true))
 			"coop":
 				out.push_front(MKHud.btn("⚑ " + lbl, func(): v.submit(a), 0, 48, true))
-			"heal", "sp", "tactic_use":
+			"heal", "sp", "tactic_use", "scn":
 				if s.combat == null or t == "sp":
 					var b := MKHud.btn(lbl, func(): v.submit(a), 0, 44)
 					b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
