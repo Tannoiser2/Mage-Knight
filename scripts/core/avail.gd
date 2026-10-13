@@ -52,7 +52,7 @@ static func list(eng) -> Array:
 				out.append({"a": a, "label": lbl, "group": "card"})
 		if c.get("side", true):
 			for side in ["move", "influence", "attack", "block"]:
-				if side == "influence" and MKSites.can_interact(eng, p) != "":
+				if side == "influence" and MKSites.can_interact(eng, p) != "" and not (cb != null and eng.flag(p, "influence_as_block")):
 					continue
 				if side == "move" and t.pool.move == 0 and false:
 					continue

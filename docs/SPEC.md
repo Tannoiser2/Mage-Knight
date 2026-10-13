@@ -56,7 +56,9 @@ già installati). Import: `godot --headless --path . --import`.
 - Forme: **cuneo** (tessera iniziale A al centro (0,0)): posti = `{a·N + b·NE | a,b ≥ 0, a+b ≥ 1}`.
   **Aperta** (tessera B): posti = `{a·N + b·NE} ∪ {a·NE + b·E}` (a,b ≥ 0, non entrambi 0).
   Un posto si può esplorare se è nella forma, è libero, è adiacente ad almeno 2 tessere già piazzate
-  oppure alla tessera iniziale, e il giocatore è su un esagono adiacente a un esagono di quel posto.
+  oppure (solo tessere Campagna) a una tessera che confina con almeno altre 2 tessere (Regolamento p. 7),
+  e il giocatore è su un esagono adiacente a un esagono di quel posto. Le tessere Centrali: almeno 2
+  tessere adiacenti e, nel cuneo, mai sulla linea costiera.
   Costo esplorazione 2 punti Movimento; si pesca la tessera in cima al mazzo delle tessere.
 - Immagine della tessera (texture 2048×1970 circa): esagoni a punta in alto, raggio ≈ 394 px; centro
   dell'esagono centrale nell'immagine ≈ (1024, 985); i vicini sono a ±√3·r in x e ±1.5·r in y.

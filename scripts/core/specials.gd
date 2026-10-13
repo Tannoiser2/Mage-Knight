@@ -608,7 +608,7 @@ static func actions(eng, p: int) -> Array:
 							out.append({"a": {"t": "sp", "name": "buy_aa_with_influence", "id": id}, "label": "Impara %s (%d Influenza)" % [MKSites._cname(id), int(m.get("cost", 6))], "group": "card"})
 			"influence_to_heal":
 				if cb == null and int(pool.influence) >= int(m.get("per", 2)) and MKSites._has_healable(eng, p):
-					out.append({"a": {"t": "sp", "name": "influence_to_heal"}, "label": "Converti %d Influenza in Guarigione 1" % int(m.get("per", 2)), "group": "heal"})
+					out.append({"a": {"t": "sp", "name": "influence_to_heal"}, "label": "Converti %d Influenza in Cura 1" % int(m.get("per", 2)), "group": "heal"})
 			"ready_units_for_influence":
 				if cb == null:
 					for u in eng.P(p).units:
@@ -940,7 +940,7 @@ func sp_crystal_from_source_die(eng, ctx, params):
 		var d: Dictionary = eng.s.source[i]
 		if int(d.taken_by) == -1 and d.color in MKMana.BASIC:
 			opts.append({"v": i, "label": "Dado " + MKMana.color_it(d.color)})
-	choose(eng, ctx, "crystal_from_source_die", "Scegli un dado della Fonte", opts, {"reroll": params.get("reroll", true) if params is Dictionary else true}, "die")
+	choose(eng, ctx, "crystal_from_source_die", "Scegli un dado della Riserva", opts, {"reroll": params.get("reroll", true) if params is Dictionary else true}, "die")
 
 func can_crystal_from_source_die(eng, ctx, params) -> bool:
 	for d in eng.s.source:
@@ -958,7 +958,7 @@ func sp_reroll_source(eng, ctx, params):
 	for d in eng.s.source:
 		if int(d.taken_by) == -1:
 			d.color = eng.DIE_COLORS[MKRng.rand_int(eng.s, 6)]
-	eng.add_log("info", "Tutti i dadi della Fonte vengono rilanciati")
+	eng.add_log("info", "Tutti i dadi della Riserva vengono rilanciati")
 
 func sp_source_black_gold_any(eng, ctx, params):
 	add_mod(eng, ctx, "source_black_gold_any")
@@ -2224,7 +2224,7 @@ func sp_source_freeze(eng, ctx, params):
 		var d: Dictionary = eng.s.source[i]
 		if int(d.taken_by) == -1 and d.color in MKMana.BASIC:
 			opts.append({"v": i, "label": "Dado " + MKMana.color_it(d.color)})
-	choose(eng, ctx, "source_freeze", "Congelare la Fonte: scegli un dado", opts, {}, "die")
+	choose(eng, ctx, "source_freeze", "Congelare la Riserva: scegli un dado", opts, {}, "die")
 
 func can_source_freeze(eng, ctx, params) -> bool:
 	return can_crystal_from_source_die(eng, ctx, params)
@@ -2242,12 +2242,11 @@ func sp_source_opening(eng, ctx, params):
 		var d: Dictionary = eng.s.source[i]
 		if int(d.taken_by) == -1:
 			opts.append({"v": i, "label": "Rilancia il dado " + MKMana.color_it(d.color)})
-	choose(eng, ctx, "source_opening", "Apertura della Fonte: rilancia un dado", opts, {"always_ask": true}, "die")
+	choose(eng, ctx, "source_opening", "Apertura della Riserva: rilancia un dado", opts, {"always_ask": true}, "die")
 
 func res_source_opening(eng, ctx, data, v):
 	if int(v) >= 0:
 		eng.s.source[int(v)].color = eng.DIE_COLORS[MKRng.rand_int(eng.s, 6)]
-		eng._fix_source()
 
 func sp_space_bending(eng, ctx, params):
 	add_mod(eng, ctx, "space_bending")

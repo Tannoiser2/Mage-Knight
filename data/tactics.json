@@ -2,7 +2,7 @@
  "_notes": {
   "order": "Il numero della tattica determina l'ordine di turno (più basso = primo). Mattiniero e Dal Crepuscolo non hanno effetto.",
   "when": "pick = effetto immediato alla scelta; round = effetto disponibile durante il round; none.",
-  "terms": "Sulle carte italiane la Fonte è chiamata \"Riserva\" e il mazzo \"mazzo Impresa\"."
+  "terms": "Sulle carte italiane la Riserva è chiamata \"Riserva\" e il mazzo \"mazzo Impresa\"."
  },
  "tactics": {
   "early_bird": {

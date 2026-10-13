@@ -256,7 +256,7 @@
      "motivation_lock"
     ]
    ],
-   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana rosso.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Impresa.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana rosso.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
    "img": "assets/skills/arythea_motivation.webp",
    "impl": true,
    "note": "",
@@ -538,7 +538,7 @@
      "motivation_lock"
     ]
    ],
-   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana verde.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Impresa.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana verde.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
    "img": "assets/skills/goldyx_motivation.webp",
    "impl": true,
    "note": "",
@@ -549,7 +549,7 @@
    "id": "goldyx_source_freeze",
    "hero": "goldyx",
    "set": "base",
-   "name_it": "Congelare la Fonte",
+   "name_it": "Congelare la Riserva",
    "name_en": "Source Freeze",
    "usage": "interactive",
    "effect": [
@@ -558,7 +558,7 @@
      "source_freeze"
     ]
    ],
-   "text_it": "Una volta per round: metti questa Abilità al centro del tavolo. Prendi un dado di colore base dalla Fonte e ottieni un Cristallo di quel colore nell'Inventario. Fino all'inizio del tuo prossimo turno gli altri giocatori non possono usare quel dado; poi rilancialo e riprendi l'Abilità.",
+   "text_it": "Una volta per round: metti questa Abilità al centro del tavolo. Prendi un dado di colore base dalla Riserva e ottieni un Cristallo di quel colore nell'Inventario. Fino all'inizio del tuo prossimo turno gli altri giocatori non possono usare quel dado; poi rilancialo e riprendi l'Abilità.",
    "img": "assets/skills/goldyx_source_freeze.webp",
    "impl": true,
    "note": "Nel modulo la tessera ha il nome/descrizione sbagliati ('Blood Moon Wane', abilità di Malek); nome e testo ricostruiti dall'immagine e dalle regole (Lua: 'Source Freeze'). Testo da verificare.",
@@ -569,7 +569,7 @@
    "id": "goldyx_source_opening",
    "hero": "goldyx",
    "set": "base",
-   "name_it": "Apertura della Fonte",
+   "name_it": "Apertura della Riserva",
    "name_en": "Source Opening",
    "usage": "interactive",
    "effect": [
@@ -578,10 +578,10 @@
      "source_opening"
     ]
    ],
-   "text_it": "Una volta per round:\nPuoi ritirare un dado Mana nella Fonte. (Metti questa Abilità nell'area di gioco per attivarla.)\nUn altro giocatore, nel proprio turno, può:\nUsare un dado aggiuntivo dalla Fonte, dandoti un Cristallo del suo colore. Può scegliere se ritirare quel dado a fine turno. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
+   "text_it": "Una volta per round:\nPuoi ritirare un dado Mana nella Riserva. (Metti questa Abilità nell'area di gioco per attivarla.)\nUn altro giocatore, nel proprio turno, può:\nUsare un dado aggiuntivo dalla Riserva, dandoti un Cristallo del suo colore. Può scegliere se ritirare quel dado a fine turno. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
    "img": "assets/skills/goldyx_source_opening.webp",
    "impl": true,
-   "note": "Variante cooperativa di Congelare la Fonte.",
+   "note": "Variante cooperativa di Congelare la Riserva.",
    "guid": "3b3273",
    "mode": "coop"
   },
@@ -833,7 +833,7 @@
      "motivation_lock"
     ]
    ],
-   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana bianco.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Impresa.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana bianco.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
    "img": "assets/skills/norowas_motivation.webp",
    "impl": true,
    "note": "",
@@ -1114,7 +1114,7 @@
      }
     ]
    ],
-   "text_it": "Una volta per turno:\nUna carta giocata di lato fornisce +2 invece di +1.\nSe non usi dadi della Fonte in questo turno, fornisce invece +3.",
+   "text_it": "Una volta per turno:\nUna carta giocata di lato fornisce +2 invece di +1.\nSe non usi dadi della Riserva in questo turno, fornisce invece +3.",
    "img": "assets/skills/tovak_who_needs_magic.webp",
    "impl": true,
    "note": "",
@@ -1149,7 +1149,7 @@
      "motivation_lock"
     ]
    ],
-   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana blu.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Impresa.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana blu.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
    "img": "assets/skills/tovak_motivation.webp",
    "impl": true,
    "note": "",
@@ -1189,7 +1189,7 @@
      "mana_overload"
     ]
    ],
-   "text_it": "Una volta per round:\nOttieni un segnalino Mana di qualsiasi colore tranne dorato. (Metti questa Abilità nell'area di gioco per attivarla e un altro Cristallo dello stesso colore sopra di essa.)\nIl primo giocatore che usa Mana di quel colore per potenziare una carta Gesta che fornisce Movimento, Influenza o qualsiasi Attacco o Blocco ottiene +4 da quella carta. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
+   "text_it": "Una volta per round:\nOttieni un segnalino Mana di qualsiasi colore tranne dorato. (Metti questa Abilità nell'area di gioco per attivarla e un altro Cristallo dello stesso colore sopra di essa.)\nIl primo giocatore che usa Mana di quel colore per potenziare una carta Impresa che fornisce Movimento, Influenza o qualsiasi Attacco o Blocco ottiene +4 da quella carta. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
    "img": "assets/skills/tovak_mana_overload.webp",
    "impl": true,
    "note": "Variante cooperativa.",
@@ -1419,7 +1419,7 @@
      "motivation_lock"
     ]
    ],
-   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche Fama 1.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Impresa.\nSe hai meno Fama di tutti (senza parità), ottieni anche Fama 1.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
    "img": "assets/skills/wolfhawk_motivation.webp",
    "impl": true,
    "note": "",

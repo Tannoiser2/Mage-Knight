@@ -228,7 +228,7 @@ static func _buy_options(eng, p: int) -> Array:
 	if site == "":
 		return out
 	if HEAL_COST.has(site):
-		out.append({"what": "heal", "cost": HEAL_COST[site], "label": "Compra 1 Guarigione"})
+		out.append({"what": "heal", "cost": HEAL_COST[site], "label": "Compra 1 punto Cura"})
 	if site == "monastery":
 		for id in s.offers.monastery:
 			out.append({"what": "aa", "id": id, "cost": 6, "label": "Impara %s" % _cname(id)})
@@ -362,7 +362,7 @@ static func _do_buy(eng, p: int, a: Dictionary) -> void:
 	match what:
 		"heal":
 			s.turn.pool.heal = int(s.turn.pool.heal) + 1
-			eng.add_log("buy", "%s compra 1 Guarigione" % eng.pname(p), {"p": p})
+			eng.add_log("buy", "%s compra 1 punto Cura" % eng.pname(p), {"p": p})
 			eng.auto_heal(p)
 		"aa":
 			s.offers.monastery.erase(id)
@@ -454,13 +454,13 @@ static func conquer(eng, p: int, k: String) -> void:
 			if prev >= 0 and prev != p:
 				eng.P(prev).shields.erase(k)
 			_shield(eng, p, k)
-			eng.add_log("conquer", "%s conquista la fortezza" % eng.pname(p), {"p": p, "hex": k})
+			eng.add_log("conquer", "%s conquista il castello" % eng.pname(p), {"p": p, "hex": k})
 		"mage_tower":
 			h.conquered = true
 			h.owner = p
 			_shield(eng, p, k)
 			eng.s.turn.rewards.append({"k": "spell"})
-			eng.add_log("conquer", "%s conquista la torre magica" % eng.pname(p), {"p": p, "hex": k})
+			eng.add_log("conquer", "%s conquista la torre della magia" % eng.pname(p), {"p": p, "hex": k})
 		"city":
 			h.conquered = true
 			var counts := {}
@@ -620,7 +620,7 @@ static func give_reward(eng, p: int, r: Dictionary) -> void:
 			eng.gain_fame(p, int(r.get("n", 0)))
 		"dungeon_roll":
 			var col2: String = eng.DIE_COLORS[MKRng.rand_int(s, 6)]
-			eng.add_log("roll", "Dado del dungeon: %s" % MKMana.color_it(col2), {"p": p})
+			eng.add_log("roll", "Dado del sotterraneo: %s" % MKMana.color_it(col2), {"p": p})
 			# site card: gold or black = Spell, otherwise Artifact
 			if col2 in ["gold", "black"]:
 				s.turn.rewards.push_front({"k": "spell"})
@@ -754,7 +754,7 @@ static func resolve(eng, pend: Dictionary, v) -> bool:
 			var d: Dictionary = s.source[i]
 			eng.P(p).stolen_die = d.color
 			s.source.remove_at(i)
-			eng.add_log("tactic", "%s ruba un dado %s dalla Fonte" % [eng.pname(p), MKMana.color_it(d.color)], {"p": p})
+			eng.add_log("tactic", "%s ruba un dado %s dalla Riserva" % [eng.pname(p), MKMana.color_it(d.color)], {"p": p})
 		"tactic_search":
 			if int(v) == -1:
 				return true
@@ -768,7 +768,7 @@ static func resolve(eng, pend: Dictionary, v) -> bool:
 			var pl2: Dictionary = eng.P(p)
 			if str(v) == "store":
 				pl2.tactic_store.append(pl2.deck.pop_front())
-				eng.add_log("tactic", "%s mette da parte una carta (Risparmio di energia)" % eng.pname(p), {"p": p})
+				eng.add_log("tactic", "%s mette da parte una carta (Risparmiare Potere)" % eng.pname(p), {"p": p})
 			else:
 				pl2.hand.append_array(pl2.tactic_store)
 				pl2.tactic_store = []
@@ -799,7 +799,7 @@ static func take_tactic(eng, p: int, id: String) -> void:
 					opts.append({"v": i, "label": "Dado " + MKMana.color_it(d.color)})
 			if not opts.is_empty():
 				opts.append({"v": -1, "label": "Nessuno"})
-				eng.ask(p, "die", "tactic_steal", "Furto di mana: scegli un dado da tenere", opts)
+				eng.ask(p, "die", "tactic_steal", "Rubare Mana: scegli un dado da tenere", opts)
 		"d5":
 			eng.draw(p, 2)
 		"n5":
@@ -831,7 +831,7 @@ static func _ask_cycle(eng, p: int, handler: String, left: int, chosen: Array) -
 			continue
 		seen[cid] = true
 		opts.append({"v": iid, "label": ("Scarta " if handler == "tactic_rethink" else "Rimescola ") + eng.card_name(iid)})
-	var prompt := "Ripensamento: scegli fino a %d carte da scartare" % left if handler == "tactic_rethink" else "Meditazione di mezzanotte: scegli fino a %d carte da rimescolare nel mazzo" % left
+	var prompt := "Ripensamento: scegli fino a %d carte da scartare" % left if handler == "tactic_rethink" else "Meditazione di Mezzanotte: scegli fino a %d carte da rimescolare nel mazzo" % left
 	eng.ask(p, "card", handler, prompt, opts, {"left": left, "chosen": chosen})
 
 static func _resolve_cycle(eng, pend: Dictionary, v) -> void:
@@ -862,7 +862,7 @@ static func _resolve_cycle(eng, pend: Dictionary, v) -> void:
 		pl.deck.append_array(chosen)
 		MKRng.shuffle(s, pl.deck)
 		pl.tactic_used = true
-		eng.add_log("tactic", "%s rimescola %d carte nel mazzo (Meditazione di mezzanotte)" % [eng.pname(p), chosen.size()], {"p": p})
+		eng.add_log("tactic", "%s rimescola %d carte nel mazzo (Meditazione di Mezzanotte)" % [eng.pname(p), chosen.size()], {"p": p})
 	eng.draw(p, chosen.size())
 
 static func _tactic_uses(eng, p: int) -> Array:
@@ -876,22 +876,22 @@ static func _tactic_uses(eng, p: int) -> Array:
 	match eng.tactic_key(pl.tactic):
 		"d6":
 			if not pl.tactic_used and s.announced_by == -1 and not s.game_end_pending:
-				out.append({"opt": "right_moment", "label": "Il momento giusto: gioca un altro turno dopo questo"})
+				out.append({"opt": "right_moment", "label": "Il Momento Giusto: gioca un altro turno dopo questo"})
 		"n2":
 			if not pl.tactic_used and pl.deck.is_empty() and not pl.discard.is_empty():
-				out.append({"opt": "long_night", "label": "Lunga notte: rimescola 3 carte degli scarti nel mazzo"})
+				out.append({"opt": "long_night", "label": "Una Lunga Notte: rimescola 3 carte degli scarti nel mazzo"})
 		"n3":
 			if not t.get("search_used", false) and int(t.dice_taken) == 0 and s.combat == null:
-				out.append({"opt": "mana_search", "label": "Ricerca del mana: rilancia fino a 2 dadi della Fonte"})
+				out.append({"opt": "mana_search", "label": "Cercare Mana: rilancia fino a 2 dadi della Riserva"})
 		"n4":
 			if not pl.tactic_used and not t.started and not pl.hand.is_empty():
-				out.append({"opt": "meditation", "label": "Meditazione di mezzanotte: rimescola fino a 5 carte e ripesca"})
+				out.append({"opt": "meditation", "label": "Meditazione di Mezzanotte: rimescola fino a 5 carte e ripesca"})
 		"n6":
 			if not pl.tactic_used and not t.get("sparing_done", false) and s.combat == null:
 				if not pl.deck.is_empty():
-					out.append({"opt": "store", "label": "Risparmio di energia: metti da parte la prima carta del mazzo"})
+					out.append({"opt": "store", "label": "Risparmiare Potere: metti da parte la prima carta del mazzo"})
 				if not pl.tactic_store.is_empty():
-					out.append({"opt": "take", "label": "Risparmio di energia: prendi in mano le %d carte messe da parte" % pl.tactic_store.size()})
+					out.append({"opt": "take", "label": "Risparmiare Potere: prendi in mano le %d carte messe da parte" % pl.tactic_store.size()})
 	return out
 
 static func check_tactic_use(eng, p: int, a: Dictionary) -> String:
@@ -908,7 +908,7 @@ static func do_tactic_use(eng, p: int, a: Dictionary) -> void:
 		"right_moment":
 			pl.tactic_used = true
 			s.turn.extra_turn = true
-			eng.add_log("tactic", "%s userà Il momento giusto" % eng.pname(p), {"p": p})
+			eng.add_log("tactic", "%s userà Il Momento Giusto" % eng.pname(p), {"p": p})
 		"long_night":
 			long_night(eng, p)
 		"mana_search":
@@ -926,7 +926,7 @@ static func _ask_search(eng, p: int, left: int) -> void:
 		var d: Dictionary = s.source[i]
 		if int(d.taken_by) == -1:
 			opts.append({"v": i, "label": "Rilancia il dado %s" % MKMana.color_it(d.color)})
-	eng.ask(p, "die", "tactic_search", "Ricerca del mana: scegli un dado da rilanciare", opts, {"left": left})
+	eng.ask(p, "die", "tactic_search", "Cercare Mana: scegli un dado da rilanciare", opts, {"left": left})
 
 static func long_night(eng, p: int) -> void:
 	var s: Dictionary = eng.s
@@ -937,4 +937,4 @@ static func long_night(eng, p: int) -> void:
 		if pl.discard.is_empty():
 			break
 		pl.deck.append(pl.discard.pop_front())
-	eng.add_log("tactic", "%s usa Lunga notte" % eng.pname(p), {"p": p})
+	eng.add_log("tactic", "%s usa Una Lunga Notte" % eng.pname(p), {"p": p})

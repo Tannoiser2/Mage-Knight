@@ -27,6 +27,7 @@
     "powered": "Movimento 4"
    },
    "img": "assets/cards/stamina.webp",
+   "img_lang": "it-gen",
    "copies": 2,
    "impl": true,
    "note": ""
@@ -71,6 +72,7 @@
     "powered": "Blocco 5"
    },
    "img": "assets/cards/determination.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -108,6 +110,7 @@
     "powered": "Guadagni un cristallo di un colore qualsiasi nel tuo Inventario."
    },
    "img": "assets/cards/crystallize.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Di Giorno il mana oro pagato vale come un colore base a scelta (cristallo di quel colore). Potenziato: colore base a scelta."
@@ -139,6 +142,7 @@
     "powered": "Movimento 4"
    },
    "img": "assets/cards/march.webp",
+   "img_lang": "it-gen",
    "copies": 2,
    "impl": true,
    "note": ""
@@ -196,6 +200,7 @@
     "powered": "Cura 2 oppure pesca due carte."
    },
    "img": "assets/cards/tranquility.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Carta Cura (icona in alto a sinistra): non giocabile durante il combattimento."
@@ -246,6 +251,7 @@
     "powered": "Quando giochi questa carta, gioca con essa un'altra carta Azione. Ottieni l'effetto più potente di quella carta gratuitamente. Se quell'effetto ti fornisce Movimento, Influenza, Blocco o qualsiasi tipo di Attacco, ottieni quel valore più 2."
    },
    "img": "assets/cards/concentration.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "boost_next qui significa: la carta Azione giocata subito dopo (obbligatoria, dalla mano) usa l'effetto potenziato SENZA pagare mana e ogni valore di Movimento/Influenza/Blocco/Attacco che fornisce riceve +n (se l'effetto è una scelta, il bonus va al valore scelto). Effetti 'composti': vedi regolamento (vale come un unico effetto)."
@@ -279,6 +285,7 @@
     "powered": "Attacco a Distanza 3"
    },
    "img": "assets/cards/swiftness.webp",
+   "img_lang": "it-gen",
    "copies": 2,
    "impl": true,
    "note": ""
@@ -314,6 +321,7 @@
     "powered": "Prendi un dado mana dalla Riserva e impostalo su un colore qualsiasi tranne l'oro. Guadagni due segnalini mana di quel colore. Non ritirare questo dado quando lo rimetti nella Riserva."
    },
    "img": "assets/cards/mana_draw.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Nome italiano dalla Guida alla prima partita ('Pescare Mana'; il modulo usa 'Prelievo di Mana')."
@@ -345,6 +353,7 @@
     "powered": "Influenza 4"
    },
    "img": "assets/cards/promise.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -438,6 +447,7 @@
     "powered": "Scarta un'altra carta dalla tua mano per ottenere Movimento 5, Influenza 5, Attacco 5 o Blocco 5."
    },
    "img": "assets/cards/improvisation.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "La carta scartata non può essere una Ferita."
@@ -473,6 +483,7 @@
     "powered": "Influenza 5. Reputazione -1."
    },
    "img": "assets/cards/threaten.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -517,6 +528,7 @@
     "powered": "Attacco 4"
    },
    "img": "assets/cards/rage.webp",
+   "img_lang": "it-gen",
    "copies": 2,
    "impl": true,
    "note": "Nome italiano dalla Guida alla prima partita ('Furia'; il modulo usa 'Rabbia')."
@@ -614,6 +626,7 @@
     "powered": "Attacco 4, Blocco 4, Attacco di Fuoco 3, Blocco di Fuoco 3, Attacco a Distanza 3 oppure Attacco d'Assedio 2."
    },
    "img": "assets/cards/battle_versatility.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -655,6 +668,7 @@
     "powered": "Prendi due dadi mana dalla Riserva e imposta ciascuno su un colore qualsiasi tranne l'oro. Guadagni un segnalino mana di ciascuno di quei colori. Non ritirare questi dadi quando li rimetti nella Riserva."
    },
    "img": "assets/cards/mana_pull.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Seconda carta specifica dell'eroe dell'Ultimate Edition (nel mazzo del modulo); nella prima edizione l'eroe aveva solo Versatilità in Battaglia."
@@ -712,6 +726,7 @@
     "powered": "Quando giochi questa carta, gioca con essa un'altra carta Azione. Ottieni l'effetto più potente di quella carta gratuitamente. Se quell'effetto ti fornisce Movimento, Influenza, Blocco o qualsiasi tipo di Attacco, ottieni quel valore più 3."
    },
    "img": "assets/cards/will_focus.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "boost_next: vedi Concentrazione."
@@ -764,6 +779,7 @@
     "powered": "Guadagni un cristallo di un qualsiasi colore base nel tuo Inventario. Alla fine del tuo turno, puoi scartare un'altra carta, anche una Ferita, per riprendere in mano questa carta."
    },
    "img": "assets/cards/crystal_joy.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Seconda carta specifica dell'eroe dell'Ultimate Edition (nel mazzo del modulo); nella prima edizione l'eroe aveva solo Forza di Volontà."
@@ -811,6 +827,7 @@
     "powered": "Influenza 4. Fama +1 e Reputazione +1 se la usi durante un'interazione."
    },
    "img": "assets/cards/noble_manners.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Nel Lua del modulo è chiamata 'Noble Promise'; la carta stampata è 'Noble Manners'."
@@ -893,6 +910,7 @@
     "powered": "Cura 2, pesca due carte, guadagni un cristallo verde nel tuo Inventario oppure rendi pronta un'Unità di Livello I, II o III."
    },
    "img": "assets/cards/rejuvenate.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Seconda carta specifica dell'eroe dell'Ultimate Edition (nel mazzo del modulo); nella prima edizione l'eroe aveva solo Nobili Maniere. Cura non utilizzabile in combattimento."
@@ -948,6 +966,7 @@
     "powered": "Blocco di Ghiaccio 5. Ottieni +1 Blocco di Ghiaccio per ogni abilità o colore d'attacco raffigurato sul gettone del nemico che blocchi (a meno che non abbia Immunità Arcana), oppure per ogni mana speso da un avversario durante l'attacco."
    },
    "img": "assets/cards/cold_toughness.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -1030,6 +1049,7 @@
     "powered": "Movimento 4, Influenza 4, Attacco 4 o Blocco 4."
    },
    "img": "assets/cards/instinct.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Seconda carta specifica dell'eroe dell'Ultimate Edition (nel mazzo del modulo); nella prima edizione l'eroe aveva solo Tenacia Gelida."
@@ -1110,6 +1130,7 @@
     "powered": "Movimento 4, Attacco a Distanza 3, oppure riduci di 2 un attacco nemico."
    },
    "img": "assets/cards/swift_reflexes.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "La riduzione dell'attacco si usa nella fase di Blocco (prima di bloccare/assegnare i danni)."
@@ -1158,6 +1179,7 @@
     "powered": "Movimento 4. Ogni altra carta che fornisce Movimento (incluse le carte giocate sul fianco) dà +1 Movimento in questo turno."
    },
    "img": "assets/cards/tirelessness.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -1204,6 +1226,7 @@
     "powered": "Movimento 4. Ogni volta che muovi in uno spazio in questo turno puoi scartare una carta per guadagnare un cristallo dello stesso colore. Se scarti un Artefatto puoi sceglierne il colore."
    },
    "img": "assets/cards/savage_harvesting.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -1257,6 +1280,7 @@
     "powered": "Influenza 6. Reputazione -1. Puoi rendere pronte le Unità di Livello I e II che controlli pagando 2 punti Influenza per livello dell'Unità."
    },
    "img": "assets/cards/ruthless_coercion.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -1356,6 +1380,7 @@
     "powered": "Movimento 4. Il costo di Movimento di un tipo di terreno viene ridotto di 1 in questo turno, fino a un minimo di 2."
    },
    "img": "assets/cards/druidic_paths.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": ""
@@ -1427,6 +1452,7 @@
     "powered": "Movimento 4, Cura 2 oppure Blocco pari al costo di Movimento non modificato dello spazio in cui ti trovi (Montagne 5, Laghi 2). È un Blocco di Fuoco di Giorno e un Blocco di Ghiaccio di Notte."
    },
    "img": "assets/cards/one_with_the_land.webp",
+   "img_lang": "it-gen",
    "copies": 1,
    "impl": true,
    "note": "Cura non utilizzabile in combattimento."

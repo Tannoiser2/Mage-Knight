@@ -111,14 +111,25 @@ static func _ctx(eng, p: int, level: int, t0: int) -> Dictionary:
 		idle_n = mini(4, int(_mem[gk].get("idle_n", 0)))
 	rf *= pow(0.75, float(idle_n))
 	var wc = C.T("wc")
-	if int(eng.s.round) >= int(eng.s.scn.get("rounds", 6)):
-		wc *= 0.85
 	var rounds = int(eng.s.scn.get("rounds", 6))
 	var left = rounds - int(eng.s.round)
+	if level >= 2:
+		# a wound clogs the deck for the rest of the game: dearer early, cheap in the last round
+		wc *= C.T("wc_base") + C.T("wc_slope") * float(clampi(left, 0, 5))
+	elif int(eng.s.round) >= rounds:
+		wc *= 0.85
 	var fm = 1.0 + C.T("fm_slope") * float(clampi(left, 0, 5))
+	if level >= 2 and str(eng.s.scn.get("mode", "")) == "coop" and eng.s.players.size() > 1:
+		# the team score counts the LOWEST fame: fame of the leading hero matters less than the cities
+		var low = 9999
+		for j in eng.s.players.size():
+			low = mini(low, int(eng.P(j).fame))
+		var gap = int(eng.P(p).fame) - low
+		if gap > 6:
+			fm *= clampf(1.0 - 0.03 * float(gap - 6), C.T("coop_fm_min"), 1.0)
 	return {"level": level, "rng": rng, "rf": rf, "idle_n": idle_n, "mp": C.mana_pool(eng, p), "wc": wc, "fm": fm,
 		"deadline": t0 + int(budget_us.get(level, 120000)), "cap": 32 if level >= 3 else (12 if level == 2 else 6),
-		"unit_mult": 1.0}
+		"unit_mult": C.T("unit_mult") if level >= 3 else 1.0}
 
 static func _decide(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary:
 	var s: Dictionary = eng.s

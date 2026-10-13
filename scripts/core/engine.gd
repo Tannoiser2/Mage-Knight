@@ -16,9 +16,9 @@ const COST_NIGHT := {"plains": 2, "hills": 3, "forest": 5, "desert": 3, "wastela
 const DIE_COLORS := ["red", "blue", "green", "white", "gold", "black"]
 const FORTIFIED_SITES := ["keep", "mage_tower", "city"]
 const ADVENTURE_SITES := ["dungeon", "tomb", "monster_den", "spawning_grounds", "ruins"]
-const SITE_IT := {"village": "villaggio", "monastery": "monastero", "keep": "fortezza", "mage_tower": "torre magica",
-	"dungeon": "dungeon", "tomb": "tomba", "monster_den": "tana dei mostri", "spawning_grounds": "terreno di nidificazione",
-	"ruins": "rovine antiche", "glade": "radura magica", "mine": "miniera di cristalli", "city": "città", "portal": "portale"}
+const SITE_IT := {"village": "villaggio", "monastery": "monastero", "keep": "castello", "mage_tower": "torre della magia",
+	"dungeon": "sotterraneo", "tomb": "tomba", "monster_den": "tana del mostro", "spawning_grounds": "terreni di nidificazione",
+	"ruins": "antiche rovine", "glade": "radura magica", "mine": "miniera di cristalli", "city": "città", "portal": "portale"}
 const HERO_COLORS := {"arythea": ["red", "red", "white"], "goldyx": ["green", "green", "blue"], "norowas": ["white", "white", "green"],
 	"tovak": ["blue", "blue", "red"], "wolfhawk": ["white", "white", "blue"], "krang": ["red", "red", "green"], "braevalar": ["green", "green", "blue"]}
 
@@ -629,6 +629,9 @@ func _setup_map(sc: Dictionary, sets: Array) -> void:
 	MKRng.shuffle(s, cities)
 	if sc.id == "first_recon":
 		country.sort_custom(func(a, b): return int(MKDB.tiles[a].number) < int(MKDB.tiles[b].number))
+	if cities.size() < int(sc.city):
+		# not enough city tiles in the chosen sets: the objective counts only the cities that exist
+		sc.city = cities.size()
 	var n_c: int = mini(int(sc.country), country.size())
 	var deck: Array = country.slice(0, n_c)
 	var spare: Array = country.slice(n_c)
@@ -1040,7 +1043,7 @@ func _advance() -> void:
 		return
 	var p: int = s.turn.get("player", -1)
 	if s.turn.get("extra_turn", false) and p >= 0:
-		add_log("turn", "%s gioca un altro turno (Il momento giusto)" % pname(p), {"p": p})
+		add_log("turn", "%s gioca un altro turno (Il Momento Giusto)" % pname(p), {"p": p})
 		_start_player_turn(p)
 		return
 	_start_turn_at(int(s.order_pos) + 1)
@@ -1629,11 +1632,25 @@ func explorable_slots(p: int) -> Array:
 				continue
 			if s.map.shape == "wedge" and _on_coast(c):
 				continue
-		elif n_adj < 2 and not touches_start and not (n_adj >= 1 and _is_coast(c)):
+		elif n_adj < 2 and not _next_to_well_connected(c, placed):
+			# Countryside tiles: adjacent to at least two tiles, or adjacent to a tile that
+			# borders at least two other tiles (Regolamento p. 7, "Movimento" 5f).
 			continue
 		out.append(c)
 	out.sort()
 	return out
+
+func _next_to_well_connected(c: String, placed: Dictionary) -> bool:
+	for m in MKHex.macro_neighbors(c):
+		if not placed.has(m):
+			continue
+		var n := 0
+		for m2 in MKHex.macro_neighbors(m):
+			if placed.has(m2):
+				n += 1
+		if n >= 2:
+			return true
+	return false
 
 func _is_coast(c: String) -> bool:
 	for m in MKHex.macro_neighbors(c):
@@ -1991,10 +2008,10 @@ func _check_play(p: int, a: Dictionary) -> String:
 		var side := str(a.get("side", ""))
 		match side:
 			"move":
-				if not can_still_move(p):
+				if not can_still_move(p) and not (in_combat and flag(p, "move_to_attack")):
 					return "Non puoi usare Movimento ora"
 			"influence":
-				if in_combat or not _can_influence(p):
+				if (in_combat and not flag(p, "influence_as_block")) or (not in_combat and not _can_influence(p)):
 					return "Non puoi usare Influenza ora"
 			"attack":
 				if not in_combat or s.combat.phase != "attack":
@@ -2199,7 +2216,7 @@ func _check_heal(p: int, a: Dictionary) -> String:
 	var tgt = a.get("target", "hand")
 	if str(tgt) == "hand":
 		if int(pool.heal) < 1:
-			return "Non hai punti Guarigione"
+			return "Non hai punti Cura"
 		for iid in P(p).hand:
 			if is_wound(iid):
 				return ""
@@ -2208,7 +2225,7 @@ func _check_heal(p: int, a: Dictionary) -> String:
 	if u == null or not u.wounded:
 		return "Unità non ferita"
 	if int(pool.heal) < unit_level(u):
-		return "Servono %d punti Guarigione" % unit_level(u)
+		return "Servono %d punti Cura" % unit_level(u)
 	return ""
 
 func _do_heal(p: int, a: Dictionary) -> void:
@@ -2508,7 +2525,7 @@ func _cleanup(p: int) -> void:
 				d.color = DIE_COLORS[MKRng.rand_int(s, 6)]
 	if t.get("stolen_used", "") != "":
 		s.source.append({"color": DIE_COLORS[MKRng.rand_int(s, 6)], "taken_by": -1})
-	_fix_source()
+	# (the "at least half basic colours" check applies only when the Source is reset at round start)
 	for iid in pl.play:
 		if iid in t.destroy:
 			throw_away_played(p, iid)
@@ -2620,7 +2637,7 @@ func _game_over() -> void:
 
 func score(i: int) -> Dictionary:
 	var pl: Dictionary = P(i)
-	var all: Array = pl.deck + pl.hand + pl.discard + pl.play
+	var all: Array = pl.deck + pl.hand + pl.discard + pl.play + pl.get("set_aside", []) + pl.get("tactic_store", [])
 	var spells := 0
 	var aas := 0
 	var arts := 0
@@ -2721,7 +2738,7 @@ func _city_points(i: int) -> int:
 func _ach_value(j: int, key: String) -> int:
 	# computed without titles (avoid recursion)
 	var pl: Dictionary = P(j)
-	var all: Array = pl.deck + pl.hand + pl.discard + pl.play
+	var all: Array = pl.deck + pl.hand + pl.discard + pl.play + pl.get("set_aside", []) + pl.get("tactic_store", [])
 	var v := 0
 	match key:
 		"knowledge":
@@ -2732,6 +2749,7 @@ func _ach_value(j: int, key: String) -> int:
 			for iid in all:
 				if str(card(iid).get("type", "")) == "artifact":
 					v += 2
+			v += 2 * pl.get("banners", {}).size()   # banners attached to units count as artifacts
 			var cr := 0
 			for c in pl.crystals:
 				cr += int(pl.crystals[c])

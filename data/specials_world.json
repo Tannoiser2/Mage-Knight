@@ -6,7 +6,7 @@
   ]
  },
  "tactic_mana_steal": {
-  "desc": "Alla scelta: prende un dado della Fonte che mostra un colore base (rosso/blu/verde/bianco) e lo tiene sulla carta (non è più nella Fonte, non viene rilanciato a fine turno degli altri). In un qualsiasi proprio turno di questo Giorno può usarlo come mana di quel colore (in aggiunta al normale dado della Fonte); se lo usa, a fine turno il dado viene rilanciato e rimesso nella Fonte e la tattica non ha più effetto.",
+  "desc": "Alla scelta: prende un dado della Riserva che mostra un colore base (rosso/blu/verde/bianco) e lo tiene sulla carta (non è più nella Riserva, non viene rilanciato a fine turno degli altri). In un qualsiasi proprio turno di questo Giorno può usarlo come mana di quel colore (in aggiunta al normale dado della Riserva); se lo usa, a fine turno il dado viene rilanciato e rimesso nella Riserva e la tattica non ha più effetto.",
   "used_by": [
    "mana_steal"
   ]
@@ -30,7 +30,7 @@
   ]
  },
  "tactic_mana_search": {
-  "desc": "Una volta per turno, prima di prendere mana dalla Fonte: il giocatore può rilanciare fino a 2 dadi della Fonte non presi (se ci sono dadi oro esauriti di Notte, cioè oro, deve sceglierli per primi).",
+  "desc": "Una volta per turno, prima di prendere mana dalla Riserva: il giocatore può rilanciare fino a 2 dadi della Riserva non presi (se ci sono dadi oro esauriti di Notte, cioè oro, deve sceglierli per primi).",
   "used_by": [
    "mana_search"
   ]

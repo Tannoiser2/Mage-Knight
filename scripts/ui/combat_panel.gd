@@ -83,6 +83,14 @@ static func build(v, holder: Control) -> void:
 		if e != null and MKCombat.targetable(eng, e):
 			keep.append(eid)
 	v.combat_sel = keep
+	# a single possible target is selected automatically
+	if keep.is_empty() and loc and phase in ["ranged", "attack"]:
+		var only := []
+		for e in c.get("enemies", []):
+			if MKCombat.targetable(eng, e):
+				only.append(str(e.eid))
+		if only.size() == 1:
+			v.combat_sel = only
 	var av: Array = v.avail()
 	for e in c.get("enemies", []):
 		if e.get("hidden", false):
@@ -193,6 +201,9 @@ static func _enemy_card(v, e: Dictionary, phase: String, loc: bool, av: Array) -
 					continue
 				var to = a2.get("to")
 				var lb := "All'eroe" if str(to) == "hero" else eng.unit_name_by_uid(int(v.actor()), int(to))
+				if str(to) == "hero":
+					var nw := int(ceil(float(int(at.rem)) / float(maxi(1, eng.armor_of(int(v.actor()))))))
+					lb = "All'eroe (%d Ferit%s)" % [nw, "a" if nw == 1 else "e"]
 				var b2 := MKHud.btn(lb, func(): v.submit(a2), 0, 36, str(to) == "hero", 16)
 				b2.tooltip_text = str(x.get("label", ""))
 				g.add_child(b2)
@@ -258,7 +269,7 @@ static func _footer(v, phase: String, loc: bool) -> Control:
 	var na := {"t": "next"}
 	if eng.check(na) == "":
 		var lbl: String = {"ranged": "Passa al Blocco ▶", "block": "Passa ai Danni ▶", "damage": "Passa all'Attacco ▶", "attack": "Termina il combattimento ▶"}.get(phase, "Avanti ▶")
-		hb.add_child(MKHud.btn(lbl, func(): v.submit(na), 0, 48, phase == "damage" or v.combat_sel.is_empty(), 20))
+		hb.add_child(MKHud.btn(lbl, func(): v.submit(na), 0, 48, phase == "damage" or v.combat_sel.is_empty() or eng.check({"t": "attack", "targets": v.combat_sel.duplicate()}) != "", 20))
 	elif phase == "damage":
 		hb.add_child(MKUI.label("Assegna tutti i danni", 18, MKUI.RED, MKUI.font_italic))
 	return hb

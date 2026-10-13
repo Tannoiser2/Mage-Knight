@@ -197,7 +197,7 @@ static func label(eng, p: int, src: String) -> String:
 	if base.begins_with("token:"):
 		return "gettone " + color_it(col) + extra
 	if base.begins_with("die:"):
-		return "dado " + color_it(col) + " della Fonte" + extra
+		return "dado " + color_it(col) + " della Riserva" + extra
 	if base.begins_with("crystal:"):
 		return "cristallo " + color_it(col)
 	if base == "stolen":

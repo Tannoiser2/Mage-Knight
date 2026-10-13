@@ -111,9 +111,10 @@ static func typical_type(eng, color: String) -> String:
 
 # ================================================================ items
 ## Resources usable in combat: [{kind, key, val, opts:[{act, needs, b, c, v...}]}]
-static func gather(eng, p: int, ctx: Dictionary, exclude: Dictionary = {}, units_ok: bool = true, with_pool: bool = true) -> Array:
+static func gather(eng, p: int, ctx: Dictionary, exclude: Dictionary = {}, units_ok: bool = true, with_pool: bool = true, hand_override = null, all_units: bool = false) -> Array:
 	var items: Array = []
 	var pl: Dictionary = eng.P(p)
+	var hand: Array = pl.hand if hand_override == null else hand_override
 	var rf: float = ctx.get("rf", C.round_factor(eng, p))
 	var mp: Dictionary = ctx.get("mp", C.mana_pool(eng, p))
 	var cctx: Dictionary = C.base_ctx(eng, p, true, "any")
@@ -129,7 +130,7 @@ static func gather(eng, p: int, ctx: Dictionary, exclude: Dictionary = {}, units
 		if not pb.atk.is_empty() or not pb.blk.is_empty() or pb.bsw > 0:
 			# the pool is emptied when the phase ends: it only helps in the current phase
 			items.append({"kind": "pool", "key": "pool", "val": 0.0, "only": str(eng.s.combat.phase), "opts": [{"act": {}, "needs": [], "b": pb, "c": 0.0}]})
-	for iid in pl.hand:
+	for iid in hand:
 		if eng.is_wound(iid) or exclude.has(iid):
 			continue
 		var opts: Array = []
@@ -145,7 +146,7 @@ static func gather(eng, p: int, ctx: Dictionary, exclude: Dictionary = {}, units
 			items.append({"kind": "card", "key": iid, "val": C.card_value(eng, p, iid, rf), "opts": opts})
 	if units_ok and eng.units_usable():
 		for u in pl.units:
-			if not u.ready or u.wounded or exclude.has("u%d" % int(u.uid)):
+			if (not u.ready and not all_units) or u.wounded or exclude.has("u%d" % int(u.uid)):
 				continue
 			var uopts: Array = []
 			for o2 in C.unit_opts(eng, p, u, cctx):
@@ -174,7 +175,10 @@ static func gather(eng, p: int, ctx: Dictionary, exclude: Dictionary = {}, units
 	return items
 
 static func _combat_useful(b: Dictionary) -> bool:
-	return not b.atk.is_empty() or not b.blk.is_empty() or int(b.bsw) > 0
+	return not b.atk.is_empty() or not b.blk.is_empty() or int(b.bsw) > 0 or b.has("noatk") or b.has("kill1") or b.has("armod")
+
+static func _immune(m: Dictionary, immune: String) -> bool:
+	return immune != "" and resists(m, immune)
 
 # ================================================================ value functions
 static func atk_v2(b: Dictionary, group: Array, ph: String) -> int:
@@ -201,6 +205,19 @@ static func atk_v2(b: Dictionary, group: Array, ph: String) -> int:
 				res = true
 				break
 		v2 += n if res else 2 * n
+	if b.has("kill1") and ph == "attack" and group.size() == 1 and not _immune(group[0], str(b.kill1.immune)):
+		v2 += 1000
+	if b.has("armod") and ph != "block":
+		var am: Dictionary = b.armod
+		var cnt = 0
+		var nn = 0
+		for m2 in group:
+			if not _immune(m2, str(am.immune)):
+				cnt += 1
+				nn = maxi(nn, int(am.fort_n) if m2.fort else int(am.n))
+		if not am.all:
+			cnt = mini(cnt, 1)
+		v2 += 2 * nn * cnt
 	return v2
 
 static func block_eff(bel: String, ael: String) -> bool:
@@ -220,6 +237,13 @@ static func blk_v2(b: Dictionary, at: Dictionary) -> int:
 	for el in b.blk:
 		var n = int(b.blk[el])
 		v2 += 2 * n if block_eff(el, at.elem) else n
+	if b.has("noatk"):
+		var na: Dictionary = b.noatk
+		var ok = not (na.unfort and at.get("fort", false))
+		if ok and str(na.immune) != "" and str(na.immune) in at.get("resist", []):
+			ok = false
+		if ok:
+			v2 += 1000
 	var bs = int(b.bsw)
 	if bs > 0:
 		var x = bs * (2 if at.get("swift", false) else 1)
@@ -358,7 +382,7 @@ static func hero_cost(d: int, at: Dictionary, cfg: Dictionary) -> Array:
 	var w = int(ceil(float(d) / float(arm)))
 	var c = float(w) * float(cfg.wc)
 	if at.get("poison", false):
-		c += float(w) * float(cfg.wc) * 0.6
+		c += float(w) * float(cfg.wc) * float(cfg.get("poison_f", 0.6))
 	if at.get("paralyze", false) and w > 0:
 		c += float(cfg.ko_pen)
 	return [c, w]
@@ -526,6 +550,8 @@ static func plan(items: Array, enemies: Array, phase: String, cfg: Dictionary) -
 					a2["brutal"] = m.brutal
 					a2["poison"] = m.poison
 					a2["paralyze"] = m.paralyze
+					a2["fort"] = m.fort
+					a2["resist"] = m.resist
 					hits.append(a2)
 				if phase == "ranged" and m.summon:
 					var sa: Dictionary = SUMMON_ATK.duplicate()
@@ -589,6 +615,8 @@ static func plan(items: Array, enemies: Array, phase: String, cfg: Dictionary) -
 						for pk in g2.picks:
 							if items[pk[0]].kind == "card":
 								ok0 = false
+				if OS.get_environment("AI_CBDBG") != "":
+					printerr("   KR=%s KA=%s base=%.2f r0=%.2f bl0=%.2f(%d blocks) dmg0=%.2f ko=%s r1=%s bl1=%.2f dmg1=%.2f" % [str(_ids(KR)), str(_ids(KA)), base, float(r0.cost), float(bl0.cost), bl0.blocks.size(), float(dmg0.cost), str(dmg0.ko), str(r1.get("cost", "-")), float(bl1.cost), float(dmg1.cost)])
 				if ok0:
 					var sc0 = base - float(r0.cost) - float(bl0.cost) - float(dmg0.cost)
 					if sc0 > float(best.score):
@@ -675,9 +703,10 @@ static func _all_dead(defs: Array, KR: Array, KA: Array) -> bool:
 			return false
 	return true
 
-static func _greedy_blocks(items: Array, used: Dictionary, hits: Array, cfg: Dictionary) -> Dictionary:
+static func _greedy_blocks(items: Array, used0: Dictionary, hits: Array, cfg: Dictionary) -> Dictionary:
 	if hits.is_empty():
 		return {"cost": 0.0, "blocks": [], "unblocked": []}
+	var used: Dictionary = used0.duplicate()   # never mutate the caller's allocation
 	var cands: Array = []
 	for at in hits:
 		var dc: Dictionary = damage_cost([at], cfg)
@@ -699,6 +728,8 @@ static func _greedy_blocks(items: Array, used: Dictionary, hits: Array, cfg: Dic
 			unblocked.append(at)
 			continue
 		var r = alloc_block(items, used, at)
+		if OS.get_environment("AI_CBDBG") == "2":
+			printerr("      greedy blk %s n=%d saved=%.2f r=%s used=%s" % [str(at.eid), int(at.n), saved, str(r), str(used.keys())])
 		if not r.is_empty() and float(r.cost) < saved - 0.05:
 			cost += float(r.cost)
 			_mark(used, r.picks)
@@ -728,9 +759,16 @@ static func base_cfg(eng, p: int, ctx: Dictionary) -> Dictionary:
 	for iid in pl.hand:
 		if not eng.is_wound(iid):
 			hand_cards += 1
-	return {"fm": ctx.get("fm", 1.0), "armor": eng.armor_of(p), "hand_limit": eng.base_hand_limit(p), "wounds_so_far": wsf, "wc": ctx.get("wc", 2.6),
+	return {"poison_f": C.T("poison_f") if int(ctx.get("level", 2)) >= 2 else 0.6, "fm": ctx.get("fm", 1.0), "armor": eng.armor_of(p), "hand_limit": eng.base_hand_limit(p), "wounds_so_far": wsf, "wc": ctx.get("wc", 2.6),
 		"units": units, "ko_pen": hand_v * 0.8 + 2.0, "site_bonus": 0.0, "defenders_alive": [], "cap": ctx.get("cap", 32),
 		"deadline": ctx.get("deadline", 0), "hand_cards": hand_cards}
+
+## Share of the conquest bonus credited for each defender defeated without conquering the site
+## (cities: defeated defenders stay defeated, the siege continues on later turns).
+static func progress_frac(eng, site_type: String, level: int) -> float:
+	if site_type == "city" and level >= 2:
+		return C.T("city_prog") * (1.0 if level >= 3 else 0.75)
+	return 0.35
 
 ## Value of conquering the site of the current/planned combat.
 static func site_bonus(eng, p: int, site_type: String, hexk: String) -> float:
@@ -819,7 +857,7 @@ static func combat_cfg(eng, p: int, ctx: Dictionary) -> Dictionary:
 	cfg.site_bonus = bonus
 	cfg.defenders_alive = defs
 	if kind == "assault" or st in ["monster_den", "spawning_grounds", "ruins"]:
-		cfg["progress"] = 0.35 * bonus / float(maxi(1, defs.size()))
+		cfg["progress"] = progress_frac(eng, st, int(ctx.get("level", 2))) * bonus / float(maxi(1, defs.size()))
 	return cfg
 
 ## Plan for the current combat state.

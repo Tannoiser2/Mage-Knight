@@ -14,7 +14,7 @@
   "sites": "orcs = Orchi Predoni (nemico verde infuriato), draconum = Draconum (nemico rosso infuriato), ruins = Antiche Rovine (segnalino giallo), keep = Castello, mage_tower = Torre della Magia, dungeon = Sotterraneo, tomb = Tomba, monster_den = Tana del Mostro, spawning_grounds = Terreni di Nidificazione, glade = Radura Magica, mine = Miniera di Cristallo (colore in \"mine\"), camp = Campo Profughi (LL), maze/labyrinth = Dedalo/Labirinto (LL), oasis/pyramid/ziggurat (Apocalypse Dragon).",
   "mines": "mines: {dir: colore} (stringa); nelle tessere di espansione una miniera può produrre più colori a scelta (Miniere Profonde) e allora il valore è un array.",
   "walls": "walls (solo espansioni): per ogni esagono, l'elenco dei lati (direzioni) con un muro.",
-  "sets": "base = gioco base (Campagna 1-11, Centrali 1-4, Città 5-8, iniziali A/B); ll = Lost Legion (Campagna 12-14, Centrali 9-10, campo di Volkare); apocalypse = Apocalypse Dragon (Campagna 15-17, Centrali 11-12). Fonte: setupContentRoster del Lua.",
+  "sets": "base = gioco base (Campagna 1-11, Centrali 1-4, Città 5-8, iniziali A/B); ll = Lost Legion (Campagna 12-14, Centrali 9-10, campo di Volkare); apocalypse = Apocalypse Dragon (Campagna 15-17, Centrali 11-12). Riserva: setupContentRoster del Lua.",
   "kinds": "start | country | core | city (k05..k08 sono le tessere città: verde, blu, bianca, rossa).",
   "terrain": "plains pianura, hills colline, forest foresta, wasteland terre perdute (landa), desert deserto, swamp palude, lake lago, mountain montagna, ocean oceano."
  },

@@ -378,7 +378,7 @@
   ]
  },
  "mana_claim": {
-  "desc": "Prendi un dado di colore base dalla Fonte e tienilo fino a fine round (non torna alla Fonte); scegli: 3 gettoni mana di quel colore in questo turno, oppure 1 gettone di quel colore all'inizio di ognuno dei tuoi turni successivi di questo round. curse=true (Maledizione del mana): inoltre fino a fine round ogni altro giocatore che usa mana di quel colore nel proprio turno riceve una Ferita (max 1 per turno).",
+  "desc": "Prendi un dado di colore base dalla Riserva e tienilo fino a fine round (non torna alla Riserva); scegli: 3 gettoni mana di quel colore in questo turno, oppure 1 gettone di quel colore all'inizio di ognuno dei tuoi turni successivi di questo round. curse=true (Maledizione del mana): inoltre fino a fine round ogni altro giocatore che usa mana di quel colore nel proprio turno riceve una Ferita (max 1 per turno).",
   "used_by": [
    "mana_claim"
   ]
@@ -637,7 +637,7 @@
   ]
  },
  "sideways_bonus": {
-  "desc": "Una carta giocata di lato fornisce +base invece di +1. aa_spell_artifact = valore se la carta è un'Azione avanzata, un Incantesimo o un Artefatto; no_source = valore se in questo turno non usi dadi della Fonte.",
+  "desc": "Una carta giocata di lato fornisce +base invece di +1. aa_spell_artifact = valore se la carta è un'Azione avanzata, un Incantesimo o un Artefatto; no_source = valore se in questo turno non usi dadi della Riserva.",
   "used_by": [
    "tovak_i_dont_give_a_damn",
    "tovak_who_needs_magic"
@@ -650,13 +650,13 @@
   ]
  },
  "source_freeze": {
-  "desc": "Congelare la Fonte (competitiva, l'Abilità va al centro): prendi un dado di colore base dalla Fonte e ottieni un cristallo di quel colore; fino all'inizio del tuo prossimo turno gli altri giocatori non possono usare quel dado (resta congelato), poi viene rilanciato.",
+  "desc": "Congelare la Riserva (competitiva, l'Abilità va al centro): prendi un dado di colore base dalla Riserva e ottieni un cristallo di quel colore; fino all'inizio del tuo prossimo turno gli altri giocatori non possono usare quel dado (resta congelato), poi viene rilanciato.",
   "used_by": [
    "goldyx_source_freeze"
   ]
  },
  "source_opening": {
-  "desc": "Apertura della Fonte (cooperativa): puoi rilanciare un dado della Fonte; l'Abilità va nell'area di gioco; un altro giocatore nel suo turno può usare un dado aggiuntivo dalla Fonte dandoti un cristallo del suo colore e scegliere se rilanciarlo.",
+  "desc": "Apertura della Riserva (cooperativa): puoi rilanciare un dado della Riserva; l'Abilità va nell'area di gioco; un altro giocatore nel suo turno può usare un dado aggiuntivo dalla Riserva dandoti un cristallo del suo colore e scegliere se rilanciarlo.",
   "used_by": [
    "goldyx_source_opening"
   ]

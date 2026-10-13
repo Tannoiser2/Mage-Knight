@@ -618,6 +618,28 @@ func card_entries(iid: String) -> Array:
 			if str(c.get("type", "")) == "artifact" and mode == "powered":
 				hint = " (l'Artefatto viene distrutto)"
 			out.append({"label": "%s%s: %s" % [head, hint, desc], "a": a})
+	# effects that cannot be used now are listed greyed out with the reason (e.g. missing mana)
+	if not out.is_empty() and not eng.is_wound(iid):
+		for mode2 in ["basic", "powered"]:
+			if c.get(mode2, []).is_empty():
+				continue
+			var have := false
+			for e2 in out:
+				if str(e2["a"].get("mode", "")) == mode2:
+					have = true
+			if have:
+				continue
+			var why := eng.check({"t": "play", "card": iid, "mode": mode2})
+			if why == "":
+				continue
+			var head2 := "Base" if mode2 == "basic" else "Potenziata"
+			var needs2: Array = eng.card_mana_needs(c, mode2)
+			if not needs2.is_empty() and why.begins_with("Mana"):
+				var cols2 := []
+				for nd in needs2:
+					cols2.append(MKMana.color_it(str(nd)))
+				why = "serve mana " + " + ".join(cols2)
+			out.append({"label": "%s: %s" % [head2, why], "a": {}, "disabled": true})
 	return out
 
 
@@ -650,6 +672,8 @@ func open_filtered_menu(title: String, img: String, info: String, filter: Callab
 
 func open_modal(name_: String, dim := 0.55, close_on_bg := true) -> Control:
 	_close_modal(name_)
+	if tip_panel != null:
+		tip_panel.visible = false
 	var holder := Control.new()
 	holder.name = name_
 	holder.set_anchors_preset(Control.PRESET_FULL_RECT)
@@ -730,6 +754,7 @@ func _build_center() -> void:
 
 func open_site() -> void:
 	site_open = true
+	tip_panel.visible = false
 	_build_center()
 
 
@@ -785,6 +810,9 @@ func _update_highlights() -> void:
 				if not d.has(pos):
 					d[pos] = {"kind": "site", "label": ""}
 					_hl_action[pos] = {"t": "_site"}
+		if pos != "" and not d.has(pos) and _has_site_menu():
+			d[pos] = {"kind": "site", "label": ""}
+			_hl_action[pos] = {"t": "_site"}
 	table.set_highlights(d)
 
 
@@ -871,12 +899,18 @@ func _on_hex_clicked(k: String) -> void:
 			else:
 				MKScreens.site_quick(self)
 		"challenge":
-			MKScreens.confirm(self, "Sfidare i nemici scatenati?", "Inizierà un combattimento contro %s." % eng._hex_label(str(a["hexes"][0])), func(): submit(a))
+			var names := []
+			for eid in eng.hex(str(a["hexes"][0])).get("enemies", []):
+				names.append(eng.enemy_name(str(eid)))
+			MKScreens.confirm(self, "Sfidare i nemici scatenati?", "Inizierà un combattimento contro: %s." % ", ".join(names), func(): submit(a))
 		_:
 			submit(a)
 
 
 func _has_site_menu() -> bool:
+	# an inhabited site where the hero may interact: show the panel even before playing Influence
+	if local() and s.combat == null and s.pending == null and str(s.phase) == "turn" and MKSites.can_interact(eng, actor()) == "":
+		return true
 	for x in avail():
 		if str(x["a"].get("t", "")) in ["recruit", "buy"]:
 			return true
@@ -964,7 +998,20 @@ func hex_tip(k: String) -> String:
 		lines.append(st)
 	var ru = h.get("ruins", "")
 	if ru is String and ru != "":
-		lines.append("Segnalino Rovine " + ("scoperto" if h.get("ruins_face_up", false) else "coperto"))
+		var rtxt := "Segnalino Rovine " + ("scoperto" if h.get("ruins_face_up", false) else "coperto")
+		var rd: Dictionary = MKDB.ruins.get(ru, {})
+		if h.get("ruins_face_up", false) and not rd.is_empty():
+			if str(rd.get("kind", "")) == "altar":
+				var cols := []
+				for c in rd.get("altar_cost", []):
+					cols.append(MKHud.COLOR_IT.get(str(c), str(c)))
+				rtxt += ": altare, paga 3 mana (%s) → %d Fama" % [", ".join(cols), int(rd.get("fame", 7))]
+			else:
+				var ens := []
+				for c in rd.get("enemies", []):
+					ens.append(MKHud.ENEMY_COLOR_IT.get(str(c), str(c)))
+				rtxt += ": nemici %s → %s" % [" e ".join(ens), str(rd.get("reward_it", ""))]
+		lines.append(rtxt)
 	for eid in h.get("enemies", []):
 		var e: Dictionary = s.enemies.get(eid, {})
 		if e.is_empty():
@@ -972,7 +1019,7 @@ func hex_tip(k: String) -> String:
 		if e.get("face_up", false):
 			lines.append("• " + MKHud.enemy_tip(str(e.get("type", ""))))
 		else:
-			lines.append("• Nemico coperto (%s)" % MKHud.COLOR_IT.get(str(e.get("color", "")), str(e.get("color", ""))))
+			lines.append("• Nemico coperto (%s)" % MKHud.ENEMY_COLOR_IT.get(str(e.get("color", "")), str(e.get("color", ""))))
 	if h.get("rampage", false) and not h.get("enemies", []).is_empty():
 		lines.append("[color=#ff9a3a]Nemici scatenati: non si può entrare; passare accanto da un esagono adiacente all'altro li provoca.[/color]")
 	for i in range(s.players.size()):

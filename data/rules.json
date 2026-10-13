@@ -158,7 +158,7 @@
   "spells": 3,
   "monastery_aa_cost": 6
  },
- "round_reset": "Inizio round: gira Giorno/Notte, rilancia la Fonte, nuova offerta Unità (le vecchie in fondo ai mazzi), l'AA più in basso va in fondo al mazzo e se ne aggiunge una nuova in cima (idem Incantesimi), si raccolgono le tattiche, si preparano Unità e abilità.",
+ "round_reset": "Inizio round: gira Giorno/Notte, rilancia la Riserva, nuova offerta Unità (le vecchie in fondo ai mazzi), l'AA più in basso va in fondo al mazzo e se ne aggiunge una nuova in cima (idem Incantesimi), si raccolgono le tattiche, si preparano Unità e abilità.",
  "knockout": "Colpo di Grazia: se in un combattimento l'Eroe riceve ferite in mano ≥ limite di mano non modificato (gettone Livello), scarta subito tutte le carte non-Ferita dalla mano.",
  "sites": {
   "village": {

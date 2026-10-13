@@ -146,7 +146,7 @@
    "end": "Come Conquista Totale (4 round).",
    "scoring": "standard+cities",
    "titles": true,
-   "desc_it": "Versione breve della Conquista. 4 Round (2 Giorni e 2 Notti), da 2 a 4 giocatori. Cuneo (2-3) o aperta limitata a 4 colonne (4). Tessere Campagna 6/7/9, città pari ai giocatori, non-città una in meno; città di livello 3. Si inizia con Fama 1 e Reputazione +2; ogni volta che si supera una linea del tracciato della Fama si ottiene 1 Fama extra; un dado in più nella Fonte e un'Unità in più nell'offerta. Punteggio come Conquista Totale."
+   "desc_it": "Versione breve della Conquista. 4 Round (2 Giorni e 2 Notti), da 2 a 4 giocatori. Cuneo (2-3) o aperta limitata a 4 colonne (4). Tessere Campagna 6/7/9, città pari ai giocatori, non-città una in meno; città di livello 3. Si inizia con Fama 1 e Reputazione +2; ogni volta che si supera una linea del tracciato della Fama si ottiene 1 Fama extra; un dado in più nella Riserva e un'Unità in più nell'offerta. Punteggio come Conquista Totale."
   },
   "solo_conquest": {
    "name_it": "Conquista in Solitario",
@@ -295,7 +295,8 @@
     "fame_bonus_per_track_line:1",
     "start_rep:2",
     "extra_source_die:1",
-    "extra_unit_offer:1"
+    "extra_unit_offer:1",
+    "dummy_no_final_turn"
    ],
    "end": "Come Cooperazione Totale (4 round).",
    "scoring": "coop",
@@ -308,7 +309,7 @@
     "per_dummy_deck_card": 1,
     "round_end_not_announced": 5
    },
-   "desc_it": "Versione breve della Cooperazione Totale: 4 Round (2 Giorni e 2 Notti), 2 o 3 giocatori. Tessere Campagna 7/8, tessere città pari ai giocatori, non-città una in meno; le città, nell'ordine di rivelazione, sono di livello 5 e 8 (2 giocatori) o 5, 8 e 11 (3). Si inizia con Fama 1 e Reputazione +2, +1 Fama ogni volta che si supera una linea del tracciato, un dado in più nella Fonte e un'Unità in più nell'offerta."
+   "desc_it": "Versione breve della Cooperazione Totale: 4 Round (2 Giorni e 2 Notti), 2 o 3 giocatori. Tessere Campagna 7/8, tessere città pari ai giocatori, non-città una in meno; le città, nell'ordine di rivelazione, sono di livello 5 e 8 (2 giocatori) o 5, 8 e 11 (3). Si inizia con Fama 1 e Reputazione +2, +1 Fama ogni volta che si supera una linea del tracciato, un dado in più nella Riserva e un'Unità in più nell'offerta."
   }
  }
 }

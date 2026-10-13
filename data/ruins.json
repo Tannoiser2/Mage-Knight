@@ -123,7 +123,7 @@
     "artifact"
    ],
    "reward_it": "1 Artefatto",
-   "text_it": "Nemici: gray, brown. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Artefatto.",
+   "text_it": "Nemici: grigio, marrone. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Artefatto.",
    "img": "assets/ruins/enemies_gray_brown.webp"
   },
   "enemies_green_brown": {
@@ -139,7 +139,7 @@
     "artifact"
    ],
    "reward_it": "1 Artefatto",
-   "text_it": "Nemici: green, brown. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Artefatto.",
+   "text_it": "Nemici: verde, marrone. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Artefatto.",
    "img": "assets/ruins/enemies_green_brown.webp"
   },
   "enemies_brown_violet": {
@@ -156,7 +156,7 @@
     "crystals_all"
    ],
    "reward_it": "1 Incantesimo e 1 cristallo base per colore",
-   "text_it": "Nemici: brown, violet. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Incantesimo e 1 cristallo base per colore.",
+   "text_it": "Nemici: marrone, viola. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Incantesimo e 1 cristallo base per colore.",
    "img": "assets/ruins/enemies_brown_violet.webp"
   },
   "enemies_gray_white": {
@@ -173,7 +173,7 @@
     "spell"
    ],
    "reward_it": "1 Artefatto e 1 Incantesimo",
-   "text_it": "Nemici: gray, white. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Artefatto e 1 Incantesimo.",
+   "text_it": "Nemici: grigio, bianco. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Artefatto e 1 Incantesimo.",
    "img": "assets/ruins/enemies_gray_white.webp"
   },
   "enemies_gray_violet": {
@@ -189,7 +189,7 @@
     "unit"
    ],
    "reward_it": "1 Unità (Regolare o Élite)",
-   "text_it": "Nemici: gray, violet. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Unità (Regolare o Élite).",
+   "text_it": "Nemici: grigio, viola. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Unità (Regolare o Élite).",
    "img": "assets/ruins/enemies_gray_violet.webp"
   },
   "enemies_brown_red": {
@@ -206,7 +206,7 @@
     "artifact"
    ],
    "reward_it": "2 Artefatti",
-   "text_it": "Nemici: brown, red. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 2 Artefatti.",
+   "text_it": "Nemici: marrone, rosso. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 2 Artefatti.",
    "img": "assets/ruins/enemies_brown_red.webp"
   },
   "enemies_green_green": {
@@ -222,7 +222,7 @@
     "crystals_all"
    ],
    "reward_it": "1 cristallo base per colore",
-   "text_it": "Nemici: green, green. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 cristallo base per colore.",
+   "text_it": "Nemici: verde, verde. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 cristallo base per colore.",
    "img": "assets/ruins/enemies_green_green.webp"
   },
   "enemies_violet_violet": {
@@ -239,7 +239,7 @@
     "aa"
    ],
    "reward_it": "1 Incantesimo e 1 Azione Avanzata",
-   "text_it": "Nemici: violet, violet. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Incantesimo e 1 Azione Avanzata.",
+   "text_it": "Nemici: viola, viola. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Incantesimo e 1 Azione Avanzata.",
    "img": "assets/ruins/enemies_violet_violet.webp"
   },
   "enemies_green_red": {
@@ -256,7 +256,7 @@
     "aa"
    ],
    "reward_it": "1 Artefatto e 1 Azione Avanzata",
-   "text_it": "Nemici: green, red. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Artefatto e 1 Azione Avanzata.",
+   "text_it": "Nemici: verde, rosso. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Artefatto e 1 Azione Avanzata.",
    "img": "assets/ruins/enemies_green_red.webp"
   },
   "enemies_green_green_green": {
@@ -273,7 +273,7 @@
     "unit"
    ],
    "reward_it": "1 Unità (Regolare o Élite)",
-   "text_it": "Nemici: green, green, green. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Unità (Regolare o Élite).",
+   "text_it": "Nemici: verde, verde, verde. Se li sconfiggi tutti, contrassegna lo spazio con uno Scudo e ricevi: 1 Unità (Regolare o Élite).",
    "img": "assets/ruins/enemies_green_green_green.webp"
   }
  }

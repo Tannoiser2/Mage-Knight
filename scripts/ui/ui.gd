@@ -41,14 +41,14 @@ const MANA_COL := {
 }
 
 const TERRAIN_IT := {
-	"plains": "Pianura", "hills": "Colline", "forest": "Foresta", "wasteland": "Landa desolata",
+	"plains": "Pianura", "hills": "Colline", "forest": "Foresta", "wasteland": "Terre perdute",
 	"desert": "Deserto", "swamp": "Palude", "lake": "Lago", "mountain": "Montagna",
 	"ocean": "Oceano", "city": "Città",
 }
 const SITE_IT := {
-	"village": "Villaggio", "monastery": "Monastero", "keep": "Fortezza", "mage_tower": "Torre magica",
-	"dungeon": "Dungeon", "tomb": "Tomba", "monster_den": "Tana dei mostri",
-	"spawning_grounds": "Terreno di nidificazione", "ruin": "Rovine antiche", "ruins": "Rovine antiche", "ancient_ruins": "Rovine antiche",
+	"village": "Villaggio", "monastery": "Monastero", "keep": "Castello", "mage_tower": "Torre della Magia",
+	"dungeon": "Sotterraneo", "tomb": "Tomba", "monster_den": "Tana del Mostro",
+	"spawning_grounds": "Terreni di Nidificazione", "ruin": "Antiche Rovine", "ruins": "Antiche Rovine", "ancient_ruins": "Antiche Rovine",
 	"glade": "Radura magica", "magical_glade": "Radura magica", "mine": "Miniera di cristalli",
 	"crystal_mine": "Miniera di cristalli", "city": "Città", "portal": "Portale",
 	"rampaging": "Predoni orchi", "orcs": "Predoni orchi", "draconum": "Draconum",

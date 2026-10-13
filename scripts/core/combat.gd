@@ -619,6 +619,15 @@ static func finish(eng) -> void:
 			if c.kind == "site" and site != "" and not eid in h.get("enemies", []):
 				h.enemies.append(eid)
 				s.enemies[eid].hex = site
+	# spawning grounds not cleared: every defeated monster is replaced by a new face-down brown token
+	if c.kind == "site" and c.site_type == "spawning_grounds" and not all_def and not h.is_empty():
+		var guard := 0
+		while h.enemies.size() < 2 and guard < 4:
+			guard += 1
+			var ne: String = eng.draw_enemy("brown", false, site)
+			if ne == "":
+				break
+			h.enemies.append(ne)
 	var won := false
 	match c.kind:
 		"assault":

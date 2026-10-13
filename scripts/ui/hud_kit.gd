@@ -25,6 +25,8 @@ const ABIL_IT := {
 }
 const RESIST_IT := {"phys": "Resistenza fisica", "fire": "Resistenza al Fuoco", "ice": "Resistenza al Ghiaccio"}
 const COLOR_IT := {"red": "rosso", "blue": "blu", "green": "verde", "white": "bianco", "gold": "oro", "black": "nero"}
+## colours of the enemy token backs
+const ENEMY_COLOR_IT := {"green": "verde", "gray": "grigio", "brown": "marrone", "violet": "viola", "red": "rosso", "white": "bianco"}
 const PHASE_IT := {"ranged": "Distanza / Assedio", "block": "Blocco", "damage": "Danni", "attack": "Attacco", "end": "Fine"}
 const PHASES := ["ranged", "block", "damage", "attack"]
 
@@ -281,7 +283,7 @@ static func enemy_traits(e: Dictionary) -> Array:
 		var d: Array = ABIL_IT.get(base, [base.capitalize(), ""])
 		var nm: String = d[0]
 		if base == "summon" and e.get("summon", "") != "":
-			nm += " (%s)" % COLOR_IT.get(str(e["summon"]), str(e["summon"]))
+			nm += " (%s)" % ENEMY_COLOR_IT.get(str(e["summon"]), str(e["summon"]))
 		if base == "defend" and e.has("defend"):
 			nm += " %d" % int(e["defend"])
 		out.append([nm, d[1]])

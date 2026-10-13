@@ -7,7 +7,7 @@ extends RefCounted
 
 const ELEM_IT := {"phys": "", "fire": " di fuoco", "ice": " di ghiaccio", "cold": " di fuoco-ghiaccio"}
 const KIND_IT := {"melee": "Attacco", "ranged": "Attacco a distanza", "siege": "Attacco d'assedio"}
-const TERR_IT := {"plains": "pianura", "hills": "colline", "forest": "foresta", "desert": "deserto", "wasteland": "landa desolata",
+const TERR_IT := {"plains": "pianura", "hills": "colline", "forest": "foresta", "desert": "deserto", "wasteland": "terre perdute",
 	"swamp": "palude", "lake": "lago", "mountain": "montagna", "ocean": "oceano", "all": "tutti i terreni"}
 
 ## Start executing an effect list.
@@ -85,7 +85,7 @@ static func exec(eng, e: Array, ctx: Dictionary, queue: Array) -> void:
 		"heal":
 			var n3 := _n(e, 1, ctx)
 			pool.heal = int(pool.heal) + n3
-			eng.add_log("pts", "+%d Guarigione" % n3, {"p": p, "what": "heal", "n": n3})
+			eng.add_log("pts", "+%d Cura" % n3, {"p": p, "what": "heal", "n": n3})
 			eng.auto_heal(p)
 		"attack":
 			var n4 := _n(e, 1, ctx) + boost
@@ -171,12 +171,12 @@ static func exec(eng, e: Array, ctx: Dictionary, queue: Array) -> void:
 			_ask_discard(eng, ctx, n6, then2, allow_wounds)
 		"extra_die":
 			s.turn.dice_allowed = int(s.turn.dice_allowed) + _n(e, 1, ctx)
-			eng.add_log("info", "Puoi usare %d dado in più dalla Fonte" % _n(e, 1, ctx), {"p": p})
+			eng.add_log("info", "Puoi usare %d dado in più dalla Riserva" % _n(e, 1, ctx), {"p": p})
 		"ready_unit":
 			var lv := _n(e, 1, ctx)
 			var cands: Array = []
 			for u in s.players[p].units:
-				if not u.ready and eng.unit_level(u) <= lv:
+				if not u.ready and eng.unit_level(u) <= lv and int(u.uid) != int(ctx.get("uid", -1)):
 					cands.append(u.uid)
 			_ask_unit(eng, ctx, cands, "ready", "Scegli l'unità da preparare")
 		"heal_unit":
@@ -290,8 +290,14 @@ static func _unit_do(eng, p: int, uid, what: String) -> void:
 		u.ready = true
 		eng.add_log("unit", "%s è pronta" % eng.unit_name(u), {"p": p, "uid": uid})
 	elif what == "heal":
-		u.wounded = false
-		eng.add_log("heal", "%s è guarita" % eng.unit_name(u), {"p": p, "uid": uid})
+		# heals one wound (a poisoned unit has two)
+		u.wounds = int(u.get("wounds", 1)) - 1
+		if int(u.wounds) <= 0:
+			u.wounds = 0
+			u.wounded = false
+			eng.add_log("heal", "%s è guarita" % eng.unit_name(u), {"p": p, "uid": uid})
+		else:
+			eng.add_log("heal", "%s guarisce una ferita (ne resta una)" % eng.unit_name(u), {"p": p, "uid": uid})
 
 ## Resolve a pending decision created by this module. Returns true if handled.
 static func resolve(eng, pend: Dictionary, v) -> bool:
@@ -388,9 +394,15 @@ static func can(eng, e, ctx: Dictionary) -> bool:
 	var op: String = e[0]
 	match op:
 		"move":
-			return not in_combat and eng.can_still_move(p)
+			if in_combat:
+				# Agility & co.: Move points can be converted into attacks during this combat
+				return eng.flag(p, "move_to_attack")
+			return eng.can_still_move(p)
 		"influence":
-			return not in_combat
+			if in_combat:
+				# Diplomacy: Influence can be used as Block in this turn
+				return eng.flag(p, "influence_as_block")
+			return true
 		"heal":
 			if in_combat:
 				return false
@@ -461,7 +473,7 @@ static func can(eng, e, ctx: Dictionary) -> bool:
 			return e.size() < 3 or (e[2] is Array and (e[2].is_empty() or any_can(eng, e[2], ctx)))
 		"ready_unit":
 			for u in s.players[p].units:
-				if not u.ready and eng.unit_level(u) <= int(e[1]):
+				if not u.ready and eng.unit_level(u) <= int(e[1]) and int(u.uid) != int(ctx.get("uid", -1)):
 					return true
 			return false
 		"heal_unit":
@@ -512,7 +524,7 @@ static func cond_ok(eng, cond: String, ctx: Dictionary) -> bool:
 # ---------------------------------------------------------------- descriptions
 static func describe_list(list) -> String:
 	if not (list is Array) or list.is_empty():
-		return "niente"
+		return "Nessun effetto aggiuntivo"
 	if list[0] is String:
 		return describe(list)
 	var parts: Array = []
@@ -537,7 +549,7 @@ static func describe(e) -> String:
 		"influence":
 			return "Influenza %s" % _num(e[1])
 		"heal":
-			return "Guarigione %s" % _num(e[1])
+			return "Cura %s" % _num(e[1])
 		"attack":
 			var kd: String = e[3] if e.size() > 3 and e[3] != null else "melee"
 			var el: String = e[2] if e.size() > 2 and e[2] != null else "phys"
@@ -568,7 +580,7 @@ static func describe(e) -> String:
 		"discard":
 			return "Scarta %s carta: %s" % [_num(e[1]), describe_list(e[2]) if e.size() > 2 else ""]
 		"extra_die":
-			return "+%s dado dalla Fonte" % _num(e[1])
+			return "+%s dado dalla Riserva" % _num(e[1])
 		"ready_unit":
 			return "Prepara un'unità (livello ≤ %s)" % _num(e[1])
 		"heal_unit":
@@ -581,15 +593,62 @@ static func describe(e) -> String:
 				for k in e[1]:
 					if k == "min":
 						continue
-					bits.append("%s %s" % [TERR_IT.get(k, k), str(e[1][k])])
+					bits.append("%s %s" % [TERR_IT.get(k, k), _num(e[1][k])])
 			return "Costi terreno: " + ", ".join(bits)
 		"mod", "special":
 			var nm: String = _num(e[1]) if e.size() > 1 else ""
+			var ds := describe_special(nm, e[2] if e.size() > 2 and e[2] is Dictionary else {})
+			if ds != "":
+				return ds
 			var d: Dictionary = MKDB.specials.get(nm, {})
 			var t: String = str(d.get("label_it", d.get("short_it", "")))
 			if t == "":
 				t = str(d.get("desc", nm))
+				var tl := " " + t.to_lower() + " "
+				if tl.find(" the ") >= 0 or tl.find(" you") >= 0 or tl.find(" this ") >= 0 or tl.find(" of ") >= 0:
+					# developer notes are in English: never show them to the player
+					t = "Effetto speciale (vedi il testo della carta)"
 				if t.length() > 60:
 					t = t.substr(0, 57) + "…"
 			return t
 	return op
+
+
+const _ELEM_ADJ := {"phys": "", "fire": " di Fuoco", "ice": " di Ghiaccio", "cold": " di Fuoco Freddo"}
+
+## Readable label of a special/mod with its parameters (used to tell the options of a choice apart).
+static func describe_special(nm: String, prm: Dictionary) -> String:
+	match nm:
+		"armor_mod":
+			var amt := int(prm.get("amount", 1))
+			var fort := int(prm.get("fortified", -1))
+			if str(prm.get("targets", "one")) == "all":
+				return "Tutti i nemici: Armatura -%d%s" % [amt, (" (-%d se fortificati)" % fort) if fort >= 0 else ""]
+			return "Un nemico: Armatura -%d%s" % [amt, (" (-%d se fortificato)" % fort) if fort >= 0 else ""]
+		"influence_as_block":
+			return "Puoi usare l'Influenza come Blocco%s in questo turno" % _ELEM_ADJ.get(str(prm.get("elem", "phys")), "")
+		"plus_per_enemy":
+			var what := "Attacco" if str(prm.get("op", "attack")) == "attack" else "Blocco"
+			return "%s%s %d, +%d per ogni nemico" % [what, _ELEM_ADJ.get(str(prm.get("elem", "phys")), ""), int(prm.get("n", 0)), int(prm.get("per", 1))]
+		"strip":
+			var who := "Tutti i nemici perdono" if str(prm.get("targets", "one")) == "all" else "Il nemico bersaglio perde"
+			var parts: Array = []
+			if prm.get("fort", false):
+				parts.append("le fortificazioni")
+			if prm.get("resist", false):
+				parts.append("le resistenze")
+			if parts.is_empty():
+				return ""
+			return "%s %s" % [who, " e ".join(parts)]
+		"attacks_transform":
+			if str(prm.get("to", "")) == "cold":
+				return "Tutti i tuoi attacchi di questo combattimento diventano di Fuoco Freddo"
+			return "Tutti i tuoi attacchi di questo combattimento diventano anche d'Assedio"
+		"enemy_no_attack":
+			var n := int(prm.get("targets", 1))
+			return "Il nemico bersaglio non attacca" if n <= 1 else "Fino a %d nemici non attaccano" % n
+		"destroy_enemy":
+			return "Distruggi il nemico bersaglio"
+		"take_wound":
+			return "Subisci una Ferita"
+	return ""

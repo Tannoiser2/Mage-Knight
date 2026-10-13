@@ -5,13 +5,13 @@ extends Control
 ## Sullo sfondo gira lentamente il tavolo 3D con una mappa di prova.
 
 const SCENARIOS := [
-	{"id": "first_recon", "n": "Prima ricognizione", "players": [1, 4],
+	{"id": "first_recon", "n": "La Prima Ricognizione", "players": [1, 4],
 		"d": "Partita introduttiva per imparare le regole: esplorate le terre, affrontate i primi predoni orchi e scoprite una città. Si può giocare da soli o con altri eroi."},
-	{"id": "solo_conquest", "n": "Conquista in solitario", "players": [1, 1],
-		"d": "Un solo eroe contro le città dell'Impero, mentre il giocatore fantoccio scandisce il ritmo dei round. Conquista le città prima che il tempo finisca."},
-	{"id": "coop_conquest", "n": "Conquista cooperativa", "players": [2, 4],
-		"d": "Da 2 a 4 eroi alleati, umani o guidati dall'IA, uniscono le forze per conquistare insieme le città entro il limite di round."},
-	{"id": "full_conquest", "n": "Conquista completa", "players": [2, 4],
+	{"id": "solo_conquest", "n": "Conquista in Solitario", "players": [1, 1],
+		"d": "Un solo eroe contro le città dell'Impero, mentre il Giocatore Neutrale scandisce il ritmo dei round. Conquista le città prima che il tempo finisca."},
+	{"id": "coop_conquest", "n": "Cooperazione Totale", "players": [2, 3],
+		"d": "2 o 3 eroi alleati, umani o guidati dall'IA, uniscono le forze per conquistare insieme le città entro il limite di round, con il Giocatore Neutrale che scandisce il tempo."},
+	{"id": "full_conquest", "n": "Conquista Totale", "players": [2, 4],
 		"d": "Da 2 a 4 eroi in competizione per la Fama: si esplora, si combatte e si conquistano le città. Alla fine vince chi ha più Fama (con i titoli)."},
 ]
 const HEROES := ["arythea", "goldyx", "norowas", "tovak"]

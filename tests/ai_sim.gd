@@ -94,6 +94,7 @@ func play(scn: String, heroes: Array, seed: int, level: int, quiet: bool) -> Dic
 	var trace = OS.get_environment("AI_TRACE") != ""
 	var kinds := {}
 	var cur_fight := {}
+	var tflags := {}
 	while e.s.phase != "game_over":
 		n += 1
 		if n > 6000:
@@ -112,8 +113,31 @@ func play(scn: String, heroes: Array, seed: int, level: int, quiet: bool) -> Dic
 		for le in e.s.log:
 			if int(le.seq) >= l0:
 				var kk := str(le.k)
+				if kk == "turn" or kk == "game_over":
+					if not tflags.is_empty():
+						var cls := "t_idle"
+						for fk2 in ["combat_start", "reveal", "interact", "rest"]:
+							if tflags.has(fk2):
+								cls = "t_" + fk2
+								break
+						kinds[cls] = int(kinds.get(cls, 0)) + 1
+					tflags = {}
+					if kk == "turn" and int(le.get("p", -1)) != 9:
+						tflags["_"] = true
+				elif not tflags.is_empty():
+					if kk in ["combat_start", "reveal", "rest"]:
+						tflags[kk] = true
+					elif kk in ["recruit", "heal", "gain_card", "buy"]:
+						tflags["interact"] = true
 				if kk == "assault" and str(e.hex(str(le.get("hex", ""))).get("site", "")) == "city":
 					kinds["city_assault"] = int(kinds.get("city_assault", 0)) + 1
+				if kk == "round_end" or kk == "game_over":
+					var rr := int(le.get("round", e.s.round))
+					if rr == 3 or kk == "game_over":
+						var tag := "r3" if kk != "game_over" else "end"
+						for pi in e.s.players.size():
+							kinds["fame_" + tag] = int(kinds.get("fame_" + tag, 0)) + int(e.P(pi).fame)
+							kinds["units_" + tag] = int(kinds.get("units_" + tag, 0)) + e.P(pi).units.size()
 				if kk == "city":
 					kinds["city_round_sum"] = int(kinds.get("city_round_sum", 0)) + int(e.s.round)
 					kinds["city_n"] = int(kinds.get("city_n", 0)) + 1
@@ -168,6 +192,13 @@ func play(scn: String, heroes: Array, seed: int, level: int, quiet: bool) -> Dic
 				cities += 1
 	var res2 = e.s.result
 	var victory: bool = res2 != null and res2.get("victory", false)
+	if res2 != null:
+		var tot := 0.0
+		for sc in res2.get("scores", []):
+			tot += float(sc.get("total", 0))
+		kinds["score"] = int(tot)
+		if res2.has("team_score"):
+			kinds["team_score"] = int(res2.team_score)
 	return {"fame": fame, "levels": levels, "wounds": wounds, "cities": cities, "cities_total": int(e.s.scn.get("city", 0)) if e.s.scn.get("end", "") == "cities" else total,
 		"victory": victory, "rounds": int(e.s.round), "actions": n, "err": err, "kinds": kinds}
 

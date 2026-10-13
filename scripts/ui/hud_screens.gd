@@ -12,9 +12,9 @@ const RULES_IT := """[b]Il round.[/b] La partita dura un numero fisso di round, 
 
 [b]Il mana.[/b] Puoi prendere 1 dado della Riserva per turno. L'oro vale qualsiasi colore base di Giorno ed è inutilizzabile di Notte; il nero si usa solo di Notte per gli Incantesimi potenziati. I [b]Cristalli[/b] (massimo 3 per colore) si spendono come mana; i gettoni mana spariscono a fine turno.
 
-[b]Movimento.[/b] Costi Giorno/Notte: pianura 2/2, colline 3/3, foresta 3/5, deserto 5/3, landa desolata 4/4, palude 5/5, città 2. Laghi, montagne e oceano sono invalicabili. Esplorare una tessera adiacente costa 2 Movimento. Non puoi entrare negli spazi dei nemici scatenati; passare da uno spazio adiacente a un nemico scatenato a un altro adiacente allo stesso nemico lo [b]provoca[/b] (il movimento finisce e si combatte). Entrare in una fortezza, torre magica o città non conquistata è un [b]assalto[/b] (Reputazione −1).
+[b]Movimento.[/b] Costi Giorno/Notte: pianura 2/2, colline 3/3, foresta 3/5, deserto 5/3, terre perdute 4/4, palude 5/5, città 2. Laghi, montagne e oceano sono invalicabili. Esplorare una tessera adiacente costa 2 Movimento. Non puoi entrare negli spazi dei nemici scatenati; passare da uno spazio adiacente a un nemico scatenato a un altro adiacente allo stesso nemico lo [b]provoca[/b] (il movimento finisce e si combatte). Entrare in un castello, una torre della magia o una città non conquistati è un [b]assalto[/b] (Reputazione −1): i difensori sono fortificati.
 
-[b]I siti.[/b] Villaggio: reclutare, guarire (3 Influenza = 1 Guarigione), saccheggiare (Reputazione −1, peschi 2 carte). Monastero: reclutare, guarire (2 Influenza), imparare l'Azione avanzata del monastero (6), bruciarlo (Reputazione −3, combattimento, Artefatto). Fortezza e torre magica: conquista e poi recluta/compra Incantesimi (7 Influenza + 1 mana). Dungeon e tomba: combattimento senza unità con le regole notturne per il mana. Tana dei mostri, terreno di nidificazione, rovine antiche: combattimento per le ricompense. Radura magica e miniera di cristalli danno mana e cristalli.
+[b]I siti.[/b] Villaggio: reclutare, Cura (3 Influenza = 1 punto Cura), saccheggiare (Reputazione −1, peschi 2 carte). Monastero: reclutare, Cura (2 Influenza = 1 punto), imparare l'Azione avanzata del monastero (6 Influenza), bruciarlo (Reputazione −3, combattimento senza unità, Artefatto). Castello e torre della magia: prima vanno conquistati; poi nel castello si reclutano Unità, nella torre si comprano Incantesimi (7 Influenza + 1 mana del colore). Sotterraneo e tomba: combattimento senza unità con le regole della Notte per il mana. Tana del mostro, terreni di nidificazione, antiche rovine: combattimento per le ricompense. Radura magica e miniera di cristalli danno mana e cristalli.
 
 [b]Il combattimento.[/b] Quattro fasi: [b]1. Distanza/Assedio[/b] (contro i fortificati solo Assedio) → [b]2. Blocco[/b] → [b]3. Danni[/b] (i colpi non bloccati vanno all'eroe o alle unità) → [b]4. Attacco[/b]. Per sconfiggere un gruppo di nemici l'attacco efficace deve eguagliare la somma delle armature. Le resistenze dimezzano gli attacchi di quel tipo; contro il Fuoco blocca bene il Ghiaccio e viceversa. Rapido: serve il doppio del Blocco. Brutale: danno doppio. Velenoso e Paralizzante peggiorano le ferite. Ogni ferita all'eroe assorbe danno pari all'armatura. Se in un combattimento ricevi ferite pari al limite di mano scarti tutte le carte non-Ferita.
 
@@ -103,6 +103,9 @@ static func action_menu(v, title: String, img: String, info: String, entries: Ar
 				v.submit(a), 0, 48, not e.get("side", false) and not e.get("minor", false), 19)
 			b.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			b.alignment = HORIZONTAL_ALIGNMENT_LEFT
+			if e.get("disabled", false):
+				b.disabled = true
+				b.tooltip_text = str(e["label"])
 			if e.has("mana"):
 				var ic := MKHud.pip(str(e["mana"]), -1, 22)
 				var hb2 := HBoxContainer.new()
@@ -453,21 +456,31 @@ static func offers(v) -> void:
 	var s: Dictionary = v.s
 	var eng: MKEngine = v.eng
 	var vb := _panel(v, "screen", 1500, 0.6, true, "Offerte")
-	var sc := _scroll(700)
+	var sc := _scroll(minf(800.0, v.get_viewport_rect().size.y - 250.0))
 	vb.add_child(sc)
 	var body := VBoxContainer.new()
 	body.add_theme_constant_override("separation", 10)
 	body.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	sc.add_child(body)
 	var of: Dictionary = s.get("offers", {})
-	var sect := func(title: String, ids: Array, kind: String):
+	# rows: units on top; AA and spells side by side; monastery AA and common skills side by side
+	var rows: Array = []
+	for i in 3:
+		var hb := HBoxContainer.new()
+		hb.add_theme_constant_override("separation", 40)
+		body.add_child(hb)
+		rows.append(hb)
+	var slot := {"units": 0, "aa": 1, "spells": 1, "monastery": 2, "skills": 2}
+	var sect := func(title: String, ids: Array, kind: String, key: String):
 		if ids.is_empty():
 			return
-		body.add_child(MKUI.label(title, 24, MKUI.GOLD, MKUI.font_title))
-		var row := HFlowContainer.new()
-		row.add_theme_constant_override("h_separation", 10)
-		row.add_theme_constant_override("v_separation", 10)
-		body.add_child(row)
+		var col := VBoxContainer.new()
+		col.add_theme_constant_override("separation", 6)
+		rows[slot[key]].add_child(col)
+		col.add_child(MKUI.label(title, 24, MKUI.GOLD, MKUI.font_title))
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation", 10)
+		col.add_child(row)
 		for id in ids:
 			var sid := str(id)
 			var path := ""
@@ -490,11 +503,11 @@ static func offers(v) -> void:
 			im.mouse_entered.connect(func(): v.show_zoom(path, tip, Vector2(360, 240) if kind == "skill" else Vector2(330, 462)))
 			im.mouse_exited.connect(func(): v.hide_zoom())
 			row.add_child(im)
-	sect.call("Unità", of.get("units", []), "unit")
-	sect.call("Azioni avanzate", of.get("aa", []), "card")
-	sect.call("Incantesimi", of.get("spells", []), "card")
-	sect.call("Azioni avanzate del monastero", of.get("monastery", []), "card")
-	sect.call("Abilità comuni", of.get("skills", []), "skill")
+	sect.call("Unità", of.get("units", []), "unit", "units")
+	sect.call("Azioni avanzate", of.get("aa", []), "card", "aa")
+	sect.call("Incantesimi", of.get("spells", []), "card", "spells")
+	sect.call("Azioni avanzate del monastero (6 Influenza in un monastero)", of.get("monastery", []), "card", "monastery")
+	sect.call("Abilità comuni", of.get("skills", []), "skill", "skills")
 	var d2: Dictionary = s.get("decks", {})
 	body.add_child(MKUI.label("Mazzi: Azioni avanzate %d · Incantesimi %d · Artefatti %d · Unità regolari %d · Unità d'élite %d" % [
 		d2.get("aa", []).size(), d2.get("spells", []).size(), d2.get("artifacts", []).size(), d2.get("units_reg", []).size(), d2.get("units_elite", []).size()], 18, MKUI.MUTED))
@@ -585,7 +598,7 @@ static func end_screen(v) -> void:
 		var winners := []
 		for w in res.get("winners", []):
 			winners.append(eng.pname(int(w)))
-		if s.players.size() > 1 and not winners.is_empty():
+		if s.players.size() > 1 and not winners.is_empty() and str(s.scn.get("mode", "")) != "coop":
 			head += ("\n" if head != "" else "") + "[font_size=28][color=#f2d78c]Vince: %s[/color][/font_size]" % ", ".join(winners)
 		head += "\nRound giocati: %d" % int(res.get("rounds", s.round))
 		if res.has("team_score"):
@@ -594,7 +607,14 @@ static func end_screen(v) -> void:
 		r.text = head
 		vb.add_child(r)
 		var g := GridContainer.new()
-		var cols := ["Eroe", "Fama", "Sapiente", "Predone", "Leader", "Conquistatore", "Avventuriero", "Ferite", "Titoli", "Totale"]
+		var cols := ["Eroe", "Fama", "Sapiente", "Predone", "Leader", "Conquistatore", "Avventuriero", "Ferite", "Titoli"]
+		var show_cities := str(s.scn.get("scoring", "")).find("cities") >= 0
+		var show_obj := str(s.scn.get("mode", "")) == "solo" and str(s.scn.get("end", "")) == "cities"
+		if show_cities:
+			cols.append("Città")
+		if show_obj:
+			cols.append("Obiettivo")
+		cols.append("Totale")
 		g.columns = cols.size()
 		g.add_theme_constant_override("h_separation", 18)
 		g.add_theme_constant_override("v_separation", 6)
@@ -615,6 +635,13 @@ static func end_screen(v) -> void:
 				for k in tit:
 					tt.append("%s %+d" % [_title_it(str(k)), int(tit[k])])
 			g.add_child(MKUI.label(", ".join(tt) if not tt.is_empty() else "—", 18, MKUI.MUTED))
+			if show_cities:
+				g.add_child(MKUI.label(str(int(sc.get("cities", 0))), 20))
+			if show_obj:
+				var ol := MKUI.label(str(int(sc.get("objective", 0))), 20)
+				ol.tooltip_text = "10 per città conquistata; se le conquisti tutte +15, +30 per ogni round d'anticipo, +1 per carta rimasta nel mazzo del Neutrale, +5 se la fine dell'ultimo round non era stata annunciata."
+				ol.mouse_filter = Control.MOUSE_FILTER_PASS
+				g.add_child(ol)
 			g.add_child(MKUI.label(str(int(sc.get("total", 0))), 24, MKUI.GOLD_LIGHT, MKUI.font_bold))
 	var hb := HBoxContainer.new()
 	hb.add_theme_constant_override("separation", 12)

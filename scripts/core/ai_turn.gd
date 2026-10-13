@@ -216,7 +216,7 @@ static func cities_pending(eng) -> int:
 			revealed += 1
 	return maxi(0, int(eng.s.scn.get("city", 0)) - revealed / 1)
 
-static func explore_value(eng, p: int) -> float:
+static func explore_value(eng, p: int, level: int = 2) -> float:
 	if eng.s.map.tile_deck.is_empty():
 		return 0.0
 	var v = 2.4
@@ -232,8 +232,19 @@ static func explore_value(eng, p: int) -> float:
 		for k in eng.s.map.hex:
 			if eng.s.map.hex[k].site == "city":
 				revealed += 1
-		if revealed < int(scn.get("city", 0)) * 1:
+		var missing = int(scn.get("city", 0)) - revealed
+		if missing > 0:
 			v += 2.2 + 0.7 * float(int(eng.s.round)) + C.T("explore_bonus")
+			if level >= 2:
+				# the cities lie in the core tiles at the bottom of the tile deck: explore aggressively,
+				# more so when the core tiles are next and when the game advances
+				var core_next = 0
+				for tid in eng.s.map.tile_deck:
+					if MKDB.tiles.get(tid, {}).get("kind", "") == "core":
+						core_next += 1
+				var frac = float(core_next) / float(maxi(1, eng.s.map.tile_deck.size()))
+				var lv_f = (1.0 if level >= 3 else 0.5) * C.T("explore_lv")
+				v += lv_f * (C.T("explore_city") + 2.0 * frac + C.T("explore_r") * float(int(eng.s.round)) + 1.5 * float(missing - 1))
 	return v
 
 # ================================================================ power / feasibility
@@ -549,6 +560,8 @@ static func strategic(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Array:
 			wounds += 1
 	var cmd_free: int = eng.command_free(p)
 	var mode = str(eng.s.scn.get("mode", ""))
+	var inf_pot = -1.0
+	var siege_k = siege_target(eng, p, ctx, mem)
 	for k in eng.s.map.hex:
 		var h: Dictionary = eng.s.map.hex[k]
 		var st = str(h.site)
@@ -577,6 +590,14 @@ static func strategic(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Array:
 					if not alts3.is_empty():
 						models = alts3[0][1]
 					v = 18.0 + (14.0 if mode in ["solo", "coop"] else 6.0)
+					if int(ctx.level) >= 2 and not models.is_empty():
+						# multi-turn siege: defeated defenders stay defeated, so the feasibility is judged
+						# on the weakest defender (plus the threat of the others), not the whole garrison
+						var cs = city_siege(eng, p, k, models, pw, int(ctx.level), ctx, mem)
+						if k == siege_k:
+							cs = maxf(cs, C.T("siege_v"))
+						targets.append({"k": k, "v": cs, "city": true})
+						continue
 			"dungeon", "tomb", "monster_den", "spawning_grounds", "ruins":
 				if st == "ruins" and str(h.get("ruins", "")) == "":
 					continue
@@ -603,6 +624,17 @@ static func strategic(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Array:
 					v = 2.0 + 0.8 * float(mini(wounds, 3)) + (1.5 if cmd_free > 0 else 0.0) + (1.0 if not eng.s.offers.monastery.is_empty() else 0.0)
 			"glade":
 				v = 0.8 + 0.8 * float(mini(wounds, 2))
+		if int(ctx.level) >= 3 and st in ["village", "monastery", "keep", "mage_tower", "city"] and not (h.rampage and not h.enemies.is_empty()):
+			# shops: the best purchase we can probably afford on a later turn (units first of all)
+			var site_i = _interaction_site_at(eng, p, k)
+			if site_i != "":
+				if inf_pot < 0.0:
+					inf_pot = influence_potential(eng, p)
+				var shop = 0.0
+				for b in _purchases(eng, p, ctx, k, site_i):
+					var aff = 1.0 if float(b.cost) <= inf_pot else clampf(1.0 - (float(b.cost) - inf_pot) / 4.0, 0.0, 1.0)
+					shop = maxf(shop, (float(b.value) - 0.3 * float(b.cost)) * aff)
+				v = maxf(v, shop * C.T("shop_w"))
 		if h.rampage and not h.enemies.is_empty():
 			var alts5 = site_models(eng, p, k, "challenge", false)
 			if not alts5.is_empty():
@@ -621,7 +653,17 @@ static func strategic(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Array:
 		if v > 0.4:
 			targets.append({"k": k, "v": v})
 	# exploration frontier
-	var ev = explore_value(eng, p)
+	var ev = explore_value(eng, p, int(ctx.level))
+	if int(ctx.level) >= 2:
+		# scarcity: with few worthwhile targets around, new tiles are worth more
+		var bloc = 0.0
+		for tg0 in targets:
+			var dh = float(MKHex.distance(str(tg0.k), str(pl.pos))) * 2.6
+			bloc = maxf(bloc, float(tg0.v) * pow(C.T("pos_decay"), dh / 5.0))
+		var scar = clampf(1.0 - bloc / C.T("scar_ref"), 0.0, 1.0)
+		mem["scarcity"] = scar
+		if not eng.s.map.tile_deck.is_empty():
+			ev += C.T("explore_scar") * scar
 	if ev > 0.0:
 		var placed = {}
 		for t in eng.s.map.tiles:
@@ -651,9 +693,203 @@ static func strategic(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Array:
 		targets = targets.slice(0, 9)
 	for tg in targets:
 		tg["dist"] = dist_map(eng, p, tg.k, 36)
+	# several heroes (level >= 2): leave targets to a hero that is clearly closer (coop: split the work;
+	# competitive: it will probably be gone) - cities stay shared (siege by the whole team)
+	if int(ctx.level) >= 2 and eng.s.players.size() > 1:
+		var here0: String = pl.pos
+		for tg in targets:
+			if tg.get("city", false):
+				continue
+			var mine = tg.dist.get(here0, null)
+			if mine == null:
+				continue
+			for j in eng.s.players.size():
+				if j == p:
+					continue
+				var dj = tg.dist.get(str(eng.P(j).pos), null)
+				if mode == "coop" and int(eng.P(j).fame) > int(pl.fame) + 4:
+					continue   # coop: the weaker hero (team score = lowest fame) does not yield
+				if dj != null and int(dj) + 3 <= int(mine):
+					tg.v = float(tg.v) * (C.T("share_coop") if mode == "coop" else C.T("share_comp"))
+					break
 	mem["strat_sig"] = sig
 	mem["strat"] = targets
 	return targets
+
+## Siege mode (Difficile, solo/coop): from a given round (or earlier when strong enough) the hero commits
+## to one revealed city - the one with the fewest defenders left, then the closest - and keeps returning
+## to assault it. Stored in mem.siege ("" = none).
+static func siege_target(eng, p: int, ctx: Dictionary, mem: Dictionary) -> String:
+	mem["siege"] = ""
+	if int(ctx.level) < 3 or not str(eng.s.scn.get("mode", "")) in ["solo", "coop"]:
+		return ""
+	if not eng.s.scn.get("cities_enterable", true):
+		return ""
+	var pl: Dictionary = eng.P(p)
+	var best = ""
+	var bs = -BIG
+	for k in eng.s.map.hex:
+		var h: Dictionary = eng.s.map.hex[k]
+		if h.site != "city" or h.conquered:
+			continue
+		var alive = h.enemies.size()
+		var shields = h.get("city", {}).get("shields", []).size()
+		var sc = -4.0 * float(alive) - 0.25 * float(MKHex.distance(k, str(pl.pos))) + 1.5 * float(shields)
+		if sc > bs:
+			bs = sc
+			best = k
+	if best == "":
+		return ""
+	var early = false
+	if int(eng.s.round) < int(C.T("siege_round")):
+		# earlier only when the typical assault already defeats someone at an acceptable cost
+		var h2: Dictionary = eng.hex(best)
+		var alts = site_models(eng, p, best, "assault", false)
+		if alts.is_empty() or alts[0][1].is_empty():
+			return ""
+		var est = siege_estimate(eng, p, best, alts[0][1], ctx, mem)
+		early = int(est.kills) >= 1 and float(est.score) > C.T("siege_early")
+		if not early:
+			return ""
+	mem["siege"] = best
+	return best
+
+## Influence a typical hand can muster (cards' best influence option, rep bonus).
+static func influence_potential(eng, p: int) -> float:
+	var pl: Dictionary = eng.P(p)
+	var octx = C.base_ctx(eng, p, false, "")
+	var tot = 0.0
+	var n = 0
+	var w = 0
+	for iid in pl.deck + pl.hand + pl.discard + pl.play:
+		if eng.is_wound(iid):
+			w += 1
+			continue
+		n += 1
+		var best = 0.0
+		for o in C.card_opts(eng, p, iid, octx):
+			var iv = float(o.b.inf)
+			if o.mode == "powered":
+				iv *= 0.75
+			best = maxf(best, iv)
+		tot += best
+	if n == 0:
+		return 0.0
+	var hand = float(pl.hand_limit) * float(n) / float(n + w)
+	return tot / float(n) * hand * 0.85 + float(eng.rep_bonus(p))
+
+## A "typical" hand for planning future fights: cards spread over the strength ranking of the whole deck,
+## minus the expected wounds. Returns an array of iids.
+static func typical_hand(eng, p: int) -> Array:
+	var pl: Dictionary = eng.P(p)
+	var good: Array = []
+	var wounds = 0
+	for iid in pl.deck + pl.hand + pl.discard + pl.play:
+		if eng.is_wound(iid):
+			wounds += 1
+		else:
+			good.append([card_attack(eng.card_id(iid)) + 0.01 * C.card_base_value(eng.card_id(iid)), str(iid)])
+	if good.is_empty():
+		return []
+	good.sort_custom(func(a, b): return a[0] > b[0] or (a[0] == b[0] and a[1] < b[1]))
+	var hl: int = int(pl.hand_limit)
+	var tot = float(good.size() + wounds)
+	var h = clampi(int(round(float(hl) * float(good.size()) / tot)), 1, hl)
+	var out: Array = []
+	for i in h:
+		var idx = int(floor((float(i) + 0.4) * float(good.size()) * C.T("hand_q") / float(h)))
+		out.append(good[clampi(idx, 0, good.size() - 1)][1])
+	return out
+
+## Expected result of one assault on city k with a typical hand, all non-wounded units ready, one die:
+## {score, kills, alive}. Cached per turn in mem.
+static func siege_estimate(eng, p: int, k: String, models: Array, ctx: Dictionary, mem: Dictionary) -> Dictionary:
+	var pl: Dictionary = eng.P(p)
+	var sig = "%s|%d|%d|%d|%d|%d|%d" % [k, int(eng.s.round), int(pl.fame), pl.units.size(), (pl.deck + pl.hand + pl.discard + pl.play).size(), models.size(), int(pl.level)]
+	var cache: Dictionary = mem.get("siege_cache", {})
+	if cache.has(sig):
+		return cache[sig]
+	var hand = typical_hand(eng, p)
+	var mp = C.mana_pool(eng, p)
+	mp.tok = {}
+	mp.dice = ["red", "blue", "green", "white"]
+	mp.dice_left = 1
+	var ctx2: Dictionary = ctx.duplicate()
+	ctx2["mp"] = mp
+	ctx2["rf"] = 1.0
+	ctx2["cap"] = 8
+	ctx2["deadline"] = Time.get_ticks_usec() + 15000
+	var items = CB.gather(eng, p, ctx2, {}, true, false, hand, true)
+	var cfg = CB.base_cfg(eng, p, ctx2)
+	cfg.wounds_so_far = 0
+	cfg.hand_cards = hand.size()
+	cfg.units = []
+	for u in pl.units:
+		if not u.wounded:
+			cfg.units.append({"uid": int(u.uid), "armor": MKCombat.unit_armor(eng, p, u), "resist": MKCombat.unit_resists(eng, p, u),
+				"worth": C.unit_worth(str(u.id))})
+	var bonus = CB.site_bonus(eng, p, "city", k)
+	var defs: Array = []
+	for m in models:
+		defs.append(m.eid)
+	cfg.site_bonus = bonus
+	cfg.defenders_alive = defs
+	cfg["progress"] = CB.progress_frac(eng, "city", int(ctx.level)) * bonus / float(maxi(1, defs.size()))
+	var pln = CB.plan_checked(items, models, "ranged", cfg, mp)
+	var res = {"score": float(pln.get("score", -99.0)), "kills": pln.get("kills", []).size(), "alive": models.size()}
+	if OS.get_environment("AI_PLAN") == "4":
+		var ut: Array = []
+		for u in pl.units:
+			ut.append(str(u.id) + ("(w)" if u.wounded else ""))
+		var mt: Array = []
+		for m in models:
+			mt.append("%s a%d" % [str(m.eid), int(m.armor)])
+		printerr("   siege est %s: %s hand=%s units=%s defs=%s blocks=%d" % [k, str(res), ",".join(hand), ",".join(ut), ",".join(mt), pln.get("blocks", []).size()])
+	if cache.size() > 16:
+		cache.clear()
+	cache[sig] = res
+	mem["siege_cache"] = cache
+	return res
+
+## Strategic value of besieging a city (level >= 2): conquest bonus scaled by the feasibility of
+## defeating at least its weakest defender in one assault (the siege can take several turns).
+static func city_siege(eng, p: int, k: String, models: Array, pw: float, level: int, ctx: Dictionary = {}, mem: Dictionary = {}) -> float:
+	var bonus = CB.site_bonus(eng, p, "city", k)
+	if level >= 3 and C.T("siege_sim") > 0.5:
+		var est = siege_estimate(eng, p, k, models, ctx, mem)
+		var fame0 = 0.0
+		for m0 in models:
+			fame0 += float(m0.fame)
+		var kills = int(est.kills) if float(est.score) > C.T("siege_thr") else 0
+		# turns of the game left (about 6 per round) vs assaults needed (each followed by recovery)
+		var left_turns = float(int(eng.s.scn.get("rounds", 6)) - int(eng.s.round)) * 5.0 + 3.0
+		var need = 99.0 if kills <= 0 else 2.2 * ceil(float(models.size()) / float(kills))
+		var f = clampf(left_turns / maxf(1.0, need), 0.0, 1.0)
+		if kills >= models.size() and float(est.score) > 0.0:
+			f = 1.0
+		f = maxf(f, 0.25 * clampf(1.0 + float(est.score) / 20.0, 0.0, 1.0))
+		mem["siege_dbg"] = "%s est=%.1f kills=%d/%d f=%.2f" % [k, float(est.score), int(est.kills), models.size(), f]
+		return (bonus + 0.6 * fame0) * (0.1 + 0.9 * f)
+	var fame = 0.0
+	var atk_tot = 0.0
+	for m in models:
+		fame += float(m.fame)
+		for at in m.atks:
+			atk_tot += float(at.n) * (2.0 if m.brutal else 1.0)
+	var best1 = BIG
+	for m in models:
+		var own = 0.0
+		for at in m.atks:
+			own += float(at.n) * (2.0 if m.brutal else 1.0)
+		var r1 = models_req([m]) + 0.3 * (atk_tot - own)
+		best1 = minf(best1, r1)
+	var f1 = feas(pw, best1)
+	var fall = feas(pw, models_req(models))
+	var f = maxf(fall, C.T("siege_f1") * f1)
+	var v = (bonus + 0.6 * fame) * (0.12 + 0.88 * f)
+	if level < 3:
+		v *= 0.8
+	return v
 
 static func pos_value(targets: Array, k: String, exclude: String = "") -> float:
 	var best = 0.0
@@ -685,7 +921,9 @@ static func choose_goal(eng, p: int, strat: Array, mem: Dictionary) -> void:
 			best = tg
 	var tf: Dictionary = mem.get("tfail", {})
 	for tg in strat:
-		tg["w"] = (1.0 if best != null and tg == best else C.T("goal_other")) * pow(0.6, float(tf.get(str(tg.k), 0)))
+		# a city siege may need several attempts: its value decays much more slowly after failures
+		var fb = 0.88 if tg.get("city", false) else 0.6
+		tg["w"] = (1.0 if best != null and tg == best else C.T("goal_other")) * pow(fb, float(tf.get(str(tg.k), 0)))
 	if best != null:
 		mem["goal"] = str(best.k)
 
@@ -866,7 +1104,9 @@ static func plan(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary:
 		if can_move and not eng.s.map.tile_deck.is_empty():
 			var slots = slots_from(eng, p, k)
 			if not slots.is_empty() and (k == here or not other_hero_at(eng, p, k) or true):
-				var ev = explore_value(eng, p)
+				var ev = explore_value(eng, p, level)
+				if level >= 2:
+					ev += C.T("explore_scar") * float(mem.get("scarcity", 0.0))
 				if ev > 0.0:
 					var need2 = d + eng.explore_cost(p) - int(t.pool.move)
 					var mpl2 = _move_plan(mitems_plain, need2)
@@ -880,12 +1120,26 @@ static func plan(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary:
 		var txt = []
 		for i in mini(8, ms2.size()):
 			txt.append("%s@%s=%.2f" % [ms2[i].kind, ms2[i].hex, float(ms2[i].value)])
-		printerr("  missions[r%d t%d pos %s mv%d]: %s" % [int(eng.s.round), int(pl.turns), here, max_move, ", ".join(txt)])
+		var hnd: Array = []
+		for iid in pl.hand:
+			hnd.append(str(iid).split("#")[0])
+		printerr("  missions[r%d t%d pos %s mv%d f%d u%d deck%d hand=%s]: %s" % [int(eng.s.round), int(pl.turns), here, max_move, int(pl.fame), pl.units.size(), pl.deck.size(), ",".join(hnd), ", ".join(txt)])
 		if OS.get_environment("AI_PLAN") == "2":
 			var st2 = []
 			for tg in strat:
 				st2.append("%s v%.1f w%.2f d%s" % [tg.k, float(tg.v), float(tg.get("w", 1.0)), str(tg.dist.get(here, "-"))])
-			printerr("     strat: ", "; ".join(st2))
+			printerr("     strat: ", "; ".join(st2), "  siege: ", str(mem.get("siege_dbg", "")))
+	if OS.get_environment("AI_PLAN") == "5" and int(mem.get("n", 0)) <= 1:
+		var cs: Array = []
+		for tg in strat:
+			if tg.get("city", false):
+				cs.append("%s v%.1f w%.2f d%s" % [tg.k, float(tg.v), float(tg.get("w", 1.0)), str(tg.dist.get(here, "-"))])
+		var ms3 = missions.duplicate()
+		ms3.sort_custom(func(a, b): return float(a.value) > float(b.value))
+		var top: Array = []
+		for i in mini(3, ms3.size()):
+			top.append("%s@%s=%.1f" % [ms3[i].kind, ms3[i].hex, float(ms3[i].value)])
+		printerr("T r%d p%d f%d u%d pos %s goal %s cities[%s] %s | %s" % [int(eng.s.round), p, int(pl.fame), pl.units.size(), here, str(mem.get("goal", "")), "; ".join(cs), str(mem.get("siege_dbg", "")), ", ".join(top)])
 	# pick
 	if OS.get_environment("AI_DEBUG") != "" and Time.get_ticks_usec() - _t0 > 150000:
 		printerr("  plan: strat %d ms, pre %d ms, hexes %d ms (fights %d, %d ms) n=%d" % [(_t1 - _t0) / 1000, (_t2 - _t1) / 1000, (Time.get_ticks_usec() - _t2) / 1000, fights, _tf / 1000, r.dist.size()])
@@ -983,6 +1237,12 @@ static func _fight_mission(eng, p: int, ctx: Dictionary, k: String, kind: String
 		return {"kind": kind, "hex": stand, "target": k, "value": v0 + pos_value(strat, stand, k), "move": d, "move_acts": macts}
 	var items = CB.gather(eng, p, ctx, excl, units_ok, false)
 	var cfg = CB.base_cfg(eng, p, ctx)
+	# cards played for the approach are no longer in hand (discard costs need other free cards)
+	var n_excl = 0
+	for kx in excl:
+		if not str(kx).begins_with("u") or str(kx).find("#") >= 0:
+			n_excl += 1
+	cfg.hand_cards = maxi(0, int(cfg.hand_cards) - n_excl)
 	if not units_ok:
 		cfg.units = []
 	var bonus = 0.0
@@ -1003,14 +1263,20 @@ static func _fight_mission(eng, p: int, ctx: Dictionary, k: String, kind: String
 		cfg.site_bonus = bonus
 		cfg.defenders_alive = defs
 		if kind == "assault" or st in ["monster_den", "spawning_grounds", "ruins"]:
-			cfg["progress"] = 0.35 * bonus / float(maxi(1, defs.size()))
+			cfg["progress"] = CB.progress_frac(eng, st, int(ctx.level)) * bonus / float(maxi(1, defs.size()))
 		cfg.cap = (16 if int(ctx.level) >= 3 else 8) if alts.size() == 1 else 6
 		var pl = CB.plan_checked(items, models, "ranged", cfg, ctx.mp)
-		tot += float(alt[0]) * float(pl.score)
+		var sc = float(pl.score)
+		if st == "city" and kind == "assault" and str(mem_f.get("siege", "")) == k and pl.get("kills", []).size() > 0:
+			# siege mode: every defender defeated now brings the conquest closer (urgency)
+			sc += C.T("siege_push") * minf(2.0, float(pl.kills.size()))
+		tot += float(alt[0]) * sc
 	var v = tot
 	if kind == "assault":
 		v -= C.rep_cost(int(eng.P(p).rep), -1)
 	fc[ckey] = v
+	if st == "city" and OS.get_environment("AI_PLAN") == "3":
+		printerr("   city assault eval %s from d=%d: v=%.2f mcost=%.2f hand=%s" % [k, d, v, mcost, ",".join(hk)])
 	v -= mcost
 	v += pos_value(strat, stand, k)
 	return {"kind": kind, "hex": stand, "target": k, "value": v, "move": d, "move_acts": macts}
@@ -1111,6 +1377,11 @@ static func _interact_mission(eng, p: int, ctx: Dictionary, k: String, d: int, m
 		if net > best_v:
 			best_v = net
 			best_set = setb
+	if OS.get_environment("AI_PLAN") == "6":
+		var bl: Array = []
+		for b in buys:
+			bl.append("%s:%s c%d v%.1f" % [b.what, str(b.get("id", "")), int(b.cost), float(b.value)])
+		printerr("   interact %s site=%s base_inf=%d buys=[%s] best=%.1f n=%d" % [k, site, base_inf, "; ".join(bl), best_v, best_set.size()])
 	if best_set.is_empty():
 		return {}
 	return {"kind": "interact", "hex": k, "value": best_v - mcost + pos_value(strat, k) + end_bonus(eng, p, k), "buys": best_set, "move": d, "move_acts": imacts}
@@ -1157,6 +1428,9 @@ static func _purchases(eng, p: int, ctx: Dictionary, k: String, site: String) ->
 			cost -= int(m.get("n", 0))
 		cost = maxi(0, cost)
 		var v = C.unit_worth(id) * float(ctx.get("unit_mult", 1.0))
+		if int(ctx.level) >= 3 and eng.command_free(p) == 1:
+			# the last free command slot: a weak unit now blocks a better one later
+			v -= C.T("slot_cost") * clampf(float(int(eng.s.scn.get("rounds", 6)) - int(eng.s.round)) / 3.0, 0.0, 1.0)
 		var disband = -1
 		if eng.command_free(p) <= 0:
 			if pl.units.is_empty() or weakest >= v - 1.0:
@@ -1177,16 +1451,16 @@ static func _purchases(eng, p: int, ctx: Dictionary, k: String, site: String) ->
 	if site in ["village", "monastery"]:
 		var hc = 3 if site == "village" else 2
 		for i in mini(wounds, 3):
-			out.append({"what": "heal", "cost": hc, "value": 2.4})
+			out.append({"what": "heal", "cost": hc, "value": C.T("heal_v")})
 	if site == "monastery":
 		for id2 in eng.s.offers.monastery:
-			out.append({"what": "aa", "id": id2, "cost": 6, "value": C.pick_value(id2) * 0.75})
+			out.append({"what": "aa", "id": id2, "cost": 6, "value": C.pick_value(id2) * 0.75 * C.T("buy_card")})
 	if site == "mage_tower" or col == "blue":
 		for id3 in eng.s.offers.spells:
-			out.append({"what": "spell", "id": id3, "cost": 7, "value": C.pick_value(id3) * 0.8, "mana": str(MKDB.card(id3).get("color", ""))})
+			out.append({"what": "spell", "id": id3, "cost": 7, "value": C.pick_value(id3) * 0.8 * C.T("buy_card"), "mana": str(MKDB.card(id3).get("color", ""))})
 	if col == "green":
 		for id4 in eng.s.offers.aa:
-			out.append({"what": "aa_offer", "id": id4, "cost": 6, "value": C.pick_value(id4) * 0.75})
+			out.append({"what": "aa_offer", "id": id4, "cost": 6, "value": C.pick_value(id4) * 0.75 * C.T("buy_card")})
 	if col == "red":
 		out.append({"what": "artifact", "cost": 12, "value": 6.0})
 	out.sort_custom(func(a, b): return float(a.value) / maxf(1.0, float(a.cost)) > float(b.value) / maxf(1.0, float(b.cost)))
@@ -1407,7 +1681,7 @@ static func _finish(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary
 			for o in C.card_opts(eng, p, iid, octx, false):
 				if int(o.b.heal) <= 0 or int(o.b.disc) > 0:
 					continue
-				var gain = 2.4 * float(mini(int(o.b.heal), wounds)) - C.card_value(eng, p, iid, rf) - C.mana_cost(ctx.mp, o.needs) * 1.0
+				var gain = C.T("heal_v") * float(mini(int(o.b.heal), wounds)) - C.card_value(eng, p, iid, rf) - C.mana_cost(ctx.mp, o.needs) * 1.0
 				if C.mana_cost(ctx.mp, o.needs) < 0.0:
 					continue
 				if gain > 0.3 and eng.check(o.act) == "":

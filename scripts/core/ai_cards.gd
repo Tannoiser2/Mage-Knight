@@ -37,8 +37,9 @@ const PICK_V := {
 }
 
 ## Tunable weights (benchmarks may override them with AI_TUNE="name=value,...").
-static var tune := {"card_scale": 1.0, "wc": 2.0, "explore_bonus": 0.0, "pos_scale": 0.6, "fm_slope": 0.16, "rest_bias": 0.0,
-	"idle_pen": 1.0, "goal_other": 1.0, "pos_decay": 0.82, "full_alts": 0.0, "noise3": 0.12}
+static var tune := {"card_scale": 1.0, "wc": 2.0, "explore_bonus": 0.0, "pos_scale": 0.6, "fm_slope": 0.1, "rest_bias": 0.0,
+	"idle_pen": 1.0, "goal_other": 1.0, "pos_decay": 0.82, "full_alts": 0.0, "noise3": 0.12,
+	"siege_f1": 0.85, "siege_sim": 1.0, "explore_lv": 1.0, "siege_thr": -8.0, "wc_base": 0.8, "wc_slope": 0.12, "poison_f": 0.8, "explore_city": -8.0, "unit_mult": 1.0, "slot_cost": 2.0, "explore_r": 0.8, "siege_round": 4.0, "siege_v": 30.0, "siege_push": 5.0, "siege_early": -3.0, "shop_w": 0.8, "coop_fm_min": 0.55, "explore_scar": 0.0, "scar_ref": 10.0, "share_coop": 0.45, "share_comp": 1.0, "hand_q": 0.75, "heal_v": 2.4, "buy_card": 1.0, "city_prog": 0.8}
 static var _tune_loaded := false
 
 static func T(name: String) -> float:
@@ -65,6 +66,9 @@ static func merge(a: Dictionary, b: Dictionary) -> Dictionary:
 			r[k][x] = int(r[k].get(x, 0)) + int(b[k][x])
 	r.mana.append_array(b.mana)
 	r.sp.append_array(b.sp)
+	for k2 in ["noatk", "kill1", "armod"]:
+		if b.has(k2):
+			r[k2] = b[k2]
 	return r
 
 static func _cross(alts: Array, sub: Array) -> Array:
@@ -265,6 +269,21 @@ static func _special(b: Dictionary, name: String, prm, ctx: Dictionary) -> Array
 				bb2.tok[col] = _pi(prm, "n", 1)
 				out2.append(bb2)
 			return out2
+		"enemy_no_attack":
+			# planner model: cancels the attacks of one eligible enemy (see ai_combat.blk_v2)
+			if prm is Dictionary:
+				b["noatk"] = {"n": _pi(prm, "targets", 1), "unfort": bool(prm.get("unfortified", false)), "immune": str(prm.get("immune", ""))}
+			else:
+				b["noatk"] = {"n": 1, "unfort": false, "immune": ""}
+			b.sp.append(name)
+		"destroy_enemy":
+			b["kill1"] = {"immune": str(prm.get("immune", "")) if prm is Dictionary else ""}
+			b.sp.append(name)
+		"armor_mod":
+			if prm is Dictionary:
+				b["armod"] = {"n": _pi(prm, "amount", 1), "fort_n": _pi(prm, "fortified", _pi(prm, "amount", 1)), "all": str(prm.get("targets", "one")) == "all",
+					"immune": str(prm.get("immune", ""))}
+			b.sp.append(name)
 		"crystal_copy":
 			b.crys["any"] = 1
 		"influence_per_wound":

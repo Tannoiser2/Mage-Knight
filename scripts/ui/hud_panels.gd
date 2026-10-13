@@ -488,9 +488,14 @@ static func build_right(v, panel: PanelContainer) -> void:
 	for i in range(src.size()):
 		var d: Dictionary = src[i]
 		var taken := int(d.get("taken_by", -1)) != -1
-		var dw := MKHud.die(str(d.get("color", "")), taken, 44)
+		var dcol := str(d.get("color", ""))
+		var dw := MKHud.die(dcol, taken, 44)
 		if taken:
 			dw.tooltip_text += " da " + eng.pname(int(d.taken_by))
+		elif (bool(s.day) and dcol == "black") or (not bool(s.day) and dcol == "gold"):
+			# exhausted: black by day, gold by night (Regolamento p. 5, "Utilizzare mana" 3c)
+			dw.modulate = Color(1, 1, 1, 0.4)
+			dw.tooltip_text += " (esaurito: %s)" % ("il nero non si usa di Giorno" if bool(s.day) else "l'oro non si usa di Notte")
 		dh.add_child(dw)
 	vb.add_child(HSeparator.new())
 	# punti del turno
@@ -566,7 +571,7 @@ static func log_line(v, e: Dictionary) -> String:
 	return t
 
 
-## Punti accumulati nel turno (pool): Movimento, Influenza, Guarigione, Attacco e Blocco per tipo/elemento.
+## Punti accumulati nel turno (pool): Movimento, Influenza, Cura, Attacco e Blocco per tipo/elemento.
 static func pool_view(v) -> Control:
 	var s: Dictionary = v.s
 	var eng: MKEngine = v.eng
@@ -597,7 +602,7 @@ static func pool_view(v) -> Control:
 		chip.call("Influenza %d%s" % [inf, bonus], Color("#c49bff"), "Influenza: si spende nei siti (reclutare, guarire, comprare).")
 		any = true
 	if int(pool.get("heal", 0)) > 0:
-		chip.call("Guarigione %d" % int(pool.heal), Color("#7fd0ff"))
+		chip.call("Cura %d" % int(pool.heal), Color("#7fd0ff"))
 		any = true
 	var att: Dictionary = pool.get("attack", {})
 	for k in att:
@@ -650,10 +655,19 @@ static func action_buttons(v) -> Array:
 			"announce_end":
 				turn_btns.append(MKHud.btn("Annuncia la fine del round", func(): MKScreens.confirm(v, "Annunciare la fine del round?", "Gli altri giocatori faranno un ultimo turno.", func(): v.submit(a)), 0, 44))
 			"rest":
-				turn_btns.append(MKHud.btn("Riposa", func(): v.submit(a), 0, 46))
+				var only_w := not eng.has_non_wound(v.actor())
+				var rt := "Lunga Guarigione: scarti una Ferita dalla mano." if only_w else "Riposo: scarti una carta non-Ferita e quante Ferite vuoi (vanno negli scarti). In questo turno non potrai muoverti, combattere né interagire."
+				turn_btns.append(MKHud.btn("Riposa", func(): MKScreens.confirm(v, "Riposare?", rt, func(): v.submit(a)), 0, 46))
 			"end_turn":
-				var b2 := MKHud.btn("TERMINA IL TURNO", func(): v.submit(a), 0, 52, true, 22)
+				var must_discard: bool = eng.card_rule_open(v.actor()) and eng.has_non_wound(v.actor())
+				var b2 := MKHud.btn("TERMINA IL TURNO", func():
+					if must_discard:
+						MKScreens.confirm(v, "Terminare il turno?", "Non hai giocato nessuna carta: per regola dovrai scartarne una dalla mano prima di pescare.", func(): v.submit(a))
+					else:
+						v.submit(a), 0, 52, true, 22)
 				turn_btns.append(b2)
+	if s.combat == null and MKSites.can_interact(eng, v.actor()) == "":
+		has_site_menu = true
 	if has_site_menu and s.combat == null:
 		var h: Dictionary = eng.hex(str(s.players[v.actor()].pos))
 		out.push_front(MKHud.btn("Interagisci: %s" % MKUI.site_it(str(h.get("site", ""))), func(): v.open_site(), 0, 48, true))

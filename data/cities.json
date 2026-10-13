@@ -102,7 +102,7 @@
    "card_guid": "8de450",
    "model": "assets/models/city_green.obj",
    "model_texture": "assets/models/city_green.webp",
-   "text_it": "Durante l'assalto\n-------------------\nTutti i difensori con Attacco fisico ottengono Veleno.\n\nDopo la conquista\n---------------------\nPuoi pagare 6 Influenza per una carta dall'offerta Azioni Avanzate oppure una casuale dalla cima del loro mazzo. Mettila in cima al tuo mazzo Gesta.\n\nOttieni +1 Influ",
+   "text_it": "Durante l'assalto\n-------------------\nTutti i difensori con Attacco fisico ottengono Veleno.\n\nDopo la conquista\n---------------------\nPuoi pagare 6 Influenza per una carta dall'offerta Azioni Avanzate oppure una casuale dalla cima del loro mazzo. Mettila in cima al tuo mazzo Impresa.\n\nOttieni +1 Influ",
    "tile": "k05"
   },
   "white": {
