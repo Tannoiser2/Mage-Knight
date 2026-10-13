@@ -1,0 +1,828 @@
+{
+ "all_units_bonus": {
+  "desc": "Le tue Unità ottengono per il turno Armatura +armor e +bonus a ogni attacco o blocco; Fama +fame per ogni Unità che attacca o blocca in questo turno.",
+  "used_by": [
+   "banner_of_glory",
+   "banner_of_glory_rotf"
+  ]
+ },
+ "amulet_darkness": {
+  "desc": "Se è Giorno: per il turno i deserti costano 3 di Movimento e puoi usare mana nero come se fosse Notte.",
+  "used_by": [
+   "amulet_of_darkness"
+  ]
+ },
+ "amulet_sun": {
+  "desc": "Se è Notte: per il turno le foreste costano 3 di Movimento, puoi usare mana oro e riveli le guarnigioni dei siti fortificati adiacenti e le rovine come di Giorno.",
+  "used_by": [
+   "amulet_of_the_sun"
+  ]
+ },
+ "armor_mod": {
+  "desc": "Riduce l'Armatura dei nemici (fino a un minimo di 1) per il resto del turno. Parametri: targets 'one' (un nemico bersaglio) | 'all'; amount = riduzione; fortified = riduzione alternativa se il nemico è fortificato (opz.); others = riduzione applicata a tutti gli altri nemici (opz.); immune = elemento di resistenza che rende immune il nemico ('fire' per effetti rossi, 'ice' per effetti blu). I nemici con Immunità arcana non sono mai influenzati.",
+  "used_by": [
+   "delphana_masters",
+   "demolish",
+   "tremor"
+  ]
+ },
+ "armor_per_resistance": {
+  "desc": "Il nemico scelto subisce Armatura -n per ogni sua resistenza (min 1) per il turno. Immunità arcana: immune.",
+  "used_by": [
+   "tovak_resistance_break"
+  ]
+ },
+ "attacks_transform": {
+  "desc": "Per il resto del combattimento scegli una trasformazione per tutti i tuoi attacchi: 'cold' = tutti diventano Fuoco Freddo; 'siege' = tutti diventano anche d'Assedio (mantenendo l'elemento).",
+  "used_by": [
+   "altem_mages"
+  ]
+ },
+ "banner_attach": {
+  "desc": "Stendardo: assegna questa carta a un'Unità che controlli (resta attaccata, una per Unità; se l'Unità viene distrutta o congedata va negli scarti). Effetti continui (parametri): armor = +Armatura all'Unità; bonus = + a ogni attacco/blocco dell'Unità; fame_on_use = Fama quando l'Unità attacca o blocca; resist = resistenze aggiunte; fear = in fase di Blocco puoi rendere esausta l'Unità per annullare un attacco nemico (Fama +1); ready_once_round = una volta per round, fuori dal combattimento, gira la carta per rendere Pronta l'Unità (si rigira a inizio round); ignore_wound_once_round = una volta per round, quando l'Unità sta per essere ferita gira la carta per ignorare la ferita e i suoi effetti (l'Unità riceve comunque danno una sola volta per combattimento).",
+  "used_by": [
+   "banner_of_courage",
+   "banner_of_fear",
+   "banner_of_fortitude",
+   "banner_of_glory",
+   "banner_of_glory_rotf",
+   "banner_of_protection"
+  ]
+ },
+ "banner_command": {
+  "desc": "Stendardo del Comando: se hai reclutato un'Unità in questo turno puoi assegnarle questa carta come segnalino Comando aggiuntivo (gira a faccia in giù sull'Unità quando è esausta, a faccia in su quando è pronta).",
+  "used_by": [
+   "banner_of_command"
+  ]
+ },
+ "battle_frenzy": {
+  "desc": "Attacco 2; oppure gira il segnalino per ottenere Attacco 4. Il segnalino girato si rigira solo trascorrendo un turno a riposare.",
+  "used_by": [
+   "krang_battle_frenzy"
+  ]
+ },
+ "beguile": {
+  "desc": "Influenza base; invece fortified in un sito fortificato, glade in una Radura magica.",
+  "used_by": [
+   "braevalar_beguile"
+  ]
+ },
+ "block_bonus": {
+  "desc": "Puoi aggiungere +n a un Blocco di qualsiasi tipo nella fase di Blocco di questo turno.",
+  "used_by": [
+   "krang_spirit_guides"
+  ]
+ },
+ "block_swift": {
+  "desc": "Blocco n che conta doppio contro un attacco con Rapidità (annulla l'effetto di Rapidità).",
+  "used_by": [
+   "altem_guardians",
+   "utem_guardsmen"
+  ]
+ },
+ "bonds_of_loyalty": {
+  "desc": "Legami di lealtà (passiva): quando la ottieni aggiungi due Unità Regolari all'offerta; il segnalino è un segnalino Comando aggiuntivo: l'Unità reclutata sotto costa 5 Influenza in meno (min 0), può essere usata anche dove le Unità non sono permesse (dungeon, tombe...) e non può essere congedata.",
+  "used_by": [
+   "norowas_bonds_of_loyalty"
+  ]
+ },
+ "book_of_wisdom": {
+  "desc": "Getta via (rimuovi dal gioco) una carta Azione dalla mano e prendi dall'offerta gain ('aa' Azioni avanzate, 'spell' Incantesimi) una carta dello stesso colore, in mano; crystal=true: ottieni anche un cristallo di quel colore.",
+  "used_by": [
+   "book_of_wisdom"
+  ]
+ },
+ "bow_powered": {
+  "desc": "Arco dell'Alba Stellare potenziato: in questo turno ogni tuo Attacco a Distanza è raddoppiato oppure diventa Attacco d'Assedio dello stesso elemento; puoi anche raddoppiare gli Attacchi d'Assedio, ma diventano Attacchi a Distanza dello stesso elemento.",
+  "used_by": [
+   "bow_of_starsdawn"
+  ]
+ },
+ "breath_of_life": {
+  "desc": "Cura completamente un'Unità; se un'Unità è stata distrutta dall'inizio del tuo ultimo turno puoi riportarla nell'area Unità del suo giocatore.",
+  "used_by": [
+   "poison_breath"
+  ]
+ },
+ "card_play_bonus": {
+  "desc": "Fino a fine turno ogni carta giocata dalla mano (non di lato né come parte di un altro effetto) riceve +n.",
+  "used_by": [
+   "hone_senses"
+  ]
+ },
+ "charm_bonus": {
+  "desc": "Se usata durante un'interazione: ottieni un cristallo di un colore qualsiasi oppure uno sconto di 3 sul costo di un'Unità.",
+  "used_by": [
+   "charm"
+  ]
+ },
+ "circlet": {
+  "desc": "Diadema/Cerchietto: powered=false: usa una qualsiasi Abilità non interattiva dell'offerta comune come se fosse tua (se è 'una volta per turno' ne usi l'effetto due volte). powered=true: prendi un'Abilità qualsiasi dall'offerta comune e tienila per il resto della partita.",
+  "used_by": [
+   "circlet_of_proficiency"
+  ]
+ },
+ "crystal_per_kill": {
+  "desc": "Per ogni nemico sconfitto dall'attacco (scope 'attack': max = 1, solo da questo attacco; 'phase': nella fase attuale) ottieni un cristallo: rosso se aveva Resistenza al Fuoco, blu se al Ghiaccio, verde se fisica; puoi sempre scegliere il bianco.",
+  "used_by": [
+   "soul_harvester"
+  ]
+ },
+ "cure_bonus": {
+  "desc": "Per il resto del turno: pesca una carta per ogni Ferita curata dalla mano e rendi Pronta ogni Unità curata in questo turno (anche quelle curate prima di questa carta).",
+  "used_by": [
+   "cure"
+  ]
+ },
+ "curse": {
+  "desc": "Maledizione: riduci di 1 un attacco di un nemico oppure la sua Armatura (min 1). Non utilizzabile su un nemico fortificato nella fase di Attacco a Distanza/Assedio. Immunità arcana: immune.",
+  "used_by": [
+   "krang_curse"
+  ]
+ },
+ "damage_reduction": {
+  "desc": "Ignora i prossimi n_match danni assegnati al tuo eroe da un singolo attacco di elemento in match, oppure n_other danni da un attacco di altro tipo.",
+  "used_by": [
+   "braevalar_elemental_resistance",
+   "krang_battle_hardened"
+  ]
+ },
+ "deadly_aim": {
+  "desc": "Aggiungi +1 a una carta che fornisce qualsiasi Attacco nella fase di Attacco a Distanza/Assedio, oppure +2 a una carta che fornisce qualsiasi Attacco (anche giocata di lato) nella fase di Attacco.",
+  "used_by": [
+   "wolfhawk_deadly_aim"
+  ]
+ },
+ "delayed_effect": {
+  "desc": "Puoi ottenere effect in qualsiasi momento di questo turno (anche in un'altra fase).",
+  "used_by": [
+   "phantom_image"
+  ]
+ },
+ "destroy_enemy": {
+  "desc": "Distrugge un nemico bersaglio (conta come sconfitto: Fama). Parametri: phase = fase in cui si può giocare ('attack'); others_armor = riduzione d'Armatura (min 1) a tutti gli altri nemici; immune = resistenza che rende immune. Immunità arcana: immune.",
+  "used_by": [
+   "demolish",
+   "whirlwind"
+  ]
+ },
+ "destroy_if_blocked": {
+  "desc": "Il nemico bersaglio viene distrutto se il suo attacco viene bloccato con successo in questo combattimento (Fama normale). Parametro immune = resistenza che rende immune.",
+  "used_by": [
+   "delphana_masters"
+  ]
+ },
+ "discard_any_for": {
+  "desc": "Quando la giochi scarti un qualsiasi numero di carte dalla mano; per ogni carta scartata ottieni effect (es. Attacco 3).",
+  "used_by": [
+   "bow_of_starsdawn",
+   "sword_of_justice"
+  ]
+ },
+ "discard_for_crystals": {
+  "desc": "Puoi scartare fino a max carte non-Ferita dalla mano; per ognuna ottieni un cristallo del suo colore (per gli Artefatti scegli tu il colore).",
+  "used_by": [
+   "offering"
+  ]
+ },
+ "discard_wound_draw": {
+  "desc": "Scarta (elimina dalla mano verso la pila degli scarti) una Ferita; se lo fai pesca una carta.",
+  "used_by": [
+   "tovak_i_feel_no_pain"
+  ]
+ },
+ "disease": {
+  "desc": "Tutti i nemici il cui attacco è stato bloccato in questo combattimento hanno Armatura 1 (per il resto del combattimento).",
+  "used_by": [
+   "cure"
+  ]
+ },
+ "double_attacks": {
+  "desc": "Raddoppia il valore degli attacchi dell'elemento elem che giochi nella fase phase in questo turno.",
+  "used_by": [
+   "sword_of_justice"
+  ]
+ },
+ "draw_fire_unit": {
+  "desc": "Riduci di reduce un attacco di un nemico; tutto il danno di quell'attacco deve essere assegnato per primo a questa Unità (anche se il nemico ha Assassinio).",
+  "used_by": [
+   "shocktroops"
+  ]
+ },
+ "draw_per_heal": {
+  "desc": "Per il resto del turno, ogni volta che curi una Ferita dalla mano pesca una carta.",
+  "used_by": [
+   "golden_grail",
+   "golden_grail_rotf"
+  ]
+ },
+ "druidic_staff": {
+  "desc": "Bastone druidico: powered=false: scarta una carta e in base al suo colore ottieni: bianco = muovi fino a 2 spazi rivelati terminando su uno spazio sicuro (non provoca); blu = 2 cristalli di colori a scelta; rosso = rendi Pronta un'Unità di livello <= III; verde = Cura 3. powered=true: scegli due opzioni diverse senza scartare.",
+  "used_by": [
+   "druidic_staff"
+  ]
+ },
+ "dueling": {
+  "desc": "Duello (fase di Blocco): Blocco 1 contro un nemico e Attacco 1 contro lo stesso nemico nella fase di Attacco; se non usi abilità di Unità contro quel nemico né gli assegni danni alle Unità, Fama +1 extra quando lo sconfiggi.",
+  "used_by": [
+   "wolfhawk_dueling"
+  ]
+ },
+ "enemy_attack_reduce_all": {
+  "desc": "Riduci di n tutti gli attacchi di un nemico (Immunità arcana: immune).",
+  "used_by": [
+   "blinding_light"
+  ]
+ },
+ "enemy_no_attack": {
+  "desc": "Uno o più nemici non attaccano in questo combattimento (da giocare prima della fase di Assegnazione dei danni). Parametri: targets = numero massimo di nemici (default 1); extra_targets_move = true se si possono aggiungere bersagli pagando Movimento (2° nemico 1, 3° 2, ...); unfortified = solo nemici non fortificati; armor = riduzione d'Armatura aggiuntiva al bersaglio (min 1) per il turno; lose_resist = resistenza che il bersaglio perde per il turno; immune = resistenza che rende immune ('fire'/'ice'). Immunità arcana: immune.",
+  "used_by": [
+   "amotep_freezers",
+   "banner_of_fear",
+   "chill",
+   "delphana_masters",
+   "illusionists",
+   "whirlwind",
+   "wings_of_wind"
+  ]
+ },
+ "explore_discount": {
+  "desc": "Esplorare ti costa sempre n Movimento in meno (passiva).",
+  "used_by": [
+   "braevalar_feral_allies"
+  ]
+ },
+ "explore_distance": {
+  "desc": "In questo turno puoi rivelare una nuova tessera a distanza n spazi invece che adiacente.",
+  "used_by": [
+   "scouts"
+  ]
+ },
+ "fame_per_heal": {
+  "desc": "Fama +1 per ogni punto di Cura fornito da questa carta che spendi in questo turno.",
+  "used_by": [
+   "golden_grail",
+   "golden_grail_rotf"
+  ]
+ },
+ "fame_per_kill": {
+  "desc": "Fama +n per ogni nemico sconfitto (scope 'turn' = in questo turno, 'phase' = nella fase di combattimento attuale).",
+  "used_by": [
+   "bow_of_starsdawn",
+   "sword_of_justice"
+  ]
+ },
+ "familiars_upkeep": {
+  "desc": "Famigli magici: al reclutamento paga un mana di colore base e metti un gettone di quel colore sull'Unità (memorizzato sull'istanza: unit.token). All'inizio di ogni Round sostituiscilo pagando un cristallo di qualsiasi colore (che diventa il nuovo colore), oppure getta via l'Unità.",
+  "used_by": [
+   "magic_familiars"
+  ]
+ },
+ "fan_rotf": {
+  "desc": "Meccanica del modulo fan Rise of the Forgemaster (pozioni, carte messe sotto il mazzo...): vedi text_it; non implementata nella v1.",
+  "used_by": [
+   "hone_senses"
+  ]
+ },
+ "flight": {
+  "desc": "Volo: muovi gratuitamente in uno spazio adiacente, oppure di 2 spazi per 2 Movimento; termina su uno spazio sicuro; non provoca nemici.",
+  "used_by": [
+   "goldyx_flight"
+  ]
+ },
+ "frenzy_unit": {
+  "desc": "Da giocare prima del combattimento: rendi Pronta un'Unità che ottiene +bonus ai suoi Attacchi in questo turno; non puoi assegnarle danni in questo turno.",
+  "used_by": [
+   "frenzy"
+  ]
+ },
+ "gem_pouch_roll": {
+  "desc": "Tira un dado mana rolls volte: per ogni colore ottenuto un cristallo di quel colore (oro: scegli il colore; nero: Fama +1 invece del cristallo).",
+  "used_by": [
+   "endless_gem_pouch"
+  ]
+ },
+ "hawk_eyes": {
+  "desc": "Di notte esplorare costa 1 Movimento in meno in questo turno; di giorno puoi rivelare le guarnigioni dei siti fortificati a distanza 2.",
+  "used_by": [
+   "wolfhawk_hawk_eyes"
+  ]
+ },
+ "heal_all_units": {
+  "desc": "Cura completamente tutte le tue Unità (non in combattimento).",
+  "used_by": [
+   "banner_of_fortitude"
+  ]
+ },
+ "heal_by_terrain": {
+  "desc": "Cura n; se sei su un esagono di terreno terrain, invece Cura n_terrain. discard=true: in questo turno puoi curare anche Ferite dalla pila degli scarti.",
+  "used_by": [
+   "restoration",
+   "restoration_rotf"
+  ]
+ },
+ "healing_ritual": {
+  "desc": "Rituale di guarigione (competitiva, non in combattimento): elimina fino a due Ferite dalla mano; una di esse va nella mano del Mage Knight più vicino sulla mappa (in parità scegli).",
+  "used_by": [
+   "arythea_healing_ritual"
+  ]
+ },
+ "horn_powered": {
+  "desc": "Puoi aggiungere fino a +max all'Attacco d'Assedio appena ottenuto; per ogni +1 tira un dado mana e ricevi una Ferita per ogni nero o rosso.",
+  "used_by": [
+   "horn_of_wrath",
+   "horn_of_wrath_rotf"
+  ]
+ },
+ "if_lowest_fame": {
+  "desc": "Se hai strettamente meno Fama di tutti gli altri giocatori (solitario: mai, salvo regole di scenario), applica effects.",
+  "used_by": [
+   "arythea_motivation",
+   "goldyx_motivation",
+   "norowas_motivation",
+   "tovak_motivation",
+   "wolfhawk_motivation"
+  ]
+ },
+ "ignore_reputation": {
+  "desc": "Gira il segnalino: per il turno ignora tutti gli effetti della tua posizione sul tracciato Reputazione. Si rigira pagando un mana verde in un qualsiasi turno.",
+  "used_by": [
+   "krang_arcane_disguise"
+  ]
+ },
+ "influence_per_crystal_color": {
+  "desc": "Influenza +1 per ogni diverso colore di cristallo nel tuo Inventario (solo per interazioni).",
+  "used_by": [
+   "goldyx_glittering_fortune"
+  ]
+ },
+ "invocation": {
+  "desc": "Invocazione: scarta una Ferita per ottenere un gettone mana rosso o nero, oppure una carta non-Ferita per un gettone bianco o verde; il mana va speso subito.",
+  "used_by": [
+   "arythea_invocation"
+  ]
+ },
+ "know_your_prey": {
+  "desc": "Conosci la tua preda (in combattimento): ignora un'abilità offensiva o difensiva di un nemico, oppure togli un elemento a un suo attacco (Fuoco/Ghiaccio -> fisico, Fuoco Freddo -> Fuoco o Ghiaccio). Non contro nemici con Immunità arcana.",
+  "used_by": [
+   "wolfhawk_know_your_prey"
+  ]
+ },
+ "mana_any": {
+  "desc": "Ottieni n gettoni mana, ciascuno di un colore qualsiasi a scelta (rosso, blu, verde, bianco, oro, nero).",
+  "used_by": [
+   "altem_mages",
+   "amulet_of_darkness",
+   "hone_senses",
+   "krang_shamanic_ritual"
+  ]
+ },
+ "mana_claim": {
+  "desc": "Prendi un dado di colore base dalla Fonte e tienilo fino a fine round (non torna alla Fonte); scegli: 3 gettoni mana di quel colore in questo turno, oppure 1 gettone di quel colore all'inizio di ognuno dei tuoi turni successivi di questo round. curse=true (Maledizione del mana): inoltre fino a fine round ogni altro giocatore che usa mana di quel colore nel proprio turno riceve una Ferita (max 1 per turno).",
+  "used_by": [
+   "mana_claim"
+  ]
+ },
+ "mana_enhancement": {
+  "desc": "Potenziamento del mana (cooperativa): quando spendi mana di un colore base ottieni un cristallo di quel colore e metti un gettone di quel colore sull'Abilità; un altro giocatore nel suo turno può prendere quel gettone.",
+  "used_by": [
+   "krang_mana_enhancement"
+  ]
+ },
+ "mana_exploit": {
+  "desc": "Sfruttamento del mana (competitiva): ottieni un gettone mana di un colore non oro e metti l'Abilità al centro con un cristallo di quel colore; gli altri giocatori ricevono una Ferita la prima volta che usano mana di ciascun altro colore nel proprio turno. Torna a te all'inizio del tuo turno.",
+  "used_by": [
+   "tovak_mana_exploit"
+  ]
+ },
+ "mana_meltdown": {
+  "desc": "Fusione del mana (competitiva): ogni altro giocatore perde un cristallo a caso dal proprio Inventario (chi non ne ha riceve una Ferita); puoi prenderne uno tra quelli persi. Senza avversari non ha effetto.",
+  "used_by": [
+   "mana_meltdown"
+  ]
+ },
+ "mana_overload": {
+  "desc": "Sovraccarico di mana (cooperativa): ottieni un gettone mana di un colore non oro; il primo giocatore che usa mana di quel colore per potenziare una carta che dà Movimento/Influenza/Attacco/Blocco ottiene +4 da quella carta.",
+  "used_by": [
+   "tovak_mana_overload"
+  ]
+ },
+ "mana_radiance": {
+  "desc": "Splendore del mana: scegli un colore base; ogni giocatore (te compreso) riceve una Ferita per ogni cristallo di quel colore che possiede; poi ottieni 2 cristalli del colore scelto.",
+  "used_by": [
+   "mana_meltdown"
+  ]
+ },
+ "mana_suppression": {
+  "desc": "Soppressione del mana (competitiva): la prima volta che ogni altro giocatore usa mana di un colore base deve pagare un mana in più dello stesso colore (si aggiunge un gettone di quel colore all'Abilità). Nel tuo prossimo turno prendi un cristallo dall'Abilità (o uno a scelta se vuota).",
+  "used_by": [
+   "krang_mana_suppression"
+  ]
+ },
+ "master_of_chaos": {
+  "desc": "Signore del caos: il segnalino ha un colore corrente (iniziale casuale). Una volta per turno avanzalo di un colore in senso orario (blu->verde->bianco->rosso->nero->oro->blu) e ottieni: blu Blocco 3, verde Movimento 1, bianco Influenza 2, rosso Attacco 2, nero Attacco a Distanza di Fuoco Freddo 1, oro uno qualsiasi. Se non l'hai usato nel turno precedente puoi avanzarlo di una posizione prima del turno.",
+  "used_by": [
+   "krang_master_of_chaos"
+  ]
+ },
+ "meditation": {
+  "desc": "Prendi 2 carte dalla pila degli scarti (random=true: a caso; false: a scelta) e mettile in cima o in fondo al mazzo; il limite di mano aumenta di 2 la prossima volta che peschi.",
+  "used_by": [
+   "meditation"
+  ]
+ },
+ "mind_read": {
+  "desc": "Scegli un colore: ottieni un cristallo di quel colore; ogni altro giocatore deve scartare un Incantesimo o una carta Azione di quel colore oppure mostrare di non averne. steal=true: puoi inoltre prendere in modo permanente una delle carte Azione (non Incantesimi) scartate così e aggiungerla alla tua mano.",
+  "used_by": [
+   "mind_read"
+  ]
+ },
+ "motivation_lock": {
+  "desc": "Non puoi usare un'altra Abilità Motivazione (tua o di altri) fino alla fine del tuo prossimo turno.",
+  "used_by": [
+   "arythea_motivation",
+   "goldyx_motivation",
+   "norowas_motivation",
+   "tovak_motivation",
+   "wolfhawk_motivation"
+  ]
+ },
+ "move_per_ready_unit": {
+  "desc": "Movimento 1 per ogni tua Unità Pronta e non Ferita, fino a max.",
+  "used_by": [
+   "norowas_forward_march"
+  ]
+ },
+ "multi_attack": {
+  "desc": "Attacco di valore n (elem, kind) contro ciascuno di fino a targets nemici diversi (ogni bersaglio va sconfitto separatamente). Se values è dato, i valori decrescono per ogni bersaglio successivo; penalty_wound=true: se lo usi su meno bersagli di values, ricevi una Ferita.",
+  "used_by": [
+   "blinding_light",
+   "braevalar_forked_lightning"
+  ]
+ },
+ "multi_block": {
+  "desc": "Blocchi separati: ottieni count blocchi di valore n ed elemento elem (default phys), ciascuno contro un attacco nemico diverso (non si sommano). up_to=true: fino a count.",
+  "used_by": [
+   "shield_of_the_fallen_kings",
+   "shield_of_the_fallen_kings_rotf"
+  ]
+ },
+ "mysterious_box": {
+  "desc": "Rivela la prima carta del mazzo Artefatti: in questo turno puoi usare il Forziere come se fosse quell'Artefatto (base o potenziato); se lo fai Fama +1. A fine turno l'Artefatto rivelato va in fondo al mazzo; se non hai usato il Forziere torna in mano, se l'hai attaccato a un'Unità come stendardo va scartato (se usato potenziato viene distrutto).",
+  "used_by": [
+   "mysterious_box"
+  ]
+ },
+ "natures_vengeance": {
+  "desc": "Vendetta della natura: riduci di 1 un attacco di un nemico, che ottiene Ingombrante per il turno. mode='competitive': finché l'Abilità non torna a te gli attacchi di tutti i nemici degli altri giocatori aumentano di 1 nella fase di Blocco; mode='coop': un altro giocatore nel suo turno può usare lo stesso effetto.",
+  "used_by": [
+   "braevalar_natures_vengeance",
+   "braevalar_natures_vengeance_coop"
+  ]
+ },
+ "offering_rotf": {
+  "desc": "Fino a due volte: scarta una carta di qualsiasi colore per ottenere un cristallo di quel colore.",
+  "used_by": [
+   "offering_rotf"
+  ]
+ },
+ "on_her_own": {
+  "desc": "Influenza 1, oppure Influenza 3 se in questo turno non hai reclutato e non recluti Unità con l'Influenza.",
+  "used_by": [
+   "wolfhawk_on_her_own"
+  ]
+ },
+ "opponents_exhaust_unit": {
+  "desc": "Competitiva: puoi rendere esausta un'Unità di livello <= max_level nell'area Unità di ciascun altro giocatore. Senza avversari non ha effetto.",
+  "used_by": [
+   "energy_flow"
+  ]
+ },
+ "pay_boost": {
+  "desc": "Scegli una delle options; poi puoi pagare mana dei colori in per_mana (ciascun colore al massimo una volta) per aumentare il valore di +per_mana[colore].",
+  "used_by": [
+   "altem_mages"
+  ]
+ },
+ "plus_per_enemy": {
+  "desc": "Ottiene l'effetto op (attack|block) di valore n ed elemento elem, aumentato di per per ogni segnalino nemico che stai affrontando nel combattimento.",
+  "used_by": [
+   "flame_wall"
+  ]
+ },
+ "poison_attack": {
+  "desc": "Attacco n (elem, kind) Velenoso: se l'attacco non sconfigge il nemico non ha effetto aggiuntivo; (meccanica fan RotF: il nemico colpito riceve segnalini veleno). Vedi text_it.",
+  "used_by": [
+   "poison_breath"
+  ]
+ },
+ "polarization": {
+  "desc": "Polarizzazione: una volta per turno puoi usare un mana come mana del colore opposto (rosso<->blu, verde<->bianco, oro<->nero). Di giorno il nero vale come qualsiasi colore base (non per potenziare incantesimi); di notte l'oro vale come nero per potenziare un incantesimo.",
+  "used_by": [
+   "arythea_polarization"
+  ]
+ },
+ "possess": {
+  "desc": "Possedere: un nemico (non con Immunità arcana) non attacca; nella fase di Attacco ottieni Attacco pari al suo valore d'Attacco con l'elemento (ignorando le sue abilità speciali) utilizzabile solo contro gli altri nemici.",
+  "used_by": [
+   "charm"
+  ]
+ },
+ "puppet_master": {
+  "desc": "Conserva 1 segnalino nemico sconfitto in questo turno, oppure scarta 1 segnalino conservato per ottenere Attacchi pari a metà (per eccesso) dei suoi attacchi (con i loro elementi Fuoco/Ghiaccio) oppure Blocco pari a metà (per eccesso) della sua Armatura (con elemento opposto alla sua resistenza al Fuoco/Ghiaccio).",
+  "used_by": [
+   "krang_puppet_master"
+  ]
+ },
+ "ready_all_units": {
+  "desc": "Rendi Pronte tutte le tue Unità (non in combattimento).",
+  "used_by": [
+   "banner_of_courage"
+  ]
+ },
+ "ready_unit_heal": {
+  "desc": "Rendi Pronta un'Unità (qualsiasi livello) e curala completamente.",
+  "used_by": [
+   "energy_flow"
+  ]
+ },
+ "ready_unit_levels": {
+  "desc": "Rendi Pronte Unità per un totale di livelli fino a levels (fino a terrain_levels se sei sul terreno terrain).",
+  "used_by": [
+   "restoration",
+   "restoration_rotf"
+  ]
+ },
+ "recruit_free_from_offer": {
+  "desc": "Recluta gratuitamente un'Unità dall'offerta Unità (se sei al limite di Comando devi prima congedarne una).",
+  "used_by": [
+   "banner_of_command",
+   "call_to_arms"
+  ]
+ },
+ "reduce_enemy_attack": {
+  "desc": "Riduce di n un attacco di un nemico (fino a 0) in questo combattimento. Parametri: n; armor = riduce anche l'Armatura dello stesso nemico (min 1); cumbersome = true il nemico ottiene Ingombrante per il turno.",
+  "used_by": [
+   "braevalar_feral_allies",
+   "shocktroops"
+  ]
+ },
+ "regenerate": {
+  "desc": "Paga un mana di qualsiasi colore ed elimina una Ferita dalla mano (torna nel mazzo delle Ferite); se il mana era del colore color, oppure hai strettamente meno Fama di tutti gli altri giocatori, pesca anche una carta.",
+  "used_by": [
+   "braevalar_regenerate",
+   "krang_regenerate"
+  ]
+ },
+ "rep_if_interaction": {
+  "desc": "Se l'Influenza è usata durante un'interazione, Reputazione +n.",
+  "used_by": [
+   "heroes_blue",
+   "heroes_green",
+   "heroes_red",
+   "heroes_white"
+  ]
+ },
+ "ring_powered": {
+  "desc": "Anello potenziato: in questo turno hai mana illimitato del colore color e nero (il nero utilizzabile anche di giorno, solo per incantesimi); Fama +1 per ogni Incantesimo di colore color lanciato in questo turno.",
+  "used_by": [
+   "diamond_ring",
+   "emerald_ring",
+   "ruby_ring",
+   "sapphire_ring"
+  ]
+ },
+ "ritual_of_pain": {
+  "desc": "Rituale del dolore (cooperativa, non in combattimento): elimina fino a due Ferite dalla mano; l'Abilità va nell'area di gioco: un altro giocatore nel suo turno può giocare una Ferita di lato ottenendo +3.",
+  "used_by": [
+   "arythea_ritual_of_pain"
+  ]
+ },
+ "roll_wound": {
+  "desc": "Tira dice dadi mana: ricevi una Ferita (in mano) per ogni nero o rosso.",
+  "used_by": [
+   "horn_of_wrath",
+   "horn_of_wrath_rotf"
+  ]
+ },
+ "sacrifice": {
+  "desc": "Sacrificio: scegli verde o bianco, poi rosso o blu. Per ogni coppia di cristalli dei due colori scelti nel tuo Inventario ottieni Attacco d'Assedio 4 (verde) oppure Attacco a Distanza 6 (bianco), di Fuoco (rosso) o di Ghiaccio (blu). Poi tutte quelle coppie di cristalli diventano gettoni mana.",
+  "used_by": [
+   "offering",
+   "offering_rotf"
+  ]
+ },
+ "scout_peek": {
+  "desc": "Guarda un segnalino a faccia in giù entro range spazi, oppure quello in cima a una pila di segnalini nemici non usati; se sconfiggi quel nemico in questo turno, Fama +fame.",
+  "used_by": [
+   "scouts"
+  ]
+ },
+ "secret_ways": {
+  "desc": "Per il turno: puoi entrare nelle montagne per 5 Movimento (sono spazi sicuri per te); pagando un mana blu puoi entrare nei laghi per 2 Movimento e considerarli spazi sicuri.",
+  "used_by": [
+   "braevalar_secret_ways"
+  ]
+ },
+ "shapeshift": {
+  "desc": "Una carta Azione base che fornisce una quantità fissa di Movimento, Attacco o Blocco fornisce invece la stessa quantità di uno degli altri due (attacchi e blocchi mantengono gli elementi).",
+  "used_by": [
+   "braevalar_shapeshift"
+  ]
+ },
+ "shield_on_block": {
+  "desc": "Da giocare con un Blocco: se il blocco di cui fa parte riesce, allora: attack=n -> nella fase di Attacco ottieni Attacco n dell'elemento elem; destroy=true -> il nemico bloccato è distrutto (immune = resistenza che rende immune).",
+  "used_by": [
+   "burning_shield"
+  ]
+ },
+ "sideways_bonus": {
+  "desc": "Una carta giocata di lato fornisce +base invece di +1. aa_spell_artifact = valore se la carta è un'Azione avanzata, un Incantesimo o un Artefatto; no_source = valore se in questo turno non usi dadi della Fonte.",
+  "used_by": [
+   "tovak_i_dont_give_a_damn",
+   "tovak_who_needs_magic"
+  ]
+ },
+ "sideways_mana_boost": {
+  "desc": "Aggiungi un mana a una carta giocata di lato: fornisce +base invece di +1, oppure +same_color se è un'Azione o un Incantesimo dello stesso colore del mana.",
+  "used_by": [
+   "goldyx_universal_power"
+  ]
+ },
+ "source_freeze": {
+  "desc": "Congelare la Fonte (competitiva, l'Abilità va al centro): prendi un dado di colore base dalla Fonte e ottieni un cristallo di quel colore; fino all'inizio del tuo prossimo turno gli altri giocatori non possono usare quel dado (resta congelato), poi viene rilanciato.",
+  "used_by": [
+   "goldyx_source_freeze"
+  ]
+ },
+ "source_opening": {
+  "desc": "Apertura della Fonte (cooperativa): puoi rilanciare un dado della Fonte; l'Abilità va nell'area di gioco; un altro giocatore nel suo turno può usare un dado aggiuntivo dalla Fonte dandoti un cristallo del suo colore e scegliere se rilanciarlo.",
+  "used_by": [
+   "goldyx_source_opening"
+  ]
+ },
+ "space_bending": {
+  "desc": "Per il turno puoi muoverti ed esplorare su spazi a distanza 2 come se fossero adiacenti (gli spazi saltati sono ignorati); il movimento non provoca nemici.",
+  "used_by": [
+   "space_bending"
+  ]
+ },
+ "spectral_guise": {
+  "desc": "Solo in fase di Movimento: ignora per il turno gli effetti della tua posizione sul tracciato Reputazione; in qualsiasi momento del turno ottieni Influenza 10 oppure Attacco 9; Reputazione -2.",
+  "used_by": [
+   "frenzy"
+  ]
+ },
+ "strip": {
+  "desc": "Il nemico bersaglio (targets 'one') o tutti i nemici ('all') perdono per questo combattimento: fort=true tutte le fortificazioni (del sito e abilità Fortificato), fort='site' solo la fortificazione del sito (per tutto il turno, anche prima del combattimento); resist=true tutte le resistenze, oppure resist=[elenco] solo quelle indicate ('phys','fire','ice'). Immunità arcana: immune.",
+  "used_by": [
+   "delphana_masters",
+   "demolish",
+   "expose",
+   "sorcerers",
+   "sword_of_justice"
+  ]
+ },
+ "take_wound": {
+  "desc": "Ricevi n Ferite in mano (non è danno, non conta per il KO).",
+  "used_by": [
+   "fireball",
+   "snowstorm"
+  ]
+ },
+ "taunt": {
+  "desc": "Provocazione (fase di Blocco): scegli un nemico: riduci di 1 un suo attacco, oppure aumenta di 2 un suo attacco e riducine l'Armatura di 2 (min 1); l'Armatura non scende se al nemico è impedito di attaccare.",
+  "used_by": [
+   "wolfhawk_taunt"
+  ]
+ },
+ "terrain_all": {
+  "desc": "Imposta per il turno il costo di Movimento di tutti i terreni a cost (inclusi i laghi); i terreni in blocked sono invalicabili.",
+  "used_by": [
+   "mist_form"
+  ]
+ },
+ "throw_away_turn_wounds": {
+  "desc": "Alla fine del turno puoi gettare via (rimettere nel mazzo delle Ferite) tutte le carte Ferita ricevute dal tuo eroe in questo turno (in mano o negli scarti); le ferite delle Unità restano.",
+  "used_by": [
+   "banner_of_protection"
+  ]
+ },
+ "time_bending": {
+  "desc": "A fine turno metti da parte questa carta fino a fine round, riprendi in mano tutte le altre carte giocate in questo turno (non quelle scartate o gettate), salta il pescaggio e fai immediatamente un altro turno.",
+  "used_by": [
+   "space_bending"
+  ]
+ },
+ "tome_of_all_spells": {
+  "desc": "Scarta una carta di un colore (non Ferita): usa l'effetto base (powered=false) o potenziato (powered=true, anche di Giorno) di un Incantesimo dello stesso colore nell'offerta, senza pagarne il mana; l'incantesimo resta nell'offerta.",
+  "used_by": [
+   "tome_of_all_spells"
+  ]
+ },
+ "underground_travel": {
+  "desc": "Viaggio sotterraneo: muovi su uno spazio rivelato fino a range spazi di distanza, senza passare per paludi o laghi (né terminarci), terminando su uno spazio sicuro; non provoca nemici. attack=true: invece devi terminare su un sito fortificato (assalto) o su uno spazio con un altro giocatore (attacco); si ignorano le fortificazioni del sito; se ti ritiri dal combattimento torni allo spazio di partenza.",
+  "used_by": [
+   "underground_travel"
+  ]
+ },
+ "unit_activation_bonus": {
+  "desc": "Comando: quando attivi un'Unità in questo turno aggiungi +block al suo Blocco, oppure +attack al suo Attacco, oppure +ranged al suo Attacco a Distanza (non d'Assedio), qualsiasi elemento.",
+  "used_by": [
+   "norowas_leadership"
+  ]
+ },
+ "unit_assault_cost": {
+  "desc": "Regola dell'Unità (campo rules): per attivarla durante un assalto (o un attacco a un altro giocatore) devi pagare influence punti Influenza (una volta per combattimento).",
+  "used_by": [
+   "heroes_blue",
+   "heroes_green",
+   "heroes_red",
+   "heroes_white"
+  ]
+ },
+ "unit_damage_cost": {
+  "desc": "Regola dell'Unità: non le si può assegnare danno a meno di pagare influence punti Influenza durante il combattimento.",
+  "used_by": [
+   "thugs"
+  ]
+ },
+ "unit_multi_ability": {
+  "desc": "Regola dell'Unità: quando la attivi puoi usare più abilità diverse (pagando ciascun mana) contro gli stessi o diversi bersagli.",
+  "used_by": [
+   "delphana_masters"
+  ]
+ },
+ "unit_rep_recruit_mult": {
+  "desc": "Regola di reclutamento: il bonus/malus di Reputazione all'Influenza per reclutare questa Unità è moltiplicato per mult (2 = raddoppiato, -1 = invertito).",
+  "used_by": [
+   "heroes_blue",
+   "heroes_green",
+   "heroes_red",
+   "heroes_white",
+   "thugs"
+  ]
+ },
+ "unit_token_bonus": {
+  "desc": "Famigli magici: effetto effect, aumentato di +bonus se sull'Unità c'è il gettone mana di colore color.",
+  "used_by": [
+   "magic_familiars"
+  ]
+ },
+ "units_all_resist": {
+  "desc": "Tutte le tue Unità ottengono tutte le resistenze (fisica, Fuoco, Ghiaccio) per il turno.",
+  "used_by": [
+   "altem_guardians"
+  ]
+ },
+ "units_attack_bonus": {
+  "desc": "Tutte le altre tue Unità ottengono +n a tutti i loro attacchi in questo turno.",
+  "used_by": [
+   "shocktroops"
+  ]
+ },
+ "use_offer_unit": {
+  "desc": "Usa un'abilità di un'Unità presente nell'offerta Unità come se fosse tua (non puoi assegnarle danni).",
+  "used_by": [
+   "call_to_arms"
+  ]
+ },
+ "veil_of_mist": {
+  "desc": "Per il turno tutte le tue Unità hanno tutte le resistenze; il tuo eroe ignora la prima Ferita inflitta dai nemici e i suoi effetti aggiuntivi.",
+  "used_by": [
+   "mist_form"
+  ]
+ },
+ "weather": {
+  "desc": "Preghiera/Calma del tempo: riduce di self il costo di Movimento di tutti i terreni (min 1) per il tuo turno. mode='competitive': gli altri giocatori pagano +1 su tutti i terreni (max 5) finché l'Abilità non torna a te; mode='coop': un altro giocatore nel suo turno può ridurre di 1 il costo di tutti i terreni (min 1).",
+  "used_by": [
+   "norowas_calming_the_weather",
+   "norowas_prayer_of_weather"
+  ]
+ },
+ "wings_of_wind": {
+  "desc": "Spendi da 1 a max punti Movimento e spostati di uno spazio rivelato per ciascuno (in linea qualsiasi, ignorando i terreni), terminando su uno spazio sicuro; non provoca nemici.",
+  "used_by": [
+   "wings_of_wind"
+  ]
+ },
+ "wolfs_howl": {
+  "desc": "Ululato (interattiva, fuori dalle interazioni): una carta giocata di lato vale +4, +1 per ogni segnalino Comando senza Unità. mode='competitive': gli attacchi e i blocchi delle Unità degli altri giocatori sono ridotti di 1 finché non torna a te; mode='coop': il prossimo giocatore che combatte riduce di 1 l'Armatura di un nemico e di 1 un attacco dello stesso o di un altro nemico.",
+  "used_by": [
+   "wolfhawk_howl_of_the_pack",
+   "wolfhawk_wolfs_howl"
+  ]
+ },
+ "wound_self_unit": {
+  "desc": "L'Unità che usa questa abilità viene Ferita.",
+  "used_by": [
+   "utem_swordsmen"
+  ]
+ },
+ "wound_sideways": {
+  "desc": "Una volta per turno puoi giocare una Ferita di lato come se fosse una carta non-Ferita, ottenendo +bonus invece di +1; a fine turno quella Ferita va nella pila degli scarti.",
+  "used_by": [
+   "arythea_power_of_pain"
+  ]
+ }
+}

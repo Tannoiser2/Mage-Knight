@@ -1,0 +1,121 @@
+{
+ "units": [
+  {
+   "id": "peasants",
+   "set": "base",
+   "elite": false,
+   "name_it": "Contadini",
+   "name_en": "Peasants",
+   "level": 1,
+   "cost": 4,
+   "armor": 3,
+   "resist": [],
+   "recruit": [
+    "village",
+    "camp",
+    "oasis"
+   ],
+   "copies": 3,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          2
+         ]
+        ],
+        [
+         [
+          "block",
+          2
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 2"
+    },
+    {
+     "effect": [
+      [
+       "influence",
+       2
+      ]
+     ],
+     "mana": "",
+     "text_it": "Influenza 2"
+    },
+    {
+     "effect": [
+      [
+       "move",
+       2
+      ]
+     ],
+     "mana": "",
+     "text_it": "Movimento 2"
+    }
+   ],
+   "img": "assets/cards/unit_peasants.webp",
+   "impl": true,
+   "note": "",
+   "guid": "a0a6cb"
+  },
+  {
+   "id": "foresters",
+   "set": "base",
+   "elite": false,
+   "name_it": "Guardaboschi",
+   "name_en": "Foresters",
+   "level": 1,
+   "cost": 5,
+   "armor": 4,
+   "resist": [],
+   "recruit": [
+    "village",
+    "camp",
+    "oasis"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "move",
+       2
+      ],
+      [
+       "terrain",
+       {
+        "forest": "-1",
+        "hills": "-1",
+        "swamp": "-1"
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Movimento 2. Il costo di movimento nelle foreste, colline e paludi viene ridotto di 1 in questo turno, fino ad un minimo di 0."
+    },
+    {
+     "effect": [
+      [
+       "block",
+       3
+      ]
+     ],
+     "mana": "",
+     "text_it": "Blocco 3"
+    }
+   ],
+   "img": "assets/cards/unit_foresters.webp",
+   "impl": true,
+   "note": "Riduzione dei terreni fino a un minimo di 0.",
+   "guid": "e8acd7"
+  }
+ ]
+}

@@ -1,0 +1,2856 @@
+{
+ "cards": [
+  {
+   "id": "stamina",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Resistenza",
+   "name_en": "Stamina",
+   "basic": [
+    [
+     "move",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2",
+    "powered": "Movimento 4"
+   },
+   "img": "assets/cards/stamina.webp",
+   "copies": 2,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "determination",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Determinazione",
+   "name_en": "Determination",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "block",
+     5
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco o Blocco 2",
+    "powered": "Blocco 5"
+   },
+   "img": "assets/cards/determination.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "crystallize",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Cristallizzare",
+   "name_en": "Crystallize",
+   "basic": [
+    [
+     "pay_mana",
+     "basic",
+     [
+      [
+       "crystal",
+       "$paid"
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "crystal",
+     "basic"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Quando giochi questa carta, paga anche un mana di un colore base. Guadagni un cristallo di quel colore nel tuo Inventario.",
+    "powered": "Guadagni un cristallo di un colore qualsiasi nel tuo Inventario."
+   },
+   "img": "assets/cards/crystallize.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Di Giorno il mana oro pagato vale come un colore base a scelta (cristallo di quel colore). Potenziato: colore base a scelta."
+  },
+  {
+   "id": "march",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Marcia",
+   "name_en": "March",
+   "basic": [
+    [
+     "move",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2",
+    "powered": "Movimento 4"
+   },
+   "img": "assets/cards/march.webp",
+   "copies": 2,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "tranquility",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Tranquillità",
+   "name_en": "Tranquility",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "heal",
+        1
+       ]
+      ],
+      [
+       [
+        "draw",
+        1
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "heal",
+        2
+       ]
+      ],
+      [
+       [
+        "draw",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Cura 1 oppure pesca una carta.",
+    "powered": "Cura 2 oppure pesca due carte."
+   },
+   "img": "assets/cards/tranquility.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Carta Cura (icona in alto a sinistra): non giocabile durante il combattimento."
+  },
+  {
+   "id": "concentration",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Concentrazione",
+   "name_en": "Concentration",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "boost_next",
+     2
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana blu, bianco o rosso.",
+    "powered": "Quando giochi questa carta, gioca con essa un'altra carta Azione. Ottieni l'effetto più potente di quella carta gratuitamente. Se quell'effetto ti fornisce Movimento, Influenza, Blocco o qualsiasi tipo di Attacco, ottieni quel valore più 2."
+   },
+   "img": "assets/cards/concentration.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "boost_next qui significa: la carta Azione giocata subito dopo (obbligatoria, dalla mano) usa l'effetto potenziato SENZA pagare mana e ogni valore di Movimento/Influenza/Blocco/Attacco che fornisce riceve +n (se l'effetto è una scelta, il bonus va al valore scelto). Effetti 'composti': vedi regolamento (vale come un unico effetto)."
+  },
+  {
+   "id": "swiftness",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "white",
+   "name_it": "Rapidità",
+   "name_en": "Swiftness",
+   "basic": [
+    [
+     "move",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     3,
+     "phys",
+     "ranged"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2",
+    "powered": "Attacco a Distanza 3"
+   },
+   "img": "assets/cards/swiftness.webp",
+   "copies": 2,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "mana_draw",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "white",
+   "name_it": "Pescare Mana",
+   "name_en": "Mana Draw",
+   "basic": [
+    [
+     "extra_die",
+     1
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mana_draw",
+     {
+      "dice": 1,
+      "tokens": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Puoi utilizzare un dado mana addizionale dalla Riserva in questo turno.",
+    "powered": "Prendi un dado mana dalla Riserva e impostalo su un colore qualsiasi tranne l'oro. Guadagni due segnalini mana di quel colore. Non ritirare questo dado quando lo rimetti nella Riserva."
+   },
+   "img": "assets/cards/mana_draw.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Nome italiano dalla Guida alla prima partita ('Pescare Mana'; il modulo usa 'Prelievo di Mana')."
+  },
+  {
+   "id": "promise",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "white",
+   "name_it": "Promessa",
+   "name_en": "Promise",
+   "basic": [
+    [
+     "influence",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     4
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2",
+    "powered": "Influenza 4"
+   },
+   "img": "assets/cards/promise.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "improvisation",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "red",
+   "name_it": "Improvvisazione",
+   "name_en": "Improvisation",
+   "basic": [
+    [
+     "discard",
+     1,
+     [
+      [
+       "choice",
+       [
+        [
+         [
+          "move",
+          3
+         ]
+        ],
+        [
+         [
+          "influence",
+          3
+         ]
+        ],
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "discard",
+     1,
+     [
+      [
+       "choice",
+       [
+        [
+         [
+          "move",
+          5
+         ]
+        ],
+        [
+         [
+          "influence",
+          5
+         ]
+        ],
+        [
+         [
+          "attack",
+          5
+         ]
+        ],
+        [
+         [
+          "block",
+          5
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Scarta un'altra carta dalla tua mano per ottenere Movimento 3, Influenza 3, Attacco 3 o Blocco 3.",
+    "powered": "Scarta un'altra carta dalla tua mano per ottenere Movimento 5, Influenza 5, Attacco 5 o Blocco 5."
+   },
+   "img": "assets/cards/improvisation.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "La carta scartata non può essere una Ferita."
+  },
+  {
+   "id": "threaten",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "red",
+   "name_it": "Minacciare",
+   "name_en": "Threaten",
+   "basic": [
+    [
+     "influence",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     5
+    ],
+    [
+     "rep",
+     -1
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2",
+    "powered": "Influenza 5. Reputazione -1."
+   },
+   "img": "assets/cards/threaten.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "rage",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "red",
+   "name_it": "Furia",
+   "name_en": "Rage",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     4
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco o Blocco 2",
+    "powered": "Attacco 4"
+   },
+   "img": "assets/cards/rage.webp",
+   "copies": 2,
+   "impl": true,
+   "note": "Nome italiano dalla Guida alla prima partita ('Furia'; il modulo usa 'Rabbia')."
+  },
+  {
+   "id": "battle_versatility",
+   "set": "base",
+   "type": "basic",
+   "hero": "arythea",
+   "replaces": "rage",
+   "color": "red",
+   "name_it": "Versatilità in Battaglia",
+   "name_en": "Battle Versatility",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        1,
+        "phys",
+        "ranged"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        4
+       ]
+      ],
+      [
+       [
+        "block",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        3,
+        "fire",
+        "melee"
+       ]
+      ],
+      [
+       [
+        "block",
+        3,
+        "fire"
+       ]
+      ],
+      [
+       [
+        "attack",
+        3,
+        "phys",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "phys",
+        "siege"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2, Blocco 2 oppure Attacco a Distanza 1.",
+    "powered": "Attacco 4, Blocco 4, Attacco di Fuoco 3, Blocco di Fuoco 3, Attacco a Distanza 3 oppure Attacco d'Assedio 2."
+   },
+   "img": "assets/cards/battle_versatility.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "mana_pull",
+   "set": "base",
+   "type": "basic",
+   "hero": "arythea",
+   "replaces": "mana_draw",
+   "color": "white",
+   "name_it": "Attrazione del Mana",
+   "name_en": "Mana Pull",
+   "basic": [
+    [
+     "extra_die",
+     1
+    ],
+    [
+     "mod",
+     "extra_black_die_any",
+     {}
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mana_draw",
+     {
+      "dice": 2,
+      "tokens": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Puoi utilizzare un dado mana addizionale dalla Riserva in questo turno. Se quel dado è nero, usalo per produrre mana di qualsiasi colore.",
+    "powered": "Prendi due dadi mana dalla Riserva e imposta ciascuno su un colore qualsiasi tranne l'oro. Guadagni un segnalino mana di ciascuno di quei colori. Non ritirare questi dadi quando li rimetti nella Riserva."
+   },
+   "img": "assets/cards/mana_pull.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Seconda carta specifica dell'eroe dell'Ultimate Edition (nel mazzo del modulo); nella prima edizione l'eroe aveva solo Versatilità in Battaglia."
+  },
+  {
+   "id": "will_focus",
+   "set": "base",
+   "type": "basic",
+   "hero": "goldyx",
+   "replaces": "concentration",
+   "color": "green",
+   "name_it": "Forza di Volontà",
+   "name_en": "Will Focus",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ],
+      [
+       [
+        "crystal",
+        "green"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "boost_next",
+     3
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana blu, bianco o rosso, oppure un cristallo verde nel tuo Inventario.",
+    "powered": "Quando giochi questa carta, gioca con essa un'altra carta Azione. Ottieni l'effetto più potente di quella carta gratuitamente. Se quell'effetto ti fornisce Movimento, Influenza, Blocco o qualsiasi tipo di Attacco, ottieni quel valore più 3."
+   },
+   "img": "assets/cards/will_focus.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "boost_next: vedi Concentrazione."
+  },
+  {
+   "id": "crystal_joy",
+   "set": "base",
+   "type": "basic",
+   "hero": "goldyx",
+   "replaces": "crystallize",
+   "color": "blue",
+   "name_it": "Gioia dei Cristalli",
+   "name_en": "Crystal Joy",
+   "basic": [
+    [
+     "pay_mana",
+     "basic",
+     [
+      [
+       "crystal",
+       "$paid"
+      ]
+     ]
+    ],
+    [
+     "mod",
+     "return_card_end_turn",
+     {
+      "wound_ok": false
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "crystal",
+     "basic"
+    ],
+    [
+     "mod",
+     "return_card_end_turn",
+     {
+      "wound_ok": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Paga un mana di un qualsiasi colore base per guadagnare un cristallo di quel colore nel tuo Inventario. Alla fine del tuo turno, puoi scartare un'altra carta non-Ferita per riprendere in mano questa carta.",
+    "powered": "Guadagni un cristallo di un qualsiasi colore base nel tuo Inventario. Alla fine del tuo turno, puoi scartare un'altra carta, anche una Ferita, per riprendere in mano questa carta."
+   },
+   "img": "assets/cards/crystal_joy.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Seconda carta specifica dell'eroe dell'Ultimate Edition (nel mazzo del modulo); nella prima edizione l'eroe aveva solo Forza di Volontà."
+  },
+  {
+   "id": "noble_manners",
+   "set": "base",
+   "type": "basic",
+   "hero": "norowas",
+   "replaces": "promise",
+   "color": "white",
+   "name_it": "Nobili Maniere",
+   "name_en": "Noble Manners",
+   "basic": [
+    [
+     "influence",
+     2
+    ],
+    [
+     "mod",
+     "interaction_bonus",
+     {
+      "fame": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     4
+    ],
+    [
+     "mod",
+     "interaction_bonus",
+     {
+      "fame": 1,
+      "rep": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2. Fama +1 se la usi durante un'interazione.",
+    "powered": "Influenza 4. Fama +1 e Reputazione +1 se la usi durante un'interazione."
+   },
+   "img": "assets/cards/noble_manners.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Nel Lua del modulo è chiamata 'Noble Promise'; la carta stampata è 'Noble Manners'."
+  },
+  {
+   "id": "rejuvenate",
+   "set": "base",
+   "type": "basic",
+   "hero": "norowas",
+   "replaces": "tranquility",
+   "color": "green",
+   "name_it": "Ringiovanire",
+   "name_en": "Rejuvenate",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "heal",
+        1
+       ]
+      ],
+      [
+       [
+        "draw",
+        1
+       ]
+      ],
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ],
+      [
+       [
+        "ready_unit",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "heal",
+        2
+       ]
+      ],
+      [
+       [
+        "draw",
+        2
+       ]
+      ],
+      [
+       [
+        "crystal",
+        "green"
+       ]
+      ],
+      [
+       [
+        "ready_unit",
+        3
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Cura 1, pesca una carta, guadagni un segnalino mana verde oppure rendi pronta un'Unità di Livello I o II.",
+    "powered": "Cura 2, pesca due carte, guadagni un cristallo verde nel tuo Inventario oppure rendi pronta un'Unità di Livello I, II o III."
+   },
+   "img": "assets/cards/rejuvenate.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Seconda carta specifica dell'eroe dell'Ultimate Edition (nel mazzo del modulo); nella prima edizione l'eroe aveva solo Nobili Maniere. Cura non utilizzabile in combattimento."
+  },
+  {
+   "id": "cold_toughness",
+   "set": "base",
+   "type": "basic",
+   "hero": "tovak",
+   "replaces": "determination",
+   "color": "blue",
+   "name_it": "Tenacia Gelida",
+   "name_en": "Cold Toughness",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        3,
+        "ice"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "block",
+     5,
+     "ice"
+    ],
+    [
+     "special",
+     "block_per_enemy_ability",
+     {
+      "n": 1,
+      "elem": "ice"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2 oppure Blocco di Ghiaccio 3.",
+    "powered": "Blocco di Ghiaccio 5. Ottieni +1 Blocco di Ghiaccio per ogni abilità o colore d'attacco raffigurato sul gettone del nemico che blocchi (a meno che non abbia Immunità Arcana), oppure per ogni mana speso da un avversario durante l'attacco."
+   },
+   "img": "assets/cards/cold_toughness.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "instinct",
+   "set": "base",
+   "type": "basic",
+   "hero": "tovak",
+   "replaces": "improvisation",
+   "color": "red",
+   "name_it": "Istinto",
+   "name_en": "Instinct",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        2
+       ]
+      ],
+      [
+       [
+        "influence",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        4
+       ]
+      ],
+      [
+       [
+        "influence",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        4
+       ]
+      ],
+      [
+       [
+        "block",
+        4
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2, Influenza 2, Attacco 2 o Blocco 2.",
+    "powered": "Movimento 4, Influenza 4, Attacco 4 o Blocco 4."
+   },
+   "img": "assets/cards/instinct.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Seconda carta specifica dell'eroe dell'Ultimate Edition (nel mazzo del modulo); nella prima edizione l'eroe aveva solo Tenacia Gelida."
+  },
+  {
+   "id": "swift_reflexes",
+   "set": "ll",
+   "type": "basic",
+   "hero": "wolfhawk",
+   "replaces": "swiftness",
+   "color": "white",
+   "name_it": "Riflessi Rapidi",
+   "name_en": "Swift Reflexes",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        1,
+        "phys",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "special",
+        "reduce_enemy_attack",
+        {
+         "n": 1
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        3,
+        "phys",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "special",
+        "reduce_enemy_attack",
+        {
+         "n": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2, Attacco a Distanza 1, oppure riduci di 1 un attacco nemico.",
+    "powered": "Movimento 4, Attacco a Distanza 3, oppure riduci di 2 un attacco nemico."
+   },
+   "img": "assets/cards/swift_reflexes.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "La riduzione dell'attacco si usa nella fase di Blocco (prima di bloccare/assegnare i danni)."
+  },
+  {
+   "id": "tirelessness",
+   "set": "ll",
+   "type": "basic",
+   "hero": "wolfhawk",
+   "replaces": "stamina",
+   "color": "blue",
+   "name_it": "Instancabilità",
+   "name_en": "Tirelessness",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "mod",
+     "move_card_bonus",
+     {
+      "n": 1,
+      "cards": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "mod",
+     "move_card_bonus",
+     {
+      "n": 1,
+      "cards": "all"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. La prossima carta che fornisce Movimento (incluse le carte giocate sul fianco) dà +1 Movimento in questo turno.",
+    "powered": "Movimento 4. Ogni altra carta che fornisce Movimento (incluse le carte giocate sul fianco) dà +1 Movimento in questo turno."
+   },
+   "img": "assets/cards/tirelessness.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "savage_harvesting",
+   "set": "krang",
+   "type": "basic",
+   "hero": "krang",
+   "replaces": "march",
+   "color": "green",
+   "name_it": "Raccolta Selvaggia",
+   "name_en": "Savage Harvesting",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "mod",
+     "crystal_on_move",
+     {
+      "times": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "mod",
+     "crystal_on_move",
+     {
+      "times": "each"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Una volta in questo turno, quando muovi in uno spazio, puoi scartare una carta per guadagnare un cristallo dello stesso colore. Se scarti un Artefatto puoi sceglierne il colore.",
+    "powered": "Movimento 4. Ogni volta che muovi in uno spazio in questo turno puoi scartare una carta per guadagnare un cristallo dello stesso colore. Se scarti un Artefatto puoi sceglierne il colore."
+   },
+   "img": "assets/cards/savage_harvesting.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "ruthless_coercion",
+   "set": "krang",
+   "type": "basic",
+   "hero": "krang",
+   "replaces": "threaten",
+   "color": "red",
+   "name_it": "Coercizione Spietata",
+   "name_en": "Ruthless Coercion",
+   "basic": [
+    [
+     "influence",
+     2
+    ],
+    [
+     "mod",
+     "recruit_discount",
+     {
+      "n": 2,
+      "units": 1,
+      "rep": -1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     6
+    ],
+    [
+     "rep",
+     -1
+    ],
+    [
+     "mod",
+     "ready_units_for_influence",
+     {
+      "per_level": 2,
+      "max_level": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2. Puoi ottenere uno sconto di 2 sul costo di reclutamento di un'Unità. Se recluti quell'Unità in questo turno, Reputazione -1.",
+    "powered": "Influenza 6. Reputazione -1. Puoi rendere pronte le Unità di Livello I e II che controlli pagando 2 punti Influenza per livello dell'Unità."
+   },
+   "img": "assets/cards/ruthless_coercion.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "druidic_paths",
+   "set": "tezla",
+   "type": "basic",
+   "hero": "braevalar",
+   "replaces": "stamina",
+   "color": "blue",
+   "name_it": "Sentieri Druidici",
+   "name_en": "Druidic Paths",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "special",
+     "reduce_space_cost",
+     {
+      "n": 1,
+      "min": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "terrain",
+        {
+         "plains": "-1",
+         "min": 2
+        }
+       ]
+      ],
+      [
+       [
+        "terrain",
+        {
+         "hills": "-1",
+         "min": 2
+        }
+       ]
+      ],
+      [
+       [
+        "terrain",
+        {
+         "forest": "-1",
+         "min": 2
+        }
+       ]
+      ],
+      [
+       [
+        "terrain",
+        {
+         "wasteland": "-1",
+         "min": 2
+        }
+       ]
+      ],
+      [
+       [
+        "terrain",
+        {
+         "desert": "-1",
+         "min": 2
+        }
+       ]
+      ],
+      [
+       [
+        "terrain",
+        {
+         "swamp": "-1",
+         "min": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Il costo di Movimento di uno spazio viene ridotto di 1 in questo turno, fino a un minimo di 2.",
+    "powered": "Movimento 4. Il costo di Movimento di un tipo di terreno viene ridotto di 1 in questo turno, fino a un minimo di 2."
+   },
+   "img": "assets/cards/druidic_paths.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "one_with_the_land",
+   "set": "tezla",
+   "type": "basic",
+   "hero": "braevalar",
+   "replaces": "march",
+   "color": "green",
+   "name_it": "Tutt'uno con la Terra",
+   "name_en": "One with the Land",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        2
+       ]
+      ],
+      [
+       [
+        "heal",
+        1
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        4
+       ]
+      ],
+      [
+       [
+        "heal",
+        2
+       ]
+      ],
+      [
+       [
+        "special",
+        "block_by_terrain",
+        {}
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2, Cura 1 oppure Blocco 2.",
+    "powered": "Movimento 4, Cura 2 oppure Blocco pari al costo di Movimento non modificato dello spazio in cui ti trovi (Montagne 5, Laghi 2). È un Blocco di Fuoco di Giorno e un Blocco di Ghiaccio di Notte."
+   },
+   "img": "assets/cards/one_with_the_land.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Cura non utilizzabile in combattimento."
+  },
+  {
+   "id": "quick_witted",
+   "set": "fan",
+   "type": "basic",
+   "hero": "coral",
+   "replaces": "swiftness",
+   "color": "white",
+   "name_it": "Prontezza di Spirito",
+   "name_en": "Quick-Witted",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        2
+       ]
+      ],
+      [
+       [
+        "influence",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        3,
+        "phys",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "influence",
+        4
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2 oppure Influenza 2",
+    "powered": "Attacco a Distanza 3 oppure Influenza 4"
+   },
+   "img": "assets/cards/quick_witted.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe fan Coral."
+  },
+  {
+   "id": "tempered_steel",
+   "set": "fan",
+   "type": "basic",
+   "hero": "coral",
+   "replaces": "rage",
+   "color": "red",
+   "name_it": "Acciaio Temprato",
+   "name_en": "Tempered Steel",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        2
+       ],
+       [
+        "mod",
+        "delayed_attack",
+        {
+         "n": 1
+        }
+       ]
+      ],
+      [
+       [
+        "block",
+        1
+       ],
+       [
+        "mod",
+        "delayed_attack",
+        {
+         "n": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "attack_vs_resistant",
+        {
+         "n": 4,
+         "n_if_resist": 6
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "block_vs_swift",
+        {
+         "n": 4,
+         "n_if_swift": 6
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Blocco 2 e poi Attacco 1 durante la tua fase Attacco, oppure Blocco 1 e poi Attacco 2 durante la tua fase Attacco.",
+    "powered": "Attacco 4 (Attacco 6 se un qualsiasi nemico bersaglio di questo attacco ha delle resistenze) oppure Blocco 4 (Blocco 6 contro un attacco con Rapidità)."
+   },
+   "img": "assets/cards/tempered_steel.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe fan Coral."
+  },
+  {
+   "id": "axe_throw",
+   "set": "fan",
+   "type": "basic",
+   "hero": "ymirgh",
+   "replaces": "swiftness",
+   "color": "white",
+   "name_it": "Lancio dell'Ascia",
+   "name_en": "Axe Throw",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        1,
+        "phys",
+        "ranged"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "attack_with_kill_reward",
+     {
+      "n": 3,
+      "kind": "ranged",
+      "fame_once": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2 oppure Attacco a Distanza 1.",
+    "powered": "Attacco a Distanza 3. Fama +1 se hai sconfitto almeno un nemico con questo attacco."
+   },
+   "img": "assets/cards/axe_throw.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe 'homemade' Ymirgh."
+  },
+  {
+   "id": "battle_rage",
+   "set": "fan",
+   "type": "basic",
+   "hero": "ymirgh",
+   "replaces": "rage",
+   "color": "red",
+   "name_it": "Furia di Battaglia",
+   "name_en": "Battle Rage",
+   "basic": [
+    [
+     "attack",
+     2
+    ],
+    [
+     "special",
+     "attack_per_combat_wound",
+     {
+      "n": 1,
+      "max": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     4
+    ],
+    [
+     "special",
+     "attack_per_combat_wound",
+     {
+      "n": 1,
+      "max": 4
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2. Puoi aumentare questo attacco di 1 se hai ricevuto una carta Ferita durante questa battaglia.",
+    "powered": "Attacco 4. Puoi aumentare questo attacco di 1 per ogni carta Ferita che hai ricevuto durante questa battaglia (max 4)."
+   },
+   "img": "assets/cards/battle_rage.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe 'homemade' Ymirgh."
+  },
+  {
+   "id": "hidden_river",
+   "set": "fan",
+   "type": "basic",
+   "hero": "duscenia",
+   "replaces": "stamina",
+   "color": "blue",
+   "name_it": "Fiume Nascosto",
+   "name_en": "Hidden River",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "special",
+     "reduce_space_cost",
+     {
+      "n": 2,
+      "min": 1,
+      "terrain": "forest"
+     }
+    ],
+    [
+     "mod",
+     "terrain_count_reward",
+     {
+      "terrain": "forest",
+      "count": 2,
+      "effects": [
+       [
+        "mana",
+        "blue"
+       ]
+      ]
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "terrain",
+     {
+      "forest": "-2",
+      "min": 1
+     }
+    ],
+    [
+     "mod",
+     "terrain_count_reward",
+     {
+      "terrain": "forest",
+      "count": 2,
+      "effects": [
+       [
+        "crystal",
+        "blue"
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Il costo di Movimento di una singola Foresta viene ridotto di 2, fino a un minimo di 1. Se in questo turno attraversi due Foreste, guadagni un segnalino mana blu.",
+    "powered": "Movimento 4. Il costo di Movimento delle Foreste viene ridotto di 2, fino a un minimo di 1. Se in questo turno attraversi due Foreste, guadagni un cristallo blu."
+   },
+   "img": "assets/cards/hidden_river.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe fan Duscenia."
+  },
+  {
+   "id": "duscenia_regeneration",
+   "set": "fan",
+   "type": "basic",
+   "hero": "duscenia",
+   "replaces": "tranquility",
+   "color": "green",
+   "name_it": "Rigenerazione (Duscenia)",
+   "name_en": "Regeneration (Duscenia)",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "wounds_sideways",
+        {
+         "n": 1,
+         "mult": 2,
+         "then": "discard"
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "heal_any_pile",
+        {
+         "n": 1,
+         "discard_max": 1
+        }
+       ]
+      ],
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "wounds_sideways",
+        {
+         "n": 2,
+         "bonus": 1,
+         "throw": 1
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "heal_any_pile",
+        {
+         "n": 2,
+         "discard_max": 1
+        }
+       ]
+      ],
+      [
+       [
+        "crystal",
+        "green"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Gioca 1 Ferita come carta sul fianco con effetto doppio e poi scartala, Cura 1 (utilizzabile anche sulla pila degli scarti), oppure guadagni un segnalino mana verde.",
+    "powered": "Gioca 2 Ferite come carte sul fianco, poi aumenta di 1 l'effetto totale e getta via 1 di quelle Ferite, Cura 2 (1 Cura utilizzabile sulla pila degli scarti), oppure guadagni un cristallo verde."
+   },
+   "img": "assets/cards/duscenia_regeneration.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe fan Duscenia. Stesso nome dell'Azione Avanzata 'Rigenerazione': id diverso."
+  },
+  {
+   "id": "transmutation",
+   "set": "fan",
+   "type": "basic",
+   "hero": "jormund",
+   "replaces": "swiftness",
+   "color": "white",
+   "name_it": "Trasmutazione",
+   "name_en": "Transmutation",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "special",
+        "rotf_flip_die",
+        {}
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        3,
+        "phys",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_mana_shard",
+        {
+         "color": "basic"
+        }
+       ],
+       [
+        "mana",
+        "basic"
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_cumbersome",
+        {}
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2, e puoi girare un dado mana di un colore base nella Riserva.",
+    "powered": "Movimento 4, Attacco a Distanza 3, guadagni un frammento di mana e un segnalino mana di colori base a scelta, oppure un nemico bersaglio ottiene Ingombrante."
+   },
+   "img": "assets/cards/transmutation.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Eroe fan Jormund (meccaniche di 'Rise of the Forgemaster': frammenti di mana, girare dadi, Ingombrante)."
+  },
+  {
+   "id": "resilience",
+   "set": "fan",
+   "type": "basic",
+   "hero": "jormund",
+   "replaces": "rage",
+   "color": "red",
+   "name_it": "Resilienza",
+   "name_en": "Resilience",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ],
+      [
+       [
+        "special",
+        "ignore_hero_damage",
+        {
+         "phys": 3,
+         "other": 2
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_potion",
+        {
+         "action": "refill"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     4
+    ],
+    [
+     "special",
+     "rotf_potion",
+     {
+      "action": "gain_if_kill"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2, Blocco 2, ignora i prossimi 3 punti di danno assegnati al tuo eroe da un singolo attacco fisico (o 2 punti da un attacco non fisico), oppure ricarica una Pozione.",
+    "powered": "Attacco 4. Alla fine del combattimento, guadagni una Pozione se hai sconfitto un nemico con questo attacco."
+   },
+   "img": "assets/cards/resilience.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Eroe fan Jormund (Pozioni di 'Rise of the Forgemaster')."
+  },
+  {
+   "id": "bounty_hunter",
+   "set": "fan",
+   "type": "basic",
+   "hero": "malek",
+   "replaces": "promise",
+   "color": "white",
+   "colors": [
+    "white",
+    "red"
+   ],
+   "name_it": "Cacciatore di Taglie",
+   "name_en": "Bounty Hunter",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        2
+       ]
+      ],
+      [
+       [
+        "influence",
+        3
+       ],
+       [
+        "rep",
+        -1
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        4
+       ]
+      ],
+      [
+       [
+        "special",
+        "bounty",
+        {
+         "armor": 1,
+         "fame": 1,
+         "rep": 1,
+         "range": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2 oppure Influenza 3, Reputazione -1",
+    "powered": "Influenza 4, oppure metti una Taglia (scudo) su un qualsiasi nemico visibile. Quel nemico ha Armatura -1. Se lo sconfiggi, guadagni Fama +1 e Reputazione +1. Se è infuriato, puoi iniziare il combattimento a 2 spazi di distanza (solo fase a Distanza)."
+   },
+   "img": "assets/cards/bounty_hunter.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe fan Malek. Carta bicolore (bianco/rosso): si potenzia con uno dei due colori."
+  },
+  {
+   "id": "elemental_bullets",
+   "set": "fan",
+   "type": "basic",
+   "hero": "malek",
+   "replaces": "rage",
+   "color": "red",
+   "colors": [
+    "red",
+    "blue"
+   ],
+   "name_it": "Proiettili Elementali",
+   "name_en": "Elemental Bullets",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        1,
+        "phys",
+        "ranged"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        3,
+        "phys",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "fire",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "ice",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "phys",
+        "siege"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2, Blocco 2 oppure Attacco a Distanza 1.",
+    "powered": "Attacco 4, Attacco a Distanza 3, Attacco di Fuoco a Distanza 2, Attacco di Ghiaccio a Distanza 2 oppure Attacco d'Assedio 2."
+   },
+   "img": "assets/cards/elemental_bullets.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe fan Malek. Carta bicolore (rosso/blu)."
+  },
+  {
+   "id": "spear_glare",
+   "set": "fan",
+   "type": "basic",
+   "hero": "zirtae",
+   "replaces": "determination",
+   "color": "blue",
+   "name_it": "Bagliore della Lancia",
+   "name_en": "Spear Glare",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "block",
+     3
+    ],
+    [
+     "special",
+     "enemy_attack_strip",
+     {
+      "what": "one"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2 oppure Blocco 2.",
+    "powered": "Blocco 3. Rimuovi un colore d'Attacco o un modificatore d'Attacco di un gettone nemico."
+   },
+   "img": "assets/cards/spear_glare.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe fan Zirtae."
+  },
+  {
+   "id": "deadly_precision",
+   "set": "fan",
+   "type": "basic",
+   "hero": "zirtae",
+   "replaces": "rage",
+   "color": "red",
+   "name_it": "Precisione Letale",
+   "name_en": "Deadly Precision",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "phys",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "special",
+        "convert_attack_card_to_ranged",
+        {}
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2 oppure Blocco 2.",
+    "powered": "Attacco 4 oppure Attacco a Distanza 2. In alternativa puoi usare questa carta con un'altra carta Attacco per trasformare il valore d'Attacco e gli elementi di quella carta in Attacco a Distanza, mantenendo gli elementi. Devi comunque pagare il mana per l'effetto potente della seconda carta."
+   },
+   "img": "assets/cards/deadly_precision.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Eroe fan Zirtae."
+  },
+  {
+   "id": "infamous_reprisals",
+   "set": "fan",
+   "type": "basic",
+   "hero": "mevok",
+   "replaces": "promise",
+   "color": "white",
+   "name_it": "Rappresaglie Infami",
+   "name_en": "Infamous Reprisals",
+   "basic": [
+    [
+     "influence",
+     2
+    ],
+    [
+     "special",
+     "mevok_reprisals",
+     {
+      "mode": "basic"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mevok_reprisals",
+     {
+      "mode": "powered"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "X Rep è -5. Guadagni Influenza 2. Paga mana nero per usare la reputazione più bassa di un altro Cavaliere; quello perde 1 Reputazione. In solitario, aggiungi 3 alla tua reputazione attuale per questa interazione, fino a un massimo di +1.",
+    "powered": "X Rep è -5. Guadagni Influenza 4 oppure aggiungi l'icona +/- a una singola Unità nell'offerta e guadagni Influenza pari al valore assoluto della tua reputazione. Paga mana nero, anche di giorno, per +1 Influenza ciascuno."
+   },
+   "img": "assets/cards/infamous_reprisals.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Eroe fan Mevok (regole proprie sulla reputazione, testo ambiguo)."
+  },
+  {
+   "id": "undead_horde",
+   "set": "fan",
+   "type": "basic",
+   "hero": "mevok",
+   "replaces": "rage",
+   "color": "red",
+   "name_it": "Orda di Non Morti",
+   "name_en": "Undead Horde",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ],
+    [
+     "special",
+     "mevok_horde",
+     {
+      "mode": "basic"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        4
+       ]
+      ],
+      [
+       [
+        "special",
+        "mevok_horde",
+        {
+         "mode": "activate"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2, Blocco 2. Alla fine della fase paga i Costi di Rianimazione per qualsiasi numero di nemici sconfitti in quella fase. Puoi creare un'Orda. Mettili in un'Orda o in un'Abilità disponibile.",
+    "powered": "Attacco 4 oppure attiva le tue Orde. Alla fine di una fase di combattimento, paga i Costi di Rianimazione per qualsiasi numero di nemici sconfitti in quella fase. Mettili in un'Orda o in un'Abilità disponibile."
+   },
+   "img": "assets/cards/undead_horde.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Eroe fan Mevok (meccanica delle Orde di non morti)."
+  },
+  {
+   "id": "rotf_concentration",
+   "set": "fan",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Concentrazione (RotF)",
+   "name_en": "Concentration (RotF)",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "play_with_bonus",
+     {
+      "bonus": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana blu, bianco o rosso.",
+    "powered": "Gioca un'altra carta Azione dalla tua mano con un bonus di +2. Puoi usarne l'effetto base o quello più potente (gratuitamente)."
+   },
+   "img": "assets/cards/rotf_concentration.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster': sostituisce Concentrazione (anche nel mazzo di Jormund)."
+  },
+  {
+   "id": "rotf_will_focus",
+   "set": "fan",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Forza di Volontà (RotF)",
+   "name_en": "Will Focus (RotF)",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ]
+     ]
+    ],
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "special",
+        "recolor_crystal",
+        {}
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "play_with_bonus",
+     {
+      "bonus": 3
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana blu, bianco o rosso. Inoltre puoi cambiare il colore di un cristallo nel tuo Inventario in un qualsiasi colore base.",
+    "powered": "Gioca un'altra carta Azione dalla tua mano con un bonus di +3. Puoi usarne l'effetto base o quello più potente (gratuitamente)."
+   },
+   "img": "assets/cards/rotf_will_focus.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster': sostituisce Forza di Volontà di Goldyx."
+  },
+  {
+   "id": "rotf_savage_harvesting",
+   "set": "fan",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Raccolta Selvaggia (RotF)",
+   "name_en": "Savage Harvesting (RotF)",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "mod",
+     "rotf_shard_on_move",
+     {
+      "times": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "mod",
+     "rotf_shard_on_move",
+     {
+      "times": "each"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Una volta in questo turno, quando muovi in uno spazio, puoi scartare una carta per guadagnare un frammento dello stesso colore.",
+    "powered": "Movimento 4. Ogni volta che muovi in uno spazio in questo turno, puoi scartare una carta per guadagnare un frammento dello stesso colore."
+   },
+   "img": "assets/cards/rotf_savage_harvesting.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster': sostituisce Raccolta Selvaggia di Krang (frammenti di mana)."
+  },
+  {
+   "id": "wound",
+   "set": "base",
+   "type": "wound",
+   "hero": "",
+   "color": "",
+   "name_it": "Ferita",
+   "name_en": "Wound",
+   "basic": [],
+   "powered": [],
+   "side": false,
+   "combat_only": false,
+   "text_it": {
+    "basic": "",
+    "powered": ""
+   },
+   "img": "assets/cards/wound.webp",
+   "copies": 0,
+   "impl": true,
+   "note": "Non si può giocare né scartare (salvo effetti che lo consentono esplicitamente). Pila comune delle Ferite (s.decks.wounds)."
+  }
+ ],
+ "standard_deck": {
+  "stamina": 2,
+  "determination": 1,
+  "crystallize": 1,
+  "march": 2,
+  "tranquility": 1,
+  "concentration": 1,
+  "swiftness": 2,
+  "mana_draw": 1,
+  "promise": 1,
+  "improvisation": 1,
+  "threaten": 1,
+  "rage": 2
+ },
+ "hero_decks": {
+  "arythea": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "battle_versatility",
+   "mana_pull"
+  ],
+  "goldyx": [
+   "stamina",
+   "stamina",
+   "determination",
+   "march",
+   "march",
+   "tranquility",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "rage",
+   "will_focus",
+   "crystal_joy"
+  ],
+  "norowas": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "improvisation",
+   "threaten",
+   "rage",
+   "rage",
+   "noble_manners",
+   "rejuvenate"
+  ],
+  "tovak": [
+   "stamina",
+   "stamina",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "threaten",
+   "rage",
+   "rage",
+   "cold_toughness",
+   "instinct"
+  ],
+  "wolfhawk": [
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "rage",
+   "swift_reflexes",
+   "tirelessness"
+  ],
+  "krang": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "rage",
+   "rage",
+   "savage_harvesting",
+   "ruthless_coercion"
+  ],
+  "braevalar": [
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "rage",
+   "druidic_paths",
+   "one_with_the_land"
+  ],
+  "coral": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "quick_witted",
+   "tempered_steel"
+  ],
+  "ymirgh": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "axe_throw",
+   "battle_rage"
+  ],
+  "mevok": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "improvisation",
+   "threaten",
+   "rage",
+   "infamous_reprisals",
+   "undead_horde"
+  ],
+  "duscenia": [
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "rage",
+   "hidden_river",
+   "duscenia_regeneration"
+  ],
+  "jormund": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "transmutation",
+   "resilience",
+   "rotf_concentration"
+  ],
+  "malek": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "improvisation",
+   "threaten",
+   "rage",
+   "bounty_hunter",
+   "elemental_bullets"
+  ],
+  "zirtae": [
+   "stamina",
+   "stamina",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "mana_draw",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "spear_glare",
+   "deadly_precision"
+  ]
+ },
+ "hero_sets": {
+  "arythea": "base",
+  "goldyx": "base",
+  "norowas": "base",
+  "tovak": "base",
+  "wolfhawk": "ll",
+  "krang": "krang",
+  "braevalar": "tezla",
+  "coral": "fan",
+  "ymirgh": "fan",
+  "mevok": "fan",
+  "duscenia": "fan",
+  "jormund": "fan",
+  "malek": "fan",
+  "zirtae": "fan"
+ }
+}

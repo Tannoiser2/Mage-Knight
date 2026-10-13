@@ -1,0 +1,639 @@
+{
+ "_conventions": {
+  "desc": "Conventions used by cards_basic.json/cards_aa.json (not a special). (1) In a ['choice', …] an empty option [] means declining an optional effect ('you may…'). (2) ['terrain', {…}] dict values: integer n = the terrain costs n this turn (an impassable terrain such as lake/mountain becomes passable); '-k' = cost reduced by k; '<=k' = cost becomes min(cost,k); key 'all' = every passable terrain (plains, hills, forest, wasteland, desert, swamp; not lake/mountain); key 'min' = floor for '-k' reductions (default 0); key 'safe': [terrains] = those terrains also count as safe spaces where you may end the turn (otherwise a terrain made passable, e.g. lake via Frost Bridge, is NOT safe). Terrain ids: plains, hills, forest, wasteland, desert, swamp, lake, mountain. (3) ['boost_next', n] (Concentration, Will Focus): the player must immediately play another Action card (basic/advanced, not Spell/Artifact/Wound) from hand; it resolves its POWERED effect without paying mana, and every Move/Influence/Block/Attack value it provides gets +n (applied to the chosen option if it is a choice; for multi-target effects such as Maximal Effect each produced value gets +n). (4) Card params '$paid' = color of the mana/crystal just paid; '$thrown' etc. are not used — throw_action uses explicit by_color tables. (5) Dual-color cards have 'colors': [c1, c2]; they can be powered with mana of either color and count as both colors for color matching (offer selection, Decompose, Training…); when a dual card is thrown away by throw_action the player picks which of its colors applies. (6) Notes in Italian on each card (field 'note') list timing restrictions.",
+  "used_by": []
+ },
+ "take_wound": {
+  "desc": "Take Wound card(s) from the Wound pile. Params: n (default 1), to: 'hand' (default) | 'discard' | 'hand_or_discard' (player chooses). Wounds taken to hand during combat count for Knock Out (Colpo di Grazia) and trigger draw_on_wound/prevent_next_wound; they are not damage (armor/poison/paralyze do not apply). If the Wound pile is empty the effect still happens (use a virtual wound).",
+  "used_by": [
+   "blood_of_ancients",
+   "blood_rage",
+   "blood_ritual",
+   "explosive_bolt",
+   "rotf_bloodlust",
+   "rotf_poison_handling",
+   "rotf_raving_prophecies"
+  ]
+ },
+ "block_armor_reduce": {
+  "desc": "Combat, Block phase. When the block points of this card are used to successfully block an enemy, that enemy's Armor is reduced by n for the rest of this combat (never below min, default 1). Blue-card non-attack effect: enemies with Ice Resistance are not affected (and for red cards Fire Resistance). Params: n, min.",
+  "used_by": [
+   "ice_shield",
+   "rotf_ice_shield"
+  ]
+ },
+ "influence_per_wound": {
+  "desc": "Gain n extra Influence for each Wound card in your hand plus each Wound on Units you control (i.e. each wounded Unit counts 1). Counted when the card is played. Params: n.",
+  "used_by": [
+   "in_need"
+  ]
+ },
+ "throw_action": {
+  "desc": "Throw away (remove from the game) one Action card (Basic or Advanced Action, not Spell/Artifact/Wound) from your hand other than this card, then apply by_color[color of the thrown card] (for dual-color cards the player chooses one of its colors). Params: by_color {red|blue|green|white: [effects]}; discard_only:true = the card is only discarded (to discard pile) instead of thrown away; any_color:true + effects:[…] = apply 'effects' regardless of color. The card cannot be played in that mode if no eligible Action card is in hand.",
+  "used_by": [
+   "decompose",
+   "ritual_attack",
+   "rotf_ritual_attack",
+   "rotf_thirst_for_power",
+   "rotf_training",
+   "training"
+  ]
+ },
+ "gain_from_offer": {
+  "desc": "Take a card from an offer. Params: offer 'aa'|'spells'; color: a basic color, '$paid', 'not:<color>' (any card whose color differs), 'lowest' (the card in the lowest/oldest offer position); to: 'hand'|'discard'|'deck_top' (default deck_top per rules). Dual-color AAs match either color. Player chooses among matching cards; if none, nothing happens. The offer is refilled immediately (remaining cards slide down, new card on top) as in the rules for gaining from the AA/Spell offer.",
+  "used_by": [
+   "blood_of_ancients",
+   "magic_talent",
+   "rotf_magic_talent",
+   "rotf_raving_prophecies",
+   "rotf_training",
+   "rotf_witchs_brew",
+   "training"
+  ]
+ },
+ "maximal_effect": {
+  "desc": "Throw away another Action card (Basic or Advanced Action, not Spell/Artifact/Wound) from your hand and resolve its effect 'times' times: mode 'basic' = its basic effect; mode 'powered' = its stronger effect without paying mana. Each repetition is resolved separately (separate choices), but it counts as one compound effect (e.g. with Determination the Blocks may be used against different attacks). The thrown card keeps its color for resistance purposes. Params: mode, times.",
+  "used_by": [
+   "maximal_effect",
+   "rotf_maximal_effect"
+  ]
+ },
+ "crystal_copy": {
+  "desc": "Gain one crystal of the same color as a crystal you already own (choose among colors with >=1 crystal). If that color is already at 3 you gain a mana token instead (normal overflow rule). Not playable if you have no crystals.",
+  "used_by": [
+   "crystal_mastery"
+  ]
+ },
+ "crystals_return": {
+  "desc": "Crystal Mastery powered: every crystal spent from your Inventory during this turn (including those spent earlier in the turn, before this card was played) returns to your Inventory at the end of the turn (respecting the 3-per-color limit).",
+  "used_by": [
+   "crystal_mastery"
+  ],
+  "kind": "mod"
+ },
+ "crystal_from_source_die": {
+  "desc": "Choose a die in the Source showing a basic color (not taken by anyone, not depleted); gain a crystal of that color; then (reroll:true) immediately reroll that die and return it to the Source (black at day/gold at night → depleted as usual). Does not count as using a die.",
+  "used_by": [
+   "mana_storm"
+  ]
+ },
+ "reroll_source": {
+  "desc": "Reroll all dice currently in the Source (not those taken by players). Apply the normal day/night depletion of black/gold.",
+  "used_by": [
+   "mana_storm"
+  ]
+ },
+ "source_black_gold_any": {
+  "desc": "This turn you may use dice from the Source showing black or gold as mana of any basic color, regardless of Day/Night.",
+  "used_by": [
+   "mana_storm"
+  ],
+  "kind": "mod"
+ },
+ "first_attack_or_block_bonus": {
+  "desc": "This turn, the first card you play that provides any type of Attack gets +attack, OR the first card that provides any type of Block gets +block — only whichever of the two you play first (the other bonus is lost). Sideways cards count as Attack/Block cards. Params: attack, block (missing = 0).",
+  "used_by": [
+   "ambush",
+   "rotf_ambush"
+  ],
+  "kind": "mod"
+ },
+ "magic_talent": {
+  "desc": "Official (no params): discard one card from hand (not a Wound); this turn you may cast one Spell of the same color that is in the Spells offer as if it were in your hand (pay its mana as usual: basic = 1 mana of its color, powered = + black at night); the Spell stays in the offer. variant 'basic_pay' (RotF): discard a card of any color, then use the BASIC effect of a Spell of that color in the offer by paying its mana cost; the Spell stays in the offer.",
+  "used_by": [
+   "magic_talent",
+   "rotf_magic_talent"
+  ]
+ },
+ "buy_aa_with_influence": {
+  "desc": "Once this turn (any time in the turn, also outside a site) you may spend 'cost' Influence points to take any Advanced Action from the AA offer and put it in 'to' ('discard'|'hand'). Offer refilled immediately.",
+  "used_by": [
+   "learning",
+   "rotf_learning"
+  ],
+  "kind": "mod"
+ },
+ "use_offer_card": {
+  "desc": "Resolve the effect of a card in an offer without taking it (it remains in the offer). Params: offer 'aa'|'spells'; mode 'basic'|'powered'; free (true = no mana cost; false = pay its normal cost); color (optional restriction, e.g. '$paid'); times (default 1). Counts as a compound effect; the used card keeps its color for resistance purposes.",
+  "used_by": [
+   "blood_of_ancients",
+   "rotf_abrupt_emanation",
+   "rotf_thirst_for_power"
+  ]
+ },
+ "attack_per_blocked": {
+  "desc": "Add extra melee physical Attack n for each enemy you have successfully blocked in this combat (counted when the attack is used in the Attack phase; if played earlier, recount at the Attack phase). Params: n.",
+  "used_by": [
+   "counterattack",
+   "rotf_counter_attack"
+  ]
+ },
+ "block_vs_swift": {
+  "desc": "Gain physical Block n. When this block is used against an attack with Swiftness (Rapidità) its value counts as n_if_swift instead (i.e. it counts double; the doubled requirement of Swiftness still applies to the total). If armor_excess:true and the block succeeds, the blocked enemy's Armor is reduced by the number of block points in excess of what was required, to a minimum of 1, for the rest of combat (blue card: Ice-resistant enemies ignore the Armor reduction). Params: n, n_if_swift, armor_excess.",
+  "used_by": [
+   "rotf_shield_bash",
+   "shield_bash",
+   "tempered_steel"
+  ]
+ },
+ "use_as_action": {
+  "desc": "Playing this (or this option) uses your action for the turn: allowed only if you have not yet taken an action (combat, interaction, site entry…) this turn, and afterwards no other action may be taken. Movement before it is allowed; no further movement after it.",
+  "used_by": [
+   "peaceful_moment",
+   "rotf_witchs_brew",
+   "temporal_portal"
+  ]
+ },
+ "safe_move": {
+  "desc": "Move your figure up to 'spaces' spaces, through/into revealed spaces, ending in a safe revealed space, ignoring terrain costs and without provoking rampaging enemies (no move points spent unless from_move_points:true with cost_per_space). Optional (you may stay). Params: spaces, cost_per_space, from_move_points.",
+  "used_by": [
+   "rotf_gust_of_wind",
+   "temporal_portal"
+  ]
+ },
+ "hand_limit_next": {
+  "desc": "The next time you draw cards (end of this turn) your Hand limit is increased. Params: any:n = +n unconditionally; hills:n / mountain:n = +n if you end the turn on that terrain (use the matching value only).",
+  "used_by": [
+   "mountain_lore",
+   "rotf_herbalism",
+   "temporal_portal"
+  ],
+  "kind": "mod"
+ },
+ "crystal_from_offer": {
+  "desc": "Gain n crystals whose colors match n DIFFERENT Spell cards currently in the Spells offer (n=2: two crystals matching two different cards; same color allowed if two different cards share it). Params: offer 'spells', n.",
+  "used_by": [
+   "spell_forge"
+  ]
+ },
+ "attack_with_kill_reward": {
+  "desc": "Gain an Attack of n (elem default 'phys', kind default 'melee'; e.g. kind 'ranged'). The engine tracks the enemies defeated by an attack in which this card's points were used; for each enemy defeated by it: Reputation +rep and Fame +fame; armor_minus_other:k = for each defeated enemy, choose another (undefeated) enemy in this combat whose Armor is reduced by k (min 1) for the rest of combat; fame_once:k = Fame +k once if at least one enemy was defeated. Params: n, elem, kind, rep, fame, armor_minus_other, fame_once.",
+  "used_by": [
+   "axe_throw",
+   "chivalry",
+   "explosive_bolt",
+   "rotf_explosive_bolt"
+  ]
+ },
+ "influence_to_heal": {
+  "desc": "This turn you may convert Influence into Heal: each 'per' Influence spent gives Heal 1 (healing rules apply; not during combat). Params: per.",
+  "used_by": [
+   "peaceful_moment"
+  ],
+  "kind": "mod"
+ },
+ "ready_units_for_influence": {
+  "desc": "This turn you may ready (refresh) exhausted Units you control by paying per_level Influence × the Unit's level, for Units of level <= max_level. Params: per_level, max_level.",
+  "used_by": [
+   "peaceful_moment",
+   "ruthless_coercion"
+  ],
+  "kind": "mod"
+ },
+ "reduce_enemy_attack": {
+  "desc": "Combat, Block phase: reduce the Attack value of one enemy attack by n (minimum 0) for this combat. attacks:2 = instead reduce two different attacks (of one or two enemies) by n each. all_of_enemy:true = all attacks of one enemy. Params: n, attacks, all_of_enemy. White card: no resistance blocks it.",
+  "used_by": [
+   "dodge_and_weave",
+   "rotf_disrupting_ray",
+   "rotf_dodge_and_weave",
+   "rotf_feinting_flare",
+   "swift_reflexes"
+  ]
+ },
+ "attack_if_no_wounds": {
+  "desc": "In the Attack phase of this combat you gain melee physical Attack n if no Wound cards were added to your hand during the previous phases of this combat. Params: n.",
+  "used_by": [
+   "dodge_and_weave",
+   "rotf_dodge_and_weave"
+  ],
+  "kind": "mod"
+ },
+ "stout_resolve": {
+  "desc": "Choose Move n, Influence n, Attack n or Block n (physical melee). Then you may discard cards from hand to increase the chosen value by 'per' each: wounds_only:true = you may discard up to max_cards Wound(s) (basic: 1 Wound, +1); otherwise up to max_cards cards of any kind, of which at most max_wounds may be Wounds (powered: any number of cards incl. one Wound, +2 each). Discarded Wounds go to the discard pile. Params: n, per, max_cards, max_wounds, wounds_only.",
+  "used_by": [
+   "stout_resolve"
+  ]
+ },
+ "unit_resist": {
+  "desc": "Choose one of your Units; it gains Resistance to elem ('phys'|'fire'|'ice') for the rest of this combat. Params: elem.",
+  "used_by": [
+   "force_of_nature",
+   "rotf_force_of_nature",
+   "rotf_fury",
+   "rotf_perseverance"
+  ]
+ },
+ "crystal_new_color": {
+  "desc": "Gain one crystal of a basic color of which you currently have 0 crystals (player chooses among such colors). Not playable if you own all four colors.",
+  "used_by": [
+   "power_of_crystals"
+  ]
+ },
+ "repeat_per_crystal_set": {
+  "desc": "For each complete set of four crystals of different basic colors in your Inventory (= min over the 4 colors of the crystal count), resolve 'effects' once (choices made separately). Params: effects.",
+  "used_by": [
+   "power_of_crystals",
+   "rotf_power_of_crystals"
+  ]
+ },
+ "draw_on_wound": {
+  "desc": "Rush of Adrenaline. For each of the first n Wounds taken into your hand this turn, draw a card (immediately). Wounds already taken to hand earlier this turn count (draw for them when the card is played). throw_first:true (powered): the FIRST Wound taken to hand this turn is thrown away (returned to the Wound pile) and you draw a card; then for each of the next n Wounds you draw a card. Params: n, throw_first.",
+  "used_by": [
+   "rush_of_adrenaline"
+  ],
+  "kind": "mod"
+ },
+ "enemy_attack_strip": {
+  "desc": "Combat (before blocks): what:'abilities' = choose an enemy attack; it loses all attack abilities (Swift, Brutal, Poison, Paralyze, and summon if applicable) but keeps its element/color, for this combat. what:'one' = remove ONE attack element (attack becomes physical) or ONE attack ability of one enemy token. Resistances block it as a non-attack effect of the card's color.",
+  "used_by": [
+   "chilling_stare",
+   "rotf_chilling_stare",
+   "spear_glare"
+  ]
+ },
+ "enemy_no_attack": {
+  "desc": "Combat (Block phase): one chosen enemy does not attack this combat (its attacks are ignored, no damage). unfortified:true = only an enemy that is not fortified. Arcane Immunity (expansion) and resistance to the card's color prevent it.",
+  "used_by": [
+   "chilling_stare",
+   "rotf_chilling_stare"
+  ]
+ },
+ "mana_draw": {
+  "desc": "Take 'dice' dice from the Source (in addition to the normal die), set each to any color except gold (black allowed), gain 'tokens' mana tokens of that color per die; these dice are not rerolled when returned at end of turn (they stay on the chosen face). They are not usable as mana themselves. Params: dice, tokens.",
+  "used_by": [
+   "mana_draw",
+   "mana_pull"
+  ]
+ },
+ "extra_black_die_any": {
+  "desc": "Mana Pull basic: the additional die granted by this card, if it shows black, may be used as mana of any color (also by Day).",
+  "used_by": [
+   "mana_pull"
+  ],
+  "kind": "mod"
+ },
+ "per_recruit": {
+  "desc": "For each Unit you recruit this turn (after playing the card) gain Reputation +rep and Fame +fame. Params: rep, fame.",
+  "used_by": [
+   "heroic_tale",
+   "rotf_heroic_tale"
+  ],
+  "kind": "mod"
+ },
+ "units_bonus": {
+  "desc": "Into the Heat: for this combat, every Attack (any type/element) and Block value provided by your Units' abilities gets +attack / +block; you cannot assign damage to Units this turn (no_unit_damage). Playable only at the start of combat (before the Ranged/Siege phase). Params: attack, block, no_unit_damage.",
+  "used_by": [
+   "into_the_heat"
+  ],
+  "kind": "mod"
+ },
+ "card_to_deck_end_turn": {
+  "desc": "At end of turn, instead of putting this card in the discard pile you may put it on the 'bottom' (only if your Deed deck is not empty) or 'top' of your Deed deck. Params: pos.",
+  "used_by": [
+   "steady_tempo"
+  ],
+  "kind": "mod"
+ },
+ "influence_as_block": {
+  "desc": "This turn you may use Influence points as Block points of element elem ('phys' or the chosen 'ice'/'fire'). Params: elem.",
+  "used_by": [
+   "diplomacy"
+  ],
+  "kind": "mod"
+ },
+ "move_to_attack": {
+  "desc": "During combat this turn you may spend Move points: 'melee' Move points for each melee physical Attack 1 and/or 'ranged' Move points for each Ranged physical Attack 1. Params: melee, ranged (missing = not allowed).",
+  "used_by": [
+   "agility"
+  ],
+  "kind": "mod"
+ },
+ "interaction_bonus": {
+  "desc": "If Influence from this card is used during an interaction (recruiting, healing, buying at a site) this turn, gain Fame +fame and Reputation +rep (once). Params: fame, rep.",
+  "used_by": [
+   "noble_manners"
+  ],
+  "kind": "mod"
+ },
+ "block_per_enemy_ability": {
+  "desc": "Cold Toughness powered: when this Ice Block is used against an enemy, it gets +n for each ability icon and each attack-color (element) icon shown on that enemy token (count non-physical attack element once, plus each special ability, incl. defensive ones), unless the enemy has Arcane Immunity. (Vs another player: +n per mana spent by the opponent during that attack.) Params: n, elem.",
+  "used_by": [
+   "cold_toughness"
+  ]
+ },
+ "move_card_bonus": {
+  "desc": "Each later card this turn that provides Move (including cards played sideways for Move) gives +n Move; cards:1 = only the next such card, cards:'all' = every other such card. Params: n, cards.",
+  "used_by": [
+   "tirelessness"
+  ],
+  "kind": "mod"
+ },
+ "crystal_on_move": {
+  "desc": "Savage Harvesting: this turn, when you move into a space, you may discard a non-Wound card from hand to gain a crystal of that card's color (Artifact: any basic color; dual-color: choose). times:1 = only once this turn; 'each' = each time you move a space. Params: times.",
+  "used_by": [
+   "savage_harvesting"
+  ],
+  "kind": "mod"
+ },
+ "recruit_discount": {
+  "desc": "This turn, the Influence cost of recruiting Units is reduced by n: units:1 = for one Unit only, units:'all' = for each Unit recruited. rep: Reputation change applied if you recruit a discounted Unit (Ruthless Coercion: -1). Params: n, units, rep.",
+  "used_by": [
+   "rotf_heroic_tale",
+   "ruthless_coercion"
+  ],
+  "kind": "mod"
+ },
+ "reduce_space_cost": {
+  "desc": "Choose one space (when you move into it this turn); its Move cost is reduced by n, to a minimum of min. terrain: restrict to a terrain type. n:'rep_bonus' = reduce by your current Reputation influence bonus (0 or negative = no reduction). Params: n, min, terrain.",
+  "used_by": [
+   "druidic_paths",
+   "hidden_river",
+   "rotf_righteous_path"
+  ]
+ },
+ "block_by_terrain": {
+  "desc": "One with the Land powered: Block equal to the unmodified Move cost of the space you are in for the current Day/Night (mountains count 5, lakes 2; cities count their terrain cost); it is Fire Block during the Day and Ice Block at Night.",
+  "used_by": [
+   "one_with_the_land"
+  ]
+ },
+ "return_card_end_turn": {
+  "desc": "Crystal Joy: at end of turn you may discard another card from hand (wound_ok:false = non-Wound only; true = any, including a Wound) to return this card to your hand instead of the discard pile. Params: wound_ok.",
+  "used_by": [
+   "crystal_joy"
+  ],
+  "kind": "mod"
+ },
+ "delayed_attack": {
+  "desc": "Gain a melee Attack n (elem default 'phys') that becomes available in the Attack phase of the current combat (any_time:true = usable at any time this turn, also later in the turn). Params: n, elem, any_time.",
+  "used_by": [
+   "rotf_cloud_of_steel",
+   "tempered_steel"
+  ],
+  "kind": "mod"
+ },
+ "attack_vs_resistant": {
+  "desc": "Melee physical Attack n; if any enemy targeted by this attack has any resistance, the attack is n_if_resist instead. Params: n, n_if_resist.",
+  "used_by": [
+   "tempered_steel"
+  ]
+ },
+ "attack_per_combat_wound": {
+  "desc": "Battle Rage: increase this card's Attack by n for each Wound card you received (to hand) during the current combat, up to max. Params: n, max.",
+  "used_by": [
+   "battle_rage"
+  ]
+ },
+ "terrain_count_reward": {
+  "desc": "If during this turn you move through (enter) at least 'count' spaces of 'terrain', apply 'effects' once. Params: terrain, count, effects.",
+  "used_by": [
+   "hidden_river"
+  ],
+  "kind": "mod"
+ },
+ "wounds_sideways": {
+  "desc": "Duscenia's Regeneration. You may play Wound cards from hand sideways (normally forbidden) as Move/Influence/Attack/Block. n:1, mult:2, then:'discard' = one Wound played sideways gives 2 instead of 1, then the Wound goes to your discard pile. n:2, bonus:1, throw:1 = two Wounds played sideways (1 each), the total is increased by 1, then one of those Wounds is thrown away (to the Wound pile) and the other discarded. Params: n, mult, bonus, then, throw.",
+  "used_by": [
+   "duscenia_regeneration"
+  ]
+ },
+ "heal_any_pile": {
+  "desc": "Heal n, where up to discard_max of the Heal points may be used to throw away Wounds from your discard pile (instead of from hand). Not during combat. Params: n, discard_max.",
+  "used_by": [
+   "duscenia_regeneration"
+  ]
+ },
+ "bounty": {
+  "desc": "Malek's Bounty Hunter: place a Bounty (shield) on any visible enemy (on the map or in combat). That enemy has Armor -armor. If you defeat it: Fame +fame and Reputation +rep. If it is a rampaging enemy, you may start a combat with it from up to 'range' spaces away, in which only the Ranged/Siege phase is fought (melee attacks impossible; the enemy does not attack you). Params: armor, fame, rep, range.",
+  "used_by": [
+   "bounty_hunter"
+  ]
+ },
+ "convert_attack_card_to_ranged": {
+  "desc": "Deadly Precision: play this together with another Attack card from hand: that card's attack (value and elements, basic or powered — the second card's powered effect still requires mana) becomes a Ranged attack preserving elements.",
+  "used_by": [
+   "deadly_precision"
+  ]
+ },
+ "play_with_bonus": {
+  "desc": "RotF Concentration/Will Focus/Diligence: play another Action card from hand with a +bonus to its Move/Influence/Block/Attack values; you may use either its basic effect or its stronger effect without paying mana. Params: bonus.",
+  "used_by": [
+   "rotf_concentration",
+   "rotf_diligence",
+   "rotf_will_focus"
+  ]
+ },
+ "recolor_crystal": {
+  "desc": "Change the color of one crystal in your Inventory to any basic color (respecting the 3-per-color limit).",
+  "used_by": [
+   "rotf_will_focus"
+  ]
+ },
+ "pay_crystal": {
+  "desc": "Spend one crystal from your Inventory (not a token/die). Then apply 'effects' with $paid = that crystal's color, or by_color[color]. Params: effects | by_color.",
+  "used_by": [
+   "rotf_abrupt_emanation",
+   "rotf_extemporization",
+   "rotf_magic_talent"
+  ]
+ },
+ "discard_card": {
+  "desc": "Discard another card from hand (wound_ok:true = it may be a Wound), then apply effects. Params: wound_ok, effects.",
+  "used_by": [
+   "rotf_extemporization"
+  ]
+ },
+ "no_provoke": {
+  "desc": "This turn your movement does not provoke rampaging enemies.",
+  "used_by": [
+   "rotf_ambush"
+  ],
+  "kind": "mod"
+ },
+ "deed_discount": {
+  "desc": "The next 'cards' Deed cards (AA/Spell/Artifact) you buy during interaction get a cost discount of n each. Params: n, cards.",
+  "used_by": [
+   "rotf_diligence"
+  ],
+  "kind": "mod"
+ },
+ "boost_this": {
+  "desc": "Increase the value produced by this card's chosen option by n. Params: n.",
+  "used_by": [
+   "rotf_bloodlust"
+  ]
+ },
+ "discard_wounds_bonus": {
+  "desc": "You may discard up to 'max' Wound cards from hand (to discard pile); this card's Attack/Block value increases by 'per' for each. Params: max, per.",
+  "used_by": [
+   "rotf_bloodlust",
+   "rotf_rush_of_adrenaline"
+  ]
+ },
+ "heal_unit_ready": {
+  "desc": "Heal one wounded Unit of level <= max_level (free); if you do, ready it and apply 'then'. Params: max_level, then.",
+  "used_by": [
+   "rotf_herbalism"
+  ]
+ },
+ "throw_wound_from_discard": {
+  "desc": "Throw away one Wound from your discard pile (to the Wound pile); if you do, apply 'then'. Params: then.",
+  "used_by": [
+   "rotf_herbalism",
+   "rotf_poison_handling"
+  ]
+ },
+ "prevent_next_wound": {
+  "desc": "The next time this turn you would gain a Wound to your hand, prevent it and any additional effects from it (e.g. poison), and draw 'draw' cards. Params: draw.",
+  "used_by": [
+   "rotf_rush_of_adrenaline"
+  ],
+  "kind": "mod"
+ },
+ "sideways_block_element": {
+  "desc": "This turn, Block provided by cards played sideways has element elem. Params: elem.",
+  "used_by": [
+   "rotf_ice_shield"
+  ],
+  "kind": "mod"
+ },
+ "peek_enemy_piles": {
+  "desc": "Look at the top token of n unused enemy token piles (draw piles) and put them back. Params: n.",
+  "used_by": [
+   "rotf_reconnoiter"
+  ]
+ },
+ "repel_ritual": {
+  "desc": "RotF Repel Ritual: Block 'block' of element 'elem'. You may throw away another non-Wound card from hand; for each of its colors: blue = this Block +2; red = add Fire to its element (ice+fire = cold fire); green = counts twice against an attack with Swiftness; white = gain the same Block (value/element) against another attack. Params: block, elem.",
+  "used_by": [
+   "rotf_repel_ritual"
+  ]
+ },
+ "gust_of_wind_restriction": {
+  "desc": "RotF Gust of Wind basic: you may discard a card; if you don't, the Move 6 from this card cannot be spent to pay terrain costs (only for other uses such as exploring).",
+  "used_by": [
+   "rotf_gust_of_wind"
+  ]
+ },
+ "ignore_hero_damage": {
+  "desc": "Ignore the next phys points of damage assigned to your hero from a single physical attack (or 'other' points from a non-physical attack) this combat. Params: phys, other.",
+  "used_by": [
+   "resilience"
+  ]
+ },
+ "mevok_reprisals": {
+  "desc": "Fan hero Mevok 'Infamous Reprisals' – reputation tricks ('X Rep is -5', using another Knight's reputation by paying black mana, solo +3, adding the +/- icon to a unit in the offer). Text is ambiguous; NOT implementable without the fan rules (card impl:false).",
+  "used_by": [
+   "infamous_reprisals"
+  ]
+ },
+ "mevok_horde": {
+  "desc": "Fan hero Mevok 'Undead Horde' – reanimating defeated enemies into Hordes (fan subsystem). NOT implementable without the fan rules (card impl:false).",
+  "used_by": [
+   "undead_horde"
+  ]
+ },
+ "rotf_mana_shard": {
+  "desc": "Rise of the Forgemaster fan mechanic: gain a 'mana shard' of the given color. Requires the RotF shard subsystem (not in this game) → cards using it are impl:false.",
+  "used_by": [
+   "rotf_bloodlust",
+   "rotf_cloud_of_steel",
+   "rotf_diligence",
+   "rotf_earth_forge",
+   "rotf_ebb_and_flow",
+   "rotf_explosive_bolt",
+   "rotf_flame_forge",
+   "rotf_frost_forge",
+   "rotf_herbalism",
+   "rotf_noxiousness",
+   "rotf_power_of_crystals",
+   "rotf_raving_prophecies",
+   "rotf_shrewdness",
+   "rotf_storm_forge",
+   "transmutation"
+  ]
+ },
+ "rotf_tuck": {
+  "desc": "Rise of the Forgemaster fan mechanic 'tuck' (set a card aside under the RotF rules). Not in this game → impl:false.",
+  "used_by": [
+   "rotf_ebb_and_flow",
+   "rotf_gust_of_wind",
+   "rotf_poison_handling",
+   "rotf_steady_tempo",
+   "rotf_thirst_for_power",
+   "rotf_witchs_brew"
+  ]
+ },
+ "rotf_prepare": {
+  "desc": "Rise of the Forgemaster fan mechanic 'prepare this card'. Not in this game → impl:false.",
+  "used_by": [
+   "rotf_steady_tempo"
+  ]
+ },
+ "rotf_potion": {
+  "desc": "Rise of the Forgemaster fan mechanic: Potions (gain/refill/spend). Not in this game → impl:false.",
+  "used_by": [
+   "resilience",
+   "rotf_ebb_and_flow",
+   "rotf_poison_handling",
+   "rotf_witchs_brew"
+  ]
+ },
+ "rotf_flip_die": {
+  "desc": "Rise of the Forgemaster fan mechanic: flip a Source die of a basic color (RotF 'flip'). Not in this game → impl:false.",
+  "used_by": [
+   "rotf_ebb_and_flow",
+   "transmutation"
+  ]
+ },
+ "rotf_cumbersome": {
+  "desc": "Rise of the Forgemaster fan mechanic: target enemy gains 'Cumbersome'. Not in this game → impl:false.",
+  "used_by": [
+   "transmutation"
+  ]
+ },
+ "rotf_poison_attack": {
+  "desc": "Rise of the Forgemaster: the attack has the poison (drop) icon — poison effect against enemies under RotF rules. Not in this game → impl:false.",
+  "used_by": [
+   "rotf_noxiousness",
+   "rotf_pernicious_bolt",
+   "rotf_poison_handling"
+  ]
+ },
+ "rotf_dagger": {
+  "desc": "Rise of the Forgemaster: the attack has the dagger icon (RotF attack keyword). Not in this game → impl:false.",
+  "used_by": [
+   "rotf_cloud_of_steel",
+   "rotf_dark_dealings",
+   "rotf_feinting_flare",
+   "rotf_noxiousness"
+  ]
+ },
+ "rotf_arcane_vulnerability": {
+  "desc": "Rise of the Forgemaster: target enemy gains Arcane Vulnerability; if you successfully block it or prevent its attack it also loses all resistances. Requires RotF rules → impl:false.",
+  "used_by": [
+   "rotf_disrupting_ray"
+  ]
+ },
+ "rotf_on_block_reward": {
+  "desc": "RotF: if you successfully block that enemy, gain a mana shard. → impl:false.",
+  "used_by": [
+   "rotf_disrupting_ray"
+  ],
+  "kind": "mod"
+ },
+ "rotf_lake_reward": {
+  "desc": "RotF Treasure Hunt: reward (mana shard/crystal) if you end your move phase within 'near' spaces of a lake. → impl:false.",
+  "used_by": [
+   "rotf_treasure_hunt"
+  ],
+  "kind": "mod"
+ },
+ "rotf_shard_on_move": {
+  "desc": "RotF Savage Harvesting: like crystal_on_move but gives a mana shard. → impl:false.",
+  "used_by": [
+   "rotf_savage_harvesting"
+  ],
+  "kind": "mod"
+ }
+}

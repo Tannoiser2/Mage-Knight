@@ -1,0 +1,183 @@
+{
+ "_notes": {
+  "order": "Il numero della tattica determina l'ordine di turno (più basso = primo). Mattiniero e Dal Crepuscolo non hanno effetto.",
+  "when": "pick = effetto immediato alla scelta; round = effetto disponibile durante il round; none.",
+  "terms": "Sulle carte italiane la Fonte è chiamata \"Riserva\" e il mazzo \"mazzo Impresa\"."
+ },
+ "tactics": {
+  "early_bird": {
+   "id": "early_bird",
+   "day": true,
+   "number": 1,
+   "name_it": "Mattiniero",
+   "name_en": "Early Bird",
+   "text_it": "",
+   "effect": [],
+   "img": "assets/cards/tactic_early_bird.webp",
+   "guid": "3b6922",
+   "when": "none"
+  },
+  "rethink": {
+   "id": "rethink",
+   "day": true,
+   "number": 2,
+   "name_it": "Ripensamento",
+   "name_en": "Rethink",
+   "text_it": "Quando prendi questa Tattica, scarta fino a 3 carte (incluse le Ferite) dalla tua mano, quindi pesca altrettante carte. Rimescola la tua pila degli scarti nel tuo mazzo Impresa.",
+   "effect": [
+    "special",
+    "tactic_rethink"
+   ],
+   "img": "assets/cards/tactic_rethink.webp",
+   "guid": "a000a4",
+   "when": "pick"
+  },
+  "mana_steal": {
+   "id": "mana_steal",
+   "day": true,
+   "number": 3,
+   "name_it": "Rubare Mana",
+   "name_en": "Mana Steal",
+   "text_it": "Quando prendi questa Tattica, prendi un dado mana di un colore base dalla Riserva e mettilo su questa carta. Puoi utilizzare quel mana in un tuo turno qualsiasi di questo Giorno. Se lo fai, ritiralo alla fine di quel turno e rimettilo nella Riserva.",
+   "effect": [
+    "special",
+    "tactic_mana_steal"
+   ],
+   "img": "assets/cards/tactic_mana_steal.webp",
+   "guid": "fbd7fd",
+   "when": "pick"
+  },
+  "planning": {
+   "id": "planning",
+   "day": true,
+   "number": 4,
+   "name_it": "Pianificare",
+   "name_en": "Planning",
+   "text_it": "Alla fine di ciascun turno, se hai almeno due carte nella tua mano prima di pescare, pesca come se il tuo limite di carte in mano fosse più alto di 1.",
+   "effect": [
+    "special",
+    "tactic_planning"
+   ],
+   "img": "assets/cards/tactic_planning.webp",
+   "guid": "6f7af6",
+   "when": "round"
+  },
+  "great_start": {
+   "id": "great_start",
+   "day": true,
+   "number": 5,
+   "name_it": "Grande Inizio",
+   "name_en": "Great Start",
+   "text_it": "Quando prendi questa Tattica, pesca immediatamente 2 carte.",
+   "effect": [
+    "draw",
+    2
+   ],
+   "img": "assets/cards/tactic_great_start.webp",
+   "guid": "ea251c",
+   "when": "pick"
+  },
+  "the_right_moment": {
+   "id": "the_right_moment",
+   "day": true,
+   "number": 6,
+   "name_it": "Il Momento Giusto",
+   "name_en": "The Right Moment",
+   "text_it": "Una volta in questo Giorno durante il tuo turno, puoi annunciare che farai un altro turno immediatamente dopo questo. Se lo fai, gira questa carta a faccia in giù.",
+   "effect": [
+    "special",
+    "tactic_right_moment"
+   ],
+   "img": "assets/cards/tactic_the_right_moment.webp",
+   "guid": "2404f1",
+   "when": "round"
+  },
+  "from_the_dusk": {
+   "id": "from_the_dusk",
+   "day": false,
+   "number": 1,
+   "name_it": "Dal Crepuscolo",
+   "name_en": "From the Dusk",
+   "text_it": "",
+   "effect": [],
+   "img": "assets/cards/tactic_from_the_dusk.webp",
+   "guid": "650f6f",
+   "when": "none"
+  },
+  "long_night": {
+   "id": "long_night",
+   "day": false,
+   "number": 2,
+   "name_it": "Una Lunga Notte",
+   "name_en": "Long Night",
+   "text_it": "Una volta in questa Notte, se il tuo mazzo Impresa è vuoto, puoi mescolare la tua pila degli scarti e rimettere 3 carte a caso nel tuo mazzo Impresa. Quindi gira questa carta a faccia in giù.",
+   "effect": [
+    "special",
+    "tactic_long_night"
+   ],
+   "img": "assets/cards/tactic_long_night.webp",
+   "guid": "f6ad01",
+   "when": "round"
+  },
+  "mana_search": {
+   "id": "mana_search",
+   "day": false,
+   "number": 3,
+   "name_it": "Cercare Mana",
+   "name_en": "Mana Search",
+   "text_it": "Una volta per turno, prima di utilizzare mana dalla Riserva, puoi ritirare fino a due dadi mana nella Riserva. Quando scegli i dadi da ritirare, devi prima prendere i dadi d'oro (esauriti), se ce ne sono.",
+   "effect": [
+    "special",
+    "tactic_mana_search"
+   ],
+   "img": "assets/cards/tactic_mana_search.webp",
+   "guid": "3bb84a",
+   "when": "round"
+  },
+  "midnight_meditation": {
+   "id": "midnight_meditation",
+   "day": false,
+   "number": 4,
+   "name_it": "Meditazione di Mezzanotte",
+   "name_en": "Midnight Meditation",
+   "text_it": "Una volta in questa Notte, prima di qualsiasi tuo turno, puoi rimescolare fino a 5 carte (incluse le Ferite) dalla tua mano nel tuo mazzo Impresa e quindi pescare altrettante carte. Poi, gira questa carta a faccia in giù.",
+   "effect": [
+    "special",
+    "tactic_midnight_meditation"
+   ],
+   "img": "assets/cards/tactic_midnight_meditation.webp",
+   "guid": "db7aaa",
+   "when": "round"
+  },
+  "preparation": {
+   "id": "preparation",
+   "day": false,
+   "number": 5,
+   "name_it": "Preparazione",
+   "name_en": "Preparation",
+   "text_it": "Quando prendi questa Tattica, cerca nel tuo mazzo una carta qualsiasi e aggiungila alla tua mano, quindi rimescola il tuo mazzo.",
+   "effect": [
+    "special",
+    "tactic_preparation"
+   ],
+   "img": "assets/cards/tactic_preparation.webp",
+   "guid": "6c50ac",
+   "when": "pick"
+  },
+  "sparing_power": {
+   "id": "sparing_power",
+   "day": false,
+   "number": 6,
+   "name_it": "Risparmiare Potere",
+   "name_en": "Sparing Power",
+   "text_it": "Una volta prima dell'inizio di ciascuno dei tuoi turni, scegli uno tra: metti la carta in cima al tuo mazzo Impresa a faccia in giù sotto questa carta, oppure gira questa carta a faccia in giù e metti tutte le carte Impresa sotto di essa nella tua mano.",
+   "effect": [
+    "special",
+    "tactic_sparing_power"
+   ],
+   "img": "assets/cards/tactic_sparing_power.webp",
+   "guid": "e2af14",
+   "when": "round"
+  }
+ }
+}

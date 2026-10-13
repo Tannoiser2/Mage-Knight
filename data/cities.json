@@ -1,0 +1,385 @@
+{
+ "_notes": {
+  "garrison": "garrison[livello] = colori dei segnalini nemico (letti automaticamente dalla carta città: gray, brown, violet, white). Livelli 1-11. I gettoni si piazzano a faccia in giù e si rivelano quando un giocatore è adiacente (anche di Notte).",
+  "rules_it": "Città (sito fortificato). Non ancora conquistata: può essere assaltata da uno o più giocatori; chi assalta subisce Reputazione -1. I difensori sono fortificati e ricevono i bonus della carta Città. Ogni nemico sconfitto dà al giocatore uno Scudo sulla carta Città; sconfitti tutti, la città è conquistata e il giocatore con più Scudi ne è il leader (parità: chi ha piazzato per primo). Già conquistata: niente combattimento tra giocatori; si reclutano Unità con il simbolo città; servizi del lato corto della carta; bonus Influenza = numero dei propri Scudi in città. Bonus: chi termina il turno su o adiacente a una città conquistata ha limite di mano +2 se leader, +1 se ha almeno uno Scudo lì.",
+  "assault": "Modificatori durante l'assalto: [\"armor\", n] armatura +n a tutti; [\"grant_phys\", abilità] i difensori con attacco fisico ottengono l'abilità; [\"attack_elem\", elem, n] +n agli attacchi di quell'elemento.",
+  "hand_bonus": {
+   "leader": 2,
+   "shield": 1
+  },
+  "influence_per_shield": 1,
+  "assault_rep": -1
+ },
+ "cities": {
+  "green": {
+   "name_it": "Città Verde",
+   "name_en": "Green City",
+   "assault": [
+    [
+     "grant_phys",
+     "poison"
+    ]
+   ],
+   "assault_it": "Tutti i difensori con Attacco fisico ottengono Velenoso.",
+   "services": [
+    {
+     "type": "buy_aa",
+     "cost": 6,
+     "from": [
+      "offer",
+      "deck_top"
+     ],
+     "to": "deck_top"
+    }
+   ],
+   "services_it": "Puoi pagare 6 Influenza per una carta dall'offerta Azioni Avanzate oppure una casuale dalla cima del loro mazzo. Mettila in cima al tuo mazzo Impresa.",
+   "color": "green",
+   "garrison": {
+    "1": [
+     "gray",
+     "brown"
+    ],
+    "2": [
+     "brown",
+     "brown"
+    ],
+    "3": [
+     "gray",
+     "gray",
+     "brown"
+    ],
+    "4": [
+     "gray",
+     "brown",
+     "white"
+    ],
+    "5": [
+     "brown",
+     "brown",
+     "white"
+    ],
+    "6": [
+     "gray",
+     "gray",
+     "brown",
+     "white"
+    ],
+    "7": [
+     "gray",
+     "brown",
+     "brown",
+     "white"
+    ],
+    "8": [
+     "brown",
+     "brown",
+     "white",
+     "white"
+    ],
+    "9": [
+     "gray",
+     "brown",
+     "brown",
+     "brown",
+     "white"
+    ],
+    "10": [
+     "gray",
+     "brown",
+     "brown",
+     "white",
+     "white"
+    ],
+    "11": [
+     "brown",
+     "brown",
+     "white",
+     "white",
+     "white"
+    ]
+   },
+   "img": "assets/cards/city_green.webp",
+   "card_guid": "8de450",
+   "model": "assets/models/city_green.obj",
+   "model_texture": "assets/models/city_green.webp",
+   "text_it": "Durante l'assalto\n-------------------\nTutti i difensori con Attacco fisico ottengono Veleno.\n\nDopo la conquista\n---------------------\nPuoi pagare 6 Influenza per una carta dall'offerta Azioni Avanzate oppure una casuale dalla cima del loro mazzo. Mettila in cima al tuo mazzo Gesta.\n\nOttieni +1 Influ",
+   "tile": "k05"
+  },
+  "white": {
+   "name_it": "Città Bianca",
+   "name_en": "White City",
+   "assault": [
+    [
+     "armor",
+     1
+    ]
+   ],
+   "assault_it": "Tutti i difensori ottengono Armatura +1.",
+   "services": [
+    {
+     "type": "recruit_any"
+    },
+    {
+     "type": "elite_to_offer",
+     "cost": 2
+    }
+   ],
+   "services_it": "Puoi reclutare Unità di ogni tipo. Puoi anche pagare 2 Influenza per aggiungere un'Unità d'Élite (oro) all'offerta.",
+   "color": "white",
+   "garrison": {
+    "1": [
+     "white"
+    ],
+    "2": [
+     "gray",
+     "white"
+    ],
+    "3": [
+     "white",
+     "white"
+    ],
+    "4": [
+     "gray",
+     "gray",
+     "white"
+    ],
+    "5": [
+     "gray",
+     "white",
+     "white"
+    ],
+    "6": [
+     "gray",
+     "gray",
+     "gray",
+     "white"
+    ],
+    "7": [
+     "gray",
+     "gray",
+     "white",
+     "white"
+    ],
+    "8": [
+     "gray",
+     "white",
+     "white",
+     "white"
+    ],
+    "9": [
+     "gray",
+     "gray",
+     "gray",
+     "white",
+     "white"
+    ],
+    "10": [
+     "gray",
+     "gray",
+     "white",
+     "white",
+     "white"
+    ],
+    "11": [
+     "gray",
+     "white",
+     "white",
+     "white",
+     "white"
+    ]
+   },
+   "img": "assets/cards/city_white.webp",
+   "card_guid": "a37b57",
+   "model": "assets/models/city_white.obj",
+   "model_texture": "assets/models/city_white.webp",
+   "text_it": "Durante l'assalto\n-------------------\nTutti i difensori ottengono Armatura +1.\n\nDopo la conquista\n---------------------\nPuoi reclutare Unità di ogni tipo. Puoi anche pagare 2 Influenza per aggiungere un'Unità d'Élite (oro) all'offerta.\n\nOttieni +1 Influenza per ogni tuo Scudo qui.",
+   "tile": "k07"
+  },
+  "red": {
+   "name_it": "Città Rossa",
+   "name_en": "Red City",
+   "assault": [
+    [
+     "grant_phys",
+     "brutal"
+    ]
+   ],
+   "assault_it": "Tutti i difensori con Attacco fisico ottengono Brutale.",
+   "services": [
+    {
+     "type": "buy_artifact",
+     "cost": 12,
+     "when": "end_of_turn_reward"
+    }
+   ],
+   "services_it": "Puoi comprare Artefatti per 12 Influenza ciascuno. Pescali a fine turno come ricompense di combattimento.",
+   "color": "red",
+   "garrison": {
+    "1": [
+     "white"
+    ],
+    "2": [
+     "brown",
+     "violet"
+    ],
+    "3": [
+     "brown",
+     "white"
+    ],
+    "4": [
+     "brown",
+     "violet",
+     "violet"
+    ],
+    "5": [
+     "brown",
+     "violet",
+     "white"
+    ],
+    "6": [
+     "brown",
+     "brown",
+     "violet",
+     "violet"
+    ],
+    "7": [
+     "brown",
+     "violet",
+     "violet",
+     "white"
+    ],
+    "8": [
+     "brown",
+     "violet",
+     "white",
+     "white"
+    ],
+    "9": [
+     "brown",
+     "brown",
+     "violet",
+     "violet",
+     "white"
+    ],
+    "10": [
+     "brown",
+     "brown",
+     "violet",
+     "white",
+     "white"
+    ],
+    "11": [
+     "brown",
+     "violet",
+     "white",
+     "white",
+     "white"
+    ]
+   },
+   "img": "assets/cards/city_red.webp",
+   "card_guid": "bd6ab1",
+   "model": "assets/models/city_red.obj",
+   "model_texture": "assets/models/city_red.webp",
+   "text_it": "Durante l'assalto\n-------------------\nTutti i difensori con Attacco fisico ottengono Brutale.\n\nDopo la conquista\n---------------------\nPuoi comprare Artefatti per 12 Influenza ciascuno. Pescali a fine turno come ricompense di combattimento.\n\nOttieni +1 Influenza per ogni tuo Scudo qui.",
+   "tile": "k08"
+  },
+  "blue": {
+   "name_it": "Città Blu",
+   "name_en": "Blue City",
+   "assault": [
+    [
+     "attack_elem",
+     "ice",
+     2
+    ],
+    [
+     "attack_elem",
+     "fire",
+     2
+    ],
+    [
+     "attack_elem",
+     "cold",
+     1
+    ]
+   ],
+   "assault_it": "I difensori ottengono Attacco +2 se di Ghiaccio o Fuoco e +1 se di Fuoco Freddo.",
+   "services": [
+    {
+     "type": "buy_spell",
+     "cost": 7,
+     "mana": "spell_color"
+    }
+   ],
+   "services_it": "Puoi comprare Incantesimi come in una Torre della Magia (7 Influenza + 1 mana del colore dell'Incantesimo).",
+   "color": "blue",
+   "garrison": {
+    "1": [
+     "gray",
+     "violet"
+    ],
+    "2": [
+     "violet",
+     "violet"
+    ],
+    "3": [
+     "violet",
+     "white"
+    ],
+    "4": [
+     "gray",
+     "violet",
+     "white"
+    ],
+    "5": [
+     "violet",
+     "violet",
+     "white"
+    ],
+    "6": [
+     "violet",
+     "white",
+     "white"
+    ],
+    "7": [
+     "gray",
+     "violet",
+     "violet",
+     "white"
+    ],
+    "8": [
+     "violet",
+     "violet",
+     "white",
+     "white"
+    ],
+    "9": [
+     "violet",
+     "white",
+     "white",
+     "white"
+    ],
+    "10": [
+     "gray",
+     "violet",
+     "violet",
+     "white",
+     "white"
+    ],
+    "11": [
+     "violet",
+     "violet",
+     "white",
+     "white",
+     "white"
+    ]
+   },
+   "img": "assets/cards/city_blue.webp",
+   "card_guid": "79a723",
+   "model": "assets/models/city_blue.obj",
+   "model_texture": "assets/models/city_blue.webp",
+   "text_it": "Durante l'assalto\n-------------------\nI difensori ottengono Attacco +2 se di Ghiaccio o Fuoco e +1 se di Fuoco Freddo.\n\nDopo la conquista\n---------------------\nPuoi comprare Incantesimi come in una Torre del Mago.\n\nOttieni +1 Influenza per ogni tuo Scudo qui.",
+   "tile": "k06"
+  }
+ }
+}

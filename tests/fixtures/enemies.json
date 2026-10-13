@@ -1,0 +1,336 @@
+{
+ "enemies": {
+  "diggers": {
+   "id": "diggers",
+   "name_en": "Diggers",
+   "name_it": "Scavatori",
+   "color": "green",
+   "set": "base",
+   "armor": 3,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [
+    "fortified"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/diggers.webp",
+   "back": "green",
+   "guids": [
+    "0d8843",
+    "121735"
+   ]
+  },
+  "cursed_hags": {
+   "id": "cursed_hags",
+   "name_en": "Cursed Hags",
+   "name_it": "Megere Maledette",
+   "color": "green",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "poison"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/cursed_hags.webp",
+   "back": "green",
+   "guids": [
+    "660062",
+    "b6325d"
+   ]
+  },
+  "prowlers": {
+   "id": "prowlers",
+   "name_en": "Prowlers",
+   "name_it": "Predatori",
+   "color": "green",
+   "set": "base",
+   "armor": 3,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [],
+   "copies": 2,
+   "img": "assets/enemies/prowlers.webp",
+   "back": "green",
+   "guids": [
+    "dac25d",
+    "b81b57"
+   ]
+  },
+  "golems": {
+   "id": "golems",
+   "name_en": "Golems",
+   "name_it": "Golem",
+   "color": "gray",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 2,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "resist_phys"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/golems.webp",
+   "back": "gray",
+   "guids": [
+    "c68979",
+    "8b8eda"
+   ]
+  },
+  "guardsmen": {
+   "id": "guardsmen",
+   "name_en": "Guardsmen",
+   "name_it": "Guardie",
+   "color": "gray",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "fortified"
+   ],
+   "copies": 3,
+   "img": "assets/enemies/guardsmen.webp",
+   "back": "gray",
+   "guids": [
+    "ba480e",
+    "8fba3a",
+    "6133cd"
+   ]
+  },
+  "gargoyle": {
+   "id": "gargoyle",
+   "name_en": "Gargoyle",
+   "name_it": "Gargoyle",
+   "color": "brown",
+   "set": "base",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "resist_phys"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/gargoyle.webp",
+   "back": "brown",
+   "guids": [
+    "e44ea9",
+    "4bdd51"
+   ]
+  },
+  "minotaur": {
+   "id": "minotaur",
+   "name_en": "Minotaur",
+   "name_it": "Minotauro",
+   "color": "brown",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "brutal"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/minotaur.webp",
+   "back": "brown",
+   "guids": [
+    "0e09fd",
+    "548e0d"
+   ]
+  },
+  "monks": {
+   "id": "monks",
+   "name_en": "Monks",
+   "name_it": "Monaci",
+   "color": "violet",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "poison"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/monks.webp",
+   "back": "violet",
+   "guids": [
+    "96dcb6",
+    "944d16"
+   ]
+  },
+  "ice_mages": {
+   "id": "ice_mages",
+   "name_en": "Ice Mages",
+   "name_it": "Maghi del Ghiaccio",
+   "color": "violet",
+   "set": "base",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "ice"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "resist_ice"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/ice_mages.webp",
+   "back": "violet",
+   "guids": [
+    "6664bc",
+    "1677d4"
+   ]
+  },
+  "swamp_dragon": {
+   "id": "swamp_dragon",
+   "name_en": "Swamp Dragon",
+   "name_it": "Drago di Palude",
+   "color": "red",
+   "set": "base",
+   "armor": 9,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "swift",
+    "poison"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/swamp_dragon.webp",
+   "back": "red",
+   "guids": [
+    "0ccadf",
+    "5c6b9d"
+   ]
+  },
+  "fire_dragon": {
+   "id": "fire_dragon",
+   "name_en": "Fire Dragon",
+   "name_it": "Drago di Fuoco",
+   "color": "red",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 9,
+     "elem": "fire"
+    }
+   ],
+   "fame": 8,
+   "abilities": [
+    "resist_phys",
+    "resist_fire"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/fire_dragon.webp",
+   "back": "red",
+   "guids": [
+    "bad465",
+    "58bab2"
+   ]
+  },
+  "altem_guardsmen": {
+   "id": "altem_guardsmen",
+   "name_en": "Altem Guardsmen",
+   "name_it": "Guardie di Altem",
+   "color": "white",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 8,
+   "abilities": [
+    "fortified",
+    "resist_phys",
+    "resist_fire",
+    "resist_ice"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/altem_guardsmen.webp",
+   "back": "white",
+   "guids": [
+    "371007",
+    "66c8b1"
+   ]
+  },
+  "freezers": {
+   "id": "freezers",
+   "name_en": "Freezers",
+   "name_it": "Congelatori",
+   "color": "white",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "ice"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "swift",
+    "paralyze",
+    "resist_fire"
+   ],
+   "copies": 3,
+   "img": "assets/enemies/freezers.webp",
+   "back": "white",
+   "guids": [
+    "a9f2bc",
+    "0cb639",
+    "f09496"
+   ]
+  }
+ }
+}

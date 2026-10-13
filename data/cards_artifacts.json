@@ -1,0 +1,1389 @@
+{
+ "cards": [
+  {
+   "id": "banner_of_glory",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Stendardo della Gloria",
+   "name_en": "Banner of Glory",
+   "basic": [
+    [
+     "special",
+     "banner_attach",
+     {
+      "armor": 1,
+      "bonus": 1,
+      "fame_on_use": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "all_units_bonus",
+     {
+      "armor": 1,
+      "bonus": 1,
+      "fame": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": true,
+   "text_it": {
+    "basic": "Assegnalo ad una Unità che controlli. L'Unità a cui viene assegnato ottiene Armatura +1 e +1 per qualsiasi attacco o blocco che effettua. Ogni volta che questa Unità attacca o blocca, guadagni Fama +1.",
+    "powered": "Le Unità che controlli ottengono Armatura +1 e +1 per qualsiasi attacco o blocco che effettuano in questo turno. Ottieni Fama +1 per ogni Unità che attacca o blocca in questo turno."
+   },
+   "img": "assets/cards/banner_of_glory.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Stendardo: l'effetto base si assegna a un'Unità (vedi special banner_attach); l'effetto potenziato distrugge la carta.",
+   "guid": "085e50",
+   "img_lang": "it",
+   "img_attached": "assets/cards/banner_of_glory_attached.webp",
+   "guid_attached": "0b5b32"
+  },
+  {
+   "id": "banner_of_fear",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Stendardo della Paura",
+   "name_en": "Banner of Fear",
+   "basic": [
+    [
+     "special",
+     "banner_attach",
+     {
+      "fear": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "enemy_no_attack",
+     {
+      "targets": 3
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": true,
+   "text_it": {
+    "basic": "Assegnalo ad una Unità che controlli. Durante la fase Blocco del combattimento, puoi rendere esausta questa Unità per cancellare un attacco nemico. Se lo fai, ottieni Fama +1.",
+    "powered": "Fino a 3 nemici non attaccano in questo combattimento."
+   },
+   "img": "assets/cards/banner_of_fear.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Stendardo: l'effetto base si assegna a un'Unità (vedi special banner_attach); l'effetto potenziato distrugge la carta.",
+   "guid": "7b9ec1",
+   "img_lang": "it",
+   "img_attached": "assets/cards/banner_of_fear_attached.webp",
+   "guid_attached": "8e4b92"
+  },
+  {
+   "id": "banner_of_protection",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Stendardo della Protezione",
+   "name_en": "Banner of Protection",
+   "basic": [
+    [
+     "special",
+     "banner_attach",
+     {
+      "armor": 1,
+      "resist": [
+       "fire",
+       "ice"
+      ]
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "throw_away_turn_wounds"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": true,
+   "text_it": {
+    "basic": "Assegnalo ad una Unità che controlli. L'Unità a cui viene assegnato ottiene Armatura +1, resistenza al fuoco e resistenza al ghiaccio.",
+    "powered": "Alla fine del tuo turno, puoi gettare via tutte le Ferite che hai ricevuto in questo turno."
+   },
+   "img": "assets/cards/banner_of_protection.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Stendardo: l'effetto base si assegna a un'Unità (vedi special banner_attach); l'effetto potenziato distrugge la carta.",
+   "guid": "df2eae",
+   "img_lang": "it",
+   "img_attached": "assets/cards/banner_of_protection_attached.webp",
+   "guid_attached": "e48e44"
+  },
+  {
+   "id": "banner_of_courage",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Stendardo del Coraggio",
+   "name_en": "Banner of Courage",
+   "basic": [
+    [
+     "special",
+     "banner_attach",
+     {
+      "ready_once_round": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "ready_all_units"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": true,
+   "text_it": {
+    "basic": "Assegnalo ad una Unità che controlli. Una volta per Round, tranne che durante il combattimento, puoi girare questa carta a faccia in giù per rendere Pronta questa Unità. All'inizio di un Round, rigirala di nuovo a faccia su.",
+    "powered": "Puoi giocarla in qualsiasi momento tranne che in combattimento per rendere Pronte tutte le Unità che controlli."
+   },
+   "img": "assets/cards/banner_of_courage.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Stendardo: l'effetto base si assegna a un'Unità (vedi special banner_attach); l'effetto potenziato distrugge la carta.",
+   "guid": "6b4654",
+   "img_lang": "it",
+   "img_attached": "assets/cards/banner_of_courage_attached.webp",
+   "guid_attached": "986216"
+  },
+  {
+   "id": "ruby_ring",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Anello di Rubino",
+   "name_en": "Ruby Ring",
+   "basic": [
+    [
+     "mana",
+     "red"
+    ],
+    [
+     "crystal",
+     "red"
+    ],
+    [
+     "fame",
+     1
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "ring_powered",
+     {
+      "color": "red"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana rosso e un cristallo rosso nel tuo Inventario. Ottieni Fama +1.",
+    "powered": "Hai una riserva infinita di mana rosso e nero in questo turno. Ottieni Fama +1 per ogni Incantesimo rosso che lanci in questo turno."
+   },
+   "img": "assets/cards/ruby_ring.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e51",
+   "img_lang": "it"
+  },
+  {
+   "id": "sapphire_ring",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Anello di Zaffiro",
+   "name_en": "Sapphire Ring",
+   "basic": [
+    [
+     "mana",
+     "blue"
+    ],
+    [
+     "crystal",
+     "blue"
+    ],
+    [
+     "fame",
+     1
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "ring_powered",
+     {
+      "color": "blue"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana blu e un cristallo blu nel tuo Inventario. Ottieni Fama +1.",
+    "powered": "Hai una riserva infinita di mana blu e nero in questo turno. Ottieni Fama +1 per ogni Incantesimo blu che lanci in questo turno."
+   },
+   "img": "assets/cards/sapphire_ring.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e52",
+   "img_lang": "it"
+  },
+  {
+   "id": "diamond_ring",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Anello di Diamante",
+   "name_en": "Diamond Ring",
+   "basic": [
+    [
+     "mana",
+     "white"
+    ],
+    [
+     "crystal",
+     "white"
+    ],
+    [
+     "fame",
+     1
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "ring_powered",
+     {
+      "color": "white"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana bianco e un cristallo bianco nel tuo Inventario. Ottieni Fama +1.",
+    "powered": "Hai una riserva infinita di mana bianco e nero in questo turno. Ottieni Fama +1 per ogni Incantesimo bianco che lanci in questo turno."
+   },
+   "img": "assets/cards/diamond_ring.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e53",
+   "img_lang": "it"
+  },
+  {
+   "id": "emerald_ring",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Anello di Smeraldo",
+   "name_en": "Emerald Ring",
+   "basic": [
+    [
+     "mana",
+     "green"
+    ],
+    [
+     "crystal",
+     "green"
+    ],
+    [
+     "fame",
+     1
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "ring_powered",
+     {
+      "color": "green"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana verde e un cristallo verde nel tuo Inventario. Ottieni Fama +1.",
+    "powered": "Hai una riserva infinita di mana verde e nero in questo turno. Ottieni Fama +1 per ogni Incantesimo verde che lanci in questo turno."
+   },
+   "img": "assets/cards/emerald_ring.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e54",
+   "img_lang": "it"
+  },
+  {
+   "id": "sword_of_justice",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Spada della Giustizia",
+   "name_en": "Sword of Justice",
+   "basic": [
+    [
+     "special",
+     "discard_any_for",
+     {
+      "effect": [
+       "attack",
+       3
+      ]
+     }
+    ],
+    [
+     "special",
+     "fame_per_kill",
+     {
+      "n": 1,
+      "scope": "turn"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "double_attacks",
+     {
+      "elem": "phys",
+      "phase": "attack"
+     }
+    ],
+    [
+     "special",
+     "strip",
+     {
+      "targets": "all",
+      "resist": [
+       "phys"
+      ]
+     }
+    ],
+    [
+     "special",
+     "fame_per_kill",
+     {
+      "n": 1,
+      "scope": "turn"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "banner": false,
+   "text_it": {
+    "basic": "Quando la giochi, scarta un qualsiasi numero di carte dalla tua mano. Ottieni Attacco +3 per ogni carta che scarti in questo modo. Fama +1 per ogni nemico che sconfiggi in questo turno.",
+    "powered": "Raddoppia il contributo di tutti gli attacchi fisici che giochi durante la tua fase Attacco in questo turno. I nemici perdono resistenza fisica in questo turno. Ottieni Fama +1 per ogni nemico che sconfiggi in questo turno."
+   },
+   "img": "assets/cards/sword_of_justice.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e55",
+   "img_lang": "it"
+  },
+  {
+   "id": "horn_of_wrath",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Corno dell'Ira",
+   "name_en": "Horn of Wrath",
+   "basic": [
+    [
+     "attack",
+     5,
+     "phys",
+     "siege"
+    ],
+    [
+     "special",
+     "roll_wound",
+     {
+      "dice": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     5,
+     "phys",
+     "siege"
+    ],
+    [
+     "special",
+     "horn_powered",
+     {
+      "max": 5
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "banner": false,
+   "text_it": {
+    "basic": "Attacco d'Assedio 5. Tira un dado mana. Se ottieni nero o rosso, ricevi una Ferita.",
+    "powered": "Attacco d'Assedio 5. Puoi aggiungere fino a +5 a questo Attacco d'Assedio. Per ogni +1 che hai aggiunto tira un dado mana. Ricevi una Ferita per ogni nero o rosso che hai ottenuto."
+   },
+   "img": "assets/cards/horn_of_wrath.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e56",
+   "img_lang": "it"
+  },
+  {
+   "id": "endless_bag_of_gold",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Borsa d'Oro senza Fine",
+   "name_en": "Endless Bag of Gold",
+   "basic": [
+    [
+     "influence",
+     4
+    ],
+    [
+     "fame",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     9
+    ],
+    [
+     "fame",
+     3
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Influenza 4, Fama +2.",
+    "powered": "Influenza 9, Fama +3."
+   },
+   "img": "assets/cards/endless_bag_of_gold.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e57",
+   "img_lang": "it"
+  },
+  {
+   "id": "endless_gem_pouch",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Sacco di Gemme senza Fine",
+   "name_en": "Endless Gem Pouch",
+   "basic": [
+    [
+     "special",
+     "gem_pouch_roll",
+     {
+      "rolls": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "mana",
+     "red"
+    ],
+    [
+     "mana",
+     "blue"
+    ],
+    [
+     "mana",
+     "green"
+    ],
+    [
+     "mana",
+     "white"
+    ],
+    [
+     "if",
+     "day",
+     [
+      [
+       "mana",
+       "gold"
+      ]
+     ],
+     [
+      [
+       "mana",
+       "black"
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Tira un dado mana due volte. Guadagni un cristallo nel tuo Inventario per ogni colore ottenuto in questo modo (se ottieni oro, scegli il colore). Se ottieni nero, ricevi Fama +1 anziché un cristallo.",
+    "powered": "Guadagni un segnalino mana per ogni colore base. Inoltre ottieni un segnalino mana oro (se è Giorno) o nero (se è Notte)."
+   },
+   "img": "assets/cards/endless_gem_pouch.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e58",
+   "img_lang": "it"
+  },
+  {
+   "id": "golden_grail",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Graal Dorato",
+   "name_en": "Golden Grail",
+   "basic": [
+    [
+     "heal",
+     2
+    ],
+    [
+     "special",
+     "fame_per_heal"
+    ]
+   ],
+   "powered": [
+    [
+     "heal",
+     6
+    ],
+    [
+     "special",
+     "draw_per_heal"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Cura 2. Ottieni Fama +1 per ogni punto di Curare fornito da questa carta che spendi in questo turno.",
+    "powered": "Cura 6. Ogni volta che Curi una Ferita dalla tua mano in questo turno, pesca una carta."
+   },
+   "img": "assets/cards/golden_grail.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e59",
+   "img_lang": "it"
+  },
+  {
+   "id": "book_of_wisdom",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Libro della Saggezza",
+   "name_en": "Book of Wisdom",
+   "basic": [
+    [
+     "special",
+     "book_of_wisdom",
+     {
+      "gain": "aa"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "book_of_wisdom",
+     {
+      "gain": "spell",
+      "crystal": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Getta via una carta Azione dalla tua mano. Guadagni una carta Azione Avanzata dall'offerta Azioni Avanzate nella tua mano che sia dello stesso colore di quella carta Azione che hai gettato via.",
+    "powered": "Getta via una carta Azione dalla tua mano. Guadagni un Incantesimo dall'offerta Incantesimi nella tua mano che sia dello stesso colore della carta Azione che hai gettato via e un cristallo di quel colore nel tuo Inventario."
+   },
+   "img": "assets/cards/book_of_wisdom.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e60",
+   "img_lang": "it"
+  },
+  {
+   "id": "amulet_of_the_sun",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Amuleto del Sole",
+   "name_en": "Amulet of the Sun",
+   "basic": [
+    [
+     "mana",
+     "gold"
+    ],
+    [
+     "special",
+     "amulet_sun"
+    ]
+   ],
+   "powered": [
+    [
+     "mana",
+     "gold"
+    ],
+    [
+     "mana",
+     "gold"
+    ],
+    [
+     "mana",
+     "gold"
+    ],
+    [
+     "special",
+     "amulet_sun"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana oro. Se giocato durante la Notte, le foreste hanno il loro costo di movimento ridotto a 3, puoi utilizzare mana d'oro, e riveli le guarnigioni di siti fortificati adiacenti a te e tutte le rovine come se fosse Giorno.",
+    "powered": "La stessa cosa dell'effetto base, tranne che ottieni tre segnalini mana d'oro anziché uno."
+   },
+   "img": "assets/cards/amulet_of_the_sun.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e61",
+   "img_lang": "it"
+  },
+  {
+   "id": "amulet_of_darkness",
+   "set": "base",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Amuleto dell'Oscurità",
+   "name_en": "Amulet of Darkness",
+   "basic": [
+    [
+     "special",
+     "mana_any",
+     {
+      "n": 1
+     }
+    ],
+    [
+     "special",
+     "amulet_darkness"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mana_any",
+     {
+      "n": 3
+     }
+    ],
+    [
+     "special",
+     "amulet_darkness"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana di un colore qualsiasi. Se giocato durante il Giorno, i deserti hanno il loro costo di movimento ridotto a 3 e puoi utilizzare mana nero come se fosse Notte.",
+    "powered": "La stessa cosa dell'effetto base, tranne che ottieni tre segnalini mana di qualsiasi colore anziché uno."
+   },
+   "img": "assets/cards/amulet_of_darkness.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e62",
+   "img_lang": "it"
+  },
+  {
+   "id": "bow_of_starsdawn",
+   "set": "ll",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Arco di Albastellata",
+   "name_en": "Bow of Starsdawn",
+   "basic": [
+    [
+     "special",
+     "discard_any_for",
+     {
+      "effect": [
+       "attack",
+       2,
+       "phys",
+       "ranged"
+      ]
+     }
+    ],
+    [
+     "special",
+     "fame_per_kill",
+     {
+      "n": 1,
+      "scope": "phase"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "bow_powered"
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "banner": false,
+   "text_it": {
+    "basic": "Quando la giochi, scarta un qualsiasi numero di carte dalla tua mano. Ottieni Attacco a Distanza 2 per ogni carta che scarti in questo modo. Fama +1 per ogni nemico che sconfiggi nell'attuale fase di combattimento.",
+    "powered": "Ciascuno dei tuoi Attacchi a Distanza in questo turno è raddoppiato, oppure diventa Attacco d'Assedio dello stesso elemento. Puoi anche raddoppiare qualsiasi Attacco d'Assedio, ma diventano Attacchi a Distanza dello stesso elemento."
+   },
+   "img": "assets/cards/bow_of_starsdawn.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e63",
+   "img_lang": "it"
+  },
+  {
+   "id": "banner_of_command",
+   "set": "ll",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Stendardo del Comando",
+   "name_en": "Banner of Command",
+   "basic": [
+    [
+     "influence",
+     4
+    ],
+    [
+     "special",
+     "banner_command"
+    ]
+   ],
+   "powered": [
+    [
+     "fame",
+     2
+    ],
+    [
+     "special",
+     "recruit_free_from_offer"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": true,
+   "text_it": {
+    "basic": "Influenza 4. Se hai reclutato una Unità in questo turno, puoi assegnarle questa carta anziché un gettone Comando. Metti questa carta a faccia in giù sopra l'Unità quando viene spesa, e rimettila a faccia in su sotto di essa quando è pronta.",
+    "powered": "Guadagni Fama +2. Recluta gratuitamente una Unità qualsiasi dall'offerta Unità. (Se hai raggiunto il tuo limite di Comando, devi prima congedare una delle tue Unità)."
+   },
+   "img": "assets/cards/banner_of_command.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Stendardo: l'effetto base si assegna a un'Unità (vedi special banner_attach); l'effetto potenziato distrugge la carta.",
+   "guid": "98681f",
+   "img_lang": "it",
+   "img_attached": "assets/cards/banner_of_command_attached.webp",
+   "guid_attached": "8dbce4"
+  },
+  {
+   "id": "banner_of_fortitude",
+   "set": "ll",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Stendardo della Forza d'Animo",
+   "name_en": "Banner of Fortitude",
+   "basic": [
+    [
+     "special",
+     "banner_attach",
+     {
+      "ignore_wound_once_round": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "heal_all_units"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": true,
+   "text_it": {
+    "basic": "Assegnalo ad una Unità che controlli. Una volta per Round, quando l'Unità sta per essere ferita, gira questa carta per ignorare la ferita e qualsiasi suo effetto addizionale. All'Unità può essere ancora assegnato danno una volta per ciascun combattimento.",
+    "powered": "In qualsiasi momento tranne che in combattimento: Cura completamente tutte le tue Unità."
+   },
+   "img": "assets/cards/banner_of_fortitude.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Stendardo: l'effetto base si assegna a un'Unità (vedi special banner_attach); l'effetto potenziato distrugge la carta.",
+   "guid": "7d608f",
+   "img_lang": "it",
+   "img_attached": "assets/cards/banner_of_fortitude_attached.webp",
+   "guid_attached": "596cfa"
+  },
+  {
+   "id": "soul_harvester",
+   "set": "ll",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Mietitrice di Anime",
+   "name_en": "Soul Harvester",
+   "basic": [
+    [
+     "attack",
+     3
+    ],
+    [
+     "special",
+     "crystal_per_kill",
+     {
+      "scope": "attack",
+      "max": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     8
+    ],
+    [
+     "special",
+     "crystal_per_kill",
+     {
+      "scope": "phase"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "banner": false,
+   "text_it": {
+    "basic": "Attacco 3. Per un nemico sconfitto da questo attacco guadagni un cristallo nel tuo inventario. Può essere rosso se il nemico aveva resistenza al Fuoco, blu se aveva resistenza al Ghiaccio, verde se aveva resistenza Fisica. Puoi sempre scegliere il bianco.",
+    "powered": "Attacco 8. Guadagni un cristallo come sopra per ogni nemico sconfitto nella fase di combattimento attuale."
+   },
+   "img": "assets/cards/soul_harvester.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e64",
+   "img_lang": "it"
+  },
+  {
+   "id": "shield_of_the_fallen_kings",
+   "set": "ll",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Scudo dei Re Caduti",
+   "name_en": "Shield of the Fallen Kings",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        6
+       ]
+      ],
+      [
+       [
+        "special",
+        "multi_block",
+        {
+         "n": 4,
+         "count": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        8,
+        "cold"
+       ]
+      ],
+      [
+       [
+        "special",
+        "multi_block",
+        {
+         "n": 4,
+         "elem": "cold",
+         "count": 3,
+         "up_to": true
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "banner": false,
+   "text_it": {
+    "basic": "Blocco 6, o due Blocco 4 contro attacchi differenti.",
+    "powered": "Blocco di Fuoco Freddo 8, oppure fino a tre Blocco di Fuoco Freddo 4 contro attacchi differenti."
+   },
+   "img": "assets/cards/shield_of_the_fallen_kings.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e65",
+   "img_lang": "it"
+  },
+  {
+   "id": "druidic_staff",
+   "set": "ll",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Bastone Druidico",
+   "name_en": "Druidic Staff",
+   "basic": [
+    [
+     "special",
+     "druidic_staff",
+     {
+      "powered": false
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "druidic_staff",
+     {
+      "powered": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Scarta una carta. A seconda del suo colore ottieni: Bianco: Muovi fino a 2 spazi rivelati, in uno spazio sicuro; Blu: Ottieni 2 cristalli di un colore qualsiasi; Rosso: Rendi pronta una Unità di livello III o più basso; Verde: Cura 3.",
+    "powered": "Scegli due delle opzioni sopra, senza scartare alcuna carta."
+   },
+   "img": "assets/cards/druidic_staff.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e66",
+   "img_lang": "it"
+  },
+  {
+   "id": "circlet_of_proficiency",
+   "set": "ll",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Cerchietto della Conoscenza",
+   "name_en": "Circlet of Proficiency",
+   "basic": [
+    [
+     "special",
+     "circlet",
+     {
+      "powered": false
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "circlet",
+     {
+      "powered": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Utilizza qualsiasi Abilità non-interattiva nell'offerta delle Abilità Comuni (incluse le tue) come se fosse una tua Abilità. Se è una Abilità utilizzabile ciascun turno (una che non venga girata) utilizza il suo effetto due volte.",
+    "powered": "Prendi qualsiasi Abilità nell'offerta delle Abilità Comuni (incluse le tue) e tienila per il resto della partita, come se fosse stata acquisita attraverso un avanzamento di livello."
+   },
+   "img": "assets/cards/circlet_of_proficiency.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "In solitario/cooperativa l'offerta comune di Abilità contiene le abilità non scelte nei passaggi di livello.",
+   "guid": "085e67",
+   "img_lang": "it"
+  },
+  {
+   "id": "tome_of_all_spells",
+   "set": "ll",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Il Tomo di Tutti gli Incantesimi",
+   "name_en": "Tome of All Spells",
+   "basic": [
+    [
+     "special",
+     "tome_of_all_spells",
+     {
+      "powered": false
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "tome_of_all_spells",
+     {
+      "powered": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Scarta una carta di un qualsiasi colore. Utilizza l'effetto base di un Incantesimo dello stesso colore dall'offerta Incantesimi senza pagarne il costo in mana.",
+    "powered": "Scarta una carta di un qualsiasi colore. Utilizza l'effetto più forte di un Incantesimo dello stesso colore dall'offerta Incantesimi senza pagarne il suo costo in mana. Puoi farlo anche durante il Giorno."
+   },
+   "img": "assets/cards/tome_of_all_spells.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "085e68",
+   "img_lang": "it"
+  },
+  {
+   "id": "mysterious_box",
+   "set": "promo",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Forziere Misterioso",
+   "name_en": "Mysterious Box",
+   "basic": [
+    [
+     "special",
+     "mysterious_box"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mysterious_box",
+     {
+      "powered": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Rimuovi e rivela la prima carta in cima al mazzo Artefatti. Questo turno, puoi utilizzare il Forziere Misterioso come se fosse quell'Artefatto. Se lo fai ottieni Fama +1. Alla fine del turno: metti l'Artefatto rivelato in fondo al mazzo Artefatti; se non hai utilizzato il Forziere Misterioso allora aggiungilo di nuovo alla tua mano; se lo hai piazzato su una Unità come uno stendardo, allora scartalo.",
+    "powered": "(Come l'effetto base: usa l'effetto potenziato dell'Artefatto rivelato; il Forziere viene distrutto.)"
+   },
+   "img": "assets/cards/mysterious_box.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Carta UE270 (novità dell'Ultimate Edition, effetto unico): basic e powered usano lo stesso special.",
+   "guid": "085e69",
+   "img_lang": "it"
+  },
+  {
+   "id": "banner_of_glory_rotf",
+   "set": "fan",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Stendardo della Gloria",
+   "name_en": "Banner of Glory",
+   "basic": [
+    [
+     "special",
+     "banner_attach",
+     {
+      "armor": 2,
+      "bonus": 2,
+      "fame_on_use": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "all_units_bonus",
+     {
+      "armor": 2,
+      "bonus": 2,
+      "fame": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": true,
+   "text_it": {
+    "basic": "Assegnalo a un'Unità che controlli. L'Unità ottiene Armatura +2 e +2 a ogni attacco o blocco che effettua. Ogni volta che questa Unità attacca o blocca, Fama +1.",
+    "powered": "Le Unità che controlli ottengono Armatura +2 e +2 a ogni attacco o blocco in questo turno. Fama +1 per ogni Unità che attacca o blocca in questo turno."
+   },
+   "img": "assets/cards/banner_of_glory_rotf.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Versione Rise of the Forgemaster (fan). Stendardo: l'effetto base si assegna a un'Unità (vedi special banner_attach); l'effetto potenziato distrugge la carta.",
+   "guid": "3d50e6",
+   "img_lang": "en",
+   "replaces": "banner_of_glory",
+   "img_attached": "assets/cards/banner_of_glory_rotf_attached.webp",
+   "guid_attached": "75a627"
+  },
+  {
+   "id": "golden_grail_rotf",
+   "set": "fan",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Graal Dorato",
+   "name_en": "Golden Grail",
+   "basic": [
+    [
+     "heal",
+     3
+    ],
+    [
+     "special",
+     "fame_per_heal"
+    ]
+   ],
+   "powered": [
+    [
+     "heal",
+     6
+    ],
+    [
+     "special",
+     "draw_per_heal"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "banner": false,
+   "text_it": {
+    "basic": "Cura 3. Fama +1 per ogni punto di Cura fornito da questa carta che spendi in questo turno.",
+    "powered": "Cura 6. Ogni volta che curi una Ferita dalla mano in questo turno, pesca una carta."
+   },
+   "img": "assets/cards/golden_grail_rotf.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Versione Rise of the Forgemaster (fan).",
+   "guid": "00e5e2",
+   "img_lang": "en",
+   "replaces": "golden_grail"
+  },
+  {
+   "id": "horn_of_wrath_rotf",
+   "set": "fan",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Corno dell'Ira",
+   "name_en": "Horn of Wrath",
+   "basic": [
+    [
+     "attack",
+     5,
+     "phys",
+     "siege"
+    ],
+    [
+     "special",
+     "roll_wound",
+     {
+      "dice": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     5,
+     "phys",
+     "siege"
+    ],
+    [
+     "special",
+     "horn_powered",
+     {
+      "max": 5
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "banner": false,
+   "text_it": {
+    "basic": "Attacco d'Assedio 5. Tira due dadi mana: ricevi una Ferita per ogni nero o rosso.",
+    "powered": "Attacco d'Assedio 5. Puoi aggiungere fino a +5 a questo Attacco d'Assedio; per ogni +1 aggiunto tira un dado mana. Ricevi una Ferita per ogni nero o rosso."
+   },
+   "img": "assets/cards/horn_of_wrath_rotf.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Versione Rise of the Forgemaster (fan).",
+   "guid": "393021",
+   "img_lang": "en",
+   "replaces": "horn_of_wrath"
+  },
+  {
+   "id": "shield_of_the_fallen_kings_rotf",
+   "set": "fan",
+   "type": "artifact",
+   "hero": "",
+   "color": "",
+   "name_it": "Scudo dei Re Caduti",
+   "name_en": "Shield of the Fallen Kings",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        7
+       ]
+      ],
+      [
+       [
+        "special",
+        "multi_block",
+        {
+         "n": 4,
+         "count": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        9,
+        "cold"
+       ]
+      ],
+      [
+       [
+        "special",
+        "multi_block",
+        {
+         "n": 4,
+         "elem": "cold",
+         "count": 3,
+         "up_to": true
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "banner": false,
+   "text_it": {
+    "basic": "Blocco 7, oppure due Blocco 4 contro attacchi differenti.",
+    "powered": "Blocco di Fuoco Freddo 9, oppure fino a tre Blocco di Fuoco Freddo 4 contro attacchi differenti."
+   },
+   "img": "assets/cards/shield_of_the_fallen_kings_rotf.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Versione Rise of the Forgemaster (fan).",
+   "guid": "abe28e",
+   "img_lang": "en",
+   "replaces": "shield_of_the_fallen_kings"
+  }
+ ]
+}

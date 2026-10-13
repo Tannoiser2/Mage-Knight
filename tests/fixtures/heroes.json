@@ -1,0 +1,26 @@
+{
+ "heroes": {
+  "arythea": {
+   "id": "arythea",
+   "name_it": "Arythea",
+   "set": "base",
+   "colour": "red",
+   "dummy_crystals": [
+    "red",
+    "red",
+    "white"
+   ]
+  },
+  "goldyx": {
+   "id": "goldyx",
+   "name_it": "Goldyx",
+   "set": "base",
+   "colour": "green",
+   "dummy_crystals": [
+    "green",
+    "green",
+    "blue"
+   ]
+  }
+ }
+}

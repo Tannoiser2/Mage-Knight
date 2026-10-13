@@ -1,0 +1,314 @@
+{
+ "_notes": {
+  "source": "Manuale degli Scenari (regolamento italiano pp. 14-22). Altri scenari presenti nel manuale ma non trascritti: Liberazione delle Miniere, Le Notti del Druido, I Signori del Sotterraneo, Conquista e Mantieni, Solo una Tornata (alcuni richiedono espansioni).",
+  "deck": "Mazzo tessere: tessere Campagna (retro verde) prese a caso (in Prima Ricognizione in ordine di numero) messe sopra le tessere Principali scelte a caso (città e non-città separatamente) e mescolate tra loro. All'inizio si rivelano 2 tessere (cuneo, A) o 3 (aperta, B) adiacenti a quella iniziale.",
+  "shapes": "wedge = cuneo (tessera A); le tessere Principali (marroni) non possono essere piazzate sulla linea costiera (colonne più a sinistra e più a destra del cuneo). open = completamente aperta (tessera B), al massimo 5 colonne parallele di tessere; open4/open3 = aperta limitata a 4 o 3 colonne (con 4 colonne si apre di più a destra).",
+  "tiles_counts": "country: {numero giocatori: tessere}; core_noncity/city: numero o formula su \"players\".",
+  "city_levels": "{\"all\": n} tutte uguali; {\"order\": [..]} nell'ordine di rivelazione; {\"last\": {...}} livello dell'ultima rivelata.",
+  "dummy": "neutral = giocatore Neutrale (vedi rules.json dummy); solo = solo nella variante in solitario.",
+  "coop_players": "Il manuale prevede le cooperative solo per 2-3 giocatori (4 solo con un secondo mazzo Neutrale)."
+ },
+ "scenarios": {
+  "first_recon": {
+   "name_it": "La Prima Ricognizione",
+   "name_en": "First Reconnaissance",
+   "players": [
+    2,
+    4
+   ],
+   "solo_variant": true,
+   "type": "leggermente competitivo",
+   "set": "base",
+   "rounds": 3,
+   "rounds_solo": 4,
+   "map": {
+    "shape": "wedge",
+    "start_tile": "start_a",
+    "setup_reveal": 2
+   },
+   "tiles": {
+    "country": {
+     "1": 8,
+     "2": 8,
+     "3": 9,
+     "4": 11
+    },
+    "country_order": "by_number",
+    "core_noncity": 2,
+    "city": 1
+   },
+   "city_levels": null,
+   "cities_enterable": false,
+   "dummy": "solo",
+   "special": [
+    "fame_per_tile_revealed:1",
+    "no_pvp",
+    "no_elite_units",
+    "hide_offers_until_needed"
+   ],
+   "end": "Quando un giocatore rivela una città, tutti (lui compreso) hanno un ultimo turno; se il round finisce prima, il gioco termina subito. Altrimenti termina alla fine del 3º round.",
+   "scoring": "standard",
+   "titles": true,
+   "titles_solo": false,
+   "desc_it": "Scenario introduttivo, consigliato per la prima partita. 3 Round (2 Giorni e 1 Notte), da 2 a 4 giocatori (variante in solitario: 8 tessere Campagna, 4 Round, giocatore Neutrale, nessun titolo). Mappa a cuneo con la tessera iniziale A. Mazzo tessere: le tessere Campagna in ordine di numero (1 in cima; 8/9/11 tessere con 2/3/4 giocatori) sopra 1 tessera città e 2 tessere Principali non-città mescolate. Le città non possono essere conquistate né vi si può entrare. Si ottiene 1 Fama per ogni nuova tessera rivelata. Niente combattimento tra giocatori, niente Unità d'Élite. Quando qualcuno rivela la città, tutti hanno un ultimo turno. Vince chi ha più Fama dopo il conteggio dei Successi standard."
+  },
+  "full_conquest": {
+   "name_it": "Conquista Totale",
+   "name_en": "Full Conquest",
+   "players": [
+    2,
+    4
+   ],
+   "type": "competitivo",
+   "set": "base",
+   "rounds": 6,
+   "map": {
+    "shape": {
+     "2": "wedge",
+     "3": "wedge",
+     "4": "open"
+    },
+    "start_tile": {
+     "2": "start_a",
+     "3": "start_a",
+     "4": "start_b"
+    },
+    "setup_reveal": {
+     "wedge": 2,
+     "open": 3
+    }
+   },
+   "tiles": {
+    "country": {
+     "2": 8,
+     "3": 9,
+     "4": 11
+    },
+    "core_noncity": "players-1",
+    "city": "players"
+   },
+   "city_levels": {
+    "all": 4
+   },
+   "dummy": null,
+   "special": [],
+   "end": "Quando tutte le città sono conquistate, tutti (anche chi ha conquistato l'ultima) hanno un ultimo turno; se il round finisce durante questo giro il gioco termina subito. Altrimenti fine del 6º round.",
+   "scoring": "standard+cities",
+   "titles": true,
+   "desc_it": "Scenario standard competitivo. 6 Round (3 Giorni e 3 Notti), da 2 a 4 giocatori. Mappa a cuneo (2-3 giocatori) o completamente aperta (4). Tessere Campagna 8/9/11, tessere città pari al numero di giocatori, tessere Principali non-città una in meno. Ogni città rivelata è di livello 4. Quando tutte le città sono conquistate, tutti hanno un ultimo turno. Punteggio: Successi standard + città (7 Fama per ogni città di cui si è leader, 4 per ogni città dove si ha almeno uno Scudo senza esserne leader; +5 al Più Grande Conquistatore di città, +2 in caso di parità). Vince chi ha più Fama."
+  },
+  "blitz_conquest": {
+   "name_it": "Conquista Blitz",
+   "name_en": "Blitz Conquest",
+   "players": [
+    2,
+    4
+   ],
+   "type": "competitivo",
+   "set": "base",
+   "rounds": 4,
+   "map": {
+    "shape": {
+     "2": "wedge",
+     "3": "wedge",
+     "4": "open4"
+    },
+    "start_tile": {
+     "2": "start_a",
+     "3": "start_a",
+     "4": "start_b"
+    },
+    "setup_reveal": {
+     "wedge": 2,
+     "open4": 3
+    }
+   },
+   "tiles": {
+    "country": {
+     "2": 6,
+     "3": 7,
+     "4": 9
+    },
+    "core_noncity": "players-1",
+    "city": "players"
+   },
+   "city_levels": {
+    "all": 3
+   },
+   "dummy": null,
+   "special": [
+    "start_fame:1",
+    "fame_bonus_per_track_line:1",
+    "start_rep:2",
+    "extra_source_die:1",
+    "extra_unit_offer:1"
+   ],
+   "end": "Come Conquista Totale (4 round).",
+   "scoring": "standard+cities",
+   "titles": true,
+   "desc_it": "Versione breve della Conquista. 4 Round (2 Giorni e 2 Notti), da 2 a 4 giocatori. Cuneo (2-3) o aperta limitata a 4 colonne (4). Tessere Campagna 6/7/9, città pari ai giocatori, non-città una in meno; città di livello 3. Si inizia con Fama 1 e Reputazione +2; ogni volta che si supera una linea del tracciato della Fama si ottiene 1 Fama extra; un dado in più nella Fonte e un'Unità in più nell'offerta. Punteggio come Conquista Totale."
+  },
+  "solo_conquest": {
+   "name_it": "Conquista in Solitario",
+   "name_en": "Solo Conquest",
+   "players": [
+    1,
+    1
+   ],
+   "type": "solitario",
+   "set": "base",
+   "rounds": 6,
+   "map": {
+    "shape": "wedge",
+    "start_tile": "start_a",
+    "setup_reveal": 2
+   },
+   "tiles": {
+    "country": {
+     "1": 7
+    },
+    "core_noncity": 2,
+    "city": 2
+   },
+   "city_levels": {
+    "order": [
+     5,
+     8
+    ]
+   },
+   "dummy": "neutral",
+   "special": [
+    "remove_competitive_spells",
+    "remove_interactive_skill",
+    "tactics_player_first_dummy_random",
+    "tactics_removed_after_round",
+    "dummy_no_final_turn"
+   ],
+   "end": "Quando tutte le città sono conquistate hai ancora un ultimo turno (il Neutrale no). Altrimenti fine del 6º round.",
+   "scoring": "solo",
+   "titles": false,
+   "score_extra": {
+    "per_city": 10,
+    "all_cities": 15,
+    "per_round_early": 30,
+    "per_dummy_deck_card": 1,
+    "round_end_not_announced": 5
+   },
+   "desc_it": "Partita in solitario. 6 Round (3 Giorni e 3 Notti). Mappa a cuneo con tessera A; 7 tessere Campagna, 2 tessere città e 2 tessere Principali non-città. La prima città rivelata è di livello 5, la seconda di livello 8. C'è un giocatore Neutrale. Si rimuovono i quattro Incantesimi competitivi (109-112) e l'Abilità interattiva dalla propria pila. Tattiche: scegli sempre per primo, il Neutrale ne prende una a caso tra le rimaste; alla fine di ogni Giorno o Notte entrambe le tattiche usate sono rimosse dal gioco. Vittoria se conquisti tutte le città. Punteggio: Fama + Successi standard (senza titoli) + 10 per città conquistata, +15 se tutte, +30 per ogni round risparmiato, +1 per ogni carta ancora nel mazzo del Neutrale, +5 se nell'ultimo round la fine non era ancora stata annunciata."
+  },
+  "coop_conquest": {
+   "name_it": "Cooperazione Totale",
+   "name_en": "Full Cooperation",
+   "players": [
+    2,
+    3
+   ],
+   "type": "cooperativo",
+   "set": "base",
+   "rounds": 6,
+   "map": {
+    "shape": "open",
+    "start_tile": "start_b",
+    "setup_reveal": 3
+   },
+   "tiles": {
+    "country": {
+     "2": 8,
+     "3": 10
+    },
+    "core_noncity": "players",
+    "city": "players+1"
+   },
+   "city_levels": {
+    "all": 5,
+    "last": {
+     "2": 8,
+     "3": 11
+    }
+   },
+   "dummy": "neutral",
+   "special": [
+    "remove_competitive_spells",
+    "remove_interactive_skill",
+    "tactics_dummy_first_random",
+    "remove_one_player_tactic_per_round",
+    "team_rules_single_team",
+    "dummy_no_final_turn"
+   ],
+   "end": "Quando tutte le città sono conquistate, tutti tranne il Neutrale hanno un ultimo turno. Altrimenti fine del 6º round.",
+   "scoring": "coop",
+   "titles": false,
+   "score_extra": {
+    "per_city": 10,
+    "every_player_leader": 10,
+    "all_cities": 15,
+    "per_round_early": 30,
+    "per_dummy_deck_card": 1,
+    "round_end_not_announced": 5
+   },
+   "desc_it": "Scenario cooperativo standard: 2 o 3 giocatori contro le città. 6 Round. Mappa completamente aperta (tessera B). Tessere Campagna 8/10, tessere città una in più dei giocatori, non-città pari ai giocatori. Città di livello 5, tranne l'ultima rivelata: livello 8 (2 giocatori) o 11 (3). C'è un giocatore Neutrale che prende per primo una tattica a caso; a fine Giorno/Notte si rimuove dal gioco una delle tattiche usate dai giocatori. Si rimuovono gli Incantesimi competitivi e un'Abilità interattiva da ogni pila. Vittoria comune se tutte le città sono conquistate. Punteggio di squadra: Fama più bassa + migliori Successi per categoria (senza titoli) + 10 per città, +10 se ogni giocatore è leader di almeno una città, +15 se tutte, +30 per round risparmiato, +1 per carta nel mazzo del Neutrale, +5 se la fine dell'ultimo round non era annunciata."
+  },
+  "coop_blitz": {
+   "name_it": "Cooperazione Blitz",
+   "name_en": "Blitz Cooperation",
+   "players": [
+    2,
+    3
+   ],
+   "type": "cooperativo",
+   "set": "base",
+   "rounds": 4,
+   "map": {
+    "shape": "open",
+    "start_tile": "start_b",
+    "setup_reveal": 3
+   },
+   "tiles": {
+    "country": {
+     "2": 7,
+     "3": 8
+    },
+    "core_noncity": "players-1",
+    "city": "players"
+   },
+   "city_levels": {
+    "order": {
+     "2": [
+      5,
+      8
+     ],
+     "3": [
+      5,
+      8,
+      11
+     ]
+    }
+   },
+   "dummy": "neutral",
+   "special": [
+    "remove_competitive_spells",
+    "remove_interactive_skill",
+    "tactics_dummy_first_random",
+    "remove_one_player_tactic_per_round",
+    "team_rules_single_team",
+    "start_fame:1",
+    "fame_bonus_per_track_line:1",
+    "start_rep:2",
+    "extra_source_die:1",
+    "extra_unit_offer:1"
+   ],
+   "end": "Come Cooperazione Totale (4 round).",
+   "scoring": "coop",
+   "titles": false,
+   "score_extra": {
+    "per_city": 10,
+    "every_player_leader": 10,
+    "all_cities": 15,
+    "per_round_early": 30,
+    "per_dummy_deck_card": 1,
+    "round_end_not_announced": 5
+   },
+   "desc_it": "Versione breve della Cooperazione Totale: 4 Round (2 Giorni e 2 Notti), 2 o 3 giocatori. Tessere Campagna 7/8, tessere città pari ai giocatori, non-città una in meno; le città, nell'ordine di rivelazione, sono di livello 5 e 8 (2 giocatori) o 5, 8 e 11 (3). Si inizia con Fama 1 e Reputazione +2, +1 Fama ogni volta che si supera una linea del tracciato, un dado in più nella Fonte e un'Unità in più nell'offerta."
+  }
+ }
+}

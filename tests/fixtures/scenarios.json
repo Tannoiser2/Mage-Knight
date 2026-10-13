@@ -1,0 +1,47 @@
+{
+ "scenarios": {
+  "first_recon": {
+   "name_it": "La Prima Ricognizione",
+   "name_en": "First Reconnaissance",
+   "players": [
+    2,
+    4
+   ],
+   "solo_variant": true,
+   "type": "leggermente competitivo",
+   "set": "base",
+   "rounds": 3,
+   "rounds_solo": 4,
+   "map": {
+    "shape": "wedge",
+    "start_tile": "start_a",
+    "setup_reveal": 2
+   },
+   "tiles": {
+    "country": {
+     "1": 8,
+     "2": 8,
+     "3": 9,
+     "4": 11
+    },
+    "country_order": "by_number",
+    "core_noncity": 2,
+    "city": 1
+   },
+   "city_levels": null,
+   "cities_enterable": false,
+   "dummy": "solo",
+   "special": [
+    "fame_per_tile_revealed:1",
+    "no_pvp",
+    "no_elite_units",
+    "hide_offers_until_needed"
+   ],
+   "end": "Quando un giocatore rivela una città, tutti (lui compreso) hanno un ultimo turno; se il round finisce prima, il gioco termina subito. Altrimenti termina alla fine del 3º round.",
+   "scoring": "standard",
+   "titles": true,
+   "titles_solo": false,
+   "desc_it": "Scenario introduttivo, consigliato per la prima partita. 3 Round (2 Giorni e 1 Notte), da 2 a 4 giocatori (variante in solitario: 8 tessere Campagna, 4 Round, giocatore Neutrale, nessun titolo). Mappa a cuneo con la tessera iniziale A. Mazzo tessere: le tessere Campagna in ordine di numero (1 in cima; 8/9/11 tessere con 2/3/4 giocatori) sopra 1 tessera città e 2 tessere Principali non-città mescolate. Le città non possono essere conquistate né vi si può entrare. Si ottiene 1 Fama per ogni nuova tessera rivelata. Niente combattimento tra giocatori, niente Unità d'Élite. Quando qualcuno rivela la città, tutti hanno un ultimo turno. Vince chi ha più Fama dopo il conteggio dei Successi standard."
+  }
+ }
+}

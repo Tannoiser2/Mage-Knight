@@ -1,0 +1,2021 @@
+{
+ "_notes": {
+  "lua_flags": {
+   "name": "nome inglese -> name_en / id",
+   "pugType": "colore: green, gray, tan→brown, purple→violet, red, white; yellow = segnalini Rovine (in ruins.json); leader/possessed/dragonHead/horseman = espansioni (Tezla, Apocalypse Dragon) non esportate",
+   "fame": "fame",
+   "armour": "armor",
+   "attack": "attacks: {P|F|I|IF: [valori]} -> [{v, elem: phys|fire|ice|cold}] (ordine del Lua; più valori = attacchi multipli); M = attacco dei Posseduti (non esportato)",
+   "monsters": "evocatore: summon:<colore> per ogni voce (green, tan→brown); assenza di attack = 0 attacchi",
+   "fortified": "fortified",
+   "unfortified": "unfortified (mai fortificato, anche nei siti)",
+   "swiftness": "swift",
+   "brutal": "brutal",
+   "poison": "poison",
+   "paralyse": "paralyze",
+   "pResist": "resist_phys",
+   "fResist": "resist_fire",
+   "iResist": "resist_ice",
+   "elusive": "elusive (+ campo elusive_armor letto sul segnalino)",
+   "cumbersome": "cumbersome",
+   "arcaneImmunity": "arcane_immunity",
+   "assassination": "assassinate",
+   "vampiric": "vampiric",
+   "defend": "defend:<n>",
+   "reputation": "rep_on_defeat:<±n> (Eroi -1, Teppisti +1; il segnalino mostra il valore accanto alla Fama)",
+   "reward": "reward=1 sui nemici di fazione di Shades of Tezla: faction_reward",
+   "faction": "faction: Dark|Elem (Tezla)",
+   "boost": "solo Posseduti (non esportato)",
+   "original": "immagine del fronte (usata)",
+   "alternate": "immagine alternativa (non usata)",
+   "required": "solo Rovine (altare)"
+  },
+  "abilities": "fortified Fortificato, unfortified Mai fortificato, swift Rapido, brutal Brutale, poison Velenoso, paralyze Paralizzante, resist_phys/resist_fire/resist_ice Resistenza, elusive Elusivo (elusive_armor = armatura alta), cumbersome Ingombrante, arcane_immunity Immunità arcana, assassinate Assassinio, vampiric Vampirico, defend:n Difensore, summon:<colore> Evocatore (pesca un nemico di quel colore in fase di blocco), rep_on_defeat:±n Reputazione alla sconfitta, faction_reward ricompensa di fazione (Tezla).",
+  "colors": "green=Orchi Predoni (verde), gray=Castelli (grigio), brown=Sotterranei/Tane (marrone), violet=Torri della Magia (viola), red=Draconum (rosso), white=Città (bianco).",
+  "names_it": "I segnalini non riportano testo: i nomi italiani sono traduzioni (Cavalca Lupi e Minotauro dalla Guida); da rivedere col traduttore.",
+  "base_counts": {
+   "green": 12,
+   "gray": 10,
+   "brown": 10,
+   "violet": 10,
+   "red": 8,
+   "white": 10
+  },
+  "heroes": "Gli \"Eroi\" grigi (Lost Legion) hanno 4 segnalini con statistiche diverse: heroes_1..4."
+ },
+ "enemies": {
+  "diggers": {
+   "id": "diggers",
+   "name_en": "Diggers",
+   "name_it": "Scavatori",
+   "color": "green",
+   "set": "base",
+   "armor": 3,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [
+    "fortified"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/diggers.webp",
+   "back": "green",
+   "guids": [
+    "0d8843",
+    "121735"
+   ]
+  },
+  "cursed_hags": {
+   "id": "cursed_hags",
+   "name_en": "Cursed Hags",
+   "name_it": "Megere Maledette",
+   "color": "green",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "poison"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/cursed_hags.webp",
+   "back": "green",
+   "guids": [
+    "660062",
+    "b6325d"
+   ]
+  },
+  "ironclads": {
+   "id": "ironclads",
+   "name_en": "Ironclads",
+   "name_it": "Corazzati",
+   "color": "green",
+   "set": "base",
+   "armor": 3,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "brutal",
+    "resist_phys"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/ironclads.webp",
+   "back": "green",
+   "guids": [
+    "51cc92",
+    "fdb0f8"
+   ]
+  },
+  "prowlers": {
+   "id": "prowlers",
+   "name_en": "Prowlers",
+   "name_it": "Predatori",
+   "color": "green",
+   "set": "base",
+   "armor": 3,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [],
+   "copies": 2,
+   "img": "assets/enemies/prowlers.webp",
+   "back": "green",
+   "guids": [
+    "dac25d",
+    "b81b57"
+   ]
+  },
+  "wolf_riders": {
+   "id": "wolf_riders",
+   "name_en": "Wolf Riders",
+   "name_it": "Cavalca Lupi",
+   "color": "green",
+   "set": "base",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "swift"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/wolf_riders.webp",
+   "back": "green",
+   "guids": [
+    "d54270",
+    "2cfae9"
+   ]
+  },
+  "orc_summoners": {
+   "id": "orc_summoners",
+   "name_en": "Orc Summoners",
+   "name_it": "Orchi Evocatori",
+   "color": "green",
+   "set": "base",
+   "armor": 4,
+   "attacks": [],
+   "fame": 4,
+   "abilities": [
+    "summon:brown"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/orc_summoners.webp",
+   "back": "green",
+   "guids": [
+    "0a3564",
+    "b4166c"
+   ]
+  },
+  "orc_tracker": {
+   "id": "orc_tracker",
+   "name_en": "Orc Tracker",
+   "name_it": "Orco Segugio",
+   "color": "green",
+   "set": "ll",
+   "armor": 3,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "elusive",
+    "assassinate"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/orc_tracker.webp",
+   "back": "green",
+   "guids": [
+    "0cc1e5",
+    "28bc08"
+   ],
+   "elusive_armor": 6
+  },
+  "orc_skirmishers": {
+   "id": "orc_skirmishers",
+   "name_en": "Orc Skirmishers",
+   "name_it": "Orchi Schermagliatori",
+   "color": "green",
+   "set": "ll",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 1,
+     "elem": "phys"
+    },
+    {
+     "v": 1,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [],
+   "copies": 2,
+   "img": "assets/enemies/orc_skirmishers.webp",
+   "back": "green",
+   "guids": [
+    "8ffd9e",
+    "e17886"
+   ]
+  },
+  "orc_stonethrower": {
+   "id": "orc_stonethrower",
+   "name_en": "Orc Stonethrower",
+   "name_it": "Orco Lanciapietre",
+   "color": "green",
+   "set": "ll",
+   "armor": 2,
+   "attacks": [
+    {
+     "v": 7,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "fortified",
+    "resist_phys",
+    "cumbersome"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/orc_stonethrower.webp",
+   "back": "green",
+   "guids": [
+    "994ee9",
+    "f0d27a"
+   ]
+  },
+  "orc_war_beasts": {
+   "id": "orc_war_beasts",
+   "name_en": "Orc War Beasts",
+   "name_it": "Bestie da Guerra degli Orchi",
+   "color": "green",
+   "set": "ll",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "unfortified",
+    "brutal",
+    "resist_fire",
+    "resist_ice"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/orc_war_beasts.webp",
+   "back": "green",
+   "guids": [
+    "30df98",
+    "643901"
+   ]
+  },
+  "elemental_priestesses": {
+   "id": "elemental_priestesses",
+   "name_en": "Elemental Priestesses",
+   "name_it": "Sacerdotesse Elementali",
+   "color": "green",
+   "set": "tezla",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "ice"
+    },
+    {
+     "v": 3,
+     "elem": "fire"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "resist_fire",
+    "resist_ice",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/elemental_priestesses.webp",
+   "back": "green",
+   "guids": [
+    "8efc20"
+   ],
+   "faction": "elementalist"
+  },
+  "cloud_griffons": {
+   "id": "cloud_griffons",
+   "name_en": "Cloud Griffons",
+   "name_it": "Grifoni delle Nubi",
+   "color": "green",
+   "set": "tezla",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "unfortified",
+    "swift",
+    "elusive",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/cloud_griffons.webp",
+   "back": "green",
+   "guids": [
+    "a04726"
+   ],
+   "elusive_armor": 8,
+   "faction": "elementalist"
+  },
+  "elven_protectors": {
+   "id": "elven_protectors",
+   "name_en": "Elven Protectors",
+   "name_it": "Protettori Elfici",
+   "color": "green",
+   "set": "tezla",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [
+    "resist_fire",
+    "defend:2",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/elven_protectors.webp",
+   "back": "green",
+   "guids": [
+    "64b218",
+    "adec2a"
+   ],
+   "faction": "elementalist"
+  },
+  "centaur_outriders": {
+   "id": "centaur_outriders",
+   "name_en": "Centaur Outriders",
+   "name_it": "Centauri Esploratori",
+   "color": "green",
+   "set": "tezla",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [
+    "swift",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/centaur_outriders.webp",
+   "back": "green",
+   "guids": [
+    "f87e31",
+    "e9911f"
+   ],
+   "faction": "elementalist"
+  },
+  "crystal_sprites": {
+   "id": "crystal_sprites",
+   "name_en": "Crystal Sprites",
+   "name_it": "Folletti di Cristallo",
+   "color": "green",
+   "set": "tezla",
+   "armor": 1,
+   "attacks": [
+    {
+     "v": 1,
+     "elem": "ice"
+    },
+    {
+     "v": 1,
+     "elem": "ice"
+    }
+   ],
+   "fame": 1,
+   "abilities": [
+    "resist_ice",
+    "elusive",
+    "defend:1",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/crystal_sprites.webp",
+   "back": "green",
+   "guids": [
+    "60e427",
+    "698828"
+   ],
+   "elusive_armor": 2,
+   "faction": "elementalist"
+  },
+  "corrupted_priests": {
+   "id": "corrupted_priests",
+   "name_en": "Corrupted Priests",
+   "name_it": "Sacerdoti Corrotti",
+   "color": "green",
+   "set": "tezla",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "cold"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "vampiric",
+    "defend:1",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/corrupted_priests.webp",
+   "back": "green",
+   "guids": [
+    "0c5f4d"
+   ],
+   "faction": "dark"
+  },
+  "shrouded_necromancers": {
+   "id": "shrouded_necromancers",
+   "name_en": "Shrouded Necromancers",
+   "name_it": "Negromanti Incappucciati",
+   "color": "green",
+   "set": "tezla",
+   "armor": 5,
+   "attacks": [],
+   "fame": 3,
+   "abilities": [
+    "fortified",
+    "summon:green",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/shrouded_necromancers.webp",
+   "back": "green",
+   "guids": [
+    "565ecd"
+   ],
+   "faction": "dark"
+  },
+  "gibbering_ghouls": {
+   "id": "gibbering_ghouls",
+   "name_en": "Gibbering Ghouls",
+   "name_it": "Ghoul Farfuglianti",
+   "color": "green",
+   "set": "tezla",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [
+    "vampiric",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/gibbering_ghouls.webp",
+   "back": "green",
+   "guids": [
+    "f85b1e",
+    "f87e33"
+   ],
+   "faction": "dark"
+  },
+  "zombie_horde": {
+   "id": "zombie_horde",
+   "name_en": "Zombie Horde",
+   "name_it": "Orda di Zombi",
+   "color": "green",
+   "set": "tezla",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 1,
+     "elem": "phys"
+    },
+    {
+     "v": 1,
+     "elem": "phys"
+    },
+    {
+     "v": 1,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [
+    "resist_ice",
+    "cumbersome",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/zombie_horde.webp",
+   "back": "green",
+   "guids": [
+    "698829",
+    "d549a5"
+   ],
+   "faction": "dark"
+  },
+  "skeletal_warriors": {
+   "id": "skeletal_warriors",
+   "name_en": "Skeletal Warriors",
+   "name_it": "Guerrieri Scheletro",
+   "color": "green",
+   "set": "tezla",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 1,
+   "abilities": [
+    "resist_fire",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/skeletal_warriors.webp",
+   "back": "green",
+   "guids": [
+    "39d58e",
+    "8efc22"
+   ],
+   "faction": "dark"
+  },
+  "swordsmen": {
+   "id": "swordsmen",
+   "name_en": "Swordsmen",
+   "name_it": "Spadaccini",
+   "color": "gray",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [],
+   "copies": 2,
+   "img": "assets/enemies/swordsmen.webp",
+   "back": "gray",
+   "guids": [
+    "595429",
+    "6767eb"
+   ]
+  },
+  "golems": {
+   "id": "golems",
+   "name_en": "Golems",
+   "name_it": "Golem",
+   "color": "gray",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 2,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "resist_phys"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/golems.webp",
+   "back": "gray",
+   "guids": [
+    "c68979",
+    "8b8eda"
+   ]
+  },
+  "crossbowmen": {
+   "id": "crossbowmen",
+   "name_en": "Crossbowmen",
+   "name_it": "Balestrieri",
+   "color": "gray",
+   "set": "base",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "swift"
+   ],
+   "copies": 3,
+   "img": "assets/enemies/crossbowmen.webp",
+   "back": "gray",
+   "guids": [
+    "74a565",
+    "2fefc5",
+    "5d96c4"
+   ]
+  },
+  "guardsmen": {
+   "id": "guardsmen",
+   "name_en": "Guardsmen",
+   "name_it": "Guardie",
+   "color": "gray",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "fortified"
+   ],
+   "copies": 3,
+   "img": "assets/enemies/guardsmen.webp",
+   "back": "gray",
+   "guids": [
+    "ba480e",
+    "8fba3a",
+    "6133cd"
+   ]
+  },
+  "heroes_1": {
+   "id": "heroes_1",
+   "name_en": "Heroes",
+   "name_it": "Eroi",
+   "color": "gray",
+   "set": "ll",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    },
+    {
+     "v": 3,
+     "elem": "ice"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "resist_ice",
+    "rep_on_defeat:-1"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/heroes_1.webp",
+   "back": "gray",
+   "guids": [
+    "90755e"
+   ]
+  },
+  "heroes_2": {
+   "id": "heroes_2",
+   "name_en": "Heroes",
+   "name_it": "Eroi",
+   "color": "gray",
+   "set": "ll",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    },
+    {
+     "v": 2,
+     "elem": "fire"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "resist_fire",
+    "rep_on_defeat:-1"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/heroes_2.webp",
+   "back": "gray",
+   "guids": [
+    "7e72a2"
+   ]
+  },
+  "heroes_3": {
+   "id": "heroes_3",
+   "name_en": "Heroes",
+   "name_it": "Eroi",
+   "color": "gray",
+   "set": "ll",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    },
+    {
+     "v": 2,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "swift",
+    "rep_on_defeat:-1"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/heroes_3.webp",
+   "back": "gray",
+   "guids": [
+    "f11b70"
+   ]
+  },
+  "heroes_4": {
+   "id": "heroes_4",
+   "name_en": "Heroes",
+   "name_it": "Eroi",
+   "color": "gray",
+   "set": "ll",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    },
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "fortified",
+    "rep_on_defeat:-1"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/heroes_4.webp",
+   "back": "gray",
+   "guids": [
+    "8ea708"
+   ]
+  },
+  "thugs": {
+   "id": "thugs",
+   "name_en": "Thugs",
+   "name_it": "Teppisti",
+   "color": "gray",
+   "set": "ll",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 2,
+   "abilities": [
+    "brutal",
+    "rep_on_defeat:+1"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/thugs.webp",
+   "back": "gray",
+   "guids": [
+    "3f4b5e",
+    "88ecaa"
+   ]
+  },
+  "shocktroops": {
+   "id": "shocktroops",
+   "name_en": "Shocktroops",
+   "name_it": "Truppe d'Assalto",
+   "color": "gray",
+   "set": "ll",
+   "armor": 3,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "unfortified",
+    "elusive"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/shocktroops.webp",
+   "back": "gray",
+   "guids": [
+    "bc5065",
+    "808631"
+   ],
+   "elusive_armor": 6
+  },
+  "gargoyle": {
+   "id": "gargoyle",
+   "name_en": "Gargoyle",
+   "name_it": "Gargoyle",
+   "color": "brown",
+   "set": "base",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "resist_phys"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/gargoyle.webp",
+   "back": "brown",
+   "guids": [
+    "e44ea9",
+    "4bdd51"
+   ]
+  },
+  "crypt_worm": {
+   "id": "crypt_worm",
+   "name_en": "Crypt Worm",
+   "name_it": "Verme delle Cripte",
+   "color": "brown",
+   "set": "base",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "fortified"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/crypt_worm.webp",
+   "back": "brown",
+   "guids": [
+    "8efc21",
+    "c3e76d"
+   ]
+  },
+  "werewolf": {
+   "id": "werewolf",
+   "name_en": "Werewolf",
+   "name_it": "Lupo Mannaro",
+   "color": "brown",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 7,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "swift"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/werewolf.webp",
+   "back": "brown",
+   "guids": [
+    "ff0e71",
+    "8c1f38"
+   ]
+  },
+  "minotaur": {
+   "id": "minotaur",
+   "name_en": "Minotaur",
+   "name_it": "Minotauro",
+   "color": "brown",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "brutal"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/minotaur.webp",
+   "back": "brown",
+   "guids": [
+    "0e09fd",
+    "548e0d"
+   ]
+  },
+  "medusa": {
+   "id": "medusa",
+   "name_en": "Medusa",
+   "name_it": "Medusa",
+   "color": "brown",
+   "set": "base",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "paralyze"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/medusa.webp",
+   "back": "brown",
+   "guids": [
+    "e9a28d",
+    "f69dfa"
+   ]
+  },
+  "shadow": {
+   "id": "shadow",
+   "name_en": "Shadow",
+   "name_it": "Ombra",
+   "color": "brown",
+   "set": "ll",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "cold"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "elusive",
+    "arcane_immunity"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/shadow.webp",
+   "back": "brown",
+   "guids": [
+    "277cd2",
+    "558de1"
+   ],
+   "elusive_armor": 8
+  },
+  "hydra": {
+   "id": "hydra",
+   "name_en": "Hydra",
+   "name_it": "Idra",
+   "color": "brown",
+   "set": "ll",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 2,
+     "elem": "phys"
+    },
+    {
+     "v": 2,
+     "elem": "phys"
+    },
+    {
+     "v": 2,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "resist_ice"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/hydra.webp",
+   "back": "brown",
+   "guids": [
+    "863ba1",
+    "ce794a"
+   ]
+  },
+  "manticore": {
+   "id": "manticore",
+   "name_en": "Manticore",
+   "name_it": "Manticora",
+   "color": "brown",
+   "set": "ll",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "swift",
+    "poison",
+    "resist_fire",
+    "assassinate"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/manticore.webp",
+   "back": "brown",
+   "guids": [
+    "16d47c",
+    "013cb1"
+   ]
+  },
+  "blood_demon": {
+   "id": "blood_demon",
+   "name_en": "Blood Demon",
+   "name_it": "Demone di Sangue",
+   "color": "brown",
+   "set": "tezla",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "brutal",
+    "resist_fire",
+    "arcane_immunity",
+    "assassinate",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/blood_demon.webp",
+   "back": "brown",
+   "guids": [
+    "863ba2"
+   ],
+   "faction": "dark"
+  },
+  "pain_wraith": {
+   "id": "pain_wraith",
+   "name_en": "Pain Wraith",
+   "name_it": "Spettro del Dolore",
+   "color": "brown",
+   "set": "tezla",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 3,
+   "abilities": [
+    "paralyze",
+    "elusive",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/pain_wraith.webp",
+   "back": "brown",
+   "guids": [
+    "558de0"
+   ],
+   "elusive_armor": 8,
+   "faction": "dark"
+  },
+  "vampire": {
+   "id": "vampire",
+   "name_en": "Vampire",
+   "name_it": "Vampiro",
+   "color": "brown",
+   "set": "tezla",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "elusive",
+    "vampiric",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/vampire.webp",
+   "back": "brown",
+   "guids": [
+    "013cb2"
+   ],
+   "elusive_armor": 10,
+   "faction": "dark"
+  },
+  "mummy": {
+   "id": "mummy",
+   "name_en": "Mummy",
+   "name_it": "Mummia",
+   "color": "brown",
+   "set": "tezla",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "poison",
+    "resist_phys",
+    "resist_ice",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/mummy.webp",
+   "back": "brown",
+   "guids": [
+    "61eb06"
+   ],
+   "faction": "dark"
+  },
+  "air_elemental": {
+   "id": "air_elemental",
+   "name_en": "Air Elemental",
+   "name_it": "Elementale dell'Aria",
+   "color": "brown",
+   "set": "tezla",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "cold"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "swift",
+    "resist_fire",
+    "resist_ice",
+    "elusive",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/air_elemental.webp",
+   "back": "brown",
+   "guids": [
+    "00c4da"
+   ],
+   "elusive_armor": 8,
+   "faction": "elementalist"
+  },
+  "fire_elemental": {
+   "id": "fire_elemental",
+   "name_en": "Fire Elemental",
+   "name_it": "Elementale del Fuoco",
+   "color": "brown",
+   "set": "tezla",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 7,
+     "elem": "fire"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "resist_fire",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/fire_elemental.webp",
+   "back": "brown",
+   "guids": [
+    "863bab"
+   ],
+   "faction": "elementalist"
+  },
+  "water_elemental": {
+   "id": "water_elemental",
+   "name_en": "Water Elemental",
+   "name_it": "Elementale dell'Acqua",
+   "color": "brown",
+   "set": "tezla",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "ice"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "resist_ice",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/water_elemental.webp",
+   "back": "brown",
+   "guids": [
+    "013cb3"
+   ],
+   "faction": "elementalist"
+  },
+  "earth_elemental": {
+   "id": "earth_elemental",
+   "name_en": "Earth Elemental",
+   "name_it": "Elementale della Terra",
+   "color": "brown",
+   "set": "tezla",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "fortified",
+    "brutal",
+    "resist_phys",
+    "cumbersome",
+    "faction_reward"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/earth_elemental.webp",
+   "back": "brown",
+   "guids": [
+    "61eb07"
+   ],
+   "faction": "elementalist"
+  },
+  "ice_golems": {
+   "id": "ice_golems",
+   "name_en": "Ice Golems",
+   "name_it": "Golem di Ghiaccio",
+   "color": "violet",
+   "set": "base",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 2,
+     "elem": "ice"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "paralyze",
+    "resist_phys",
+    "resist_ice"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/ice_golems.webp",
+   "back": "violet",
+   "guids": [
+    "034938"
+   ]
+  },
+  "fire_golems": {
+   "id": "fire_golems",
+   "name_en": "Fire Golems",
+   "name_it": "Golem di Fuoco",
+   "color": "violet",
+   "set": "base",
+   "armor": 4,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "fire"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "brutal",
+    "resist_phys",
+    "resist_fire"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/fire_golems.webp",
+   "back": "violet",
+   "guids": [
+    "f078f3"
+   ]
+  },
+  "monks": {
+   "id": "monks",
+   "name_en": "Monks",
+   "name_it": "Monaci",
+   "color": "violet",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 4,
+   "abilities": [
+    "poison"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/monks.webp",
+   "back": "violet",
+   "guids": [
+    "96dcb6",
+    "944d16"
+   ]
+  },
+  "ice_mages": {
+   "id": "ice_mages",
+   "name_en": "Ice Mages",
+   "name_it": "Maghi del Ghiaccio",
+   "color": "violet",
+   "set": "base",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "ice"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "resist_ice"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/ice_mages.webp",
+   "back": "violet",
+   "guids": [
+    "6664bc",
+    "1677d4"
+   ]
+  },
+  "illusionists": {
+   "id": "illusionists",
+   "name_en": "Illusionists",
+   "name_it": "Illusionisti",
+   "color": "violet",
+   "set": "base",
+   "armor": 3,
+   "attacks": [],
+   "fame": 4,
+   "abilities": [
+    "resist_phys",
+    "summon:brown"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/illusionists.webp",
+   "back": "violet",
+   "guids": [
+    "8b8ed1",
+    "b8fce1"
+   ]
+  },
+  "fire_mages": {
+   "id": "fire_mages",
+   "name_en": "Fire Mages",
+   "name_it": "Maghi del Fuoco",
+   "color": "violet",
+   "set": "base",
+   "armor": 5,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "fire"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "resist_fire"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/fire_mages.webp",
+   "back": "violet",
+   "guids": [
+    "3e7c19",
+    "d6e9d0"
+   ]
+  },
+  "magic_familiars": {
+   "id": "magic_familiars",
+   "name_en": "Magic Familiars",
+   "name_it": "Famigli Magici",
+   "color": "violet",
+   "set": "ll",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "phys"
+    },
+    {
+     "v": 3,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "unfortified",
+    "brutal"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/magic_familiars.webp",
+   "back": "violet",
+   "guids": [
+    "8a3f72",
+    "23fe94"
+   ]
+  },
+  "sorcerers": {
+   "id": "sorcerers",
+   "name_en": "Sorcerers",
+   "name_it": "Stregoni",
+   "color": "violet",
+   "set": "ll",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "phys"
+    }
+   ],
+   "fame": 5,
+   "abilities": [
+    "poison",
+    "arcane_immunity",
+    "assassinate"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/sorcerers.webp",
+   "back": "violet",
+   "guids": [
+    "b8f920",
+    "490a69"
+   ]
+  },
+  "swamp_dragon": {
+   "id": "swamp_dragon",
+   "name_en": "Swamp Dragon",
+   "name_it": "Drago di Palude",
+   "color": "red",
+   "set": "base",
+   "armor": 9,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "swift",
+    "poison"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/swamp_dragon.webp",
+   "back": "red",
+   "guids": [
+    "0ccadf",
+    "5c6b9d"
+   ]
+  },
+  "high_dragon": {
+   "id": "high_dragon",
+   "name_en": "High Dragon",
+   "name_it": "Drago Supremo",
+   "color": "red",
+   "set": "base",
+   "armor": 9,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "cold"
+    }
+   ],
+   "fame": 9,
+   "abilities": [
+    "brutal",
+    "resist_fire",
+    "resist_ice"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/high_dragon.webp",
+   "back": "red",
+   "guids": [
+    "ba9237",
+    "87588b"
+   ]
+  },
+  "ice_dragon": {
+   "id": "ice_dragon",
+   "name_en": "Ice Dragon",
+   "name_it": "Drago di Ghiaccio",
+   "color": "red",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "ice"
+    }
+   ],
+   "fame": 8,
+   "abilities": [
+    "paralyze",
+    "resist_phys",
+    "resist_ice"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/ice_dragon.webp",
+   "back": "red",
+   "guids": [
+    "ae960a",
+    "fa9303"
+   ]
+  },
+  "fire_dragon": {
+   "id": "fire_dragon",
+   "name_en": "Fire Dragon",
+   "name_it": "Drago di Fuoco",
+   "color": "red",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 9,
+     "elem": "fire"
+    }
+   ],
+   "fame": 8,
+   "abilities": [
+    "resist_phys",
+    "resist_fire"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/fire_dragon.webp",
+   "back": "red",
+   "guids": [
+    "bad465",
+    "58bab2"
+   ]
+  },
+  "dragon_summoner": {
+   "id": "dragon_summoner",
+   "name_en": "Dragon Summoner",
+   "name_it": "Evocatore di Draghi",
+   "color": "red",
+   "set": "ll",
+   "armor": 8,
+   "attacks": [],
+   "fame": 9,
+   "abilities": [
+    "resist_phys",
+    "arcane_immunity",
+    "summon:brown",
+    "summon:brown"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/dragon_summoner.webp",
+   "back": "red",
+   "guids": [
+    "80d998",
+    "17bcd9"
+   ]
+  },
+  "storm_dragon": {
+   "id": "storm_dragon",
+   "name_en": "Storm Dragon",
+   "name_it": "Drago della Tempesta",
+   "color": "red",
+   "set": "ll",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "ice"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "swift",
+    "resist_ice",
+    "elusive"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/storm_dragon.webp",
+   "back": "red",
+   "guids": [
+    "09ec72",
+    "b7dca2"
+   ],
+   "elusive_armor": 14
+  },
+  "lava_dragon": {
+   "id": "lava_dragon",
+   "name_en": "Lava Dragon",
+   "name_it": "Drago di Lava",
+   "color": "red",
+   "set": "ll",
+   "armor": 8,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "fire"
+    }
+   ],
+   "fame": 8,
+   "abilities": [
+    "fortified",
+    "brutal",
+    "resist_fire"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/lava_dragon.webp",
+   "back": "red",
+   "guids": [
+    "9156c4",
+    "be5c5e"
+   ]
+  },
+  "vampiric_dragon": {
+   "id": "vampiric_dragon",
+   "name_en": "Vampiric Dragon",
+   "name_it": "Drago Vampiro",
+   "color": "red",
+   "set": "tezla",
+   "armor": 8,
+   "attacks": [
+    {
+     "v": 8,
+     "elem": "phys"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "elusive",
+    "vampiric",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/vampiric_dragon.webp",
+   "back": "red",
+   "guids": [
+    "c77902",
+    "342ed4"
+   ],
+   "elusive_armor": 16,
+   "faction": "dark"
+  },
+  "death_dragon": {
+   "id": "death_dragon",
+   "name_en": "Death Dragon",
+   "name_it": "Drago della Morte",
+   "color": "red",
+   "set": "tezla",
+   "armor": 9,
+   "attacks": [
+    {
+     "v": 7,
+     "elem": "phys"
+    }
+   ],
+   "fame": 6,
+   "abilities": [
+    "paralyze",
+    "assassinate",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/death_dragon.webp",
+   "back": "red",
+   "guids": [
+    "f87e32",
+    "0d0645"
+   ],
+   "faction": "dark"
+  },
+  "savage_dragon": {
+   "id": "savage_dragon",
+   "name_en": "Savage Dragon",
+   "name_it": "Drago Selvaggio",
+   "color": "red",
+   "set": "tezla",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 6,
+   "abilities": [
+    "brutal",
+    "resist_phys",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/savage_dragon.webp",
+   "back": "red",
+   "guids": [
+    "c77901",
+    "6cad42"
+   ],
+   "faction": "elementalist"
+  },
+  "lightning_dragon": {
+   "id": "lightning_dragon",
+   "name_en": "Lightning Dragon",
+   "name_it": "Drago del Fulmine",
+   "color": "red",
+   "set": "tezla",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "cold"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "resist_fire",
+    "resist_ice",
+    "elusive",
+    "faction_reward"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/lightning_dragon.webp",
+   "back": "red",
+   "guids": [
+    "5d4e06",
+    "f87e39"
+   ],
+   "elusive_armor": 14,
+   "faction": "elementalist"
+  },
+  "altem_guardsmen": {
+   "id": "altem_guardsmen",
+   "name_en": "Altem Guardsmen",
+   "name_it": "Guardie di Altem",
+   "color": "white",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "phys"
+    }
+   ],
+   "fame": 8,
+   "abilities": [
+    "fortified",
+    "resist_phys",
+    "resist_fire",
+    "resist_ice"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/altem_guardsmen.webp",
+   "back": "white",
+   "guids": [
+    "371007",
+    "66c8b1"
+   ]
+  },
+  "altem_mages": {
+   "id": "altem_mages",
+   "name_en": "Altem Mages",
+   "name_it": "Maghi di Altem",
+   "color": "white",
+   "set": "base",
+   "armor": 8,
+   "attacks": [
+    {
+     "v": 4,
+     "elem": "cold"
+    }
+   ],
+   "fame": 8,
+   "abilities": [
+    "brutal",
+    "poison",
+    "resist_phys"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/altem_mages.webp",
+   "back": "white",
+   "guids": [
+    "051bc2",
+    "934839"
+   ]
+  },
+  "freezers": {
+   "id": "freezers",
+   "name_en": "Freezers",
+   "name_it": "Congelatori",
+   "color": "white",
+   "set": "base",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 3,
+     "elem": "ice"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "swift",
+    "paralyze",
+    "resist_fire"
+   ],
+   "copies": 3,
+   "img": "assets/enemies/freezers.webp",
+   "back": "white",
+   "guids": [
+    "a9f2bc",
+    "0cb639",
+    "f09496"
+   ]
+  },
+  "gunners": {
+   "id": "gunners",
+   "name_en": "Gunners",
+   "name_it": "Artiglieri",
+   "color": "white",
+   "set": "base",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 6,
+     "elem": "fire"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "brutal",
+    "resist_ice"
+   ],
+   "copies": 3,
+   "img": "assets/enemies/gunners.webp",
+   "back": "white",
+   "guids": [
+    "4fa08c",
+    "25e35d",
+    "fc035c"
+   ]
+  },
+  "ice_catapult": {
+   "id": "ice_catapult",
+   "name_en": "Ice Catapult",
+   "name_it": "Catapulta di Ghiaccio",
+   "color": "white",
+   "set": "ll",
+   "armor": 6,
+   "attacks": [
+    {
+     "v": 9,
+     "elem": "ice"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "fortified",
+    "cumbersome"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/ice_catapult.webp",
+   "back": "white",
+   "guids": [
+    "eae753"
+   ]
+  },
+  "fire_catapult": {
+   "id": "fire_catapult",
+   "name_en": "Fire Catapult",
+   "name_it": "Catapulta di Fuoco",
+   "color": "white",
+   "set": "ll",
+   "armor": 7,
+   "attacks": [
+    {
+     "v": 8,
+     "elem": "fire"
+    }
+   ],
+   "fame": 7,
+   "abilities": [
+    "fortified",
+    "cumbersome"
+   ],
+   "copies": 1,
+   "img": "assets/enemies/fire_catapult.webp",
+   "back": "white",
+   "guids": [
+    "c0c315"
+   ]
+  },
+  "delphana_masters": {
+   "id": "delphana_masters",
+   "name_en": "Delphana Masters",
+   "name_it": "Maestri Delphana",
+   "color": "white",
+   "set": "ll",
+   "armor": 8,
+   "attacks": [
+    {
+     "v": 5,
+     "elem": "cold"
+    }
+   ],
+   "fame": 9,
+   "abilities": [
+    "paralyze",
+    "resist_fire",
+    "resist_ice",
+    "assassinate"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/delphana_masters.webp",
+   "back": "white",
+   "guids": [
+    "e6859f",
+    "e9a281"
+   ]
+  },
+  "grim_legionnaires": {
+   "id": "grim_legionnaires",
+   "name_en": "Grim Legionnaires",
+   "name_it": "Legionari Torvi",
+   "color": "white",
+   "set": "ll",
+   "armor": 10,
+   "attacks": [
+    {
+     "v": 11,
+     "elem": "phys"
+    }
+   ],
+   "fame": 8,
+   "abilities": [
+    "unfortified",
+    "arcane_immunity"
+   ],
+   "copies": 2,
+   "img": "assets/enemies/grim_legionnaires.webp",
+   "back": "white",
+   "guids": [
+    "729056",
+    "864fe1"
+   ]
+  }
+ },
+ "backs": {
+  "green": "assets/enemies/back_green.webp",
+  "red": "assets/enemies/back_red.webp",
+  "brown": "assets/enemies/back_brown.webp",
+  "gray": "assets/enemies/back_gray.webp",
+  "violet": "assets/enemies/back_violet.webp",
+  "white": "assets/enemies/back_white.webp"
+ }
+}

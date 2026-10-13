@@ -1,0 +1,56 @@
+{
+ "tactic_rethink": {
+  "desc": "Alla scelta della tattica (fase tattiche, prima del primo turno): il giocatore sceglie da 0 a 3 carte della mano (anche Ferite) e le scarta; pesca altrettante carte; poi rimescola la pila degli scarti (incluse le carte appena scartate) nel mazzo Impresa.",
+  "used_by": [
+   "rethink"
+  ]
+ },
+ "tactic_mana_steal": {
+  "desc": "Alla scelta: prende un dado della Fonte che mostra un colore base (rosso/blu/verde/bianco) e lo tiene sulla carta (non è più nella Fonte, non viene rilanciato a fine turno degli altri). In un qualsiasi proprio turno di questo Giorno può usarlo come mana di quel colore (in aggiunta al normale dado della Fonte); se lo usa, a fine turno il dado viene rilanciato e rimesso nella Fonte e la tattica non ha più effetto.",
+  "used_by": [
+   "mana_steal"
+  ]
+ },
+ "tactic_planning": {
+  "desc": "A fine turno di ogni turno del round: se prima di pescare il giocatore ha almeno 2 carte in mano, pesca fino a limite di mano + 1.",
+  "used_by": [
+   "planning"
+  ]
+ },
+ "tactic_right_moment": {
+  "desc": "Una volta in questo Giorno, durante il proprio turno: il giocatore annuncia un turno extra; appena finito il turno corrente ne gioca subito un altro (prima del giocatore successivo). Poi la tattica è girata (usata).",
+  "used_by": [
+   "the_right_moment"
+  ]
+ },
+ "tactic_long_night": {
+  "desc": "Una volta in questa Notte, all'inizio del proprio turno se il mazzo Impresa è vuoto: mescola la pila degli scarti e mette 3 carte a caso nel mazzo Impresa (il resto resta negli scarti). Poi la tattica è girata.",
+  "used_by": [
+   "long_night"
+  ]
+ },
+ "tactic_mana_search": {
+  "desc": "Una volta per turno, prima di prendere mana dalla Fonte: il giocatore può rilanciare fino a 2 dadi della Fonte non presi (se ci sono dadi oro esauriti di Notte, cioè oro, deve sceglierli per primi).",
+  "used_by": [
+   "mana_search"
+  ]
+ },
+ "tactic_midnight_meditation": {
+  "desc": "Una volta in questa Notte, prima di un proprio turno: il giocatore sceglie da 0 a 5 carte della mano (anche Ferite), le rimescola nel mazzo Impresa e pesca altrettante carte. Poi la tattica è girata.",
+  "used_by": [
+   "midnight_meditation"
+  ]
+ },
+ "tactic_preparation": {
+  "desc": "Alla scelta: il giocatore guarda il proprio mazzo Impresa, sceglie una carta e la mette in mano; poi rimescola il mazzo.",
+  "used_by": [
+   "preparation"
+  ]
+ },
+ "tactic_sparing_power": {
+  "desc": "Prima dell'inizio di ciascun proprio turno (obbligatorio scegliere): (a) mette la carta in cima al mazzo Impresa, coperta, sotto questa tattica (accumulo) — se il mazzo è vuoto questa opzione non è possibile; oppure (b) gira la tattica e mette in mano tutte le carte accumulate sotto di essa. Le carte accumulate non contano come mazzo.",
+  "used_by": [
+   "sparing_power"
+  ]
+ }
+}

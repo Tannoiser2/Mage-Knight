@@ -1,0 +1,2049 @@
+{
+ "skills": [
+  {
+   "id": "arythea_dark_paths",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Sentieri Oscuri",
+   "name_en": "Dark Paths",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "day",
+     [
+      [
+       "move",
+       1
+      ]
+     ],
+     [
+      [
+       "move",
+       2
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nMovimento 1 (di giorno), oppure\nMovimento 2 (di notte).",
+   "img": "assets/skills/arythea_dark_paths.webp",
+   "impl": true,
+   "note": "",
+   "guid": "4b997c"
+  },
+  {
+   "id": "arythea_burning_power",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Potere Ardente",
+   "name_en": "Burning Power",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        1,
+        "phys",
+        "siege"
+       ]
+      ],
+      [
+       [
+        "attack",
+        1,
+        "fire",
+        "siege"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco d'Assedio 1, oppure\nAttacco d'Assedio di Fuoco 1.",
+   "img": "assets/skills/arythea_burning_power.webp",
+   "impl": true,
+   "note": "",
+   "guid": "2f2ad9"
+  },
+  {
+   "id": "arythea_hot_swordsmanship",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Scherma Ardente",
+   "name_en": "Hot Swordsmanship",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "fire"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco 2, oppure\nAttacco di Fuoco 2.",
+   "img": "assets/skills/arythea_hot_swordsmanship.webp",
+   "impl": true,
+   "note": "",
+   "guid": "1906f4"
+  },
+  {
+   "id": "arythea_dark_negotiation",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Negoziazione Oscura",
+   "name_en": "Dark Negotiation",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "day",
+     [
+      [
+       "influence",
+       2
+      ]
+     ],
+     [
+      [
+       "influence",
+       3
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nInfluenza 2 (di giorno), oppure\nInfluenza 3 (di notte).",
+   "img": "assets/skills/arythea_dark_negotiation.webp",
+   "impl": true,
+   "note": "",
+   "guid": "24855b"
+  },
+  {
+   "id": "arythea_dark_fire_magic",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Magia del Fuoco Oscuro",
+   "name_en": "Dark Fire Magic",
+   "usage": "round",
+   "effect": [
+    [
+     "crystal",
+     "red"
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "black"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un Cristallo rosso nell'Inventario e un segnalino Mana rosso o nero.",
+   "img": "assets/skills/arythea_dark_fire_magic.webp",
+   "impl": true,
+   "note": "",
+   "guid": "0951b9"
+  },
+  {
+   "id": "arythea_power_of_pain",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Potere del Dolore",
+   "name_en": "Power of Pain",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "wound_sideways",
+     {
+      "bonus": 2
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nPuoi giocare una Ferita di lato come una carta non Ferita.\nFornisce +2 invece di +1.\nA fine turno, metti quella Ferita nella tua pila degli scarti.",
+   "img": "assets/skills/arythea_power_of_pain.webp",
+   "impl": true,
+   "note": "",
+   "guid": "33d341"
+  },
+  {
+   "id": "arythea_polarization",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Polarizzazione",
+   "name_en": "Polarization",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "polarization"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nPuoi usare un Mana come Mana del colore opposto (vedi diagramma sul segnalino).\nDi giorno puoi usare Mana nero come qualsiasi colore tranne nero (non per gli effetti potenziati degli Incantesimi).\nDi notte puoi usare Mana dorato come nero per potenziare un Incantesimo, ma non come altri colori.",
+   "img": "assets/skills/arythea_polarization.webp",
+   "impl": true,
+   "note": "",
+   "guid": "fe29ca"
+  },
+  {
+   "id": "arythea_invocation",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Invocazione",
+   "name_en": "Invocation",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "invocation"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nScarta una Ferita per ottenere un segnalino Mana rosso o nero, oppure una carta non Ferita per ottenere un segnalino Mana bianco o verde.\nDevi spendere subito il Mana ottenuto, altrimenti non puoi usare questa Abilità.",
+   "img": "assets/skills/arythea_invocation.webp",
+   "impl": true,
+   "note": "",
+   "guid": "68568b"
+  },
+  {
+   "id": "arythea_motivation",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Motivazione",
+   "name_en": "Motivation",
+   "usage": "round",
+   "effect": [
+    [
+     "draw",
+     2
+    ],
+    [
+     "special",
+     "if_lowest_fame",
+     {
+      "effects": [
+       [
+        "mana",
+        "red"
+       ]
+      ]
+     }
+    ],
+    [
+     "special",
+     "motivation_lock"
+    ]
+   ],
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana rosso.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "img": "assets/skills/arythea_motivation.webp",
+   "impl": true,
+   "note": "",
+   "guid": "3d8336",
+   "any_turn": true
+  },
+  {
+   "id": "arythea_healing_ritual",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Rituale di Guarigione",
+   "name_en": "Healing Ritual",
+   "usage": "interactive",
+   "effect": [
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "special",
+       "healing_ritual"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round (fuori dal combattimento):\nGira questo segnalino per eliminare fino a due Ferite dalla mano. Una va nella mano del Mage Knight più vicino sulla mappa (scegli tu in caso di parità).",
+   "img": "assets/skills/arythea_healing_ritual.webp",
+   "impl": true,
+   "note": "",
+   "guid": "d90de4",
+   "mode": "competitive"
+  },
+  {
+   "id": "arythea_ritual_of_pain",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Rituale del Dolore",
+   "name_en": "Ritual of Pain",
+   "usage": "interactive",
+   "effect": [
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "special",
+       "ritual_of_pain"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round (fuori dal combattimento):\nElimina fino a due Ferite dalla mano. (Metti questa Abilità nell'area di gioco per attivarla.)\nUn altro giocatore, nel proprio turno, può:\nGiocare una Ferita di lato come una carta non Ferita, ottenendo +3 invece di +1. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
+   "img": "assets/skills/arythea_ritual_of_pain.webp",
+   "impl": true,
+   "note": "Variante cooperativa (Ultimate Edition) dell'abilità interattiva; sostituisce Rituale di Guarigione in cooperativa.",
+   "guid": "3fba07",
+   "mode": "coop"
+  },
+  {
+   "id": "goldyx_freezing_power",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Potere Gelido",
+   "name_en": "Freezing Power",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        1,
+        "phys",
+        "siege"
+       ]
+      ],
+      [
+       [
+        "attack",
+        1,
+        "ice",
+        "siege"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco d'Assedio 1, oppure\nAttacco d'Assedio di Ghiaccio 1.",
+   "img": "assets/skills/goldyx_freezing_power.webp",
+   "impl": true,
+   "note": "",
+   "guid": "91bf3d"
+  },
+  {
+   "id": "goldyx_potion_making",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Preparazione di Pozioni",
+   "name_en": "Potion Making",
+   "usage": "round",
+   "effect": [
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "heal",
+       2
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round (fuori dal combattimento):\nGira questo segnalino per ottenere Guarigione 2.",
+   "img": "assets/skills/goldyx_potion_making.webp",
+   "impl": true,
+   "note": "",
+   "guid": "866002"
+  },
+  {
+   "id": "goldyx_white_crystal_craft",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Creazione di Cristalli Bianchi",
+   "name_en": "White Crystal Craft",
+   "usage": "round",
+   "effect": [
+    [
+     "crystal",
+     "blue"
+    ],
+    [
+     "mana",
+     "white"
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un Cristallo blu nell'Inventario e un segnalino Mana bianco.",
+   "img": "assets/skills/goldyx_white_crystal_craft.webp",
+   "impl": true,
+   "note": "",
+   "guid": "04319a"
+  },
+  {
+   "id": "goldyx_green_crystal_craft",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Creazione di Cristalli Verdi",
+   "name_en": "Green Crystal Craft",
+   "usage": "round",
+   "effect": [
+    [
+     "crystal",
+     "blue"
+    ],
+    [
+     "mana",
+     "green"
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un Cristallo blu nell'Inventario e un segnalino Mana verde.",
+   "img": "assets/skills/goldyx_green_crystal_craft.webp",
+   "impl": true,
+   "note": "",
+   "guid": "0db37a"
+  },
+  {
+   "id": "goldyx_red_crystal_craft",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Creazione di Cristalli Rossi",
+   "name_en": "Red Crystal Craft",
+   "usage": "round",
+   "effect": [
+    [
+     "crystal",
+     "blue"
+    ],
+    [
+     "mana",
+     "red"
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un Cristallo blu nell'Inventario e un segnalino Mana rosso.",
+   "img": "assets/skills/goldyx_red_crystal_craft.webp",
+   "impl": true,
+   "note": "",
+   "guid": "9eb4c5"
+  },
+  {
+   "id": "goldyx_glittering_fortune",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Fortuna Scintillante",
+   "name_en": "Glittering Fortune",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "influence_per_crystal_color",
+     {
+      "interaction_only": true
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno (durante le interazioni):\nOttieni Influenza 1 per ogni diverso colore di Cristallo nel tuo Inventario.\nQuesta Influenza può essere usata solo nelle interazioni.",
+   "img": "assets/skills/goldyx_glittering_fortune.webp",
+   "impl": true,
+   "note": "",
+   "guid": "8cea19"
+  },
+  {
+   "id": "goldyx_flight",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Volo",
+   "name_en": "Flight",
+   "usage": "round",
+   "effect": [
+    [
+     "special",
+     "flight"
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per muoverti gratuitamente in uno spazio adiacente, oppure di due spazi per 2 punti Movimento.\nDevi terminare in uno spazio sicuro.\nQuesto movimento non provoca i nemici furiosi.",
+   "img": "assets/skills/goldyx_flight.webp",
+   "impl": true,
+   "note": "",
+   "guid": "4d5351"
+  },
+  {
+   "id": "goldyx_universal_power",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Potere Universale",
+   "name_en": "Universal Power",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "sideways_mana_boost",
+     {
+      "base": 3,
+      "same_color": 4
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nPuoi aggiungere un Mana a una carta giocata di lato: fornisce +3 invece di +1. Se è un'Azione o un Incantesimo dello stesso colore del Mana, fornisce +4.",
+   "img": "assets/skills/goldyx_universal_power.webp",
+   "impl": true,
+   "note": "",
+   "guid": "3a3f49"
+  },
+  {
+   "id": "goldyx_motivation",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Motivazione",
+   "name_en": "Motivation",
+   "usage": "round",
+   "effect": [
+    [
+     "draw",
+     2
+    ],
+    [
+     "special",
+     "if_lowest_fame",
+     {
+      "effects": [
+       [
+        "mana",
+        "green"
+       ]
+      ]
+     }
+    ],
+    [
+     "special",
+     "motivation_lock"
+    ]
+   ],
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana verde.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "img": "assets/skills/goldyx_motivation.webp",
+   "impl": true,
+   "note": "",
+   "guid": "171244",
+   "any_turn": true
+  },
+  {
+   "id": "goldyx_source_freeze",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Congelare la Fonte",
+   "name_en": "Source Freeze",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "source_freeze"
+    ]
+   ],
+   "text_it": "Una volta per round: metti questa Abilità al centro del tavolo. Prendi un dado di colore base dalla Fonte e ottieni un Cristallo di quel colore nell'Inventario. Fino all'inizio del tuo prossimo turno gli altri giocatori non possono usare quel dado; poi rilancialo e riprendi l'Abilità.",
+   "img": "assets/skills/goldyx_source_freeze.webp",
+   "impl": true,
+   "note": "Nel modulo la tessera ha il nome/descrizione sbagliati ('Blood Moon Wane', abilità di Malek); nome e testo ricostruiti dall'immagine e dalle regole (Lua: 'Source Freeze'). Testo da verificare.",
+   "guid": "3bd08e",
+   "mode": "competitive"
+  },
+  {
+   "id": "goldyx_source_opening",
+   "hero": "goldyx",
+   "set": "base",
+   "name_it": "Apertura della Fonte",
+   "name_en": "Source Opening",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "source_opening"
+    ]
+   ],
+   "text_it": "Una volta per round:\nPuoi ritirare un dado Mana nella Fonte. (Metti questa Abilità nell'area di gioco per attivarla.)\nUn altro giocatore, nel proprio turno, può:\nUsare un dado aggiuntivo dalla Fonte, dandoti un Cristallo del suo colore. Può scegliere se ritirare quel dado a fine turno. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
+   "img": "assets/skills/goldyx_source_opening.webp",
+   "impl": true,
+   "note": "Variante cooperativa di Congelare la Fonte.",
+   "guid": "3b3273",
+   "mode": "coop"
+  },
+  {
+   "id": "norowas_forward_march",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Avanti, Marcia!",
+   "name_en": "Forward March",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "move_per_ready_unit",
+     {
+      "max": 3
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nOttieni Movimento 1 per ogni tua Unità Pronta e non Ferita, fino a Movimento 3.",
+   "img": "assets/skills/norowas_forward_march.webp",
+   "impl": true,
+   "note": "",
+   "guid": "257c0c"
+  },
+  {
+   "id": "norowas_day_sharpshooting",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Tiro Preciso Diurno",
+   "name_en": "Day Sharpshooting",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "day",
+     [
+      [
+       "attack",
+       2,
+       "phys",
+       "ranged"
+      ]
+     ],
+     [
+      [
+       "attack",
+       1,
+       "phys",
+       "ranged"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco a Distanza 2 (di giorno), oppure\nAttacco a Distanza 1 (di notte).",
+   "img": "assets/skills/norowas_day_sharpshooting.webp",
+   "impl": true,
+   "note": "",
+   "guid": "046187"
+  },
+  {
+   "id": "norowas_inspiration",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Ispirazione",
+   "name_en": "Inspiration",
+   "usage": "round",
+   "effect": [
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "choice",
+       [
+        [
+         [
+          "ready_unit",
+          99
+         ]
+        ],
+        [
+         [
+          "heal_unit",
+          99
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round (fuori dal combattimento):\nGira questo segnalino per rendere Pronta o guarire un'Unità.",
+   "img": "assets/skills/norowas_inspiration.webp",
+   "impl": true,
+   "note": "",
+   "guid": "3dc067"
+  },
+  {
+   "id": "norowas_bright_negotiation",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Negoziazione Luminosa",
+   "name_en": "Bright Negotiation",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "day",
+     [
+      [
+       "influence",
+       3
+      ]
+     ],
+     [
+      [
+       "influence",
+       2
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nInfluenza 3 (di giorno), oppure\nInfluenza 2 (di notte).",
+   "img": "assets/skills/norowas_bright_negotiation.webp",
+   "impl": true,
+   "note": "",
+   "guid": "3f0f3b"
+  },
+  {
+   "id": "norowas_leaves_in_the_wind",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Foglie nel Vento",
+   "name_en": "Leaves in the Wind",
+   "usage": "round",
+   "effect": [
+    [
+     "crystal",
+     "green"
+    ],
+    [
+     "mana",
+     "white"
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un Cristallo verde nell'Inventario e un segnalino Mana bianco.",
+   "img": "assets/skills/norowas_leaves_in_the_wind.webp",
+   "impl": true,
+   "note": "",
+   "guid": "b2dfce"
+  },
+  {
+   "id": "norowas_whispers_in_the_treetops",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Sussurro tra le Cime",
+   "name_en": "Whisper in the Treetops",
+   "usage": "round",
+   "effect": [
+    [
+     "crystal",
+     "white"
+    ],
+    [
+     "mana",
+     "green"
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un Cristallo bianco nell'Inventario e un segnalino Mana verde.",
+   "img": "assets/skills/norowas_whispers_in_the_treetops.webp",
+   "impl": true,
+   "note": "",
+   "guid": "e45fdf"
+  },
+  {
+   "id": "norowas_leadership",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Comando",
+   "name_en": "Leadership",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "unit_activation_bonus",
+     {
+      "block": 3,
+      "attack": 2,
+      "ranged": 1
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nQuando attivi un'Unità, aggiungi +3 al suo Blocco, +2 al suo Attacco o +1 al suo Attacco a Distanza (non d'Assedio), indipendentemente dagli elementi.",
+   "img": "assets/skills/norowas_leadership.webp",
+   "impl": true,
+   "note": "",
+   "guid": "93c62e"
+  },
+  {
+   "id": "norowas_bonds_of_loyalty",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Legami di Lealtà",
+   "name_en": "Bonds of Loyalty",
+   "usage": "passive",
+   "effect": [
+    [
+     "special",
+     "bonds_of_loyalty",
+     {
+      "discount": 5,
+      "offer_regular": 2
+     }
+    ]
+   ],
+   "text_it": "Quando ottieni questa Abilità, aggiungi due Unità Regolari all'offerta.\nMetti questa Abilità nell'area Unità come segnalino Comando.\nReclutare un'Unità sotto questo segnalino costa 5 Influenza in meno (minimo 0).\nPuoi usare questa Unità anche dove normalmente non è consentito (per esempio nei Sotterranei).\nNon puoi congedarla.",
+   "img": "assets/skills/norowas_bonds_of_loyalty.webp",
+   "impl": true,
+   "note": "",
+   "guid": "f30dd4"
+  },
+  {
+   "id": "norowas_motivation",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Motivazione",
+   "name_en": "Motivation",
+   "usage": "round",
+   "effect": [
+    [
+     "draw",
+     2
+    ],
+    [
+     "special",
+     "if_lowest_fame",
+     {
+      "effects": [
+       [
+        "mana",
+        "white"
+       ]
+      ]
+     }
+    ],
+    [
+     "special",
+     "motivation_lock"
+    ]
+   ],
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana bianco.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "img": "assets/skills/norowas_motivation.webp",
+   "impl": true,
+   "note": "",
+   "guid": "14399f",
+   "any_turn": true
+  },
+  {
+   "id": "norowas_prayer_of_weather",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Preghiera del Tempo",
+   "name_en": "Prayer of Weather",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "weather",
+     {
+      "self": 2,
+      "mode": "competitive"
+     }
+    ]
+   ],
+   "text_it": "Una volta per round:\nRiduci di 2 il costo di Movimento di tutti i terreni (minimo 1). (Metti questa Abilità nell'area di gioco per attivarla.)\nTutti gli altri giocatori:\nIl costo di Movimento di tutti i terreni aumenta di 1 (massimo 5). (Come promemoria, questa Abilità passa automaticamente al giocatore successivo.)",
+   "img": "assets/skills/norowas_prayer_of_weather.webp",
+   "impl": true,
+   "note": "",
+   "guid": "676856",
+   "mode": "competitive"
+  },
+  {
+   "id": "norowas_calming_the_weather",
+   "hero": "norowas",
+   "set": "base",
+   "name_it": "Calmare il Tempo",
+   "name_en": "Calming the Weather",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "weather",
+     {
+      "self": 2,
+      "mode": "coop"
+     }
+    ]
+   ],
+   "text_it": "Una volta per round:\nRiduci di 2 il costo di Movimento di tutti i terreni (minimo 1). (Metti questa Abilità nell'area di gioco per attivarla.)\nUn altro giocatore, nel proprio turno, può:\nRidurre di 1 il costo di Movimento di tutti i terreni (minimo 1). (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
+   "img": "assets/skills/norowas_calming_the_weather.webp",
+   "impl": true,
+   "note": "Variante cooperativa.",
+   "guid": "55e5e5",
+   "mode": "coop"
+  },
+  {
+   "id": "tovak_double_time",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Passo Raddoppiato",
+   "name_en": "Double Time",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "day",
+     [
+      [
+       "move",
+       2
+      ]
+     ],
+     [
+      [
+       "move",
+       1
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nMovimento 2 (di giorno), oppure\nMovimento 1 (di notte).",
+   "img": "assets/skills/tovak_double_time.webp",
+   "impl": true,
+   "note": "",
+   "guid": "5049e5"
+  },
+  {
+   "id": "tovak_night_sharpshooting",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Tiro Preciso Notturno",
+   "name_en": "Night Sharpshooting",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "day",
+     [
+      [
+       "attack",
+       1,
+       "phys",
+       "ranged"
+      ]
+     ],
+     [
+      [
+       "attack",
+       2,
+       "phys",
+       "ranged"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco a Distanza 1 (di giorno), oppure\nAttacco a Distanza 2 (di notte).",
+   "img": "assets/skills/tovak_night_sharpshooting.webp",
+   "impl": true,
+   "note": "",
+   "guid": "1a78b3"
+  },
+  {
+   "id": "tovak_cold_swordsmanship",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Scherma Gelida",
+   "name_en": "Cold Swordsmanship",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "ice"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco 2, oppure\nAttacco di Ghiaccio 2.",
+   "img": "assets/skills/tovak_cold_swordsmanship.webp",
+   "impl": true,
+   "note": "",
+   "guid": "4c9273"
+  },
+  {
+   "id": "tovak_shield_mastery",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Maestria dello Scudo",
+   "name_en": "Shield Mastery",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        3
+       ]
+      ],
+      [
+       [
+        "block",
+        2,
+        "ice"
+       ]
+      ],
+      [
+       [
+        "block",
+        2,
+        "fire"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nBlocco 3, oppure\nBlocco di Ghiaccio 2, oppure\nBlocco di Fuoco 2.",
+   "img": "assets/skills/tovak_shield_mastery.webp",
+   "impl": true,
+   "note": "",
+   "guid": "0db913"
+  },
+  {
+   "id": "tovak_resistance_break",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Spezzare le Resistenze",
+   "name_en": "Resistance Break",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "armor_per_resistance",
+     {
+      "n": 1
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nScegli un segnalino Nemico. Subisce Armatura -1 per ogni sua resistenza (minimo 1).",
+   "img": "assets/skills/tovak_resistance_break.webp",
+   "impl": true,
+   "note": "",
+   "guid": "9efc9b"
+  },
+  {
+   "id": "tovak_i_feel_no_pain",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Non Sento Dolore",
+   "name_en": "I Feel No Pain",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "special",
+       "discard_wound_draw"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno (fuori dal combattimento):\nScarta una Ferita dalla mano. Se lo fai, pesca una carta.",
+   "img": "assets/skills/tovak_i_feel_no_pain.webp",
+   "impl": true,
+   "note": "",
+   "guid": "036af1"
+  },
+  {
+   "id": "tovak_i_dont_give_a_damn",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Non Me Ne Importa!",
+   "name_en": "I Don't Give a Damn!",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "sideways_bonus",
+     {
+      "base": 2,
+      "aa_spell_artifact": 3
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nUna carta giocata di lato fornisce +2 invece di +1.\nSe è un'Azione Avanzata, un Incantesimo o un Artefatto, fornisce invece +3.",
+   "img": "assets/skills/tovak_i_dont_give_a_damn.webp",
+   "impl": true,
+   "note": "",
+   "guid": "dfaee3"
+  },
+  {
+   "id": "tovak_who_needs_magic",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "A Chi Serve la Magia?",
+   "name_en": "Who Needs Magic?",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "sideways_bonus",
+     {
+      "base": 2,
+      "no_source": 3
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nUna carta giocata di lato fornisce +2 invece di +1.\nSe non usi dadi della Fonte in questo turno, fornisce invece +3.",
+   "img": "assets/skills/tovak_who_needs_magic.webp",
+   "impl": true,
+   "note": "",
+   "guid": "6413a1"
+  },
+  {
+   "id": "tovak_motivation",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Motivazione",
+   "name_en": "Motivation",
+   "usage": "round",
+   "effect": [
+    [
+     "draw",
+     2
+    ],
+    [
+     "special",
+     "if_lowest_fame",
+     {
+      "effects": [
+       [
+        "mana",
+        "blue"
+       ]
+      ]
+     }
+    ],
+    [
+     "special",
+     "motivation_lock"
+    ]
+   ],
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche un segnalino Mana blu.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "img": "assets/skills/tovak_motivation.webp",
+   "impl": true,
+   "note": "",
+   "guid": "ba4df5",
+   "any_turn": true
+  },
+  {
+   "id": "tovak_mana_exploit",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Sfruttamento del Mana",
+   "name_en": "Mana Exploit",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "mana_exploit"
+    ]
+   ],
+   "text_it": "Una volta per round:\nOttieni un segnalino Mana di qualsiasi colore tranne dorato. (Metti questa Abilità nell'area di gioco per attivarla e un altro Cristallo dello stesso colore sopra di essa.)\nTutti gli altri giocatori:\nRicevono una Ferita quando usano Mana di altri colori nel proprio turno, massimo una Ferita per colore. Il Mana dorato conta come il colore per cui viene usato. (Come promemoria, l'Abilità passa automaticamente al giocatore successivo.)",
+   "img": "assets/skills/tovak_mana_exploit.webp",
+   "impl": true,
+   "note": "",
+   "guid": "c4546c",
+   "mode": "competitive"
+  },
+  {
+   "id": "tovak_mana_overload",
+   "hero": "tovak",
+   "set": "base",
+   "name_it": "Sovraccarico di Mana",
+   "name_en": "Mana Overload",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "mana_overload"
+    ]
+   ],
+   "text_it": "Una volta per round:\nOttieni un segnalino Mana di qualsiasi colore tranne dorato. (Metti questa Abilità nell'area di gioco per attivarla e un altro Cristallo dello stesso colore sopra di essa.)\nIl primo giocatore che usa Mana di quel colore per potenziare una carta Gesta che fornisce Movimento, Influenza o qualsiasi Attacco o Blocco ottiene +4 da quella carta. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
+   "img": "assets/skills/tovak_mana_overload.webp",
+   "impl": true,
+   "note": "Variante cooperativa.",
+   "guid": "818aea",
+   "mode": "coop"
+  },
+  {
+   "id": "wolfhawk_refreshing_bath",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Bagno Ristoratore",
+   "name_en": "Refreshing Bath",
+   "usage": "round",
+   "effect": [
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "heal",
+       1
+      ],
+      [
+       "crystal",
+       "blue"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round (fuori dal combattimento):\nGira questo segnalino per ottenere Guarigione 1 e un Cristallo blu nell'Inventario.",
+   "img": "assets/skills/wolfhawk_refreshing_bath.webp",
+   "impl": true,
+   "note": "",
+   "guid": "210835"
+  },
+  {
+   "id": "wolfhawk_refreshing_breeze",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Brezza Ristoratrice",
+   "name_en": "Refreshing Breeze",
+   "usage": "round",
+   "effect": [
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "heal",
+       1
+      ],
+      [
+       "crystal",
+       "white"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round (fuori dal combattimento):\nGira questo segnalino per ottenere Guarigione 1 e un Cristallo bianco nell'Inventario.",
+   "img": "assets/skills/wolfhawk_refreshing_breeze.webp",
+   "impl": true,
+   "note": "",
+   "guid": "84ea07"
+  },
+  {
+   "id": "wolfhawk_hawk_eyes",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Occhi di Falco",
+   "name_en": "Hawk Eyes",
+   "usage": "turn",
+   "effect": [
+    [
+     "move",
+     1
+    ],
+    [
+     "special",
+     "hawk_eyes"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nMovimento 1.\nInoltre, di notte esplorare costa 1 Movimento in meno.\nDi giorno puoi rivelare guarnigioni di luoghi fortificati a distanza 2.",
+   "img": "assets/skills/wolfhawk_hawk_eyes.webp",
+   "impl": true,
+   "note": "",
+   "guid": "152a98"
+  },
+  {
+   "id": "wolfhawk_on_her_own",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Da Sola",
+   "name_en": "On Her Own",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "on_her_own"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nInfluenza 1.\nInvece Influenza 3 se in questo turno non recluti Unità usando Influenza.",
+   "img": "assets/skills/wolfhawk_on_her_own.webp",
+   "impl": true,
+   "note": "",
+   "guid": "590a46"
+  },
+  {
+   "id": "wolfhawk_deadly_aim",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Mira Letale",
+   "name_en": "Deadly Aim",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "deadly_aim"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAggiungi +1 a una carta che fornisce qualsiasi Attacco nella fase di Attacco a Distanza e d'Assedio, oppure\n+2 a una carta che fornisce qualsiasi Attacco (anche di lato) nella fase di Attacco.",
+   "img": "assets/skills/wolfhawk_deadly_aim.webp",
+   "impl": true,
+   "note": "",
+   "guid": "eeb395"
+  },
+  {
+   "id": "wolfhawk_know_your_prey",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Conosci la Tua Preda",
+   "name_en": "Know Your Prey",
+   "usage": "round",
+   "effect": [
+    [
+     "if",
+     "combat",
+     [
+      [
+       "special",
+       "know_your_prey"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round (in combattimento):\nGira questo segnalino per ignorare un'abilità offensiva o difensiva di un nemico, oppure rimuovere un elemento da un suo Attacco (Fuoco e Ghiaccio diventano fisici; Fuoco Freddo diventa Ghiaccio o Fuoco).\nNON UTILIZZABILE CONTRO NEMICI CON IMMUNITÀ ARCANA.",
+   "img": "assets/skills/wolfhawk_know_your_prey.webp",
+   "impl": true,
+   "note": "",
+   "guid": "2c74ca"
+  },
+  {
+   "id": "wolfhawk_taunt",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Provocazione",
+   "name_en": "Taunt",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "phase:block",
+     [
+      [
+       "special",
+       "taunt"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno (nella fase di Blocco):\nRiduci di 1 un Attacco di un nemico, oppure aumenta un suo Attacco di 2 e riduci la sua Armatura di 2 (minimo 1).\nL'Armatura non viene ridotta se al nemico viene impedito di attaccare.",
+   "img": "assets/skills/wolfhawk_taunt.webp",
+   "impl": true,
+   "note": "",
+   "guid": "b73b21"
+  },
+  {
+   "id": "wolfhawk_dueling",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Duello",
+   "name_en": "Dueling",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "phase:block",
+     [
+      [
+       "special",
+       "dueling"
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno (nella fase di Blocco):\nBlocco 1.\nAttacco 1 contro lo stesso nemico nella fase di Attacco.\nSe non usi abilità delle Unità per bloccare, attaccare o influenzare quel nemico, né assegni suoi danni alle Unità, ottieni 1 Fama aggiuntiva sconfiggendolo.\nPvP: Blocco 1 nella fase di Attacchi in Mischia, Attacco 1 al tuo prossimo Attacco. Fama 1 se non hai usato abilità delle Unità durante questo Blocco.",
+   "img": "assets/skills/wolfhawk_dueling.webp",
+   "impl": true,
+   "note": "",
+   "guid": "7d1c32"
+  },
+  {
+   "id": "wolfhawk_motivation",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Motivazione",
+   "name_en": "Motivation",
+   "usage": "round",
+   "effect": [
+    [
+     "draw",
+     2
+    ],
+    [
+     "special",
+     "if_lowest_fame",
+     {
+      "effects": [
+       [
+        "fame",
+        1
+       ]
+      ]
+     }
+    ],
+    [
+     "special",
+     "motivation_lock"
+    ]
+   ],
+   "text_it": "Una volta per round (nel turno di qualsiasi giocatore):\nGira questo segnalino per pescare due carte dal tuo mazzo Gesta.\nSe hai meno Fama di tutti (senza parità), ottieni anche Fama 1.\nNon puoi usare un'altra Abilità Motivazione fino alla fine del tuo prossimo turno.",
+   "img": "assets/skills/wolfhawk_motivation.webp",
+   "impl": true,
+   "note": "",
+   "guid": "527b47",
+   "any_turn": true
+  },
+  {
+   "id": "wolfhawk_wolfs_howl",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Ululato del Lupo",
+   "name_en": "Wolf's Howl",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "wolfs_howl",
+     {
+      "mode": "competitive"
+     }
+    ]
+   ],
+   "text_it": "Una volta per round (fuori dalle interazioni):\nUna carta giocata di lato vale +4, più +1 per ogni segnalino Comando senza Unità. (Metti questa Abilità nell'area di gioco per attivarla.)\nTutti gli altri giocatori:\nTutti i tipi di Attacco e Difesa delle loro Unità sono ridotti di 1. (Come promemoria, l'Abilità passa automaticamente al giocatore successivo.)",
+   "img": "assets/skills/wolfhawk_wolfs_howl.webp",
+   "impl": true,
+   "note": "",
+   "guid": "a92d73",
+   "mode": "competitive"
+  },
+  {
+   "id": "wolfhawk_howl_of_the_pack",
+   "hero": "wolfhawk",
+   "set": "ll",
+   "name_it": "Ululato del Branco",
+   "name_en": "Howl of the Pack",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "wolfs_howl",
+     {
+      "mode": "coop"
+     }
+    ]
+   ],
+   "text_it": "Una volta per round (fuori dalle interazioni):\nUna carta giocata di lato vale +4, più +1 per ogni segnalino Comando senza Unità. (Metti questa Abilità nell'area di gioco per attivarla.)\nIl prossimo giocatore che combatte:\nRiduce di 1 l'Armatura di un nemico e di 1 un Attacco dello stesso o di un altro nemico. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
+   "img": "assets/skills/wolfhawk_howl_of_the_pack.webp",
+   "impl": true,
+   "note": "Variante cooperativa.",
+   "guid": "564392",
+   "mode": "coop"
+  },
+  {
+   "id": "krang_spirit_guides",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Spiriti Guida",
+   "name_en": "Spirit Guides",
+   "usage": "turn",
+   "effect": [
+    [
+     "move",
+     1
+    ],
+    [
+     "special",
+     "block_bonus",
+     {
+      "n": 1
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nMovimento 1; puoi aggiungere +1 a un Blocco di qualsiasi tipo nella fase di Blocco.",
+   "img": "assets/skills/krang_spirit_guides.webp",
+   "impl": true,
+   "note": "",
+   "guid": "f36762"
+  },
+  {
+   "id": "krang_battle_hardened",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Temprato dalla Battaglia",
+   "name_en": "Battle Hardened",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "damage_reduction",
+     {
+      "match": [
+       "phys"
+      ],
+      "n_match": 2,
+      "n_other": 1
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nIgnora i prossimi 2 danni assegnati al tuo Eroe da un singolo Attacco fisico, oppure 1 danno da un Attacco non fisico.",
+   "img": "assets/skills/krang_battle_hardened.webp",
+   "impl": true,
+   "note": "",
+   "guid": "0688d8"
+  },
+  {
+   "id": "krang_battle_frenzy",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Frenesia di Battaglia",
+   "name_en": "Battle Frenzy",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "battle_frenzy"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco 2.\nPuoi girare questo segnalino per ottenere invece Attacco 4 in questo turno.\nPuoi rigirarlo trascorrendo un turno a riposare.",
+   "img": "assets/skills/krang_battle_frenzy.webp",
+   "impl": true,
+   "note": "",
+   "guid": "0fbcfe"
+  },
+  {
+   "id": "krang_shamanic_ritual",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Rituale Sciamanico",
+   "name_en": "Shamanic Ritual",
+   "usage": "round",
+   "effect": [
+    [
+     "special",
+     "mana_any",
+     {
+      "n": 1
+     }
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un segnalino Mana di qualsiasi colore.\nPuoi rigirarlo come Azione del turno.",
+   "img": "assets/skills/krang_shamanic_ritual.webp",
+   "impl": true,
+   "note": "Si può rigirare usando l'azione del turno.",
+   "guid": "d8824d",
+   "unflip": "action"
+  },
+  {
+   "id": "krang_regenerate",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Rigenerare",
+   "name_en": "Regenerate",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "regenerate",
+     {
+      "color": "red"
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nPaga un Mana di qualsiasi colore ed elimina una Ferita dalla mano.\nSe hai usato Mana rosso, oppure hai meno Fama di tutti (senza parità), pesca anche una carta.",
+   "img": "assets/skills/krang_regenerate.webp",
+   "impl": true,
+   "note": "",
+   "guid": "adf8ab"
+  },
+  {
+   "id": "krang_arcane_disguise",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Travestimento Arcano",
+   "name_en": "Arcane Disguise",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        2
+       ]
+      ],
+      [
+       [
+        "special",
+        "ignore_reputation"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nInfluenza 2, oppure gira questo segnalino per ignorare tutti gli effetti della tua posizione sul tracciato Reputazione per questo turno.\nPuoi rigirarlo in qualsiasi turno pagando un Mana verde.",
+   "img": "assets/skills/krang_arcane_disguise.webp",
+   "impl": true,
+   "note": "",
+   "guid": "91c8a0"
+  },
+  {
+   "id": "krang_puppet_master",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Burattinaio",
+   "name_en": "Puppet Master",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "puppet_master"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nConserva 1 segnalino Nemico sconfitto questo turno (mettilo nell'Inventario prima del riordino), oppure scarta 1 segnalino Nemico conservato.\nSe ne scarti uno, ottieni Attacchi pari a metà dei suoi valori di Attacco, oppure Blocco pari a metà della sua Armatura (arrotonda per eccesso).\nGli Attacchi ottenuti mantengono gli elementi Ghiaccio o Fuoco del segnalino.\nSe ha Resistenza al Ghiaccio o al Fuoco, il Blocco ottenuto ha gli elementi opposti.",
+   "img": "assets/skills/krang_puppet_master.webp",
+   "impl": true,
+   "note": "",
+   "guid": "893537"
+  },
+  {
+   "id": "krang_master_of_chaos",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Signore del Caos",
+   "name_en": "Master of Chaos",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "master_of_chaos"
+    ]
+   ],
+   "text_it": "Quando ottieni questa Abilità viene scelto casualmente un colore iniziale.\nUna volta per turno:\nPuoi giocarla nell'area di gioco per avanzare di un colore in senso orario e ottenere:\n• Blu - Blocco 3\n• Verde - Movimento 1\n• Bianco - Influenza 2\n• Rosso - Attacco 2\n• Nero - Attacco a Distanza di Fuoco Freddo 1\n• Dorato - A tua scelta\nSe non l'hai usata nel turno precedente, puoi avanzare di una posizione in senso orario prima del prossimo turno.",
+   "img": "assets/skills/krang_master_of_chaos.webp",
+   "impl": true,
+   "note": "",
+   "guid": "1ff34f"
+  },
+  {
+   "id": "krang_curse",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Maledizione",
+   "name_en": "Curse",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "curse"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nRiduci di 1 un Attacco di un nemico oppure la sua Armatura (minimo 1).\nNon puoi usarla su un nemico fortificato nella fase di Attacco a Distanza e d'Assedio.",
+   "img": "assets/skills/krang_curse.webp",
+   "impl": true,
+   "note": "",
+   "guid": "6a33c1"
+  },
+  {
+   "id": "krang_mana_suppression",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Soppressione del Mana",
+   "name_en": "Mana Suppression",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "mana_suppression"
+    ]
+   ],
+   "text_it": "Una volta per round:\nMetti questa Abilità nell'area di gioco per attivarla. La prima volta che gli altri giocatori usano Mana di un colore base, devono pagare un Mana aggiuntivo dello stesso colore. Se quel colore non è già presente sull'Abilità, aggiungivi un segnalino Mana di quel colore. (Come promemoria, passa automaticamente al giocatore successivo.)\nNel tuo prossimo turno:\nTrasferisci un Cristallo dall'Abilità al tuo Inventario. Se non ce ne sono, scegli un Cristallo di qualsiasi colore.",
+   "img": "assets/skills/krang_mana_suppression.webp",
+   "impl": true,
+   "note": "",
+   "guid": "958209",
+   "mode": "competitive"
+  },
+  {
+   "id": "krang_mana_enhancement",
+   "hero": "krang",
+   "set": "krang",
+   "name_it": "Potenziamento del Mana",
+   "name_en": "Mana Enhancement",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "mana_enhancement"
+    ]
+   ],
+   "text_it": "Una volta per round:\nQuando spendi Mana di un colore base, ottieni un Cristallo di quel colore. (Metti questa Abilità nell'area di gioco per attivarla e un altro Cristallo dello stesso colore sopra di essa.)\nUn altro giocatore, nel proprio turno, può:\nOttenere il segnalino Mana su questa Abilità. (Se a fine turno l'Abilità non è in un'area di gioco, passa al giocatore successivo.)",
+   "img": "assets/skills/krang_mana_enhancement.webp",
+   "impl": true,
+   "note": "Variante cooperativa.",
+   "guid": "725de9",
+   "mode": "coop"
+  },
+  {
+   "id": "braevalar_elemental_resistance",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Resistenza Elementale",
+   "name_en": "Elemental Resistance",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "damage_reduction",
+     {
+      "match": [
+       "fire",
+       "ice"
+      ],
+      "n_match": 2,
+      "n_other": 1
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nIgnora i prossimi 2 danni assegnati al tuo Eroe da un singolo Attacco di Fuoco o Ghiaccio, oppure 1 danno da un altro tipo di Attacco.",
+   "img": "assets/skills/braevalar_elemental_resistance.webp",
+   "impl": true,
+   "note": "",
+   "guid": "122015"
+  },
+  {
+   "id": "braevalar_feral_allies",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Alleati Selvaggi",
+   "name_en": "Feral Allies",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        1
+       ]
+      ],
+      [
+       [
+        "special",
+        "reduce_enemy_attack",
+        {
+         "n": 1
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Esplorare costa sempre 1 Movimento in meno.\nUna volta per turno:\nAttacco 1, oppure riduci di 1 un Attacco di un nemico.",
+   "img": "assets/skills/braevalar_feral_allies.webp",
+   "impl": true,
+   "note": "",
+   "guid": "c73c8c",
+   "passive": [
+    [
+     "special",
+     "explore_discount",
+     {
+      "n": 1
+     }
+    ]
+   ]
+  },
+  {
+   "id": "braevalar_thunderstorm",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Temporale",
+   "name_en": "Thunderstorm",
+   "usage": "round",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ]
+     ]
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un segnalino Mana verde o blu e uno verde o bianco.",
+   "img": "assets/skills/braevalar_thunderstorm.webp",
+   "impl": true,
+   "note": "",
+   "guid": "c93979"
+  },
+  {
+   "id": "braevalar_lightning_storm",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Tempesta di Fulmini",
+   "name_en": "Lightning Storm",
+   "usage": "round",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ]
+     ]
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per round:\nGira questo segnalino per ottenere un segnalino Mana blu o verde e uno blu o rosso.",
+   "img": "assets/skills/braevalar_lightning_storm.webp",
+   "impl": true,
+   "note": "",
+   "guid": "ae8673"
+  },
+  {
+   "id": "braevalar_beguile",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Ammaliare",
+   "name_en": "Beguile",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "beguile",
+     {
+      "base": 3,
+      "fortified": 2,
+      "glade": 4
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nInfluenza 3, tranne:\nInfluenza 2 in un luogo fortificato, oppure\nInfluenza 4 in una Radura Magica.",
+   "img": "assets/skills/braevalar_beguile.webp",
+   "impl": true,
+   "note": "",
+   "guid": "407c99"
+  },
+  {
+   "id": "braevalar_forked_lightning",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Fulmine Biforcuto",
+   "name_en": "Forked Lightning",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "multi_attack",
+     {
+      "n": 1,
+      "elem": "cold",
+      "kind": "ranged",
+      "targets": 3
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco a Distanza di Fuoco Freddo 1 contro fino a 3 nemici diversi.",
+   "img": "assets/skills/braevalar_forked_lightning.webp",
+   "impl": true,
+   "note": "",
+   "guid": "d01b70"
+  },
+  {
+   "id": "braevalar_shapeshift",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Mutare Forma",
+   "name_en": "Shapeshift",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "shapeshift"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nUna carta Azione Base che fornisce una quantità fissa di Movimento, Attacco o Blocco fornisce invece la stessa quantità di uno degli altri due. Gli Attacchi e i Blocchi mantengono gli elementi.",
+   "img": "assets/skills/braevalar_shapeshift.webp",
+   "impl": true,
+   "note": "",
+   "guid": "7d21e6"
+  },
+  {
+   "id": "braevalar_secret_ways",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Vie Segrete",
+   "name_en": "Secret Ways",
+   "usage": "turn",
+   "effect": [
+    [
+     "move",
+     1
+    ],
+    [
+     "special",
+     "secret_ways"
+    ]
+   ],
+   "text_it": "Una volta per turno:\nMovimento 1.\nPuoi entrare nelle montagne per 5 Movimento: per te sono spazi sicuri.\nPagando un Mana blu, per questo turno puoi entrare nei laghi per 2 Movimento e considerarli spazi sicuri a fine turno.",
+   "img": "assets/skills/braevalar_secret_ways.webp",
+   "impl": true,
+   "note": "",
+   "guid": "8892c4"
+  },
+  {
+   "id": "braevalar_regenerate",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Rigenerare",
+   "name_en": "Regenerate",
+   "usage": "turn",
+   "effect": [
+    [
+     "special",
+     "regenerate",
+     {
+      "color": "green"
+     }
+    ]
+   ],
+   "text_it": "Una volta per turno:\nPaga un Mana di qualsiasi colore ed elimina una Ferita dalla mano.\nSe hai usato Mana verde, oppure hai meno Fama di tutti (senza parità), pesca anche una carta.",
+   "img": "assets/skills/braevalar_regenerate.webp",
+   "impl": true,
+   "note": "",
+   "guid": "48fd35"
+  },
+  {
+   "id": "braevalar_natures_vengeance",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Vendetta della Natura",
+   "name_en": "Nature's Vengeance",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "natures_vengeance",
+     {
+      "mode": "competitive"
+     }
+    ]
+   ],
+   "text_it": "Una volta per round:\nRiduci di 1 un Attacco di un nemico. Quel nemico ottiene Ingombrante per questo turno. (Metti questa Abilità nell'area di gioco per attivarla.)\nTutti gli altri giocatori:\nGli Attacchi di tutti i nemici aumentano di 1 durante la fase di Blocco. (Come promemoria, l'Abilità passa automaticamente al giocatore successivo.)",
+   "img": "assets/skills/braevalar_natures_vengeance.webp",
+   "impl": true,
+   "note": "",
+   "guid": "19daf9",
+   "mode": "competitive"
+  },
+  {
+   "id": "braevalar_natures_vengeance_coop",
+   "hero": "braevalar",
+   "set": "tezla",
+   "name_it": "Vendetta della Natura",
+   "name_en": "Nature's Vengeance",
+   "usage": "interactive",
+   "effect": [
+    [
+     "special",
+     "natures_vengeance",
+     {
+      "mode": "coop"
+     }
+    ]
+   ],
+   "text_it": "Una volta per round:\nRiduci di 1 un Attacco di un nemico. Quel nemico ottiene Ingombrante per questo turno. (Metti questa Abilità nell'area di gioco per attivarla.)\nUn altro giocatore, nel proprio turno, può:\nRidurre di 1 un Attacco di un nemico e dargli Ingombrante per quel turno. Se a fine turno l'Abilità NON è in un'area di gioco, passa al giocatore successivo.",
+   "img": "assets/skills/braevalar_natures_vengeance_coop.webp",
+   "impl": true,
+   "note": "Variante cooperativa.",
+   "guid": "4ac9f6",
+   "mode": "coop"
+  }
+ ]
+}

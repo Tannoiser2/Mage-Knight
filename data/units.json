@@ -1,0 +1,2162 @@
+{
+ "units": [
+  {
+   "id": "peasants",
+   "set": "base",
+   "elite": false,
+   "name_it": "Contadini",
+   "name_en": "Peasants",
+   "level": 1,
+   "cost": 4,
+   "armor": 3,
+   "resist": [],
+   "recruit": [
+    "village",
+    "camp",
+    "oasis"
+   ],
+   "copies": 3,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          2
+         ]
+        ],
+        [
+         [
+          "block",
+          2
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 2"
+    },
+    {
+     "effect": [
+      [
+       "influence",
+       2
+      ]
+     ],
+     "mana": "",
+     "text_it": "Influenza 2"
+    },
+    {
+     "effect": [
+      [
+       "move",
+       2
+      ]
+     ],
+     "mana": "",
+     "text_it": "Movimento 2"
+    }
+   ],
+   "img": "assets/cards/unit_peasants.webp",
+   "impl": true,
+   "note": "",
+   "guid": "a0a6cb"
+  },
+  {
+   "id": "foresters",
+   "set": "base",
+   "elite": false,
+   "name_it": "Guardaboschi",
+   "name_en": "Foresters",
+   "level": 1,
+   "cost": 5,
+   "armor": 4,
+   "resist": [],
+   "recruit": [
+    "village",
+    "camp",
+    "oasis"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "move",
+       2
+      ],
+      [
+       "terrain",
+       {
+        "forest": "-1",
+        "hills": "-1",
+        "swamp": "-1"
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Movimento 2. Il costo di movimento nelle foreste, colline e paludi viene ridotto di 1 in questo turno, fino ad un minimo di 0."
+    },
+    {
+     "effect": [
+      [
+       "block",
+       3
+      ]
+     ],
+     "mana": "",
+     "text_it": "Blocco 3"
+    }
+   ],
+   "img": "assets/cards/unit_foresters.webp",
+   "impl": true,
+   "note": "Riduzione dei terreni fino a un minimo di 0.",
+   "guid": "e8acd7"
+  },
+  {
+   "id": "herbalists",
+   "set": "base",
+   "elite": false,
+   "name_it": "Erboristi",
+   "name_en": "Herbalists",
+   "level": 1,
+   "cost": 3,
+   "armor": 2,
+   "resist": [],
+   "recruit": [
+    "village",
+    "monastery",
+    "camp",
+    "oasis"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "heal",
+       2
+      ]
+     ],
+     "mana": "green",
+     "text_it": "Cura 2"
+    },
+    {
+     "effect": [
+      [
+       "ready_unit",
+       2
+      ]
+     ],
+     "mana": "",
+     "text_it": "Rendi pronta una Unità di Livello I o II."
+    },
+    {
+     "effect": [
+      [
+       "mana",
+       "green"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Guadagni un segnalino mana verde."
+    }
+   ],
+   "img": "assets/cards/unit_herbalists.webp",
+   "impl": true,
+   "note": "",
+   "guid": "b33811"
+  },
+  {
+   "id": "utem_crossbowmen",
+   "set": "base",
+   "elite": false,
+   "name_it": "Balestrieri di Utem",
+   "name_en": "Utem Crossbowmen",
+   "level": 2,
+   "cost": 6,
+   "armor": 4,
+   "resist": [],
+   "recruit": [
+    "village",
+    "keep",
+    "camp",
+    "oasis"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 3"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       2,
+       "phys",
+       "ranged"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco a Distanza 2"
+    }
+   ],
+   "img": "assets/cards/unit_utem_crossbowmen.webp",
+   "impl": true,
+   "note": "",
+   "guid": "004558"
+  },
+  {
+   "id": "utem_guardsmen",
+   "set": "base",
+   "elite": false,
+   "name_it": "Guardie di Utem",
+   "name_en": "Utem Guardsmen",
+   "level": 2,
+   "cost": 5,
+   "armor": 5,
+   "resist": [],
+   "recruit": [
+    "village",
+    "keep",
+    "camp",
+    "oasis"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "attack",
+       2
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco 2"
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "block_swift",
+       {
+        "n": 4
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Blocco 4. Conta doppio contro un attacco con Rapidità."
+    }
+   ],
+   "img": "assets/cards/unit_utem_guardsmen.webp",
+   "impl": true,
+   "note": "",
+   "guid": "c1f77c"
+  },
+  {
+   "id": "utem_swordsmen",
+   "set": "base",
+   "elite": false,
+   "name_it": "Spadaccini di Utem",
+   "name_en": "Utem Swordsmen",
+   "level": 2,
+   "cost": 6,
+   "armor": 4,
+   "resist": [],
+   "recruit": [
+    "keep",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 3"
+    },
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          6
+         ]
+        ],
+        [
+         [
+          "block",
+          6
+         ]
+        ]
+       ]
+      ],
+      [
+       "special",
+       "wound_self_unit"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 6. Questa unità viene Ferita."
+    }
+   ],
+   "img": "assets/cards/unit_utem_swordsmen.webp",
+   "impl": true,
+   "note": "",
+   "guid": "c10664"
+  },
+  {
+   "id": "guardian_golems",
+   "set": "base",
+   "elite": false,
+   "name_it": "Golem Guardiani",
+   "name_en": "Guardian Golems",
+   "level": 2,
+   "cost": 7,
+   "armor": 3,
+   "resist": [
+    "phys"
+   ],
+   "recruit": [
+    "mage_tower",
+    "keep",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          2
+         ]
+        ],
+        [
+         [
+          "block",
+          2
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 2"
+    },
+    {
+     "effect": [
+      [
+       "block",
+       4,
+       "fire"
+      ]
+     ],
+     "mana": "red",
+     "text_it": "Blocco di Fuoco 4"
+    },
+    {
+     "effect": [
+      [
+       "block",
+       4,
+       "ice"
+      ]
+     ],
+     "mana": "blue",
+     "text_it": "Blocco di Ghiaccio 4"
+    }
+   ],
+   "img": "assets/cards/unit_guardian_golems.webp",
+   "impl": true,
+   "note": "",
+   "guid": "84e5d3"
+  },
+  {
+   "id": "illusionists",
+   "set": "base",
+   "elite": false,
+   "name_it": "Illusionisti",
+   "name_en": "Illusionists",
+   "level": 2,
+   "cost": 7,
+   "armor": 2,
+   "resist": [
+    "phys"
+   ],
+   "recruit": [
+    "mage_tower",
+    "monastery",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "influence",
+       4
+      ]
+     ],
+     "mana": "",
+     "text_it": "Influenza 4"
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "enemy_no_attack",
+       {
+        "targets": 1,
+        "unfortified": true
+       }
+      ]
+     ],
+     "mana": "white",
+     "text_it": "Un nemico bersaglio non fortificato non attacca in questo combattimento."
+    },
+    {
+     "effect": [
+      [
+       "crystal",
+       "white"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Guadagni un cristallo bianco nel tuo Inventario."
+    }
+   ],
+   "img": "assets/cards/unit_illusionists.webp",
+   "impl": true,
+   "note": "",
+   "guid": "8dc143"
+  },
+  {
+   "id": "red_cape_monks",
+   "set": "base",
+   "elite": false,
+   "name_it": "Monaci dalla Cappa Rossa",
+   "name_en": "Red Cape Monks",
+   "level": 2,
+   "cost": 7,
+   "armor": 4,
+   "resist": [],
+   "recruit": [
+    "monastery",
+    "camp"
+   ],
+   "copies": 1,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 3"
+    },
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          4,
+          "fire"
+         ]
+        ],
+        [
+         [
+          "block",
+          4,
+          "fire"
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "red",
+     "text_it": "Attacco di Fuoco o Blocco di Fuoco 4"
+    }
+   ],
+   "img": "assets/cards/unit_red_cape_monks.webp",
+   "impl": true,
+   "note": "",
+   "guid": "868e12"
+  },
+  {
+   "id": "northern_monks",
+   "set": "base",
+   "elite": false,
+   "name_it": "Monaci del Nord",
+   "name_en": "Northern Monks",
+   "level": 2,
+   "cost": 7,
+   "armor": 4,
+   "resist": [],
+   "recruit": [
+    "monastery",
+    "camp"
+   ],
+   "copies": 1,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 3"
+    },
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          4,
+          "ice"
+         ]
+        ],
+        [
+         [
+          "block",
+          4,
+          "ice"
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "blue",
+     "text_it": "Attacco di Ghiaccio o Blocco di Ghiaccio 4"
+    }
+   ],
+   "img": "assets/cards/unit_northern_monks.webp",
+   "impl": true,
+   "note": "",
+   "guid": "f17813"
+  },
+  {
+   "id": "savage_monks",
+   "set": "base",
+   "elite": false,
+   "name_it": "Monaci Bruti",
+   "name_en": "Savage Monks",
+   "level": 2,
+   "cost": 7,
+   "armor": 4,
+   "resist": [],
+   "recruit": [
+    "monastery",
+    "camp"
+   ],
+   "copies": 1,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 3"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       4,
+       "phys",
+       "siege"
+      ]
+     ],
+     "mana": "green",
+     "text_it": "Attacco d'Assedio 4"
+    }
+   ],
+   "img": "assets/cards/unit_savage_monks.webp",
+   "impl": true,
+   "note": "",
+   "guid": "b8d41f"
+  },
+  {
+   "id": "scouts",
+   "set": "ll",
+   "elite": false,
+   "name_it": "Esploratori",
+   "name_en": "Scouts",
+   "level": 1,
+   "cost": 4,
+   "armor": 2,
+   "resist": [],
+   "recruit": [
+    "village",
+    "keep",
+    "mage_tower",
+    "monastery",
+    "city",
+    "camp",
+    "oasis"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "attack",
+       1,
+       "phys",
+       "siege"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco d'Assedio 1"
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "scout_peek",
+       {
+        "range": 3,
+        "fame": 1
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Guarda un gettone a faccia in giù entro 3 spazi sulla mappa, oppure il gettone in cima ad una qualsiasi pila di gettoni nemici inutilizzati. Se sconfiggi quel gettone in questo turno, guadagni Fama +1."
+    },
+    {
+     "effect": [
+      [
+       "move",
+       2
+      ],
+      [
+       "special",
+       "explore_distance",
+       {
+        "n": 2
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Movimento 2. Puoi rivelare una nuova tessera a distanza di 2 spazi anziché 1."
+    }
+   ],
+   "img": "assets/cards/unit_scouts.webp",
+   "impl": true,
+   "note": "",
+   "guid": "246b0d"
+  },
+  {
+   "id": "thugs",
+   "set": "ll",
+   "elite": false,
+   "name_it": "Banditi",
+   "name_en": "Thugs",
+   "level": 1,
+   "cost": 5,
+   "armor": 5,
+   "resist": [],
+   "recruit": [
+    "village",
+    "keep",
+    "camp",
+    "oasis"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "block",
+       3
+      ]
+     ],
+     "mana": "",
+     "text_it": "Blocco 3"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       3
+      ],
+      [
+       "rep",
+       -1
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco 3, Reputazione -1"
+    },
+    {
+     "effect": [
+      [
+       "influence",
+       4
+      ],
+      [
+       "rep",
+       -1
+      ]
+     ],
+     "mana": "",
+     "text_it": "Influenza 4, Reputazione -1"
+    }
+   ],
+   "img": "assets/cards/unit_thugs.webp",
+   "impl": true,
+   "note": "Reclutamento: il modificatore di Reputazione si applica invertito (+/-). Non puoi assegnare danno a questa Unità a meno che tu paghi 2 punti Influenza durante il combattimento.",
+   "guid": "4339c4",
+   "rules": [
+    [
+     "special",
+     "unit_rep_recruit_mult",
+     {
+      "mult": -1
+     }
+    ],
+    [
+     "special",
+     "unit_damage_cost",
+     {
+      "influence": 2
+     }
+    ]
+   ]
+  },
+  {
+   "id": "shocktroops",
+   "set": "ll",
+   "elite": false,
+   "name_it": "Truppe d'Assalto",
+   "name_en": "Shocktroops",
+   "level": 2,
+   "cost": 6,
+   "armor": 3,
+   "resist": [],
+   "recruit": [
+    "keep",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "attack",
+       1,
+       "phys",
+       "ranged"
+      ],
+      [
+       "special",
+       "units_attack_bonus",
+       {
+        "n": 1,
+        "others": true
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco a Distanza 1. Tutte le altre tue Unità ottengono +1 a tutti i loro Attacchi in questo turno."
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "reduce_enemy_attack",
+       {
+        "n": 1,
+        "armor": 1
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Riduci di 1 l'Armatura e un attacco del nemico scelto."
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "draw_fire_unit",
+       {
+        "reduce": 3
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Riduci di 3 un attacco nemico. Qualsiasi danno da quell'attacco deve essere assegnato per primo a questa Unità, anche se il nemico ha Assassinare."
+    }
+   ],
+   "img": "assets/cards/unit_shocktroops.webp",
+   "impl": true,
+   "note": "",
+   "guid": "75307e"
+  },
+  {
+   "id": "magic_familiars",
+   "set": "ll",
+   "elite": false,
+   "name_it": "Famigli Magici",
+   "name_en": "Magic Familiars",
+   "level": 2,
+   "cost": 6,
+   "armor": 5,
+   "resist": [],
+   "recruit": [
+    "monastery",
+    "mage_tower",
+    "glade",
+    "camp",
+    "hidden_valley"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "special",
+       "unit_token_bonus",
+       {
+        "effect": [
+         "attack",
+         3
+        ],
+        "color": "red",
+        "bonus": 2
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco 3 (+2 con il segnalino rosso)"
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "unit_token_bonus",
+       {
+        "effect": [
+         "block",
+         4
+        ],
+        "color": "blue",
+        "bonus": 3
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Blocco 4 (+3 con il segnalino blu)"
+    },
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "special",
+          "unit_token_bonus",
+          {
+           "effect": [
+            "move",
+            3
+           ],
+           "color": "white",
+           "bonus": 2
+          }
+         ]
+        ],
+        [
+         [
+          "special",
+          "unit_token_bonus",
+          {
+           "effect": [
+            "influence",
+            3
+           ],
+           "color": "white",
+           "bonus": 2
+          }
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Movimento o Influenza 3 (+2 con il segnalino bianco)"
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "unit_token_bonus",
+       {
+        "effect": [
+         "heal",
+         2
+        ],
+        "color": "green",
+        "bonus": 1
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Cura 2 (+1 con il segnalino verde)"
+    }
+   ],
+   "img": "assets/cards/unit_magic_familiars.webp",
+   "impl": true,
+   "note": "Quando li recluti, paga un mana di un colore base e piazza un segnalino mana di quel colore sull'Unità. L'opzione corrispondente viene aumentata. All'inizio di ogni Round, rimpiazza quel segnalino con un cristallo di qualsiasi colore dal tuo inventario, oppure getta via questa Unità.",
+   "guid": "0a2e0b",
+   "rules": [
+    [
+     "special",
+     "familiars_upkeep"
+    ]
+   ]
+  },
+  {
+   "id": "fire_mages",
+   "set": "base",
+   "elite": true,
+   "name_it": "Maghi del Fuoco",
+   "name_en": "Fire Mages",
+   "level": 3,
+   "cost": 9,
+   "armor": 4,
+   "resist": [
+    "fire"
+   ],
+   "recruit": [
+    "mage_tower",
+    "monastery",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "attack",
+       3,
+       "fire",
+       "ranged"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco di Fuoco a Distanza 3"
+    },
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          6,
+          "fire"
+         ]
+        ],
+        [
+         [
+          "block",
+          6,
+          "fire"
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "red",
+     "text_it": "Attacco di Fuoco o Blocco di Fuoco 6"
+    },
+    {
+     "effect": [
+      [
+       "mana",
+       "red"
+      ],
+      [
+       "crystal",
+       "red"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Guadagna un segnalino mana rosso e un cristallo rosso nel tuo Inventario."
+    }
+   ],
+   "img": "assets/cards/unit_fire_mages.webp",
+   "impl": true,
+   "note": "",
+   "guid": "9ea578"
+  },
+  {
+   "id": "ice_mages",
+   "set": "base",
+   "elite": true,
+   "name_it": "Maghi del Ghiaccio",
+   "name_en": "Ice Mages",
+   "level": 3,
+   "cost": 9,
+   "armor": 4,
+   "resist": [
+    "ice"
+   ],
+   "recruit": [
+    "mage_tower",
+    "monastery",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          4,
+          "ice"
+         ]
+        ],
+        [
+         [
+          "block",
+          4,
+          "ice"
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco di Ghiaccio o Blocco di Ghiaccio 4"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       4,
+       "ice",
+       "siege"
+      ]
+     ],
+     "mana": "blue",
+     "text_it": "Attacco di Ghiaccio d'Assedio 4"
+    },
+    {
+     "effect": [
+      [
+       "mana",
+       "blue"
+      ],
+      [
+       "crystal",
+       "blue"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Guadagna un segnalino mana blu e un cristallo blu nel tuo Inventario."
+    }
+   ],
+   "img": "assets/cards/unit_ice_mages.webp",
+   "impl": true,
+   "note": "",
+   "guid": "2806cf"
+  },
+  {
+   "id": "fire_golems",
+   "set": "base",
+   "elite": true,
+   "name_it": "Golem di Fuoco",
+   "name_en": "Fire Golems",
+   "level": 3,
+   "cost": 8,
+   "armor": 4,
+   "resist": [
+    "phys",
+    "fire"
+   ],
+   "recruit": [
+    "keep",
+    "mage_tower",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 3"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       4,
+       "fire",
+       "ranged"
+      ]
+     ],
+     "mana": "red",
+     "text_it": "Attacco di Fuoco a Distanza 4"
+    }
+   ],
+   "img": "assets/cards/unit_fire_golems.webp",
+   "impl": true,
+   "note": "",
+   "guid": "d81a4f"
+  },
+  {
+   "id": "ice_golems",
+   "set": "base",
+   "elite": true,
+   "name_it": "Golem di Ghiaccio",
+   "name_en": "Ice Golems",
+   "level": 3,
+   "cost": 8,
+   "armor": 4,
+   "resist": [
+    "phys",
+    "ice"
+   ],
+   "recruit": [
+    "keep",
+    "mage_tower",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 3"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       6,
+       "ice"
+      ]
+     ],
+     "mana": "blue",
+     "text_it": "Attacco di Ghiaccio 6"
+    }
+   ],
+   "img": "assets/cards/unit_ice_golems.webp",
+   "impl": true,
+   "note": "",
+   "guid": "18446c"
+  },
+  {
+   "id": "amotep_gunners",
+   "set": "base",
+   "elite": true,
+   "name_it": "Artiglieri di Amotep",
+   "name_en": "Amotep Gunners",
+   "level": 3,
+   "cost": 8,
+   "armor": 6,
+   "resist": [],
+   "recruit": [
+    "keep",
+    "city",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          5
+         ]
+        ],
+        [
+         [
+          "block",
+          5
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 5"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       6,
+       "fire",
+       "ranged"
+      ]
+     ],
+     "mana": "red",
+     "text_it": "Attacco di Fuoco a Distanza 6"
+    }
+   ],
+   "img": "assets/cards/unit_amotep_gunners.webp",
+   "impl": true,
+   "note": "",
+   "guid": "7ba7be"
+  },
+  {
+   "id": "amotep_freezers",
+   "set": "base",
+   "elite": true,
+   "name_it": "Glaciali di Amotep",
+   "name_en": "Amotep Freezers",
+   "level": 3,
+   "cost": 8,
+   "armor": 6,
+   "resist": [],
+   "recruit": [
+    "keep",
+    "city",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          5
+         ]
+        ],
+        [
+         [
+          "block",
+          5
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 5"
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "enemy_no_attack",
+       {
+        "targets": 1,
+        "armor": 3,
+        "immune": "ice"
+       }
+      ]
+     ],
+     "mana": "blue",
+     "text_it": "Il nemico bersaglio non attacca in questo combattimento e riceve Armatura -3 (fino ad un minimo di 1)."
+    }
+   ],
+   "img": "assets/cards/unit_amotep_freezers.webp",
+   "impl": true,
+   "note": "",
+   "guid": "9e8205"
+  },
+  {
+   "id": "catapults",
+   "set": "base",
+   "elite": true,
+   "name_it": "Catapulte",
+   "name_en": "Catapults",
+   "level": 3,
+   "cost": 9,
+   "armor": 4,
+   "resist": [],
+   "recruit": [
+    "keep",
+    "city",
+    "camp"
+   ],
+   "copies": 3,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "attack",
+       3,
+       "phys",
+       "siege"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco d'Assedio 3"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       5,
+       "fire",
+       "siege"
+      ]
+     ],
+     "mana": "red",
+     "text_it": "Attacco di Fuoco d'Assedio 5"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       5,
+       "ice",
+       "siege"
+      ]
+     ],
+     "mana": "blue",
+     "text_it": "Attacco di Ghiaccio d'Assedio 5"
+    }
+   ],
+   "img": "assets/cards/unit_catapults.webp",
+   "impl": true,
+   "note": "",
+   "guid": "1aa68c"
+  },
+  {
+   "id": "altem_guardians",
+   "set": "base",
+   "elite": true,
+   "name_it": "Guardiani di Altem",
+   "name_en": "Altem Guardians",
+   "level": 4,
+   "cost": 11,
+   "armor": 7,
+   "resist": [],
+   "recruit": [
+    "city",
+    "camp"
+   ],
+   "copies": 3,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "attack",
+       5
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco 5"
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "block_swift",
+       {
+        "n": 8
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Blocco 8. Conta doppio contro un attacco con Rapidità."
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "units_all_resist"
+      ]
+     ],
+     "mana": "green",
+     "text_it": "Tutte le unità che controlli guadagnano tutti i tipi di resistenza in questo turno."
+    }
+   ],
+   "img": "assets/cards/unit_altem_guardians.webp",
+   "impl": true,
+   "note": "",
+   "guid": "f288ea"
+  },
+  {
+   "id": "altem_mages",
+   "set": "base",
+   "elite": true,
+   "name_it": "Maghi di Altem",
+   "name_en": "Altem Mages",
+   "level": 4,
+   "cost": 12,
+   "armor": 5,
+   "resist": [
+    "fire",
+    "ice"
+   ],
+   "recruit": [
+    "keep",
+    "city",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "special",
+       "mana_any",
+       {
+        "n": 2
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Guadagni due segnalini mana di qualsiasi colore."
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "pay_boost",
+       {
+        "options": [
+         [
+          "attack",
+          5,
+          "cold"
+         ],
+         [
+          "block",
+          5,
+          "cold"
+         ]
+        ],
+        "per_mana": {
+         "blue": 2,
+         "red": 2
+        }
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco di Fuoco Freddo o Blocco di Fuoco Freddo 5. Puoi pagare un mana blu o rosso per incrementarlo a 7, oppure pagare entrambi per incrementarlo a 9."
+    },
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "special",
+          "attacks_transform",
+          {
+           "to": "cold"
+          }
+         ]
+        ],
+        [
+         [
+          "special",
+          "attacks_transform",
+          {
+           "to": "siege"
+          }
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "black",
+     "text_it": "Scegli uno tra: tutti gli attacchi che giochi in questo combattimento diventano Attacchi di Fuoco Freddo, oppure tutti i tuoi attacchi diventano Attacchi d'Assedio in aggiunta a qualsiasi elemento essi abbiano."
+    }
+   ],
+   "img": "assets/cards/unit_altem_mages.webp",
+   "impl": true,
+   "note": "",
+   "guid": "bb1660"
+  },
+  {
+   "id": "sorcerers",
+   "set": "ll",
+   "elite": true,
+   "name_it": "Stregoni",
+   "name_en": "Sorcerers",
+   "level": 3,
+   "cost": 9,
+   "armor": 4,
+   "resist": [
+    "fire",
+    "ice"
+   ],
+   "recruit": [
+    "mage_tower",
+    "monastery",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "attack",
+       3,
+       "phys",
+       "ranged"
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco a Distanza 3"
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "strip",
+       {
+        "targets": "one",
+        "fort": true
+       }
+      ],
+      [
+       "attack",
+       3,
+       "phys",
+       "ranged"
+      ]
+     ],
+     "mana": "white",
+     "text_it": "Il nemico scelto perde tutte le fortificazioni. Attacco a Distanza 3."
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "strip",
+       {
+        "targets": "one",
+        "resist": true
+       }
+      ],
+      [
+       "attack",
+       3,
+       "phys",
+       "ranged"
+      ]
+     ],
+     "mana": "green",
+     "text_it": "Il nemico scelto perde tutte le resistenze. Attacco a Distanza 3."
+    }
+   ],
+   "img": "assets/cards/unit_sorcerers.webp",
+   "impl": true,
+   "note": "",
+   "guid": "c3e3c5"
+  },
+  {
+   "id": "delphana_masters",
+   "set": "ll",
+   "elite": true,
+   "name_it": "Maestri Delphana",
+   "name_en": "Delphana Masters",
+   "level": 4,
+   "cost": 13,
+   "armor": 3,
+   "resist": [
+    "phys",
+    "fire",
+    "ice"
+   ],
+   "recruit": [
+    "city",
+    "camp"
+   ],
+   "copies": 2,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "special",
+       "enemy_no_attack",
+       {
+        "targets": 1,
+        "immune": "ice"
+       }
+      ]
+     ],
+     "mana": "blue",
+     "text_it": "Il nemico bersaglio non attacca."
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "destroy_if_blocked",
+       {
+        "immune": "fire"
+       }
+      ]
+     ],
+     "mana": "red",
+     "text_it": "Il nemico bersaglio è distrutto se viene bloccato."
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "armor_mod",
+       {
+        "targets": "one",
+        "amount": 5
+       }
+      ]
+     ],
+     "mana": "green",
+     "text_it": "L'armatura di un nemico bersaglio viene ridotta di 5 (fino ad un minimo di 1)."
+    },
+    {
+     "effect": [
+      [
+       "special",
+       "strip",
+       {
+        "targets": "one",
+        "fort": true,
+        "resist": true
+       }
+      ]
+     ],
+     "mana": "white",
+     "text_it": "Il nemico bersaglio perde tutte le fortificazioni e le resistenze."
+    }
+   ],
+   "img": "assets/cards/unit_delphana_masters.webp",
+   "impl": true,
+   "note": "Quando li attivi, puoi utilizzare differenti abilità multiple contro gli stessi o differenti bersagli (pagando il mana di ciascuna). Il \"!\" accanto al costo: regola speciale di reclutamento/uso (vedi carta).",
+   "guid": "9c5c38",
+   "rules": [
+    [
+     "special",
+     "unit_multi_ability"
+    ]
+   ]
+  },
+  {
+   "id": "heroes_blue",
+   "set": "ll",
+   "elite": true,
+   "name_it": "Eroi",
+   "name_en": "Heroes",
+   "level": 3,
+   "cost": 9,
+   "armor": 4,
+   "resist": [
+    "ice"
+   ],
+   "recruit": [
+    "village",
+    "keep",
+    "city",
+    "camp",
+    "oasis"
+   ],
+   "copies": 1,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          5
+         ]
+        ],
+        [
+         [
+          "block",
+          5
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 5"
+    },
+    {
+     "effect": [
+      [
+       "block",
+       8,
+       "cold"
+      ]
+     ],
+     "mana": "blue",
+     "text_it": "Blocco di Fuoco Freddo 8"
+    },
+    {
+     "effect": [
+      [
+       "influence",
+       5
+      ],
+      [
+       "special",
+       "rep_if_interaction",
+       {
+        "n": 1
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Influenza 5. Se utilizzata durante l'interazione, Reputazione +1."
+    }
+   ],
+   "img": "assets/cards/unit_heroes_blue.webp",
+   "impl": true,
+   "note": "Devi pagare 2 punti di Influenza per attivare questa Unità durante un assalto qualsiasi o un attacco contro un altro giocatore. Costo x2: il modificatore di Reputazione al reclutamento è raddoppiato.",
+   "guid": "88f3f2",
+   "rules": [
+    [
+     "special",
+     "unit_assault_cost",
+     {
+      "influence": 2
+     }
+    ],
+    [
+     "special",
+     "unit_rep_recruit_mult",
+     {
+      "mult": 2
+     }
+    ]
+   ]
+  },
+  {
+   "id": "heroes_red",
+   "set": "ll",
+   "elite": true,
+   "name_it": "Eroi",
+   "name_en": "Heroes",
+   "level": 3,
+   "cost": 9,
+   "armor": 4,
+   "resist": [
+    "fire"
+   ],
+   "recruit": [
+    "village",
+    "keep",
+    "city",
+    "camp",
+    "oasis"
+   ],
+   "copies": 1,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          5
+         ]
+        ],
+        [
+         [
+          "block",
+          5
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 5"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       6,
+       "cold"
+      ]
+     ],
+     "mana": "red",
+     "text_it": "Attacco di Fuoco Freddo 6"
+    },
+    {
+     "effect": [
+      [
+       "influence",
+       5
+      ],
+      [
+       "special",
+       "rep_if_interaction",
+       {
+        "n": 1
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Influenza 5. Se utilizzata durante l'interazione, Reputazione +1."
+    }
+   ],
+   "img": "assets/cards/unit_heroes_red.webp",
+   "impl": true,
+   "note": "Devi pagare 2 punti di Influenza per attivare questa Unità durante un assalto qualsiasi o un attacco contro un altro giocatore. Costo x2: il modificatore di Reputazione al reclutamento è raddoppiato.",
+   "guid": "4ee245",
+   "rules": [
+    [
+     "special",
+     "unit_assault_cost",
+     {
+      "influence": 2
+     }
+    ],
+    [
+     "special",
+     "unit_rep_recruit_mult",
+     {
+      "mult": 2
+     }
+    ]
+   ]
+  },
+  {
+   "id": "heroes_green",
+   "set": "ll",
+   "elite": true,
+   "name_it": "Eroi",
+   "name_en": "Heroes",
+   "level": 3,
+   "cost": 9,
+   "armor": 3,
+   "resist": [
+    "phys"
+   ],
+   "recruit": [
+    "village",
+    "keep",
+    "city",
+    "camp",
+    "oasis"
+   ],
+   "copies": 1,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          5
+         ]
+        ],
+        [
+         [
+          "block",
+          5
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 5"
+    },
+    {
+     "effect": [
+      [
+       "heal",
+       4
+      ]
+     ],
+     "mana": "green",
+     "text_it": "Cura 4"
+    },
+    {
+     "effect": [
+      [
+       "influence",
+       5
+      ],
+      [
+       "special",
+       "rep_if_interaction",
+       {
+        "n": 1
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Influenza 5. Se utilizzata durante l'interazione, Reputazione +1."
+    }
+   ],
+   "img": "assets/cards/unit_heroes_green.webp",
+   "impl": true,
+   "note": "Devi pagare 2 punti di Influenza per attivare questa Unità durante un assalto qualsiasi o un attacco contro un altro giocatore. Costo x2: il modificatore di Reputazione al reclutamento è raddoppiato.",
+   "guid": "613dca",
+   "rules": [
+    [
+     "special",
+     "unit_assault_cost",
+     {
+      "influence": 2
+     }
+    ],
+    [
+     "special",
+     "unit_rep_recruit_mult",
+     {
+      "mult": 2
+     }
+    ]
+   ]
+  },
+  {
+   "id": "heroes_white",
+   "set": "ll",
+   "elite": true,
+   "name_it": "Eroi",
+   "name_en": "Heroes",
+   "level": 3,
+   "cost": 9,
+   "armor": 6,
+   "resist": [],
+   "recruit": [
+    "village",
+    "keep",
+    "city",
+    "camp",
+    "oasis"
+   ],
+   "copies": 1,
+   "abilities": [
+    {
+     "effect": [
+      [
+       "choice",
+       [
+        [
+         [
+          "attack",
+          5
+         ]
+        ],
+        [
+         [
+          "block",
+          5
+         ]
+        ]
+       ]
+      ]
+     ],
+     "mana": "",
+     "text_it": "Attacco o Blocco 5"
+    },
+    {
+     "effect": [
+      [
+       "attack",
+       7,
+       "phys",
+       "ranged"
+      ]
+     ],
+     "mana": "white",
+     "text_it": "Attacco a Distanza 7"
+    },
+    {
+     "effect": [
+      [
+       "influence",
+       5
+      ],
+      [
+       "special",
+       "rep_if_interaction",
+       {
+        "n": 1
+       }
+      ]
+     ],
+     "mana": "",
+     "text_it": "Influenza 5. Se utilizzata durante l'interazione, Reputazione +1."
+    }
+   ],
+   "img": "assets/cards/unit_heroes_white.webp",
+   "impl": true,
+   "note": "Devi pagare 2 punti di Influenza per attivare questa Unità durante un assalto qualsiasi o un attacco contro un altro giocatore. Costo x2: il modificatore di Reputazione al reclutamento è raddoppiato.",
+   "guid": "8ccbdd",
+   "rules": [
+    [
+     "special",
+     "unit_assault_cost",
+     {
+      "influence": 2
+     }
+    ],
+    [
+     "special",
+     "unit_rep_recruit_mult",
+     {
+      "mult": 2
+     }
+    ]
+   ]
+  }
+ ]
+}

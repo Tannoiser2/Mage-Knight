@@ -1,0 +1,5701 @@
+{
+ "cards": [
+  {
+   "id": "fire_bolt",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Saetta di Fuoco",
+   "name_en": "Fire Bolt",
+   "basic": [
+    [
+     "crystal",
+     "red"
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     3,
+     "fire",
+     "ranged"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un cristallo rosso nel tuo Inventario.",
+    "powered": "Attacco di Fuoco a Distanza 3"
+   },
+   "img": "assets/cards/fire_bolt.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "ice_bolt",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Saetta di Ghiaccio",
+   "name_en": "Ice Bolt",
+   "basic": [
+    [
+     "crystal",
+     "blue"
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     3,
+     "ice",
+     "ranged"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un cristallo blu nel tuo Inventario.",
+    "powered": "Attacco di Ghiaccio a Distanza 3"
+   },
+   "img": "assets/cards/ice_bolt.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "swift_bolt",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Saetta Fulminea",
+   "name_en": "Swift Bolt",
+   "basic": [
+    [
+     "crystal",
+     "white"
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     4,
+     "phys",
+     "ranged"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un cristallo bianco nel tuo Inventario.",
+    "powered": "Attacco a Distanza 4"
+   },
+   "img": "assets/cards/swift_bolt.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "crushing_bolt",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Saetta Devastante",
+   "name_en": "Crushing Bolt",
+   "basic": [
+    [
+     "crystal",
+     "green"
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     3,
+     "phys",
+     "siege"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un cristallo verde nel tuo Inventario.",
+    "powered": "Attacco d'Assedio 3"
+   },
+   "img": "assets/cards/crushing_bolt.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "blood_rage",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Furia Sanguinaria",
+   "name_en": "Blood Rage",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "special",
+        "take_wound",
+        {}
+       ],
+       [
+        "attack",
+        5
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        4
+       ]
+      ],
+      [
+       [
+        "special",
+        "take_wound",
+        {}
+       ],
+       [
+        "attack",
+        9
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2. Puoi subire una Ferita per aumentare questo Attacco a 5.",
+    "powered": "Attacco 4. Puoi subire una Ferita per aumentare questo Attacco a 9."
+   },
+   "img": "assets/cards/blood_rage.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "La Ferita va in mano e conta per il Colpo di Grazia."
+  },
+  {
+   "id": "ice_shield",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Scudo di Ghiaccio",
+   "name_en": "Ice Shield",
+   "basic": [
+    [
+     "block",
+     3,
+     "ice"
+    ]
+   ],
+   "powered": [
+    [
+     "block",
+     3,
+     "ice"
+    ],
+    [
+     "special",
+     "block_armor_reduce",
+     {
+      "n": 3,
+      "min": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Blocco di Ghiaccio 3",
+    "powered": "Blocco di Ghiaccio 3. Riduci di 3 l'Armatura di un nemico bloccato in questo modo. L'Armatura non può scendere sotto l'1."
+   },
+   "img": "assets/cards/ice_shield.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Fase di Blocco. I nemici con Resistenza al Ghiaccio ignorano gli effetti non-Attacco delle carte blu."
+  },
+  {
+   "id": "agility",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Agilità",
+   "name_en": "Agility",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "mod",
+     "move_to_attack",
+     {
+      "melee": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "mod",
+     "move_to_attack",
+     {
+      "melee": 1,
+      "ranged": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Durante il combattimento in questo turno, puoi spendere punti Movimento per ottenere Attacco 1 per ogni punto speso.",
+    "powered": "Movimento 4. Durante il combattimento in questo turno puoi spendere un qualsiasi ammontare di punti Movimento: 1 per ottenere Attacco 1 e/o 2 per ottenere Attacco a Distanza 1."
+   },
+   "img": "assets/cards/agility.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "refreshing_walk",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Passeggiata Rigenerante",
+   "name_en": "Refreshing Walk",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "heal",
+       1
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "if",
+     "not_combat",
+     [
+      [
+       "heal",
+       2
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2 e Cura 1. Se giocata durante il combattimento, soltanto Movimento 2.",
+    "powered": "Movimento 4 e Cura 2. Se giocata durante il combattimento, soltanto Movimento 4."
+   },
+   "img": "assets/cards/refreshing_walk.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "intimidate",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Intimidire",
+   "name_en": "Intimidate",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        3
+       ]
+      ]
+     ]
+    ],
+    [
+     "rep",
+     -1
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        8
+       ]
+      ],
+      [
+       [
+        "attack",
+        7
+       ]
+      ]
+     ]
+    ],
+    [
+     "rep",
+     -2
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 4 o Attacco 3. Reputazione -1",
+    "powered": "Influenza 8 o Attacco 7. Reputazione -2"
+   },
+   "img": "assets/cards/intimidate.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "La perdita di Reputazione si applica in entrambi i casi."
+  },
+  {
+   "id": "frost_bridge",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Ponte Ghiacciato",
+   "name_en": "Frost Bridge",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "terrain",
+     {
+      "swamp": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "terrain",
+     {
+      "lake": 1,
+      "swamp": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Il costo di Movimento nelle paludi viene ridotto a 1 in questo turno.",
+    "powered": "Movimento 4. Puoi attraversare i laghi, e il costo di Movimento nei laghi e nelle paludi viene ridotto a 1 in questo turno."
+   },
+   "img": "assets/cards/frost_bridge.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "I laghi resi attraversabili non diventano spazi sicuri: non puoi terminarvi il turno."
+  },
+  {
+   "id": "song_of_wind",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Canto del Vento",
+   "name_en": "Song of Wind",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "terrain",
+     {
+      "plains": "-1",
+      "desert": "-1",
+      "wasteland": "-1",
+      "min": 0
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     2
+    ],
+    [
+     "terrain",
+     {
+      "plains": "-2",
+      "desert": "-2",
+      "wasteland": "-2",
+      "min": 0
+     }
+    ],
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "pay_mana",
+        "blue",
+        [
+         [
+          "terrain",
+          {
+           "lake": 0
+          }
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Il costo di Movimento in pianura, nei deserti e nelle terre perdute viene ridotto di 1, fino ad un minimo di 0 in questo turno.",
+    "powered": "Movimento 2. Il costo di Movimento in pianura, nei deserti e nelle terre perdute viene ridotto di 2, fino ad un minimo di 0. Puoi pagare un mana blu per attraversare i laghi con costo di Movimento pari a 0 in questo turno."
+   },
+   "img": "assets/cards/song_of_wind.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "I laghi resi attraversabili non diventano spazi sicuri."
+  },
+  {
+   "id": "path_finding",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Esploratore",
+   "name_en": "Path Finding",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "terrain",
+     {
+      "all": "-1",
+      "min": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "terrain",
+     {
+      "all": "<=2"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Il costo di Movimento su tutti i terreni viene ridotto di 1, fino ad un minimo di 2, questo turno.",
+    "powered": "Movimento 4. Il costo di Movimento su tutti i terreni viene ridotto a 2 in questo turno."
+   },
+   "img": "assets/cards/path_finding.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "'Tutti i terreni' = terreni attraversabili; laghi e montagne restano invalicabili."
+  },
+  {
+   "id": "blood_ritual",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Rituale di Sangue",
+   "name_en": "Blood Ritual",
+   "basic": [
+    [
+     "special",
+     "take_wound",
+     {}
+    ],
+    [
+     "crystal",
+     "red"
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "gold"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "black"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "take_wound",
+     {}
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "gold"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "black"
+       ]
+      ]
+     ]
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "gold"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "black"
+       ]
+      ]
+     ]
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "green"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "gold"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "black"
+       ]
+      ]
+     ]
+    ],
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "pay_mana",
+        "basic",
+        [
+         [
+          "crystal",
+          "$paid"
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Subisci una Ferita. Guadagni un cristallo di mana rosso nel tuo Inventario e un segnalino mana di un colore qualsiasi (inclusi quelli non base).",
+    "powered": "Subisci una Ferita. Guadagni tre segnalini mana di qualsiasi colore (inclusi quelli non base). Puoi pagare un mana di un colore base per guadagnare un cristallo di quel colore nel tuo Inventario."
+   },
+   "img": "assets/cards/blood_ritual.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "La Ferita va in mano (in combattimento conta per il Colpo di Grazia)."
+  },
+  {
+   "id": "pure_magic",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Magia Pura",
+   "name_en": "Pure Magic",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "pay_mana",
+        "green",
+        [
+         [
+          "move",
+          4
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "white",
+        [
+         [
+          "influence",
+          4
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "blue",
+        [
+         [
+          "block",
+          4
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "red",
+        [
+         [
+          "attack",
+          4
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "pay_mana",
+        "green",
+        [
+         [
+          "move",
+          7
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "white",
+        [
+         [
+          "influence",
+          7
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "blue",
+        [
+         [
+          "block",
+          7
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "red",
+        [
+         [
+          "attack",
+          7
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Quando giochi questa carta, paga un mana. Se hai pagato un mana verde, hai Movimento 4. Se hai pagato un mana bianco, hai Influenza 4. Se hai pagato un mana blu, hai Blocco 4. Se hai pagato un mana rosso, hai Attacco 4.",
+    "powered": "Quando giochi questa carta, paga un mana. Se hai pagato un mana verde, hai Movimento 7. Se hai pagato un mana bianco, hai Influenza 7. Se hai pagato un mana blu, hai Blocco 7. Se hai pagato un mana rosso, hai Attacco 7."
+   },
+   "img": "assets/cards/pure_magic.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Il mana dell'effetto è in aggiunta al mana blu che potenzia la carta. Di Giorno l'oro vale come uno qualsiasi dei 4 colori."
+  },
+  {
+   "id": "heroic_tale",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Racconto Eroico",
+   "name_en": "Heroic Tale",
+   "basic": [
+    [
+     "influence",
+     3
+    ],
+    [
+     "mod",
+     "per_recruit",
+     {
+      "rep": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     6
+    ],
+    [
+     "mod",
+     "per_recruit",
+     {
+      "fame": 1,
+      "rep": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 3. Per ogni Unità che recluti in questo turno, ricevi Reputazione +1.",
+    "powered": "Influenza 6. Per ogni Unità che recluti in questo turno, ricevi Fama +1 e Reputazione +1."
+   },
+   "img": "assets/cards/heroic_tale.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "regeneration",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Rigenerazione",
+   "name_en": "Regeneration",
+   "basic": [
+    [
+     "heal",
+     1
+    ],
+    [
+     "ready_unit",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "heal",
+     2
+    ],
+    [
+     "ready_unit",
+     3
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Cura 1. Rendi pronta un'Unità di Livello I o II che controlli.",
+    "powered": "Cura 2. Rendi pronta un'Unità di Livello I, II o III che controlli."
+   },
+   "img": "assets/cards/regeneration.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Cura non utilizzabile in combattimento (rendere pronta un'Unità sì)."
+  },
+  {
+   "id": "into_the_heat",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Nella Mischia",
+   "name_en": "Into the Heat",
+   "basic": [
+    [
+     "mod",
+     "units_bonus",
+     {
+      "attack": 2,
+      "block": 2,
+      "no_unit_damage": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "mod",
+     "units_bonus",
+     {
+      "attack": 3,
+      "block": 3,
+      "no_unit_damage": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Gioca questa carta all'inizio del combattimento. A tutte le tue Unità viene aumentato di 2 il valore di Attacco e di Blocco in questo combattimento. Non puoi assegnare danno alle tue Unità in questo turno.",
+    "powered": "Gioca questa carta all'inizio del combattimento. A tutte le tue Unità viene aumentato di 3 il valore di Attacco e di Blocco in questo combattimento. Non puoi assegnare danno alle tue Unità in questo turno."
+   },
+   "img": "assets/cards/into_the_heat.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Solo all'inizio del combattimento (prima della fase Attacco a distanza e d'assedio)."
+  },
+  {
+   "id": "steady_tempo",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Tempo Stabile",
+   "name_en": "Steady Tempo",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "mod",
+     "card_to_deck_end_turn",
+     {
+      "pos": "bottom"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "mod",
+     "card_to_deck_end_turn",
+     {
+      "pos": "top"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Alla fine del tuo turno, anziché mettere questa carta nella tua pila degli scarti, puoi piazzarla in fondo al tuo mazzo Impresa a meno che non sia vuoto.",
+    "powered": "Movimento 4. Alla fine del tuo turno, anziché mettere questa carta nella tua pila degli scarti, puoi piazzarla in cima al tuo mazzo Impresa."
+   },
+   "img": "assets/cards/steady_tempo.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "diplomacy",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Diplomazia",
+   "name_en": "Diplomacy",
+   "basic": [
+    [
+     "influence",
+     2
+    ],
+    [
+     "mod",
+     "influence_as_block",
+     {
+      "elem": "phys"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     4
+    ],
+    [
+     "choice",
+     [
+      [
+       [
+        "mod",
+        "influence_as_block",
+        {
+         "elem": "ice"
+        }
+       ]
+      ],
+      [
+       [
+        "mod",
+        "influence_as_block",
+        {
+         "elem": "fire"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2. Puoi usare Influenza come Blocco in questo turno.",
+    "powered": "Influenza 4. Scegli Ghiaccio o Fuoco. Puoi usare Influenza come Blocco per l'elemento scelto in questo turno."
+   },
+   "img": "assets/cards/diplomacy.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "in_need",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Nel Bisogno",
+   "name_en": "In Need",
+   "basic": [
+    [
+     "influence",
+     3
+    ],
+    [
+     "special",
+     "influence_per_wound",
+     {
+      "n": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     5
+    ],
+    [
+     "special",
+     "influence_per_wound",
+     {
+      "n": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 3. Ricevi 1 punto Influenza addizionale per ogni carta Ferita nella tua mano o su Unità che controlli.",
+    "powered": "Influenza 5. Ricevi 2 punti Influenza addizionali per ogni carta Ferita nella tua mano o su Unità che controlli."
+   },
+   "img": "assets/cards/in_need.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "decompose",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Decomporre",
+   "name_en": "Decompose",
+   "basic": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "crystal",
+         "red"
+        ],
+        [
+         "crystal",
+         "red"
+        ]
+       ],
+       "blue": [
+        [
+         "crystal",
+         "blue"
+        ],
+        [
+         "crystal",
+         "blue"
+        ]
+       ],
+       "green": [
+        [
+         "crystal",
+         "green"
+        ],
+        [
+         "crystal",
+         "green"
+        ]
+       ],
+       "white": [
+        [
+         "crystal",
+         "white"
+        ],
+        [
+         "crystal",
+         "white"
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "crystal",
+         "blue"
+        ],
+        [
+         "crystal",
+         "green"
+        ],
+        [
+         "crystal",
+         "white"
+        ]
+       ],
+       "blue": [
+        [
+         "crystal",
+         "red"
+        ],
+        [
+         "crystal",
+         "green"
+        ],
+        [
+         "crystal",
+         "white"
+        ]
+       ],
+       "green": [
+        [
+         "crystal",
+         "red"
+        ],
+        [
+         "crystal",
+         "blue"
+        ],
+        [
+         "crystal",
+         "white"
+        ]
+       ],
+       "white": [
+        [
+         "crystal",
+         "red"
+        ],
+        [
+         "crystal",
+         "blue"
+        ],
+        [
+         "crystal",
+         "green"
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Quando giochi questa carta, getta via dalla tua mano una carta Azione. Guadagni due cristalli nel tuo Inventario dello stesso colore della carta gettata.",
+    "powered": "Quando giochi questa carta, getta via una carta Azione dalla tua mano. Guadagni un cristallo nel tuo Inventario di ciascun colore base che non sia del colore della carta gettata."
+   },
+   "img": "assets/cards/decompose.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "crystal_mastery",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Maestria del Cristallo",
+   "name_en": "Crystal Mastery",
+   "basic": [
+    [
+     "special",
+     "crystal_copy",
+     {}
+    ]
+   ],
+   "powered": [
+    [
+     "mod",
+     "crystals_return",
+     {}
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un cristallo nel tuo Inventario dello stesso colore di un cristallo che già possiedi.",
+    "powered": "Alla fine del turno, qualsiasi cristallo tu abbia speso in questo turno ritorna nel tuo Inventario."
+   },
+   "img": "assets/cards/crystal_mastery.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "mana_storm",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Tempesta di Mana",
+   "name_en": "Mana Storm",
+   "basic": [
+    [
+     "special",
+     "crystal_from_source_die",
+     {
+      "reroll": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "reroll_source",
+     {}
+    ],
+    [
+     "extra_die",
+     3
+    ],
+    [
+     "mod",
+     "source_black_gold_any",
+     {}
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Scegli un dado mana nella Riserva che mostri un colore base. Guadagni un cristallo di quel colore nel tuo Inventario, dopodiché ritira immediatamente quel dado e rimettilo nella Riserva.",
+    "powered": "Ritira tutti i dadi nella Riserva. Puoi utilizzare tre dadi extra dalla Riserva, e puoi utilizzare dadi che mostrano il nero o l'oro come mana di qualsiasi colore base, a prescindere dal Round."
+   },
+   "img": "assets/cards/mana_storm.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "ambush",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Imboscata",
+   "name_en": "Ambush",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "mod",
+     "first_attack_or_block_bonus",
+     {
+      "attack": 1,
+      "block": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "mod",
+     "first_attack_or_block_bonus",
+     {
+      "attack": 2,
+      "block": 4
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Aggiungi +1 alla tua prima carta Attacco di qualsiasi tipo oppure +2 alla tua prima carta Blocco di qualsiasi tipo, a quella che giochi prima in questo turno.",
+    "powered": "Movimento 4. Aggiungi +2 alla tua prima carta Attacco di qualsiasi tipo oppure +4 alla tua prima carta Blocco di qualsiasi tipo, a quella che giochi prima in questo turno."
+   },
+   "img": "assets/cards/ambush.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "maximal_effect",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Effetto Massimo",
+   "name_en": "Maximal Effect",
+   "basic": [
+    [
+     "special",
+     "maximal_effect",
+     {
+      "mode": "basic",
+      "times": 3
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "maximal_effect",
+     {
+      "mode": "powered",
+      "times": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Quando giochi questa carta, getta via un'altra carta Azione dalla tua mano. Usa l'effetto base di quella carta tre volte.",
+    "powered": "Quando giochi questa carta, getta via un'altra carta Azione dalla tua mano. Usa l'effetto più potente di quella carta due volte (gratuitamente)."
+   },
+   "img": "assets/cards/maximal_effect.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Effetto 'composto': conta come un unico effetto (es. con Determinazione puoi bloccare attacchi diversi)."
+  },
+  {
+   "id": "magic_talent",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Talento Magico",
+   "name_en": "Magic Talent",
+   "basic": [
+    [
+     "special",
+     "magic_talent",
+     {}
+    ]
+   ],
+   "powered": [
+    [
+     "pay_mana",
+     "basic",
+     [
+      [
+       "special",
+       "gain_from_offer",
+       {
+        "offer": "spells",
+        "color": "$paid",
+        "to": "discard"
+       }
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Scarta una carta dalla tua mano. Puoi giocare una carta Incantesimo dello stesso colore presente nell'offerta degli Incantesimi in questo turno come se fosse nella tua mano. Quella carta rimane nell'offerta degli Incantesimi.",
+    "powered": "Quando giochi questa carta, paga un mana di un colore qualsiasi. Guadagni una carta Incantesimo di quel colore dall'offerta degli Incantesimi e mettila nella tua pila degli scarti."
+   },
+   "img": "assets/cards/magic_talent.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "learning",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Imparare",
+   "name_en": "Learning",
+   "basic": [
+    [
+     "influence",
+     2
+    ],
+    [
+     "mod",
+     "buy_aa_with_influence",
+     {
+      "cost": 6,
+      "to": "discard"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     4
+    ],
+    [
+     "mod",
+     "buy_aa_with_influence",
+     {
+      "cost": 9,
+      "to": "hand"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2. Una volta durante questo turno, puoi pagare Influenza 6 per guadagnare una carta Azione Avanzata dall'offerta delle Azioni Avanzate e metterla nella tua pila degli scarti.",
+    "powered": "Influenza 4. Una volta durante questo turno, puoi pagare Influenza 9 per guadagnare una carta Azione Avanzata dall'offerta delle Azioni Avanzate e metterla nella tua mano."
+   },
+   "img": "assets/cards/learning.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "training",
+   "set": "base",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Allenarsi",
+   "name_en": "Training",
+   "basic": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "red",
+          "to": "discard"
+         }
+        ]
+       ],
+       "blue": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "blue",
+          "to": "discard"
+         }
+        ]
+       ],
+       "green": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "green",
+          "to": "discard"
+         }
+        ]
+       ],
+       "white": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "white",
+          "to": "discard"
+         }
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "red",
+          "to": "hand"
+         }
+        ]
+       ],
+       "blue": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "blue",
+          "to": "hand"
+         }
+        ]
+       ],
+       "green": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "green",
+          "to": "hand"
+         }
+        ]
+       ],
+       "white": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "white",
+          "to": "hand"
+         }
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Getta via una carta Azione dalla tua mano, quindi prendi una carta dello stesso colore dall'offerta delle Azioni Avanzate e mettila nella tua pila degli scarti.",
+    "powered": "Getta via una carta Azione dalla tua mano, quindi prendi una carta dello stesso colore dall'offerta delle Azioni Avanzate e aggiungila alla tua mano."
+   },
+   "img": "assets/cards/training.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "counterattack",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Contrattacco",
+   "name_en": "Counterattack",
+   "basic": [
+    [
+     "attack",
+     2
+    ],
+    [
+     "special",
+     "attack_per_blocked",
+     {
+      "n": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     4
+    ],
+    [
+     "special",
+     "attack_per_blocked",
+     {
+      "n": 3
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2. Ottieni un Attacco 2 addizionale per ogni nemico bloccato in questo turno.",
+    "powered": "Attacco 4. Ottieni un Attacco 3 addizionale per ogni nemico bloccato in questo turno."
+   },
+   "img": "assets/cards/counterattack.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Utile nella fase Attacco: conta i nemici bloccati con successo in questo combattimento."
+  },
+  {
+   "id": "ritual_attack",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Attacco Rituale",
+   "name_en": "Ritual Attack",
+   "basic": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "attack",
+         5
+        ]
+       ],
+       "blue": [
+        [
+         "attack",
+         3,
+         "ice",
+         "melee"
+        ]
+       ],
+       "white": [
+        [
+         "attack",
+         3,
+         "phys",
+         "ranged"
+        ]
+       ],
+       "green": [
+        [
+         "attack",
+         2,
+         "phys",
+         "siege"
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "attack",
+         6,
+         "fire",
+         "melee"
+        ]
+       ],
+       "blue": [
+        [
+         "attack",
+         4,
+         "cold",
+         "melee"
+        ]
+       ],
+       "white": [
+        [
+         "attack",
+         4,
+         "fire",
+         "ranged"
+        ]
+       ],
+       "green": [
+        [
+         "attack",
+         3,
+         "fire",
+         "siege"
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Getta via un'altra carta azione. A seconda del suo colore, ottieni: Attacco 5 se rossa, Attacco di Ghiaccio 3 se blu, Attacco a Distanza 3 se bianca, Attacco d'Assedio 2 se verde.",
+    "powered": "Getta via un'altra carta azione. A seconda del suo colore, ottieni: Attacco di Fuoco 6 se rossa, Attacco di Fuoco Freddo 4 se blu, Attacco di Fuoco a Distanza 4 se bianca, Attacco di Fuoco d'Assedio 3 se verde."
+   },
+   "img": "assets/cards/ritual_attack.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "blood_of_ancients",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Sangue degli Antichi",
+   "name_en": "Blood of Ancients",
+   "basic": [
+    [
+     "special",
+     "take_wound",
+     {}
+    ],
+    [
+     "pay_mana",
+     "basic",
+     [
+      [
+       "special",
+       "gain_from_offer",
+       {
+        "offer": "aa",
+        "color": "$paid",
+        "to": "hand"
+       }
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "take_wound",
+     {
+      "to": "hand_or_discard"
+     }
+    ],
+    [
+     "special",
+     "use_offer_card",
+     {
+      "offer": "aa",
+      "mode": "powered",
+      "free": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni una Ferita. Paga un mana di un colore qualsiasi. Guadagni una carta di quel colore dall'offerta delle Azioni Avanzate e aggiungila alla tua mano.",
+    "powered": "Guadagni una Ferita nella tua mano o nella tua pila degli scarti. Utilizza l'effetto più forte di qualsiasi carta dall'offerta delle Azioni Avanzate senza pagarne il suo costo in mana. La carta rimane nell'offerta."
+   },
+   "img": "assets/cards/blood_of_ancients.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "shield_bash",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Colpo di Scudo",
+   "name_en": "Shield Bash",
+   "basic": [
+    [
+     "special",
+     "block_vs_swift",
+     {
+      "n": 3,
+      "n_if_swift": 6
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "block_vs_swift",
+     {
+      "n": 5,
+      "n_if_swift": 10,
+      "armor_excess": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Blocco 3. Conta doppio contro un attacco con Rapidità.",
+    "powered": "Blocco 5. Conta doppio contro un attacco con Rapidità. Il nemico Bloccato subisce Armatura -1 per ogni punto di blocco più alto del necessario (fino ad un minimo di 1)."
+   },
+   "img": "assets/cards/shield_bash.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "La riduzione d'Armatura è un effetto non-Attacco di carta blu. I nemici con Resistenza al Ghiaccio ignorano gli effetti non-Attacco delle carte blu."
+  },
+  {
+   "id": "temporal_portal",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Portale Temporale",
+   "name_en": "Temporal Portal",
+   "basic": [
+    [
+     "special",
+     "use_as_action",
+     {}
+    ],
+    [
+     "special",
+     "safe_move",
+     {
+      "spaces": 1
+     }
+    ],
+    [
+     "mod",
+     "hand_limit_next",
+     {
+      "any": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "use_as_action",
+        {}
+       ],
+       [
+        "special",
+        "safe_move",
+        {
+         "spaces": 2
+        }
+       ],
+       [
+        "mod",
+        "hand_limit_next",
+        {
+         "any": 1
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "use_as_action",
+        {}
+       ],
+       [
+        "special",
+        "safe_move",
+        {
+         "spaces": 1
+        }
+       ],
+       [
+        "mod",
+        "hand_limit_next",
+        {
+         "any": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Giocala come tua azione in questo turno. Puoi muovere in uno spazio sicuro rivelato adiacente (senza provocare mostri infuriati). Che tu ti muova o meno, il tuo limite di carte in Mano è più alto di 1 la prossima volta che pescherai carte.",
+    "powered": "Come sopra, tranne che puoi muovere di due spazi anziché uno in uno spazio sicuro rivelato, oppure il tuo limite di carte in Mano è aumentato di 2 anziché di 1."
+   },
+   "img": "assets/cards/temporal_portal.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "spell_forge",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Forgia di Incantesimi",
+   "name_en": "Spell Forge",
+   "basic": [
+    [
+     "special",
+     "crystal_from_offer",
+     {
+      "offer": "spells",
+      "n": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "crystal_from_offer",
+     {
+      "offer": "spells",
+      "n": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un cristallo nel tuo Inventario dello stesso colore di una delle carte Incantesimo nell'offerta Incantesimi.",
+    "powered": "Guadagni due cristalli nel tuo Inventario dello stesso colore di due differenti carte Incantesimo nell'offerta Incantesimi."
+   },
+   "img": "assets/cards/spell_forge.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "chivalry",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Cavalleria",
+   "name_en": "Chivalry",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        3
+       ]
+      ],
+      [
+       [
+        "special",
+        "attack_with_kill_reward",
+        {
+         "n": 2,
+         "rep": 1
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        6
+       ]
+      ],
+      [
+       [
+        "special",
+        "attack_with_kill_reward",
+        {
+         "n": 4,
+         "rep": 1,
+         "fame": 1
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 3, oppure Attacco 2 e Reputazione +1 per ogni nemico sconfitto da questo attacco.",
+    "powered": "Attacco 6, oppure Attacco 4 e Reputazione +1 e Fama +1 per ogni nemico sconfitto da questo attacco."
+   },
+   "img": "assets/cards/chivalry.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "peaceful_moment",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Momento di Pace",
+   "name_en": "Peaceful Moment",
+   "basic": [
+    [
+     "influence",
+     3
+    ],
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "special",
+        "use_as_action",
+        {}
+       ],
+       [
+        "mod",
+        "influence_to_heal",
+        {
+         "per": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     6
+    ],
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "special",
+        "use_as_action",
+        {}
+       ],
+       [
+        "mod",
+        "influence_to_heal",
+        {
+         "per": 2
+        }
+       ],
+       [
+        "mod",
+        "ready_units_for_influence",
+        {
+         "per_level": 2,
+         "max_level": 4
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 3. Puoi giocarla come tua azione del turno: se lo fai, puoi ottenere Cura 1 per ogni 2 punti di Influenza che spendi.",
+    "powered": "Influenza 6. Puoi giocarla come tua azione del turno: se lo fai, puoi ottenere Cura 1 per ogni 2 punti di Influenza che spendi e/o rendi pronta una Unità pagando 2 punti Influenza per livello dell'Unità."
+   },
+   "img": "assets/cards/peaceful_moment.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Se giocata come azione non puoi fare altre azioni (combattimento, interazione) in questo turno."
+  },
+  {
+   "id": "dodge_and_weave",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Schiva e Fuggi",
+   "name_en": "Dodge and Weave",
+   "basic": [
+    [
+     "special",
+     "reduce_enemy_attack",
+     {
+      "n": 2
+     }
+    ],
+    [
+     "mod",
+     "attack_if_no_wounds",
+     {
+      "n": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "reduce_enemy_attack",
+        {
+         "n": 4
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "reduce_enemy_attack",
+        {
+         "n": 2,
+         "attacks": 2
+        }
+       ]
+      ]
+     ]
+    ],
+    [
+     "mod",
+     "attack_if_no_wounds",
+     {
+      "n": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Riduci di 2 un attacco nemico. Guadagni Attacco 1 nella fase Attacco se non hai aggiunto Ferite alla tua mano nelle fasi combattimento precedenti.",
+    "powered": "Riduci di 4 un attacco nemico oppure di 2 due attacchi di uno o di due nemici. Guadagni Attacco 2 nella fase Attacco se non hai aggiunto Ferite alla tua mano nelle fasi combattimento precedenti."
+   },
+   "img": "assets/cards/dodge_and_weave.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Si gioca nella fase di Blocco."
+  },
+  {
+   "id": "stout_resolve",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Risoluzione Decisa",
+   "name_en": "Stout Resolve",
+   "basic": [
+    [
+     "special",
+     "stout_resolve",
+     {
+      "n": 2,
+      "per": 1,
+      "max_cards": 1,
+      "max_wounds": 1,
+      "wounds_only": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "stout_resolve",
+     {
+      "n": 3,
+      "per": 2,
+      "max_cards": 99,
+      "max_wounds": 1,
+      "wounds_only": false
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2, Influenza 2, Attacco 2 o Blocco 2. Puoi scartare una Ferita per aumentare l'effetto di 1.",
+    "powered": "Movimento 3, Influenza 3, Attacco 3 o Blocco 3. Puoi scartare un qualsiasi numero di carte, inclusa una Ferita, per aumentare l'effetto di 2 per ciascuna di esse."
+   },
+   "img": "assets/cards/stout_resolve.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "force_of_nature",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Forza della Natura",
+   "name_en": "Force of Nature",
+   "basic": [
+    [
+     "special",
+     "unit_resist",
+     {
+      "elem": "phys"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        3,
+        "phys",
+        "siege"
+       ]
+      ],
+      [
+       [
+        "block",
+        6
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "L'Unità scelta guadagna Resistenza fisica in questo combattimento.",
+    "powered": "Attacco d'Assedio 3 o Blocco 6."
+   },
+   "img": "assets/cards/force_of_nature.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "mountain_lore",
+   "set": "ll",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Conoscere la Montagna",
+   "name_en": "Mountain Lore",
+   "basic": [
+    [
+     "move",
+     3
+    ],
+    [
+     "mod",
+     "hand_limit_next",
+     {
+      "hills": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     5
+    ],
+    [
+     "terrain",
+     {
+      "mountain": 5,
+      "safe": [
+       "mountain"
+      ]
+     }
+    ],
+    [
+     "mod",
+     "hand_limit_next",
+     {
+      "hills": 1,
+      "mountain": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 3. Se termini il tuo turno sulle colline, il tuo limite di carte in Mano è aumentato di 1 la prossima volta che peschi delle carte.",
+    "powered": "Movimento 5. Puoi entrare nelle montagne al costo di Movimento 5 e sono considerate uno spazio sicuro per te alla fine di questo turno. Se termini il tuo turno sulle montagne/colline, il tuo limite di carte in Mano è aumentato di 2/1 la prossima volta che peschi delle carte."
+   },
+   "img": "assets/cards/mountain_lore.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "power_of_crystals",
+   "set": "ue",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "colors": [
+    "green",
+    "blue"
+   ],
+   "name_it": "Potere dei Cristalli",
+   "name_en": "Power of Crystals",
+   "basic": [
+    [
+     "special",
+     "crystal_new_color",
+     {}
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        4
+       ]
+      ],
+      [
+       [
+        "heal",
+        2
+       ]
+      ],
+      [
+       [
+        "draw",
+        2
+       ]
+      ]
+     ]
+    ],
+    [
+     "special",
+     "repeat_per_crystal_set",
+     {
+      "effects": [
+       [
+        "choice",
+        [
+         [
+          [
+           "move",
+           2
+          ]
+         ],
+         [
+          [
+           "heal",
+           1
+          ]
+         ],
+         [
+          [
+           "draw",
+           1
+          ]
+         ]
+        ]
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un cristallo per il tuo Inventario di un colore base che ancora non possiedi.",
+    "powered": "Movimento 4, oppure Cura 2, oppure pesca due carte. Per ogni set di quattro cristalli di colore differente nel tuo Inventario: Movimento 2, oppure Cura 1, oppure pesca una carta."
+   },
+   "img": "assets/cards/power_of_crystals.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Bicolore verde/blu: si potenzia con mana verde o blu."
+  },
+  {
+   "id": "explosive_bolt",
+   "set": "ue",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "colors": [
+    "white",
+    "red"
+   ],
+   "name_it": "Fulmine Esplosivo",
+   "name_en": "Explosive Bolt",
+   "basic": [
+    [
+     "special",
+     "take_wound",
+     {}
+    ],
+    [
+     "crystal",
+     "white"
+    ],
+    [
+     "crystal",
+     "red"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "attack_with_kill_reward",
+     {
+      "n": 3,
+      "kind": "ranged",
+      "armor_minus_other": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Prendi una Ferita. Guadagni un cristallo bianco e uno rosso per il tuo Inventario.",
+    "powered": "Attacco a Distanza 3. Per ogni nemico sconfitto da questo attacco, un altro nemico subisce Armatura -1 (fino a un minimo di 1)."
+   },
+   "img": "assets/cards/explosive_bolt.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Bicolore bianco/rosso. I nemici con Resistenza al Fuoco ignorano gli effetti non-Attacco delle carte rosse. (la riduzione d'Armatura è un effetto non-Attacco)."
+  },
+  {
+   "id": "rush_of_adrenaline",
+   "set": "ue",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "colors": [
+    "red",
+    "green"
+   ],
+   "name_it": "Scarica di Adrenalina",
+   "name_en": "Rush of Adrenaline",
+   "basic": [
+    [
+     "mod",
+     "draw_on_wound",
+     {
+      "n": 3
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "mod",
+     "draw_on_wound",
+     {
+      "n": 3,
+      "throw_first": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Per ognuna delle prime tre Ferite che prendi alla tua mano in questo turno, pesca una carta.",
+    "powered": "Dopo aver preso la prima Ferita alla tua mano in questo turno, gettala via e pesca una carta. Per ognuna delle tre prossime Ferite che prendi, pesca una carta."
+   },
+   "img": "assets/cards/rush_of_adrenaline.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Bicolore rosso/verde. Le Ferite già prese in questo turno prima di giocarla contano (si pesca subito)."
+  },
+  {
+   "id": "chilling_stare",
+   "set": "ue",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "colors": [
+    "blue",
+    "white"
+   ],
+   "name_it": "Sguardo Gelido",
+   "name_en": "Chilling Stare",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        3
+       ]
+      ],
+      [
+       [
+        "special",
+        "enemy_attack_strip",
+        {
+         "what": "abilities"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        5
+       ]
+      ],
+      [
+       [
+        "special",
+        "enemy_no_attack",
+        {}
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 3, oppure l'attacco di un nemico a scelta perde tutte le abilità d'attacco (ma non il suo colore).",
+    "powered": "Influenza 5, oppure un nemico a scelta non attacca in questo turno."
+   },
+   "img": "assets/cards/chilling_stare.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Bicolore blu/bianco. Le opzioni sul nemico si usano in combattimento (fase di Blocco). I nemici con Resistenza al Ghiaccio ignorano gli effetti non-Attacco delle carte blu."
+  },
+  {
+   "id": "rotf_abrupt_emanation",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Emanazione Improvvisa",
+   "name_en": "Abrupt Emanation",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "green"
+       ],
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ],
+       [
+        "mana",
+        "blue"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "pay_crystal",
+     {
+      "effects": [
+       [
+        "special",
+        "use_offer_card",
+        {
+         "offer": "spells",
+         "mode": "basic",
+         "color": "$paid",
+         "free": true
+        }
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni due segnalini mana: verde e bianco, oppure rosso e blu.",
+    "powered": "Quando giochi questa carta, paga un cristallo. Se lo fai, usa l'effetto base di un Incantesimo dello stesso colore dall'offerta degli Incantesimi senza pagarne il costo in mana."
+   },
+   "img": "assets/cards/rotf_abrupt_emanation.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Gain two mana tokens - either green and white, or red and blue.",
+    "powered": "When you play this, pay a crystal. If you do, use the basic effect of a Spell of the same color from the Spells offer without paying its mana cost."
+   }
+  },
+  {
+   "id": "rotf_magic_talent",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Talento Magico (RotF)",
+   "name_en": "Magic Talent (RotF)",
+   "basic": [
+    [
+     "special",
+     "magic_talent",
+     {
+      "variant": "basic_pay"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "pay_crystal",
+     {
+      "effects": [
+       [
+        "special",
+        "gain_from_offer",
+        {
+         "offer": "spells",
+         "color": "$paid",
+         "to": "discard"
+        }
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Scarta una carta di qualsiasi colore. Usa l'effetto base di un Incantesimo dello stesso colore dall'offerta degli Incantesimi pagandone il costo in mana.",
+    "powered": "Paga un cristallo di qualsiasi colore. Se lo fai, guadagni un Incantesimo di quel colore dall'offerta degli Incantesimi e mettilo nella tua pila degli scarti."
+   },
+   "img": "assets/cards/rotf_magic_talent.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Discard a card of any color. Use the basic effect of a Spell of the same color from the Spells Offer by paying its mana cost.",
+    "powered": "Pay a crystal of any color. If you do, gain a Spell of that color from the Spells Offer and put it in your discard pile."
+   }
+  },
+  {
+   "id": "rotf_extemporization",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Estemporaneità",
+   "name_en": "Extemporization",
+   "basic": [
+    [
+     "special",
+     "pay_crystal",
+     {
+      "by_color": {
+       "green": [
+        [
+         "attack",
+         3,
+         "phys",
+         "siege"
+        ]
+       ],
+       "white": [
+        [
+         "attack",
+         4,
+         "phys",
+         "ranged"
+        ]
+       ],
+       "blue": [
+        [
+         "attack",
+         3,
+         "ice",
+         "ranged"
+        ]
+       ],
+       "red": [
+        [
+         "attack",
+         3,
+         "fire",
+         "ranged"
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "discard_card",
+     {
+      "wound_ok": true,
+      "effects": [
+       [
+        "choice",
+        [
+         [
+          [
+           "move",
+           6
+          ]
+         ],
+         [
+          [
+           "influence",
+           6
+          ]
+         ],
+         [
+          [
+           "attack",
+           6
+          ]
+         ],
+         [
+          [
+           "block",
+           6
+          ]
+         ]
+        ]
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Paga un cristallo di qualsiasi colore. Se hai pagato verde, Attacco d'Assedio 3. Se hai pagato bianco, Attacco a Distanza 4. Se hai pagato blu, Attacco di Ghiaccio a Distanza 3. Se hai pagato rosso, Attacco di Fuoco a Distanza 3.",
+    "powered": "Scarta un'altra carta dalla tua mano (anche una Ferita) per ottenere Movimento 6, Influenza 6, Attacco 6 o Blocco 6."
+   },
+   "img": "assets/cards/rotf_extemporization.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Pay a crystal of any color. If you paid green, Siege Attack 3. If you paid white, Ranged Attack 4. If you paid blue, Ranged Ice Attack 3. If you paid red, Ranged Fire Attack 3.",
+    "powered": "Discard another card from your hand (even a Wound) to get Move 6, Influence 6, Attack 6 or Block 6."
+   }
+  },
+  {
+   "id": "rotf_ambush",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Imboscata (RotF)",
+   "name_en": "Ambush (RotF)",
+   "basic": [
+    [
+     "move",
+     3
+    ],
+    [
+     "mod",
+     "no_provoke",
+     {}
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     5
+    ],
+    [
+     "mod",
+     "no_provoke",
+     {}
+    ],
+    [
+     "mod",
+     "first_attack_or_block_bonus",
+     {
+      "attack": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 3. Il tuo Movimento non provoca i nemici infuriati in questo turno.",
+    "powered": "Come l'effetto base, ma con Movimento 5. (Durata) Aggiungi un bonus di +2 all'Attacco della prossima carta che giochi in questo turno."
+   },
+   "img": "assets/cards/rotf_ambush.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Move 3. Your Move does not provoke rampaging enemies this turn.",
+    "powered": "Same as the basic effect, but with Move 5. Add +2 bonus to Attack for the next card you play this turn."
+   }
+  },
+  {
+   "id": "rotf_raving_prophecies",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Profezie Deliranti",
+   "name_en": "Raving Prophecies",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        3
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_mana_shard",
+        {
+         "color": "red"
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "take_wound",
+        {
+         "n": 2,
+         "to": "discard"
+        }
+       ],
+       [
+        "draw",
+        3
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "take_wound",
+     {}
+    ],
+    [
+     "special",
+     "gain_from_offer",
+     {
+      "offer": "aa",
+      "color": "lowest",
+      "to": "hand"
+     }
+    ],
+    [
+     "rep",
+     -1
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 3, guadagni un frammento di mana rosso, oppure guadagni 2 Ferite nella tua pila degli scarti per pescare 3 carte.",
+    "powered": "Guadagni una Ferita. Guadagni la carta nella posizione più bassa dell'offerta delle Azioni Avanzate e mettila nella tua mano. Reputazione -1."
+   },
+   "img": "assets/cards/rotf_raving_prophecies.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Influence 3, gain a red mana shard, or gain 2 Wounds to your discard pile to draw 3 cards.",
+    "powered": "Gain a Wound. Gain the card from the lowest position on the Advanced Actions offer, and put into your hand. Reputation -1."
+   }
+  },
+  {
+   "id": "rotf_steady_tempo",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Ritmo Costante",
+   "name_en": "Steady Tempo (RotF)",
+   "basic": [
+    [
+     "move",
+     3
+    ],
+    [
+     "special",
+     "rotf_tuck",
+     {
+      "card": "self"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ],
+    [
+     "special",
+     "rotf_prepare",
+     {
+      "card": "self"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 3. Puoi accantonare ('tuck') questa carta.",
+    "powered": "Movimento 4. Puoi preparare ('prepare') questa carta."
+   },
+   "img": "assets/cards/rotf_steady_tempo.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Move 3. You may tuck this card.",
+    "powered": "Move 4. You may prepare this card."
+   }
+  },
+  {
+   "id": "rotf_dodge_and_weave",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Schiva e Fuggi (RotF)",
+   "name_en": "Dodge and Weave (RotF)",
+   "basic": [
+    [
+     "special",
+     "reduce_enemy_attack",
+     {
+      "n": 2
+     }
+    ],
+    [
+     "mod",
+     "attack_if_no_wounds",
+     {
+      "n": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "reduce_enemy_attack",
+        {
+         "n": 4
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "reduce_enemy_attack",
+        {
+         "n": 2,
+         "attacks": 2
+        }
+       ]
+      ]
+     ]
+    ],
+    [
+     "mod",
+     "attack_if_no_wounds",
+     {
+      "n": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Riduci di 2 un attacco nemico. (Durata) Guadagni Attacco 1 nella fase Attacco se non hai aggiunto Ferite alla tua mano nelle fasi di combattimento precedenti.",
+    "powered": "Riduci di 4 un attacco nemico, oppure di 2 due attacchi di uno o due nemici. (Durata) Guadagni Attacco 2 nella fase Attacco se non hai aggiunto Ferite alla tua mano nelle fasi di combattimento precedenti."
+   },
+   "img": "assets/cards/rotf_dodge_and_weave.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Uguale alla carta ufficiale.",
+   "text_en": {
+    "basic": "Reduce one enemy attack by 2. Gain Attack 1 in the Attack phase if you did not add any Wounds to your hand in the previous combat phases.",
+    "powered": "Reduce one enemy attack by 4, or two attacks of one or two enemies by 2. Gain Attack 2 in the Attack phase if you did not add any Wounds to your hand in the previous combat phases."
+   }
+  },
+  {
+   "id": "rotf_diligence",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Diligenza",
+   "name_en": "Diligence",
+   "basic": [
+    [
+     "influence",
+     2
+    ],
+    [
+     "mod",
+     "deed_discount",
+     {
+      "n": 1,
+      "cards": 3
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "play_with_bonus",
+        {
+         "bonus": 3
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_mana_shard",
+        {
+         "color": "$card"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2. Ottieni uno sconto di 1 sul costo delle prossime tre carte Impresa che acquisti durante un'Interazione.",
+    "powered": "Gioca un'altra carta Azione dalla tua mano con un bonus di +3. Puoi usarne l'effetto più forte come se fosse stata potenziata dal mana, oppure guadagni un frammento di mana dello stesso colore."
+   },
+   "img": "assets/cards/rotf_diligence.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale). Nel Lua è scritta 'Deligence'.",
+   "text_en": {
+    "basic": "Influence 2. Get a discount of 1 towards the costs of the next three Deed cards you buy during Interaction.",
+    "powered": "Play another Action card from your hand with a +3 bonus. You may use its stronger effect as if it was powered by mana, or gain a mana shard of the same color."
+   }
+  },
+  {
+   "id": "rotf_bloodlust",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Sete di Sangue",
+   "name_en": "Bloodlust",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ],
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "special",
+        "take_wound",
+        {}
+       ],
+       [
+        "special",
+        "boost_this",
+        {
+         "n": 1
+        }
+       ],
+       [
+        "special",
+        "rotf_mana_shard",
+        {
+         "color": "red"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        3,
+        "fire",
+        "melee"
+       ]
+      ],
+      [
+       [
+        "block",
+        3,
+        "fire"
+       ]
+      ]
+     ]
+    ],
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "special",
+        "discard_wounds_bonus",
+        {
+         "max": 1,
+         "per": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco o Blocco 2. Puoi subire una Ferita per aumentarlo a 3 e guadagnare un frammento di mana rosso.",
+    "powered": "Attacco di Fuoco o Blocco di Fuoco 3. Puoi scartare una Ferita per aumentarlo a 5."
+   },
+   "img": "assets/cards/rotf_bloodlust.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Attack or Block 2. You may take a Wound to increase this to 3, and to gain a red mana shard.",
+    "powered": "Fire Attack or Fire Block 3. You may discard a Wound to increase this to 5."
+   }
+  },
+  {
+   "id": "rotf_treasure_hunt",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Caccia al Tesoro",
+   "name_en": "Treasure Hunt",
+   "basic": [
+    [
+     "move",
+     3
+    ],
+    [
+     "mod",
+     "rotf_lake_reward",
+     {
+      "near": 1,
+      "shard": "blue"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     5
+    ],
+    [
+     "terrain",
+     {
+      "lake": 2,
+      "safe": [
+       "lake"
+      ]
+     }
+    ],
+    [
+     "mod",
+     "rotf_lake_reward",
+     {
+      "near": 0,
+      "crystal": "basic"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 3. Se termini la fase di movimento entro uno spazio da un lago, guadagni un frammento di mana blu.",
+    "powered": "Movimento 5. Puoi entrare nei laghi al costo di Movimento 2 e sono considerati spazi sicuri per te alla fine di questo turno. Se termini la fase di movimento in un lago, guadagni un cristallo di qualsiasi colore nel tuo Inventario."
+   },
+   "img": "assets/cards/rotf_treasure_hunt.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Move 3. If you end your move phase within one space of lakes, gain a blue mana shard.",
+    "powered": "Move 5. You can enter lakes at a Move cost of 2 and they are considered a safe space for you at the end of this turn. If you end your move phase in lakes, gain a crystal of any color to your Inventory."
+   }
+  },
+  {
+   "id": "rotf_shrewdness",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Scaltrezza",
+   "name_en": "Shrewdness",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        3
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_mana_shard",
+        {
+         "color": "white"
+        }
+       ]
+      ],
+      [
+       [
+        "extra_die",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     7
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 3, guadagni un frammento di mana bianco, oppure puoi usare due dadi mana addizionali dalla Riserva in questo turno.",
+    "powered": "Influenza 7"
+   },
+   "img": "assets/cards/rotf_shrewdness.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Influence 3, gain a white mana shard, or you can use two additional mana dice from the Source this turn.",
+    "powered": "Influence 7"
+   }
+  },
+  {
+   "id": "rotf_herbalism",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Erboristeria",
+   "name_en": "Herbalism",
+   "basic": [
+    [
+     "special",
+     "heal_unit_ready",
+     {
+      "max_level": 2,
+      "then": [
+       [
+        "special",
+        "rotf_mana_shard",
+        {
+         "color": "green"
+        }
+       ]
+      ]
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "heal_unit_ready",
+     {
+      "max_level": 3,
+      "then": []
+     }
+    ],
+    [
+     "special",
+     "throw_wound_from_discard",
+     {
+      "then": [
+       [
+        "mod",
+        "hand_limit_next",
+        {
+         "any": 1
+        }
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guarisci un'Unità di Livello I o II. Se lo fai, rendi pronta quell'Unità e guadagni un frammento di mana verde.",
+    "powered": "Guarisci un'Unità di Livello I, II o III. Se lo fai, rendi pronta quell'Unità. Getta via una Ferita dalla tua pila degli scarti. Se lo fai, il tuo limite di carte in Mano è più alto di 1 la prossima volta che peschi."
+   },
+   "img": "assets/cards/rotf_herbalism.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Heal a level I or II Unit. If you do, ready that Unit and gain a green mana shard.",
+    "powered": "Heal a level I, II or III Unit. If you do, ready that Unit. Throw away a Wound from your discard pile. If you do, your Hand limit is higher by 1 the next time you draw cards."
+   }
+  },
+  {
+   "id": "rotf_flame_forge",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Forgia della Fiamma",
+   "name_en": "Flame Forge",
+   "basic": [
+    [
+     "mana",
+     "red"
+    ],
+    [
+     "mana",
+     "black"
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "red"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "green"
+     }
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "white"
+     }
+    ],
+    [
+     "crystal",
+     "red"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana rosso e uno nero, e un frammento di mana rosso.",
+    "powered": "Guadagni un frammento di mana verde e uno bianco, e un cristallo rosso nel tuo Inventario."
+   },
+   "img": "assets/cards/rotf_flame_forge.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Gain one red and one black mana token, and a red mana shard.",
+    "powered": "Gain one green and one white mana shard, and a red crystal to your Inventory."
+   }
+  },
+  {
+   "id": "rotf_frost_forge",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Forgia del Gelo",
+   "name_en": "Frost Forge",
+   "basic": [
+    [
+     "mana",
+     "blue"
+    ],
+    [
+     "mana",
+     "black"
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "blue"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "green"
+     }
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "white"
+     }
+    ],
+    [
+     "crystal",
+     "blue"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana blu e uno nero, e un frammento di mana blu.",
+    "powered": "Guadagni un frammento di mana verde e uno bianco, e un cristallo blu nel tuo Inventario."
+   },
+   "img": "assets/cards/rotf_frost_forge.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Gain one blue and one black mana token, and a blue mana shard.",
+    "powered": "Gain one green and one white mana shard, and a blue crystal to your Inventory."
+   }
+  },
+  {
+   "id": "rotf_storm_forge",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Forgia della Tempesta",
+   "name_en": "Storm Forge",
+   "basic": [
+    [
+     "mana",
+     "white"
+    ],
+    [
+     "mana",
+     "black"
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "white"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "red"
+     }
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "blue"
+     }
+    ],
+    [
+     "crystal",
+     "white"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana bianco e uno nero, e un frammento di mana bianco.",
+    "powered": "Guadagni un frammento di mana rosso e uno blu, e un cristallo bianco nel tuo Inventario."
+   },
+   "img": "assets/cards/rotf_storm_forge.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Gain one white and one black mana token, and a white mana shard.",
+    "powered": "Gain one red and one blue mana shard, and a white crystal to your Inventory."
+   }
+  },
+  {
+   "id": "rotf_earth_forge",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Forgia della Terra",
+   "name_en": "Earth Forge",
+   "basic": [
+    [
+     "mana",
+     "green"
+    ],
+    [
+     "mana",
+     "black"
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "green"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "red"
+     }
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "blue"
+     }
+    ],
+    [
+     "crystal",
+     "green"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana verde e uno nero, e un frammento di mana verde.",
+    "powered": "Guadagni un frammento di mana rosso e uno blu, e un cristallo verde nel tuo Inventario."
+   },
+   "img": "assets/cards/rotf_earth_forge.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Gain one green and one black mana token, and a green mana shard.",
+    "powered": "Gain one red and one blue mana shard, and a green crystal to your Inventory."
+   }
+  },
+  {
+   "id": "rotf_rush_of_adrenaline",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "colors": [
+    "red",
+    "green"
+   ],
+   "name_it": "Scarica di Adrenalina (RotF)",
+   "name_en": "Rush of Adrenaline (RotF)",
+   "basic": [
+    [
+     "mod",
+     "prevent_next_wound",
+     {
+      "draw": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     4
+    ],
+    [
+     "special",
+     "discard_wounds_bonus",
+     {
+      "max": 2,
+      "per": 3
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "(Durata) La prossima volta che guadagneresti una Ferita alla tua mano in questo turno, previeni quella Ferita e qualsiasi effetto aggiuntivo derivante da essa, e pesca 2 carte.",
+    "powered": "Attacco 4. Puoi scartare fino a 2 carte Ferita per aumentare questo Attacco di 3 per ciascuna."
+   },
+   "img": "assets/cards/rotf_rush_of_adrenaline.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Bicolore rosso/verde.",
+   "text_en": {
+    "basic": "The next time you would gain a Wound to your hand this turn, prevent that Wound and any additional effects from it, and draw 2 cards.",
+    "powered": "Attack 4. You may discard up to 2 Wound cards to increase this Attack by 3 for each."
+   }
+  },
+  {
+   "id": "rotf_chilling_stare",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "colors": [
+    "blue",
+    "white"
+   ],
+   "name_it": "Sguardo Gelido (RotF)",
+   "name_en": "Chilling Stare (RotF)",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        3
+       ]
+      ],
+      [
+       [
+        "special",
+        "enemy_attack_strip",
+        {
+         "what": "abilities"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        5
+       ]
+      ],
+      [
+       [
+        "special",
+        "enemy_no_attack",
+        {
+         "unfortified": true
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 3, oppure l'attacco di un nemico a scelta perde tutte le abilità d'attacco (ma non il suo colore).",
+    "powered": "Influenza 5, oppure un nemico bersaglio non fortificato non attacca in questo combattimento."
+   },
+   "img": "assets/cards/rotf_chilling_stare.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Bicolore blu/bianco. Icona: i nemici con Resistenza al Ghiaccio ignorano l'effetto.",
+   "text_en": {
+    "basic": "Influence 3, or a chosen enemy attack loses all attack abilities (but not its color).",
+    "powered": "Influence 5, or target unfortified enemy does not attack this combat."
+   }
+  },
+  {
+   "id": "rotf_explosive_bolt",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "colors": [
+    "white",
+    "red"
+   ],
+   "name_it": "Fulmine Esplosivo (RotF)",
+   "name_en": "Explosive Bolt (RotF)",
+   "basic": [
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "white"
+     }
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "red"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "attack_with_kill_reward",
+     {
+      "n": 3,
+      "kind": "ranged",
+      "armor_minus_other": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un frammento di mana bianco e uno rosso.",
+    "powered": "Attacco a Distanza 3. Per ogni nemico sconfitto da questo attacco, un altro nemico subisce Armatura -1 (fino a un minimo di 1)."
+   },
+   "img": "assets/cards/rotf_explosive_bolt.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Bicolore bianco/rosso. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Gain a white and a red mana shard.",
+    "powered": "Ranged Attack 3. For each enemy defeated by this attack, another enemy gets Armor -1 (to a minimum of 1)."
+   }
+  },
+  {
+   "id": "rotf_power_of_crystals",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "colors": [
+    "green",
+    "blue"
+   ],
+   "name_it": "Potere dei Cristalli (RotF)",
+   "name_en": "Power of Crystals (RotF)",
+   "basic": [
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "green"
+     }
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "blue"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        4
+       ]
+      ],
+      [
+       [
+        "heal",
+        2
+       ]
+      ],
+      [
+       [
+        "draw",
+        2
+       ]
+      ]
+     ]
+    ],
+    [
+     "special",
+     "repeat_per_crystal_set",
+     {
+      "effects": [
+       [
+        "choice",
+        [
+         [
+          [
+           "move",
+           2
+          ]
+         ],
+         [
+          [
+           "heal",
+           1
+          ]
+         ],
+         [
+          [
+           "draw",
+           1
+          ]
+         ]
+        ]
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un frammento di mana verde e uno blu.",
+    "powered": "Movimento 4, oppure Cura 2, oppure pesca due carte. Per ogni set di quattro cristalli di colore differente nel tuo Inventario: Movimento 2, oppure Cura 1, oppure pesca una carta."
+   },
+   "img": "assets/cards/rotf_power_of_crystals.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Bicolore verde/blu. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Gain a green and a blue mana shard.",
+    "powered": "Move 4, or Heal 2, or draw two cards. For each set of four different color crystals in your Inventory: Move 2, or Heal 1, or draw a card."
+   }
+  },
+  {
+   "id": "rotf_maximal_effect",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Effetto Massimo (RotF)",
+   "name_en": "Maximal Effect (RotF)",
+   "basic": [
+    [
+     "special",
+     "maximal_effect",
+     {
+      "mode": "basic",
+      "times": 3
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "maximal_effect",
+     {
+      "mode": "powered",
+      "times": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Quando giochi questa carta, getta via un'altra carta Azione dalla tua mano. Usa l'effetto base di quella carta tre volte.",
+    "powered": "Quando giochi questa carta, getta via un'altra carta Azione dalla tua mano. Usa l'effetto più forte di quella carta due volte (gratuitamente)."
+   },
+   "img": "assets/cards/rotf_maximal_effect.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Uguale alla carta ufficiale.",
+   "text_en": {
+    "basic": "When you play this, throw away another Action card from your hand. Use the basic effect of that card three times.",
+    "powered": "When you play this, throw away another Action card from your hand. Use the stronger effect of that card two times (for free)."
+   }
+  },
+  {
+   "id": "rotf_ebb_and_flow",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Flusso e Riflusso",
+   "name_en": "Ebb and Flow",
+   "basic": [
+    [
+     "choice",
+     [
+      [],
+      [
+       [
+        "special",
+        "rotf_flip_die",
+        {}
+       ]
+      ]
+     ]
+    ],
+    [
+     "special",
+     "rotf_mana_shard",
+     {
+      "color": "non_scarce"
+     }
+    ],
+    [
+     "special",
+     "rotf_tuck",
+     {
+      "card": "self"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     3,
+     "ice",
+     "melee"
+    ],
+    [
+     "special",
+     "rotf_potion",
+     {
+      "action": "attack_per_spent"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Puoi girare un dado mana di un colore base nella Riserva. Guadagni un frammento di mana di un colore non scarso. Puoi accantonare ('tuck') questa carta.",
+    "powered": "Attacco di Ghiaccio 3. Questo Attacco aumenta di 1 per ciascuna delle tue Pozioni spese."
+   },
+   "img": "assets/cards/rotf_ebb_and_flow.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "You may flip a mana die of a basic color in the Source. Gain a mana shard of a non-scarce color. You may tuck this card.",
+    "powered": "Ice Attack 3. This Attack is increased by 1 for each of your spent Potions."
+   }
+  },
+  {
+   "id": "rotf_disrupting_ray",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Raggio di Disturbo",
+   "name_en": "Disrupting Ray",
+   "basic": [
+    [
+     "special",
+     "reduce_enemy_attack",
+     {
+      "n": 2
+     }
+    ],
+    [
+     "mod",
+     "rotf_on_block_reward",
+     {
+      "shard": "white"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "rotf_arcane_vulnerability",
+     {}
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Riduci di 2 un attacco nemico. Se blocchi con successo quel nemico, guadagni un frammento di mana bianco.",
+    "powered": "Il nemico bersaglio ottiene Vulnerabilità Arcana. Se lo blocchi con successo o ne impedisci l'attacco, perde anche tutte le resistenze."
+   },
+   "img": "assets/cards/rotf_disrupting_ray.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Reduce one enemy attack by 2. If you successfully block that enemy, gain a white mana shard.",
+    "powered": "Target enemy gains Arcane Vulnerability. If you successfully block it or prevent its attack, it also loses all resistances."
+   }
+  },
+  {
+   "id": "rotf_pernicious_bolt",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Dardo Pernicioso",
+   "name_en": "Pernicious Bolt",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ],
+       [
+        "special",
+        "rotf_poison_attack",
+        {}
+       ]
+      ],
+      [
+       [
+        "mana",
+        "green"
+       ],
+       [
+        "mana",
+        "green"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2,
+        "phys",
+        "siege"
+       ],
+       [
+        "special",
+        "rotf_poison_attack",
+        {}
+       ]
+      ],
+      [
+       [
+        "crystal",
+        "green"
+       ],
+       [
+        "crystal",
+        "green"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Attacco 2 (veleno), oppure guadagni due segnalini mana verdi.",
+    "powered": "Attacco d'Assedio 2 (veleno), oppure guadagni due cristalli verdi nel tuo Inventario."
+   },
+   "img": "assets/cards/rotf_pernicious_bolt.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Attack 2 (poison), or gain two green mana tokens.",
+    "powered": "Siege Attack 2 (poison), or gain two green crystals to your Inventory."
+   }
+  },
+  {
+   "id": "rotf_thirst_for_power",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Sete di Potere",
+   "name_en": "Thirst for Power",
+   "basic": [
+    [
+     "special",
+     "throw_action",
+     {
+      "any_color": true,
+      "effects": [
+       [
+        "special",
+        "use_offer_card",
+        {
+         "offer": "aa",
+         "mode": "basic",
+         "times": 2,
+         "free": true
+        }
+       ]
+      ]
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "rotf_tuck",
+     {
+      "card": "hand",
+      "effects": [
+       [
+        "special",
+        "use_offer_card",
+        {
+         "offer": "aa",
+         "mode": "powered",
+         "color": "$tucked",
+         "free": true
+        }
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Getta via una carta Azione dalla tua mano per usare due volte l'effetto base di una carta dell'offerta delle Azioni Avanzate. La carta rimane nell'offerta.",
+    "powered": "Accantona ('tuck') una carta dalla tua mano per usare l'effetto più forte di una carta dello stesso colore dell'offerta delle Azioni Avanzate senza pagarne il costo in mana. La carta rimane nell'offerta."
+   },
+   "img": "assets/cards/rotf_thirst_for_power.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Throw away an Action card from your hand to use the basic effect of a card from the Advanced Actions offer twice. The card remains in the offer.",
+    "powered": "Tuck a card from your hand to use the stronger effect of a card of the same color from the Advanced Actions offer, without paying its mana cost. The card remains in the offer."
+   }
+  },
+  {
+   "id": "rotf_witchs_brew",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Intruglio delle Streghe",
+   "name_en": "Witch's Brew",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "rotf_potion",
+        {
+         "action": "gain"
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_potion",
+        {
+         "action": "refill",
+         "n": 2
+        }
+       ]
+      ],
+      [
+       [
+        "mana",
+        "blue"
+       ],
+       [
+        "mana",
+        "blue"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "use_as_action",
+     {}
+    ],
+    [
+     "special",
+     "rotf_tuck",
+     {
+      "card": "hand",
+      "effects": [
+       [
+        "special",
+        "gain_from_offer",
+        {
+         "offer": "spells",
+         "color": "$tucked",
+         "to": "discard"
+        }
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni una Pozione, ricarica fino a 2 Pozioni, oppure guadagni due segnalini mana blu.",
+    "powered": "Giocala come tua azione per questo turno. Accantona ('tuck') una carta per guadagnare un Incantesimo dello stesso colore dall'offerta degli Incantesimi e mettilo nella tua pila degli scarti."
+   },
+   "img": "assets/cards/rotf_witchs_brew.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Gain a Potion, refill up to 2 Potions, or gain two blue mana tokens.",
+    "powered": "Play as your action for this turn. Tuck a card to gain a Spell of the same color from the Spells Offer and put it in your discard pile."
+   }
+  },
+  {
+   "id": "rotf_gust_of_wind",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Folata di Vento",
+   "name_en": "Gust of Wind",
+   "basic": [
+    [
+     "move",
+     6
+    ],
+    [
+     "special",
+     "gust_of_wind_restriction",
+     {}
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "rotf_tuck",
+     {
+      "card": "hand",
+      "effects": [
+       [
+        "special",
+        "safe_move",
+        {
+         "spaces": 4,
+         "cost_per_space": 2,
+         "from_move_points": true
+        }
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 6. Puoi scartare una carta. Se non lo fai, questi punti Movimento non possono essere spesi per pagare i costi del terreno.",
+    "powered": "Accantona ('tuck') una carta e paga fino a 8 punti Movimento per muovere di uno spazio ogni 2 punti Movimento pagati. Devi terminare il movimento in uno spazio sicuro. Muovere in questo modo non provoca i nemici infuriati."
+   },
+   "img": "assets/cards/rotf_gust_of_wind.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Move 6. You may discard a card. If you don't, these move points cannot be spent to pay terrain costs.",
+    "powered": "Tuck a card and pay up to 8 Move points to move one space for each 2 Move points paid. You must end your move in a safe space. Moving this way does not provoke rampaging enemies."
+   }
+  },
+  {
+   "id": "rotf_poison_handling",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Manipolazione del Veleno",
+   "name_en": "Poison Handling",
+   "basic": [
+    [
+     "special",
+     "rotf_potion",
+     {
+      "action": "refill"
+     }
+    ],
+    [
+     "draw",
+     1
+    ],
+    [
+     "special",
+     "throw_wound_from_discard",
+     {}
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "take_wound",
+     {
+      "to": "discard"
+     }
+    ],
+    [
+     "special",
+     "rotf_tuck",
+     {
+      "card": "hand",
+      "effects": [
+       [
+        "attack",
+        5,
+        "phys",
+        "ranged"
+       ],
+       [
+        "special",
+        "rotf_poison_attack",
+        {}
+       ]
+      ]
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Ricarica una Pozione, pesca una carta e getta via una Ferita dalla tua pila degli scarti.",
+    "powered": "Guadagni una Ferita nella tua pila degli scarti e accantona ('tuck') una carta per ottenere Attacco a Distanza 5 (veleno)."
+   },
+   "img": "assets/cards/rotf_poison_handling.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Refill a Potion, draw a card, and throw away a Wound from your discard pile.",
+    "powered": "Gain a Wound to your discard pile and tuck a card to gain Ranged Attack 5 (poison)."
+   }
+  },
+  {
+   "id": "rotf_dark_dealings",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Affari Oscuri",
+   "name_en": "Dark Dealings",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "influence",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        2
+       ],
+       [
+        "special",
+        "rotf_dagger",
+        {}
+       ]
+      ]
+     ]
+    ],
+    [
+     "rep",
+     -1
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     4
+    ],
+    [
+     "special",
+     "rotf_dagger",
+     {}
+    ],
+    [
+     "if",
+     "day",
+     [
+      [
+       "rep",
+       -1
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 4 oppure Attacco 2 (pugnale). Reputazione -1.",
+    "powered": "Attacco 4 (pugnale). Reputazione -1 se giocata durante il Giorno."
+   },
+   "img": "assets/cards/rotf_dark_dealings.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Influence 4 or Attack 2 (dagger). Reputation -1.",
+    "powered": "Attack 4 (dagger). Reputation -1 if played during the Day."
+   }
+  },
+  {
+   "id": "rotf_cloud_of_steel",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Nube d'Acciaio",
+   "name_en": "Cloud of Steel",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        3
+       ]
+      ],
+      [
+       [
+        "attack",
+        1
+       ],
+       [
+        "special",
+        "rotf_dagger",
+        {}
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_mana_shard",
+        {
+         "color": "blue"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     2,
+     "ice",
+     "melee"
+    ],
+    [
+     "special",
+     "rotf_dagger",
+     {}
+    ],
+    [
+     "mod",
+     "delayed_attack",
+     {
+      "n": 2,
+      "elem": "ice",
+      "any_time": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Blocco 3, Attacco 1 (pugnale), oppure guadagni un frammento di mana blu.",
+    "powered": "Attacco di Ghiaccio 2 (pugnale). (Durata) Guadagni Attacco di Ghiaccio 2 (pugnale) in qualsiasi momento di questo turno."
+   },
+   "img": "assets/cards/rotf_cloud_of_steel.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Block 3, Attack 1 (dagger), or gain a blue mana shard.",
+    "powered": "Ice Attack 2 (dagger). Gain Ice Attack 2 (dagger) at any time this turn."
+   }
+  },
+  {
+   "id": "rotf_feinting_flare",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Bagliore Ingannevole",
+   "name_en": "Feinting Flare",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "white"
+       ],
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "attack",
+        1
+       ],
+       [
+        "special",
+        "rotf_dagger",
+        {}
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "reduce_enemy_attack",
+        {
+         "n": 2,
+         "all_of_enemy": true
+        }
+       ],
+       [
+        "attack",
+        2
+       ],
+       [
+        "special",
+        "rotf_dagger",
+        {}
+       ]
+      ],
+      [
+       [
+        "crystal",
+        "white"
+       ],
+       [
+        "crystal",
+        "white"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni due segnalini mana bianchi oppure Attacco 1 (pugnale).",
+    "powered": "Riduci di 2 tutti gli attacchi di un nemico e guadagni Attacco 2 (pugnale) contro un secondo nemico, oppure guadagni due cristalli bianchi nel tuo Inventario."
+   },
+   "img": "assets/cards/rotf_feinting_flare.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Gain two white mana tokens or Attack 1 (dagger).",
+    "powered": "Reduce all attacks of one enemy by 2 and gain Attack 2 (dagger) against a second enemy, or gain two white crystals to your Inventory."
+   }
+  },
+  {
+   "id": "rotf_noxiousness",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Nocività",
+   "name_en": "Noxiousness",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        3
+       ]
+      ],
+      [
+       [
+        "attack",
+        1
+       ],
+       [
+        "special",
+        "rotf_dagger",
+        {}
+       ]
+      ],
+      [
+       [
+        "special",
+        "rotf_mana_shard",
+        {
+         "color": "green"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     3
+    ],
+    [
+     "special",
+     "rotf_poison_attack",
+     {}
+    ],
+    [
+     "special",
+     "rotf_dagger",
+     {}
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 3, Attacco 1 (pugnale), oppure guadagni un frammento di mana verde.",
+    "powered": "Attacco 3 (veleno, pugnale)"
+   },
+   "img": "assets/cards/rotf_noxiousness.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Campagna fan 'Rise of the Forgemaster'. Usa meccaniche di RotF non presenti nel gioco (frammenti di mana / Pozioni / 'tuck' / 'prepare' / veleno / icona pugnale).",
+   "text_en": {
+    "basic": "Move 3, Attack 1 (dagger), or gain a green mana shard.",
+    "powered": "Attack 3 (poison, dagger)"
+   }
+  },
+  {
+   "id": "rotf_counter_attack",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Contrattacco (RotF)",
+   "name_en": "Counter Attack (RotF)",
+   "basic": [
+    [
+     "attack",
+     2
+    ],
+    [
+     "special",
+     "attack_per_blocked",
+     {
+      "n": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     3
+    ],
+    [
+     "special",
+     "attack_per_blocked",
+     {
+      "n": 3
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2. Questo Attacco aumenta di 2 per ogni nemico che hai bloccato con successo in questo turno.",
+    "powered": "Attacco 3. Questo Attacco aumenta di 3 per ogni nemico che hai bloccato con successo in questo turno."
+   },
+   "img": "assets/cards/rotf_counter_attack.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Attack 2. This Attack is increased by 2 for each enemy you have successfully blocked this turn.",
+    "powered": "Attack 3. This Attack is increased by 3 for each enemy you have successfully blocked this turn."
+   }
+  },
+  {
+   "id": "rotf_perseverance",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Perseveranza",
+   "name_en": "Perseverance",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        3
+       ]
+      ],
+      [
+       [
+        "move",
+        3
+       ]
+      ],
+      [
+       [
+        "special",
+        "unit_resist",
+        {
+         "elem": "ice"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "block",
+     7
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Blocco 3, Movimento 3, oppure l'Unità scelta guadagna Resistenza al Ghiaccio in questo combattimento.",
+    "powered": "Blocco 7"
+   },
+   "img": "assets/cards/rotf_perseverance.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Block 3, Move 3, or chosen Unit gains ice resistance this combat.",
+    "powered": "Block 7"
+   }
+  },
+  {
+   "id": "rotf_heroic_tale",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Racconto Eroico (RotF)",
+   "name_en": "Heroic Tale (RotF)",
+   "basic": [
+    [
+     "influence",
+     2
+    ],
+    [
+     "rep",
+     1
+    ],
+    [
+     "mod",
+     "recruit_discount",
+     {
+      "n": 3,
+      "units": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     5
+    ],
+    [
+     "rep",
+     2
+    ],
+    [
+     "mod",
+     "recruit_discount",
+     {
+      "n": 2,
+      "units": "all"
+     }
+    ],
+    [
+     "mod",
+     "per_recruit",
+     {
+      "fame": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2. Reputazione +1. Se usata durante un'Interazione, ottieni uno sconto di 3 sul costo di reclutamento di un'Unità.",
+    "powered": "Influenza 5. Reputazione +2. Se usata durante un'Interazione, ottieni uno sconto di 2 sul costo di reclutamento di ciascuna Unità. (Durata) Guadagni Fama +1 ogni volta che recluti un'Unità in questo turno."
+   },
+   "img": "assets/cards/rotf_heroic_tale.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Influence 2. Reputation +1. If used during Interaction, get a discount of 3 towards the cost of recruiting one Unit.",
+    "powered": "Influence 5. Reputation +2. If used during Interaction, get a discount of 2 towards the cost of recruiting each Unit. Gain Fame +1 each time you recruit a Unit this turn."
+   }
+  },
+  {
+   "id": "rotf_reconnoiter",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Ricognizione",
+   "name_en": "Reconnoiter",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        3
+       ]
+      ],
+      [
+       [
+        "heal",
+        2
+       ]
+      ],
+      [
+       [
+        "draw",
+        1
+       ],
+       [
+        "special",
+        "peek_enemy_piles",
+        {
+         "n": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     7
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 3, Cura 2, oppure pesca una carta e guarda il gettone in cima a due qualsiasi pile di gettoni nemico non utilizzate.",
+    "powered": "Movimento 7"
+   },
+   "img": "assets/cards/rotf_reconnoiter.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Move 3, Heal 2, or draw a card and take a look at the top token of any two unused enemy token piles.",
+    "powered": "Move 7"
+   }
+  },
+  {
+   "id": "rotf_fury",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Furia (RotF)",
+   "name_en": "Fury",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        3
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ],
+       [
+        "mana",
+        "red"
+       ]
+      ],
+      [
+       [
+        "special",
+        "unit_resist",
+        {
+         "elem": "fire"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     7
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Attacco 3, guadagni due segnalini mana rossi, oppure l'Unità scelta guadagna Resistenza al Fuoco in questo combattimento.",
+    "powered": "Attacco 7"
+   },
+   "img": "assets/cards/rotf_fury.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Attack 3, gain two red mana tokens, or chosen Unit gains fire resistance this combat.",
+    "powered": "Attack 7"
+   }
+  },
+  {
+   "id": "rotf_repel_ritual",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Rituale Repulsivo",
+   "name_en": "Repel Ritual",
+   "basic": [
+    [
+     "special",
+     "repel_ritual",
+     {
+      "block": 4,
+      "elem": "phys"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "repel_ritual",
+     {
+      "block": 5,
+      "elem": "ice"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Blocco 4. Puoi gettare via un'altra carta non-Ferita. A seconda dei suoi colori: aumentalo di 2 per il blu, aggiungigli l'elemento Fuoco per il rosso, conta doppio contro un attacco con Rapidità per il verde, ottieni lo stesso Blocco contro un altro attacco per il bianco.",
+    "powered": "Come l'effetto base, ma con Blocco di Ghiaccio 5."
+   },
+   "img": "assets/cards/rotf_repel_ritual.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Block 4. You may throw away another non-Wound card. Depending on its colors: increase it by 2 for blue, add Fire element to it for red, count it twice against an attack with Swiftness for green, gain the same Block against another attack for white.",
+    "powered": "Same as the basic effect, but with Ice Block 5."
+   }
+  },
+  {
+   "id": "rotf_righteous_path",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Retto Cammino",
+   "name_en": "Righteous Path",
+   "basic": [
+    [
+     "move",
+     2
+    ],
+    [
+     "special",
+     "reduce_space_cost",
+     {
+      "n": "rep_bonus",
+      "min": 0
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "move",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        4
+       ]
+      ]
+     ]
+    ],
+    [
+     "fame",
+     1
+    ],
+    [
+     "rep",
+     1
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2. Riduci il costo di Movimento di uno spazio del tuo bonus di Reputazione, fino a un minimo di 0, in questo turno.",
+    "powered": "Movimento 4 oppure Attacco 4. Guadagni Fama +1 e Reputazione +1."
+   },
+   "img": "assets/cards/rotf_righteous_path.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Move 2. Reduce the Move cost of one space by your Reputation bonus, to a minimum of 0, this turn.",
+    "powered": "Move 4 or Attack 4. Gain Fame +1 and Reputation +1."
+   }
+  },
+  {
+   "id": "rotf_force_of_nature",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Forza della Natura (RotF)",
+   "name_en": "Force of Nature (RotF)",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "block",
+        3
+       ]
+      ],
+      [
+       [
+        "special",
+        "unit_resist",
+        {
+         "elem": "phys"
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        3,
+        "phys",
+        "siege"
+       ]
+      ],
+      [
+       [
+        "block",
+        6
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Blocco 3 oppure l'Unità scelta guadagna Resistenza fisica in questo combattimento.",
+    "powered": "Attacco d'Assedio 3 o Blocco 6"
+   },
+   "img": "assets/cards/rotf_force_of_nature.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Block 3 or chosen Unit gains Physical resistance this combat.",
+    "powered": "Siege Attack 3 or Block 6"
+   }
+  },
+  {
+   "id": "rotf_ritual_attack",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "red",
+   "name_it": "Attacco Rituale (RotF)",
+   "name_en": "Ritual Attack (RotF)",
+   "basic": [
+    [
+     "special",
+     "throw_action",
+     {
+      "discard_only": true,
+      "by_color": {
+       "red": [
+        [
+         "attack",
+         5
+        ]
+       ],
+       "blue": [
+        [
+         "attack",
+         3,
+         "ice",
+         "melee"
+        ]
+       ],
+       "white": [
+        [
+         "attack",
+         3,
+         "phys",
+         "ranged"
+        ]
+       ],
+       "green": [
+        [
+         "attack",
+         2,
+         "phys",
+         "siege"
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "attack",
+         7,
+         "fire",
+         "melee"
+        ]
+       ],
+       "blue": [
+        [
+         "attack",
+         5,
+         "cold",
+         "melee"
+        ]
+       ],
+       "white": [
+        [
+         "attack",
+         5,
+         "fire",
+         "ranged"
+        ]
+       ],
+       "green": [
+        [
+         "attack",
+         4,
+         "fire",
+         "siege"
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Scarta un'altra carta Azione. A seconda del suo colore ottieni: Attacco 5 se rossa, Attacco di Ghiaccio 3 se blu, Attacco a Distanza 3 se bianca, Attacco d'Assedio 2 se verde.",
+    "powered": "Getta via un'altra carta Azione. A seconda del suo colore ottieni: Attacco di Fuoco 7 se rossa, Attacco di Fuoco Freddo 5 se blu, Attacco di Fuoco a Distanza 5 se bianca, Attacco di Fuoco d'Assedio 4 se verde."
+   },
+   "img": "assets/cards/rotf_ritual_attack.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Discard another Action card. Depending on its color, you get: Attack 5 for red, Ice Attack 3 for blue, Ranged Attack 3 for white, Siege Attack 2 for green.",
+    "powered": "Throw away another Action card. Depending on its color, you get: Fire Attack 7 for red, Cold Fire Attack 5 for blue, Ranged Fire Attack 5 for white, Siege Fire Attack 4 for green."
+   }
+  },
+  {
+   "id": "rotf_ice_shield",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Scudo di Ghiaccio (RotF)",
+   "name_en": "Ice Shield (RotF)",
+   "basic": [
+    [
+     "block",
+     3,
+     "ice"
+    ],
+    [
+     "mod",
+     "sideways_block_element",
+     {
+      "elem": "ice"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "block",
+     5,
+     "ice"
+    ],
+    [
+     "mod",
+     "sideways_block_element",
+     {
+      "elem": "ice"
+     }
+    ],
+    [
+     "special",
+     "block_armor_reduce",
+     {
+      "n": 2,
+      "min": 1
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Blocco di Ghiaccio 3. (Durata) Aggiungi l'elemento Ghiaccio a ogni Blocco fornito dalle carte che giochi sul fianco in questo turno.",
+    "powered": "Come l'effetto base, ma con Blocco di Ghiaccio 5. (Durata) Quando blocchi con successo il nemico bloccato da questo Blocco, riduci la sua armatura di 2."
+   },
+   "img": "assets/cards/rotf_ice_shield.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'. I nemici con Resistenza al Ghiaccio ignorano gli effetti non-Attacco delle carte blu.",
+   "text_en": {
+    "basic": "Ice Block 3. Add Ice element to each Block provided by cards you play sideways this turn.",
+    "powered": "Same as the basic effect, but with Ice Block 5. When you successfully block the enemy that is blocked by this Block, reduce their armor by 2."
+   }
+  },
+  {
+   "id": "rotf_learning",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "white",
+   "name_it": "Imparare (RotF)",
+   "name_en": "Learning (RotF)",
+   "basic": [
+    [
+     "influence",
+     2
+    ],
+    [
+     "mod",
+     "buy_aa_with_influence",
+     {
+      "cost": 4,
+      "to": "discard"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     4
+    ],
+    [
+     "mod",
+     "buy_aa_with_influence",
+     {
+      "cost": 7,
+      "to": "hand"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2. Una volta durante questo turno, puoi pagare Influenza 4 per guadagnare una carta Azione Avanzata dall'offerta delle Azioni Avanzate e metterla nella tua pila degli scarti.",
+    "powered": "Influenza 4. Una volta durante questo turno, puoi pagare Influenza 7 per guadagnare una carta Azione Avanzata dall'offerta delle Azioni Avanzate e metterla nella tua mano."
+   },
+   "img": "assets/cards/rotf_learning.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Influence 2. Once during this turn, you may pay Influence 4 to gain an Advanced Action card from the Advanced Actions offer to your discard pile.",
+    "powered": "Influence 4. Once during this turn, you may pay Influence 7 to gain an Advanced Action card from the Advanced Actions offer to your hand."
+   }
+  },
+  {
+   "id": "rotf_training",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "green",
+   "name_it": "Allenarsi (RotF)",
+   "name_en": "Training (RotF)",
+   "basic": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "not:red",
+          "to": "discard"
+         }
+        ]
+       ],
+       "blue": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "not:blue",
+          "to": "discard"
+         }
+        ]
+       ],
+       "green": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "not:green",
+          "to": "discard"
+         }
+        ]
+       ],
+       "white": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "not:white",
+          "to": "discard"
+         }
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "throw_action",
+     {
+      "by_color": {
+       "red": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "red",
+          "to": "hand"
+         }
+        ]
+       ],
+       "blue": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "blue",
+          "to": "hand"
+         }
+        ]
+       ],
+       "green": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "green",
+          "to": "hand"
+         }
+        ]
+       ],
+       "white": [
+        [
+         "special",
+         "gain_from_offer",
+         {
+          "offer": "aa",
+          "color": "white",
+          "to": "hand"
+         }
+        ]
+       ]
+      }
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Getta via una carta Azione dalla tua mano, quindi prendi una carta di un colore diverso dall'offerta delle Azioni Avanzate e mettila nella tua pila degli scarti.",
+    "powered": "Getta via una carta Azione dalla tua mano, quindi prendi una carta dello stesso colore dall'offerta delle Azioni Avanzate e mettila nella tua mano."
+   },
+   "img": "assets/cards/rotf_training.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'.",
+   "text_en": {
+    "basic": "Throw away an Action card from your hand, then take a card of a different color from the Advanced Actions offer and put it into your discard pile.",
+    "powered": "Throw away an Action card from your hand, then take a card of the same color from the Advanced Actions offer and put it into your hand."
+   }
+  },
+  {
+   "id": "rotf_shield_bash",
+   "set": "fan",
+   "type": "aa",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Colpo di Scudo (RotF)",
+   "name_en": "Shield Bash (RotF)",
+   "basic": [
+    [
+     "special",
+     "block_vs_swift",
+     {
+      "n": 3,
+      "n_if_swift": 6
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "block_vs_swift",
+     {
+      "n": 5,
+      "n_if_swift": 10,
+      "armor_excess": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Blocco 3. Conta doppio contro un attacco con Rapidità.",
+    "powered": "Blocco 5. Conta doppio contro un attacco con Rapidità. (Durata) Se blocchi l'attacco usando più punti di blocco del necessario, riduci l'armatura del nemico dell'eccedenza."
+   },
+   "img": "assets/cards/rotf_shield_bash.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Campagna fan 'Rise of the Forgemaster'. I nemici con Resistenza al Ghiaccio ignorano gli effetti non-Attacco delle carte blu.",
+   "text_en": {
+    "basic": "Block 3. Counts twice against an attack with Swiftness.",
+    "powered": "Block 5. Counts twice against an attack with Swiftness. If you block the attack using more points of block than required, reduce the enemy's armor by the excess."
+   }
+  }
+ ]
+}

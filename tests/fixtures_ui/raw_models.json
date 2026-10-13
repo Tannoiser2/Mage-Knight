@@ -1,0 +1,34 @@
+{
+ "hero_arythea": {
+  "obj": "/mnt/user-data/uploads/Mage Knight/Mods/Models/httpssteamusercontentaakamaihdnetugc75371885520881450492B6B88D0D3B5BF1CAFEDCE47ECA671513C16073.obj",
+  "tex": "/mnt/user-data/uploads/Mage Knight/Mods/Images/httpssteamusercontentaakamaihdnetugc775101441388452679E6D75C41883A828BB7DF63F2AF53F61C676E4C6B.png"
+ },
+ "hero_goldyx": {
+  "obj": "/mnt/user-data/uploads/Mage Knight/Mods/Models/httpssteamusercontentaakamaihdnetugc7537188552088217083D23E6E659E202900D0E08BCCE527121B403B4FC.obj",
+  "tex": "/mnt/user-data/uploads/Mage Knight/Mods/Images/httpssteamusercontentaakamaihdnetugc7751014413884542114B8AE237ECD9C762DED890B0BB2A87444F0F9449.png"
+ },
+ "hero_norowas": {
+  "obj": "/mnt/user-data/uploads/Mage Knight/Mods/Models/httpssteamusercontentaakamaihdnetugc7537188552088227569A3D5D3F18BF14A32C022049669A0DD536EDE8D8.obj",
+  "tex": "/mnt/user-data/uploads/Mage Knight/Mods/Images/httpssteamusercontentaakamaihdnetugc775101441388455708547ED8FAE812C9DCC32378950BC7B01F4ED04203.png"
+ },
+ "hero_tovak": {
+  "obj": "/mnt/user-data/uploads/Mage Knight/Mods/Models/httpssteamusercontentaakamaihdnetugc753718855208823771CE878184BE4738D3B410B363CCFB273691387E0B.obj",
+  "tex": "/mnt/user-data/uploads/Mage Knight/Mods/Images/httpssteamusercontentaakamaihdnetugc775101441388456445721B3278BF649E51174DE5BF6270306B3F2DE5BA.png"
+ },
+ "city_white": {
+  "obj": "/mnt/user-data/uploads/Mage Knight/Mods/Models/httpssteamusercontentaakamaihdnetugc766100111188090334DCDDEE37DA9FC05B686D7133D48B34BEC677F89C.obj",
+  "tex": "/mnt/user-data/uploads/Mage Knight/Mods/Images/httpssteamusercontentaakamaihdnetugc76610011118878074258E071A0F6E49C9BAC74E4B00BEEC7DDB7FF536F.jpg"
+ },
+ "city_blue": {
+  "obj": "/mnt/user-data/uploads/Mage Knight/Mods/Models/httpssteamusercontentaakamaihdnetugc766100111188090334DCDDEE37DA9FC05B686D7133D48B34BEC677F89C.obj",
+  "tex": "/mnt/user-data/uploads/Mage Knight/Mods/Images/httpssteamusercontentaakamaihdnetugc766100111188220148E813AD9999A3E7F5F2EA0C5E0AFF606E6AB2F5C1.jpg"
+ },
+ "city_red": {
+  "obj": "/mnt/user-data/uploads/Mage Knight/Mods/Models/httpssteamusercontentaakamaihdnetugc766100111188090334DCDDEE37DA9FC05B686D7133D48B34BEC677F89C.obj",
+  "tex": "/mnt/user-data/uploads/Mage Knight/Mods/Images/httpssteamusercontentaakamaihdnetugc766100111188758588C8D378D84A7A07E5E0E93D04CD6DC65DCCF6B547.jpg"
+ },
+ "city_green": {
+  "obj": "/mnt/user-data/uploads/Mage Knight/Mods/Models/httpssteamusercontentaakamaihdnetugc766100111188090334DCDDEE37DA9FC05B686D7133D48B34BEC677F89C.obj",
+  "tex": "/mnt/user-data/uploads/Mage Knight/Mods/Images/httpssteamusercontentaakamaihdnetugc766100111188343273B0A9966F4A8A2B257D348D8424E82056D7335915.jpg"
+ }
+}

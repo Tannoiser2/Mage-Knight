@@ -1,0 +1,312 @@
+{
+ "_notes": "Valori verificati sul regolamento italiano (Ultimate Edition), sulla Guida e sulle carte descrizione sito del modulo. Fama oltre 99: il tracciato continua (ogni riga successiva +2 Fama richiesta in più); il livello massimo è 10.",
+ "levels": [
+  {
+   "level": 1,
+   "fame": 0,
+   "armor": 2,
+   "hand": 5,
+   "command": 1,
+   "reward": ""
+  },
+  {
+   "level": 2,
+   "fame": 3,
+   "armor": 2,
+   "hand": 5,
+   "command": 1,
+   "reward": "skill_aa"
+  },
+  {
+   "level": 3,
+   "fame": 8,
+   "armor": 3,
+   "hand": 5,
+   "command": 2,
+   "reward": "stats"
+  },
+  {
+   "level": 4,
+   "fame": 15,
+   "armor": 3,
+   "hand": 5,
+   "command": 2,
+   "reward": "skill_aa"
+  },
+  {
+   "level": 5,
+   "fame": 24,
+   "armor": 3,
+   "hand": 6,
+   "command": 3,
+   "reward": "stats"
+  },
+  {
+   "level": 6,
+   "fame": 35,
+   "armor": 3,
+   "hand": 6,
+   "command": 3,
+   "reward": "skill_aa"
+  },
+  {
+   "level": 7,
+   "fame": 48,
+   "armor": 4,
+   "hand": 6,
+   "command": 4,
+   "reward": "stats"
+  },
+  {
+   "level": 8,
+   "fame": 63,
+   "armor": 4,
+   "hand": 6,
+   "command": 4,
+   "reward": "skill_aa"
+  },
+  {
+   "level": 9,
+   "fame": 80,
+   "armor": 4,
+   "hand": 7,
+   "command": 5,
+   "reward": "stats"
+  },
+  {
+   "level": 10,
+   "fame": 99,
+   "armor": 4,
+   "hand": 7,
+   "command": 5,
+   "reward": "skill_aa"
+  }
+ ],
+ "level_rewards": "Livelli pari (2,4,6,8,10): 1 Abilità (tra 2 pescate dalla propria pila; in competitiva anche dall'offerta comune — allora si prende l'AA più in basso) + 1 Azione Avanzata dall'offerta. Livelli dispari (3,5,7,9): si gira il gettone Livello -> nuove armatura, limite di mano e +1 Comando.",
+ "reputation": {
+  "min": -7,
+  "max": 7,
+  "start": 0,
+  "influence_bonus": {
+   "-7": null,
+   "-6": -5,
+   "-5": -3,
+   "-4": -2,
+   "-3": -1,
+   "-2": -1,
+   "-1": 0,
+   "0": 0,
+   "1": 0,
+   "2": 1,
+   "3": 1,
+   "4": 2,
+   "5": 2,
+   "6": 3,
+   "7": 5
+  },
+  "no_interaction_at": -7
+ },
+ "terrain_cost": {
+  "day": {
+   "plains": 2,
+   "hills": 3,
+   "forest": 3,
+   "wasteland": 4,
+   "desert": 5,
+   "swamp": 5,
+   "lake": null,
+   "mountain": null,
+   "ocean": null,
+   "city": 2
+  },
+  "night": {
+   "plains": 2,
+   "hills": 3,
+   "forest": 5,
+   "wasteland": 4,
+   "desert": 3,
+   "swamp": 5,
+   "lake": null,
+   "mountain": null,
+   "ocean": null,
+   "city": 2
+  },
+  "_note": "null = invalicabile. Lo spazio città costa 2 qualunque sia il terreno."
+ },
+ "explore_cost": 2,
+ "source_dice": {
+  "count": "players+2",
+  "min_basic_fraction": 0.5,
+  "note": "I giocatori Neutrali non contano. Almeno metà dei dadi deve mostrare colori base: si rilanciano i dadi oro/nero finché non è così."
+ },
+ "mana": {
+  "gold": "di Giorno vale qualsiasi colore base; di Notte inutilizzabile (esaurito)",
+  "black": "solo di Notte e solo per l'effetto potenziato degli Incantesimi (al posto del nero)",
+  "dice_per_turn": 1
+ },
+ "crystal_max": 3,
+ "start_crystals": 0,
+ "hand_limit_bonus": {
+  "own_keep": "+1 per ogni Castello posseduto se su/adiacente a un proprio castello",
+  "city_leader": 2,
+  "city_shield": 1
+ },
+ "wound_pile": null,
+ "offers": {
+  "units": "players+2 (solo Regolari finché non è rivelata una tessera Principale; poi alternando Élite, Regolare, Élite…) + 1 Azione Avanzata per ogni monastero non bruciato",
+  "aa": 3,
+  "spells": 3,
+  "monastery_aa_cost": 6
+ },
+ "round_reset": "Inizio round: gira Giorno/Notte, rilancia la Fonte, nuova offerta Unità (le vecchie in fondo ai mazzi), l'AA più in basso va in fondo al mazzo e se ne aggiunge una nuova in cima (idem Incantesimi), si raccolgono le tattiche, si preparano Unità e abilità.",
+ "knockout": "Colpo di Grazia: se in un combattimento l'Eroe riceve ferite in mano ≥ limite di mano non modificato (gettone Livello), scarta subito tutte le carte non-Ferita dalla mano.",
+ "sites": {
+  "village": {
+   "heal_cost": 3,
+   "plunder": {
+    "rep": -1,
+    "draw": 2,
+    "when": "turno di un altro giocatore (una volta tra due propri turni)"
+   },
+   "recruit": "village"
+  },
+  "monastery": {
+   "heal_cost": 2,
+   "aa_cost": 6,
+   "on_reveal": "aggiunge 1 AA dal mazzo all'offerta Unità",
+   "burn": {
+    "rep": -3,
+    "enemy": "violet",
+    "units": false,
+    "reward": [
+     "artifact"
+    ],
+    "after": "distrutto (Scudo)"
+   },
+   "recruit": "monastery"
+  },
+  "keep": {
+   "garrison": "gray",
+   "face_down_until_adjacent_day": true,
+   "assault_rep": -1,
+   "fortified": true,
+   "owner_reward": "conquista (Scudo), poi reclutamento e +1 mano",
+   "other_owner": "difensore grigio casuale; metà Fama (arrotondata per eccesso)"
+  },
+  "mage_tower": {
+   "garrison": "violet",
+   "face_down_until_adjacent_day": true,
+   "assault_rep": -1,
+   "fortified": true,
+   "reward": [
+    "spell"
+   ],
+   "spell_cost": 7,
+   "spell_mana": "colore dell'Incantesimo"
+  },
+  "dungeon": {
+   "enemy": "brown",
+   "night_rules": true,
+   "units": false,
+   "reward": "tira un dado mana: oro o nero = Incantesimo, altrimenti Artefatto",
+   "revisit": "nemico marrone casuale, solo Fama"
+  },
+  "tomb": {
+   "enemy": "red",
+   "night_rules": true,
+   "units": false,
+   "reward": [
+    "spell",
+    "artifact"
+   ],
+   "revisit": "nemico rosso casuale, solo Fama"
+  },
+  "monster_den": {
+   "enemy": "brown",
+   "reward": "due cristalli: tira 2 dadi mana (oro = colore a scelta, nero = +1 Fama invece del cristallo)",
+   "undefeated_stays": true
+  },
+  "spawning_grounds": {
+   "enemies": [
+    "brown",
+    "brown"
+   ],
+   "reward": "Artefatto + 3 cristalli tirati (oro = a scelta, nero = +1 Fama)",
+   "undefeated_stays": true
+  },
+  "ruins": "vedi ruins.json",
+  "glade": {
+   "start_turn": "gettone mana oro di Giorno / nero di Notte",
+   "end_turn": "può gettare via una Ferita dalla mano o dalla pila degli scarti (non è Curare)"
+  },
+  "mine": {
+   "end_turn": "un cristallo del colore della miniera"
+  },
+  "orcs": {
+   "rampaging": true,
+   "reward_rep": 1,
+   "challenge_from_adjacent": true
+  },
+  "draconum": {
+   "rampaging": true,
+   "reward_rep": 2,
+   "challenge_from_adjacent": true
+  },
+  "city": "vedi cities.json"
+ },
+ "scoring": {
+  "greatest_knowledge": {
+   "name_it": "Il Più Grande Sapiente",
+   "per_spell": 2,
+   "per_aa": 1,
+   "title": 3,
+   "tie": 1
+  },
+  "greatest_loot": {
+   "name_it": "Il Più Grande Predone",
+   "per_artifact": 2,
+   "per_2_crystals": 1,
+   "title": 3,
+   "tie": 1
+  },
+  "greatest_leader": {
+   "name_it": "Il Più Grande Leader",
+   "per_unit_level": 1,
+   "wounded_unit": "metà livello per difetto",
+   "title": 3,
+   "tie": 1
+  },
+  "greatest_conqueror": {
+   "name_it": "Il Più Grande Conquistatore",
+   "per_shield_keep_tower_monastery": 2,
+   "title": 3,
+   "tie": 1
+  },
+  "greatest_adventurer": {
+   "name_it": "Il Più Grande Avventuriero",
+   "per_shield_adventure_site": 2,
+   "title": 3,
+   "tie": 1
+  },
+  "greatest_beating": {
+   "name_it": "Il Più Grande Sconfitto",
+   "per_wound_in_deck": -2,
+   "title": -3,
+   "tie": -1
+  },
+  "cities": {
+   "leader": 7,
+   "shield_not_leader": 4,
+   "most_city_fame_title": 5,
+   "tie": 2
+  },
+  "_note": "Titoli solo in partite competitive; in parità ognuno prende il valore \"tie\" (salvo se tutti a 0). Siti avventura = sotterraneo, tomba, tana, terreni di nidificazione, rovine, (labirinto/dedalo)."
+ },
+ "dummy": {
+  "crystals": "tre cristalli dei colori delle sfere sulla carta Eroe (vedi heroes.json dummy_crystals)",
+  "turn": "Mazzo vuoto -> annuncia fine round. Altrimenti gira 3 carte negli scarti; se ha cristalli del colore dell'ultima carta girata, gira altrettante carte in più.",
+  "round_start": "l'AA tolta dal fondo dell'offerta va nel suo mazzo (poi rimescolato); per l'Incantesimo tolto riceve un cristallo del suo colore (può superare 3).",
+  "tactic": "secondo lo scenario (solitario: sceglie a caso dopo il giocatore; coop: sceglie a caso per primo)",
+  "skills_solo": "Quando l'Eroe ottiene un gettone Abilità, si rivela anche un'Abilità del Neutrale e la si mette nell'offerta Abilità Comune (se la scegli, prendi l'AA più in basso)."
+ }
+}

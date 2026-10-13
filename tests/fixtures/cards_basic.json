@@ -1,0 +1,734 @@
+{
+ "cards": [
+  {
+   "id": "stamina",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Resistenza",
+   "name_en": "Stamina",
+   "basic": [
+    [
+     "move",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2",
+    "powered": "Movimento 4"
+   },
+   "img": "assets/cards/stamina.webp",
+   "copies": 2,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "determination",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Determinazione",
+   "name_en": "Determination",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "block",
+     5
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco o Blocco 2",
+    "powered": "Blocco 5"
+   },
+   "img": "assets/cards/determination.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "crystallize",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Cristallizzare",
+   "name_en": "Crystallize",
+   "basic": [
+    [
+     "pay_mana",
+     "basic",
+     [
+      [
+       "crystal",
+       "$paid"
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "crystal",
+     "basic"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Quando giochi questa carta, paga anche un mana di un colore base. Guadagni un cristallo di quel colore nel tuo Inventario.",
+    "powered": "Guadagni un cristallo di un colore qualsiasi nel tuo Inventario."
+   },
+   "img": "assets/cards/crystallize.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Di Giorno il mana oro pagato vale come un colore base a scelta (cristallo di quel colore). Potenziato: colore base a scelta."
+  },
+  {
+   "id": "march",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Marcia",
+   "name_en": "March",
+   "basic": [
+    [
+     "move",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "move",
+     4
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2",
+    "powered": "Movimento 4"
+   },
+   "img": "assets/cards/march.webp",
+   "copies": 2,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "tranquility",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Tranquillità",
+   "name_en": "Tranquility",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "heal",
+        1
+       ]
+      ],
+      [
+       [
+        "draw",
+        1
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "heal",
+        2
+       ]
+      ],
+      [
+       [
+        "draw",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Cura 1 oppure pesca una carta.",
+    "powered": "Cura 2 oppure pesca due carte."
+   },
+   "img": "assets/cards/tranquility.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Carta Cura (icona in alto a sinistra): non giocabile durante il combattimento."
+  },
+  {
+   "id": "concentration",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "green",
+   "name_it": "Concentrazione",
+   "name_en": "Concentration",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "boost_next",
+     2
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana blu, bianco o rosso.",
+    "powered": "Quando giochi questa carta, gioca con essa un'altra carta Azione. Ottieni l'effetto più potente di quella carta gratuitamente. Se quell'effetto ti fornisce Movimento, Influenza, Blocco o qualsiasi tipo di Attacco, ottieni quel valore più 2."
+   },
+   "img": "assets/cards/concentration.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "boost_next qui significa: la carta Azione giocata subito dopo (obbligatoria, dalla mano) usa l'effetto potenziato SENZA pagare mana e ogni valore di Movimento/Influenza/Blocco/Attacco che fornisce riceve +n (se l'effetto è una scelta, il bonus va al valore scelto). Effetti 'composti': vedi regolamento (vale come un unico effetto)."
+  },
+  {
+   "id": "swiftness",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "white",
+   "name_it": "Rapidità",
+   "name_en": "Swiftness",
+   "basic": [
+    [
+     "move",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     3,
+     "phys",
+     "ranged"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Movimento 2",
+    "powered": "Attacco a Distanza 3"
+   },
+   "img": "assets/cards/swiftness.webp",
+   "copies": 2,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "mana_draw",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "white",
+   "name_it": "Pescare Mana",
+   "name_en": "Mana Draw",
+   "basic": [
+    [
+     "extra_die",
+     1
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mana_draw",
+     {
+      "dice": 1,
+      "tokens": 2
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Puoi utilizzare un dado mana addizionale dalla Riserva in questo turno.",
+    "powered": "Prendi un dado mana dalla Riserva e impostalo su un colore qualsiasi tranne l'oro. Guadagni due segnalini mana di quel colore. Non ritirare questo dado quando lo rimetti nella Riserva."
+   },
+   "img": "assets/cards/mana_draw.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Nome italiano dalla Guida alla prima partita ('Pescare Mana'; il modulo usa 'Prelievo di Mana')."
+  },
+  {
+   "id": "promise",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "white",
+   "name_it": "Promessa",
+   "name_en": "Promise",
+   "basic": [
+    [
+     "influence",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     4
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2",
+    "powered": "Influenza 4"
+   },
+   "img": "assets/cards/promise.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "improvisation",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "red",
+   "name_it": "Improvvisazione",
+   "name_en": "Improvisation",
+   "basic": [
+    [
+     "discard",
+     1,
+     [
+      [
+       "choice",
+       [
+        [
+         [
+          "move",
+          3
+         ]
+        ],
+        [
+         [
+          "influence",
+          3
+         ]
+        ],
+        [
+         [
+          "attack",
+          3
+         ]
+        ],
+        [
+         [
+          "block",
+          3
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "discard",
+     1,
+     [
+      [
+       "choice",
+       [
+        [
+         [
+          "move",
+          5
+         ]
+        ],
+        [
+         [
+          "influence",
+          5
+         ]
+        ],
+        [
+         [
+          "attack",
+          5
+         ]
+        ],
+        [
+         [
+          "block",
+          5
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Scarta un'altra carta dalla tua mano per ottenere Movimento 3, Influenza 3, Attacco 3 o Blocco 3.",
+    "powered": "Scarta un'altra carta dalla tua mano per ottenere Movimento 5, Influenza 5, Attacco 5 o Blocco 5."
+   },
+   "img": "assets/cards/improvisation.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "La carta scartata non può essere una Ferita."
+  },
+  {
+   "id": "threaten",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "red",
+   "name_it": "Minacciare",
+   "name_en": "Threaten",
+   "basic": [
+    [
+     "influence",
+     2
+    ]
+   ],
+   "powered": [
+    [
+     "influence",
+     5
+    ],
+    [
+     "rep",
+     -1
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Influenza 2",
+    "powered": "Influenza 5. Reputazione -1."
+   },
+   "img": "assets/cards/threaten.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "rage",
+   "set": "base",
+   "type": "basic",
+   "hero": "",
+   "color": "red",
+   "name_it": "Furia",
+   "name_en": "Rage",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     4
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco o Blocco 2",
+    "powered": "Attacco 4"
+   },
+   "img": "assets/cards/rage.webp",
+   "copies": 2,
+   "impl": true,
+   "note": "Nome italiano dalla Guida alla prima partita ('Furia'; il modulo usa 'Rabbia')."
+  },
+  {
+   "id": "battle_versatility",
+   "set": "base",
+   "type": "basic",
+   "hero": "arythea",
+   "replaces": "rage",
+   "color": "red",
+   "name_it": "Versatilità in Battaglia",
+   "name_en": "Battle Versatility",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "block",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        1,
+        "phys",
+        "ranged"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        4
+       ]
+      ],
+      [
+       [
+        "block",
+        4
+       ]
+      ],
+      [
+       [
+        "attack",
+        3,
+        "fire",
+        "melee"
+       ]
+      ],
+      [
+       [
+        "block",
+        3,
+        "fire"
+       ]
+      ],
+      [
+       [
+        "attack",
+        3,
+        "phys",
+        "ranged"
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "phys",
+        "siege"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "text_it": {
+    "basic": "Attacco 2, Blocco 2 oppure Attacco a Distanza 1.",
+    "powered": "Attacco 4, Blocco 4, Attacco di Fuoco 3, Blocco di Fuoco 3, Attacco a Distanza 3 oppure Attacco d'Assedio 2."
+   },
+   "img": "assets/cards/battle_versatility.webp",
+   "copies": 1,
+   "impl": true,
+   "note": ""
+  },
+  {
+   "id": "will_focus",
+   "set": "base",
+   "type": "basic",
+   "hero": "goldyx",
+   "replaces": "concentration",
+   "color": "green",
+   "name_it": "Forza di Volontà",
+   "name_en": "Will Focus",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "mana",
+        "blue"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "white"
+       ]
+      ],
+      [
+       [
+        "mana",
+        "red"
+       ]
+      ],
+      [
+       [
+        "crystal",
+        "green"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "boost_next",
+     3
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "text_it": {
+    "basic": "Guadagni un segnalino mana blu, bianco o rosso, oppure un cristallo verde nel tuo Inventario.",
+    "powered": "Quando giochi questa carta, gioca con essa un'altra carta Azione. Ottieni l'effetto più potente di quella carta gratuitamente. Se quell'effetto ti fornisce Movimento, Influenza, Blocco o qualsiasi tipo di Attacco, ottieni quel valore più 3."
+   },
+   "img": "assets/cards/will_focus.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "boost_next: vedi Concentrazione."
+  },
+  {
+   "id": "wound",
+   "set": "base",
+   "type": "wound",
+   "hero": "",
+   "color": "",
+   "name_it": "Ferita",
+   "name_en": "Wound",
+   "basic": [],
+   "powered": [],
+   "side": false,
+   "combat_only": false,
+   "text_it": {
+    "basic": "",
+    "powered": ""
+   },
+   "img": "assets/cards/wound.webp",
+   "copies": 0,
+   "impl": true,
+   "note": "Non si può giocare né scartare (salvo effetti che lo consentono esplicitamente). Pila comune delle Ferite (s.decks.wounds)."
+  }
+ ],
+ "standard_deck": {
+  "stamina": 2,
+  "determination": 1,
+  "crystallize": 1,
+  "march": 2,
+  "tranquility": 1,
+  "concentration": 1,
+  "swiftness": 2,
+  "mana_draw": 1,
+  "promise": 1,
+  "improvisation": 1,
+  "threaten": 1,
+  "rage": 2
+ },
+ "hero_decks": {
+  "arythea": [
+   "stamina",
+   "stamina",
+   "determination",
+   "crystallize",
+   "march",
+   "march",
+   "tranquility",
+   "concentration",
+   "swiftness",
+   "swiftness",
+   "promise",
+   "improvisation",
+   "threaten",
+   "rage",
+   "battle_versatility",
+   "mana_draw"
+  ]
+ }
+}

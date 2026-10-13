@@ -1,0 +1,104 @@
+{
+ "skills": [
+  {
+   "id": "arythea_dark_paths",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Sentieri Oscuri",
+   "name_en": "Dark Paths",
+   "usage": "turn",
+   "effect": [
+    [
+     "if",
+     "day",
+     [
+      [
+       "move",
+       1
+      ]
+     ],
+     [
+      [
+       "move",
+       2
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nMovimento 1 (di giorno), oppure\nMovimento 2 (di notte).",
+   "img": "assets/skills/arythea_dark_paths.webp",
+   "impl": true,
+   "note": "",
+   "guid": "4b997c"
+  },
+  {
+   "id": "arythea_burning_power",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Potere Ardente",
+   "name_en": "Burning Power",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        1,
+        "phys",
+        "siege"
+       ]
+      ],
+      [
+       [
+        "attack",
+        1,
+        "fire",
+        "siege"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco d'Assedio 1, oppure\nAttacco d'Assedio di Fuoco 1.",
+   "img": "assets/skills/arythea_burning_power.webp",
+   "impl": true,
+   "note": "",
+   "guid": "2f2ad9"
+  },
+  {
+   "id": "arythea_hot_swordsmanship",
+   "hero": "arythea",
+   "set": "base",
+   "name_it": "Scherma Ardente",
+   "name_en": "Hot Swordsmanship",
+   "usage": "turn",
+   "effect": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        2,
+        "fire"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "text_it": "Una volta per turno:\nAttacco 2, oppure\nAttacco di Fuoco 2.",
+   "img": "assets/skills/arythea_hot_swordsmanship.webp",
+   "impl": true,
+   "note": "",
+   "guid": "1906f4"
+  }
+ ]
+}

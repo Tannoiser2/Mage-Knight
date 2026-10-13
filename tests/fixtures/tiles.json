@@ -1,0 +1,524 @@
+{
+ "tiles": {
+  "start_a": {
+   "kind": "start",
+   "number": 0,
+   "set": "base",
+   "guid": "722590",
+   "img": "assets/tiles/start_a.webp",
+   "hexes": {
+    "center": {
+     "t": "plains",
+     "site": "portal"
+    },
+    "0": {
+     "t": "ocean",
+     "site": ""
+    },
+    "60": {
+     "t": "ocean",
+     "site": ""
+    },
+    "120": {
+     "t": "ocean",
+     "site": ""
+    },
+    "180": {
+     "t": "plains",
+     "site": ""
+    },
+    "240": {
+     "t": "forest",
+     "site": ""
+    },
+    "300": {
+     "t": "plains",
+     "site": ""
+    }
+   },
+   "mines": {},
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "c01": {
+   "kind": "country",
+   "number": 1,
+   "set": "base",
+   "guid": "e2ecf8",
+   "img": "assets/tiles/c01.webp",
+   "hexes": {
+    "center": {
+     "t": "forest",
+     "site": "glade"
+    },
+    "0": {
+     "t": "forest",
+     "site": ""
+    },
+    "60": {
+     "t": "plains",
+     "site": ""
+    },
+    "120": {
+     "t": "plains",
+     "site": ""
+    },
+    "180": {
+     "t": "plains",
+     "site": "village"
+    },
+    "240": {
+     "t": "lake",
+     "site": ""
+    },
+    "300": {
+     "t": "forest",
+     "site": "orcs"
+    }
+   },
+   "mines": {},
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "c02": {
+   "kind": "country",
+   "number": 2,
+   "set": "base",
+   "guid": "ca8ad3",
+   "img": "assets/tiles/c02.webp",
+   "hexes": {
+    "center": {
+     "t": "hills",
+     "site": ""
+    },
+    "0": {
+     "t": "plains",
+     "site": ""
+    },
+    "60": {
+     "t": "hills",
+     "site": "mine",
+     "mine": "green"
+    },
+    "120": {
+     "t": "plains",
+     "site": ""
+    },
+    "180": {
+     "t": "plains",
+     "site": "village"
+    },
+    "240": {
+     "t": "forest",
+     "site": "glade"
+    },
+    "300": {
+     "t": "hills",
+     "site": "orcs"
+    }
+   },
+   "mines": {
+    "60": "green"
+   },
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "c03": {
+   "kind": "country",
+   "number": 3,
+   "set": "base",
+   "guid": "a501d6",
+   "img": "assets/tiles/c03.webp",
+   "hexes": {
+    "center": {
+     "t": "forest",
+     "site": ""
+    },
+    "0": {
+     "t": "plains",
+     "site": ""
+    },
+    "60": {
+     "t": "plains",
+     "site": "village"
+    },
+    "120": {
+     "t": "hills",
+     "site": "mine",
+     "mine": "white"
+    },
+    "180": {
+     "t": "hills",
+     "site": ""
+    },
+    "240": {
+     "t": "hills",
+     "site": "keep"
+    },
+    "300": {
+     "t": "plains",
+     "site": ""
+    }
+   },
+   "mines": {
+    "120": "white"
+   },
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "c04": {
+   "kind": "country",
+   "number": 4,
+   "set": "base",
+   "guid": "a26c4f",
+   "img": "assets/tiles/c04.webp",
+   "hexes": {
+    "center": {
+     "t": "desert",
+     "site": "mage_tower"
+    },
+    "0": {
+     "t": "hills",
+     "site": "orcs"
+    },
+    "60": {
+     "t": "plains",
+     "site": ""
+    },
+    "120": {
+     "t": "plains",
+     "site": "village"
+    },
+    "180": {
+     "t": "mountain",
+     "site": ""
+    },
+    "240": {
+     "t": "desert",
+     "site": ""
+    },
+    "300": {
+     "t": "desert",
+     "site": ""
+    }
+   },
+   "mines": {},
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "c05": {
+   "kind": "country",
+   "number": 5,
+   "set": "base",
+   "guid": "184fb7",
+   "img": "assets/tiles/c05.webp",
+   "hexes": {
+    "center": {
+     "t": "lake",
+     "site": ""
+    },
+    "0": {
+     "t": "forest",
+     "site": "glade"
+    },
+    "60": {
+     "t": "forest",
+     "site": ""
+    },
+    "120": {
+     "t": "hills",
+     "site": "mine",
+     "mine": "blue"
+    },
+    "180": {
+     "t": "plains",
+     "site": "orcs"
+    },
+    "240": {
+     "t": "plains",
+     "site": "monastery"
+    },
+    "300": {
+     "t": "forest",
+     "site": ""
+    }
+   },
+   "mines": {
+    "120": "blue"
+   },
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "c06": {
+   "kind": "country",
+   "number": 6,
+   "set": "base",
+   "guid": "208d84",
+   "img": "assets/tiles/c06.webp",
+   "hexes": {
+    "center": {
+     "t": "hills",
+     "site": "mine",
+     "mine": "red"
+    },
+    "0": {
+     "t": "hills",
+     "site": "monster_den"
+    },
+    "60": {
+     "t": "hills",
+     "site": ""
+    },
+    "120": {
+     "t": "forest",
+     "site": "orcs"
+    },
+    "180": {
+     "t": "plains",
+     "site": ""
+    },
+    "240": {
+     "t": "forest",
+     "site": ""
+    },
+    "300": {
+     "t": "mountain",
+     "site": ""
+    }
+   },
+   "mines": {
+    "center": "red"
+   },
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "c07": {
+   "kind": "country",
+   "number": 7,
+   "set": "base",
+   "guid": "20607e",
+   "img": "assets/tiles/c07.webp",
+   "hexes": {
+    "center": {
+     "t": "swamp",
+     "site": ""
+    },
+    "0": {
+     "t": "plains",
+     "site": "monastery"
+    },
+    "60": {
+     "t": "plains",
+     "site": ""
+    },
+    "120": {
+     "t": "plains",
+     "site": "dungeon"
+    },
+    "180": {
+     "t": "forest",
+     "site": "glade"
+    },
+    "240": {
+     "t": "forest",
+     "site": "orcs"
+    },
+    "300": {
+     "t": "lake",
+     "site": ""
+    }
+   },
+   "mines": {},
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "c08": {
+   "kind": "country",
+   "number": 8,
+   "set": "base",
+   "guid": "78fc79",
+   "img": "assets/tiles/c08.webp",
+   "hexes": {
+    "center": {
+     "t": "swamp",
+     "site": "orcs"
+    },
+    "0": {
+     "t": "forest",
+     "site": ""
+    },
+    "60": {
+     "t": "swamp",
+     "site": ""
+    },
+    "120": {
+     "t": "swamp",
+     "site": "village"
+    },
+    "180": {
+     "t": "plains",
+     "site": ""
+    },
+    "240": {
+     "t": "forest",
+     "site": "ruins"
+    },
+    "300": {
+     "t": "forest",
+     "site": "glade"
+    }
+   },
+   "mines": {},
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "k01": {
+   "kind": "core",
+   "number": 1,
+   "set": "base",
+   "guid": "584237",
+   "img": "assets/tiles/k01.webp",
+   "hexes": {
+    "center": {
+     "t": "desert",
+     "site": "monastery"
+    },
+    "0": {
+     "t": "hills",
+     "site": "spawning_grounds"
+    },
+    "60": {
+     "t": "hills",
+     "site": ""
+    },
+    "120": {
+     "t": "desert",
+     "site": ""
+    },
+    "180": {
+     "t": "desert",
+     "site": ""
+    },
+    "240": {
+     "t": "desert",
+     "site": "tomb"
+    },
+    "300": {
+     "t": "mountain",
+     "site": ""
+    }
+   },
+   "mines": {},
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "k02": {
+   "kind": "core",
+   "number": 2,
+   "set": "base",
+   "guid": "155a31",
+   "img": "assets/tiles/k02.webp",
+   "hexes": {
+    "center": {
+     "t": "lake",
+     "site": ""
+    },
+    "0": {
+     "t": "forest",
+     "site": ""
+    },
+    "60": {
+     "t": "swamp",
+     "site": "mage_tower"
+    },
+    "120": {
+     "t": "swamp",
+     "site": "draconum"
+    },
+    "180": {
+     "t": "hills",
+     "site": "mine",
+     "mine": "green"
+    },
+    "240": {
+     "t": "swamp",
+     "site": "ruins"
+    },
+    "300": {
+     "t": "lake",
+     "site": ""
+    }
+   },
+   "mines": {
+    "180": "green"
+   },
+   "img_size": [
+    2048,
+    1970
+   ]
+  },
+  "k05": {
+   "kind": "city",
+   "number": 5,
+   "set": "base",
+   "guid": "314081",
+   "img": "assets/tiles/k05.webp",
+   "hexes": {
+    "center": {
+     "t": "swamp",
+     "site": "city"
+    },
+    "0": {
+     "t": "lake",
+     "site": ""
+    },
+    "60": {
+     "t": "forest",
+     "site": "orcs"
+    },
+    "120": {
+     "t": "swamp",
+     "site": ""
+    },
+    "180": {
+     "t": "swamp",
+     "site": "orcs"
+    },
+    "240": {
+     "t": "swamp",
+     "site": "village"
+    },
+    "300": {
+     "t": "forest",
+     "site": "glade"
+    }
+   },
+   "mines": {},
+   "city": "green",
+   "img_size": [
+    2048,
+    1970
+   ]
+  }
+ }
+}

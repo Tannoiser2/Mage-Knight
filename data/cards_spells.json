@@ -1,0 +1,1634 @@
+{
+ "cards": [
+  {
+   "id": "energy_flow",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Flusso di Energia",
+   "name_en": "Energy Flow",
+   "name_powered_it": "Rubare Energia",
+   "name_powered_en": "Energy Steal",
+   "basic": [
+    [
+     "ready_unit",
+     99
+    ],
+    [
+     "special",
+     "opponents_exhaust_unit",
+     {
+      "max_level": 2
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "ready_unit_heal"
+    ],
+    [
+     "special",
+     "opponents_exhaust_unit",
+     {
+      "max_level": 3
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": true,
+   "text_it": {
+    "basic": "Rendi Pronta una Unità. Se lo fai, puoi rendere esausta una Unità di Livello II o meno nell'area Unità di ciascun altro giocatore.",
+    "powered": "Rendi Pronta una Unità. Se lo fai, quella Unità viene anche Curata, e puoi rendere esausta una Unità di Livello III o meno nell'area Unità di ciascun altro giocatore."
+   },
+   "img": "assets/cards/energy_flow.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Carta interattiva (pallino nero): l'effetto sugli altri giocatori si applica solo in competitiva.",
+   "guid": "2eb8f3",
+   "img_lang": "it"
+  },
+  {
+   "id": "cure",
+   "set": "ll",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Curare",
+   "name_en": "Cure",
+   "name_powered_it": "Malattia",
+   "name_powered_en": "Disease",
+   "basic": [
+    [
+     "heal",
+     2
+    ],
+    [
+     "special",
+     "cure_bonus"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "disease"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Cura 2. Pesca una carta per ogni Ferita curata dalla tua mano in questo turno, e rendi pronta ciascuna Unità curata in questo turno.",
+    "powered": "Tutti i nemici bloccati durante la fase Blocco subiscono la riduzione a 1 alla loro Armatura."
+   },
+   "img": "assets/cards/cure.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "47e71c",
+   "img_lang": "it"
+  },
+  {
+   "id": "meditation",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Meditazione",
+   "name_en": "Meditation",
+   "name_powered_it": "Trance",
+   "name_powered_en": "Trance",
+   "basic": [
+    [
+     "special",
+     "meditation",
+     {
+      "random": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "meditation",
+     {
+      "random": false
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "Prendi due carte a caso dalla tua pila degli scarti e piazzale in cima o in fondo al tuo mazzo Impresa. Il limite di carte della tua Mano è incrementato di 2 la prossima volta che peschi delle carte.",
+    "powered": "Lo stesso dell'effetto base, eccetto che scegli le carte anziché prenderle a caso."
+   },
+   "img": "assets/cards/meditation.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8d0",
+   "img_lang": "it"
+  },
+  {
+   "id": "tremor",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Tremore",
+   "name_en": "Tremor",
+   "name_powered_it": "Terremoto",
+   "name_powered_en": "Earthquake",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "armor_mod",
+        {
+         "targets": "one",
+         "amount": 3
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "armor_mod",
+        {
+         "targets": "all",
+         "amount": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "armor_mod",
+        {
+         "targets": "one",
+         "amount": 3,
+         "fortified": 6
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "armor_mod",
+        {
+         "targets": "all",
+         "amount": 2,
+         "fortified": 4
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Il nemico bersaglio riceve Armatura -3, oppure tutti i nemici ricevono Armatura -2. L'Armatura non può essere ridotta al di sotto di 1.",
+    "powered": "Il nemico bersaglio riceve Armatura -3 (Armatura -6 se fortificato), oppure tutti i nemici ricevono Armatura -2 (Armatura -4 se sono fortificati). L'Armatura non può essere ridotta al di sotto di 1."
+   },
+   "img": "assets/cards/tremor.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8d1",
+   "img_lang": "it"
+  },
+  {
+   "id": "underground_travel",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Viaggio nel Sottosuolo",
+   "name_en": "Underground Travel",
+   "name_powered_it": "Attacco dal Sottosuolo",
+   "name_powered_en": "Underground Attack",
+   "basic": [
+    [
+     "special",
+     "underground_travel",
+     {
+      "range": 3,
+      "attack": false
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "underground_travel",
+     {
+      "range": 3,
+      "attack": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "Muovi fino a 3 spazi rivelati sulla mappa. Non puoi muovere in o attraverso paludi o laghi in questo modo, e devi terminare il tuo movimento su uno spazio sicuro. Muovere in questo modo non provoca nemici infuriati.",
+    "powered": "Lo stesso dell'effetto base, eccetto che devi terminare il tuo movimento su un sito fortificato (oppure nello spazio occupato da un altro giocatore). Questo termina il tuo movimento e conta come un assalto (oppure come un attacco a quel giocatore). Ignora le fortificazioni del sito. Se ti ritiri dopo il combattimento, ritorna alla tua posizione di origine."
+   },
+   "img": "assets/cards/underground_travel.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8d2",
+   "img_lang": "it"
+  },
+  {
+   "id": "restoration",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Ristabilirsi",
+   "name_en": "Restoration",
+   "name_powered_it": "Rinascere",
+   "name_powered_en": "Rebirth",
+   "basic": [
+    [
+     "special",
+     "heal_by_terrain",
+     {
+      "n": 3,
+      "terrain": "forest",
+      "n_terrain": 5
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "heal_by_terrain",
+     {
+      "n": 3,
+      "terrain": "forest",
+      "n_terrain": 5
+     }
+    ],
+    [
+     "special",
+     "ready_unit_levels",
+     {
+      "levels": 3,
+      "terrain": "forest",
+      "terrain_levels": 5
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "Curare 3. Se sei in una foresta invece Curare 5.",
+    "powered": "Curare 3. Se sei in una foresta, Curare 5. Rendi Pronto fino a 3 livelli di valore di Unità. Se sei in una foresta, Rendi Pronto invece fino a 5 livelli di Unità."
+   },
+   "img": "assets/cards/restoration.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8d3",
+   "img_lang": "it"
+  },
+  {
+   "id": "mana_meltdown",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "red",
+   "name_it": "Fondere il Mana",
+   "name_en": "Mana Meltdown",
+   "name_powered_it": "Splendore del Mana",
+   "name_powered_en": "Mana Radiance",
+   "basic": [
+    [
+     "special",
+     "mana_meltdown"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mana_radiance"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": true,
+   "text_it": {
+    "basic": "Ogni altro giocatore deve scegliere a caso un cristallo nel proprio Inventario e perderlo. Puoi guadagnare un cristallo perso in questo modo nel tuo Inventario. Qualsiasi giocatore che non ha cristalli nel proprio Inventario quando giochi questa carta subisce invece una Ferita.",
+    "powered": "Quando giochi questa carta, scegli un colore mana base. Ogni giocatore, incluso te, riceve una Ferita per ogni cristallo che possiede di quel colore. Guadagni due cristalli del colore scelto nel tuo Inventario."
+   },
+   "img": "assets/cards/mana_meltdown.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Carta interattiva: in solitario/cooperativa l'effetto base non ha effetto.",
+   "guid": "8907d7",
+   "img_lang": "it"
+  },
+  {
+   "id": "burning_shield",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "red",
+   "name_it": "Scudo Bruciante",
+   "name_en": "Burning Shield",
+   "name_powered_it": "Scudo Esplosivo",
+   "name_powered_en": "Exploding Shield",
+   "basic": [
+    [
+     "block",
+     4,
+     "fire"
+    ],
+    [
+     "special",
+     "shield_on_block",
+     {
+      "attack": 4,
+      "elem": "fire"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "block",
+     4,
+     "fire"
+    ],
+    [
+     "special",
+     "shield_on_block",
+     {
+      "destroy": true,
+      "immune": "fire"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Blocco di Fuoco 4. Se questa carta viene usata come parte di un Blocco che ha successo, puoi usarla durante la tua fase di Attacco come Attacco di Fuoco 4.",
+    "powered": "Blocco di Fuoco 4. Se questa carta viene usata come parte di un Blocco che ha successo, distruggi il nemico bloccato."
+   },
+   "img": "assets/cards/burning_shield.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8d7",
+   "img_lang": "it"
+  },
+  {
+   "id": "flame_wall",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "red",
+   "name_it": "Muro di Fiamme",
+   "name_en": "Flame Wall",
+   "name_powered_it": "Onda di Fiamme",
+   "name_powered_en": "Flame Wave",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "attack",
+        5,
+        "fire"
+       ]
+      ],
+      [
+       [
+        "block",
+        7,
+        "fire"
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "plus_per_enemy",
+        {
+         "op": "attack",
+         "n": 5,
+         "elem": "fire",
+         "per": 2
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "plus_per_enemy",
+        {
+         "op": "block",
+         "n": 7,
+         "elem": "fire",
+         "per": 2
+        }
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Attacco di Fuoco 5, oppure Blocco di Fuoco 7.",
+    "powered": "Attacco di Fuoco 5, oppure Blocco di Fuoco 7. Questo attacco o blocco viene aumentato di 2 per ogni gettone nemico che stai affrontando."
+   },
+   "img": "assets/cards/flame_wall.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8d8",
+   "img_lang": "it"
+  },
+  {
+   "id": "demolish",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "red",
+   "name_it": "Demolire",
+   "name_en": "Demolish",
+   "name_powered_it": "Disintegrare",
+   "name_powered_en": "Disintegrate",
+   "basic": [
+    [
+     "special",
+     "strip",
+     {
+      "targets": "all",
+      "fort": "site"
+     }
+    ],
+    [
+     "special",
+     "armor_mod",
+     {
+      "targets": "all",
+      "amount": 1,
+      "immune": "fire"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "destroy_enemy",
+     {
+      "phase": "attack",
+      "others_armor": 1,
+      "immune": "fire"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Ignora le fortificazioni del sito in questo turno. I nemici subiscono Armatura -1 (fino ad un minimo di 1).",
+    "powered": "Giocala solo nella fase di Attacco del combattimento. Distruggi un nemico bersaglio. Gli altri nemici subiscono Armatura -1 (fino ad un minimo di 1)."
+   },
+   "img": "assets/cards/demolish.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Icona di Resistenza al Fuoco: i nemici con Resistenza al Fuoco non sono influenzati dalla riduzione d'Armatura / distruzione. Demolire si può giocare anche prima del combattimento (ignora le fortificazioni del sito).",
+   "guid": "2eb8d4",
+   "img_lang": "it"
+  },
+  {
+   "id": "fireball",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "red",
+   "name_it": "Palla di Fuoco",
+   "name_en": "Fireball",
+   "name_powered_it": "Tempesta di Fuoco",
+   "name_powered_en": "Firestorm",
+   "basic": [
+    [
+     "attack",
+     5,
+     "fire",
+     "ranged"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "take_wound",
+     {
+      "n": 1
+     }
+    ],
+    [
+     "attack",
+     8,
+     "fire",
+     "siege"
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Attacco di Fuoco a Distanza 5.",
+    "powered": "Ricevi una Ferita. Attacco di Fuoco d'Assedio 8."
+   },
+   "img": "assets/cards/fireball.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8d6",
+   "img_lang": "it"
+  },
+  {
+   "id": "offering",
+   "set": "ll",
+   "type": "spell",
+   "hero": "",
+   "color": "red",
+   "name_it": "Offerta",
+   "name_en": "Offering",
+   "name_powered_it": "Sacrificio",
+   "name_powered_en": "Sacrifice",
+   "basic": [
+    [
+     "crystal",
+     "red"
+    ],
+    [
+     "special",
+     "discard_for_crystals",
+     {
+      "max": 3
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "sacrifice"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Guadagni un cristallo rosso nel tuo Inventario. Puoi scartare fino a 3 carte Non-Ferita dalla tua mano. Per ogni carta scartata guadagni un cristallo del colore corrispondente nel tuo Inventario (per gli Artefatti scegli tu).",
+    "powered": "Scegli verde o bianco, poi scegli rosso o blu. Guadagni Attacco d'Assedio 4 (se scegli verde) oppure Attacco a Distanza 6 (se scegli bianco) per ogni coppia di cristalli di uno di ciascuno di questi colori nel tuo inventario. Questo Attacco è Fuoco (se hai scelto rosso) o Ghiaccio (se hai scelto blu). Poi, tramuta tutte queste coppie di cristalli in mana."
+   },
+   "img": "assets/cards/offering.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8d9",
+   "img_lang": "it"
+  },
+  {
+   "id": "mana_claim",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Reclamare Mana",
+   "name_en": "Mana Claim",
+   "name_powered_it": "Maledizione del Mana",
+   "name_powered_en": "Mana Curse",
+   "basic": [
+    [
+     "special",
+     "mana_claim",
+     {
+      "curse": false
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mana_claim",
+     {
+      "curse": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": true,
+   "text_it": {
+    "basic": "Prendi un dado mana di un colore base dalla Riserva e tienilo nella tua area di Gioco fino alla fine del Round. Puoi guadagnare 3 segnalini mana di quel colore in questo turno, oppure un segnalino mana di quel colore ogni turno per il resto del Round (partendo dal tuo prossimo turno).",
+    "powered": "Lo stesso dell'effetto base. In aggiunta, fino alla fine del Round: ogni volta che un altro giocatore usa uno o più mana di quel colore nel proprio turno (da qualsiasi fonte), subisce una Ferita. Ogni giocatore può subire solo una Ferita per turno in questo modo."
+   },
+   "img": "assets/cards/mana_claim.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8f4",
+   "img_lang": "it"
+  },
+  {
+   "id": "chill",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Freddo",
+   "name_en": "Chill",
+   "name_powered_it": "Freddo Letale",
+   "name_powered_en": "Lethal Chill",
+   "basic": [
+    [
+     "special",
+     "enemy_no_attack",
+     {
+      "targets": 1,
+      "lose_resist": "fire",
+      "immune": "ice"
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "enemy_no_attack",
+     {
+      "targets": 1,
+      "armor": 4,
+      "immune": "ice"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Il nemico bersaglio non attacca in questo combattimento. Se ha Resistenza al Fuoco, la perde per il resto del turno.",
+    "powered": "Il nemico bersaglio non attacca in questo combattimento e riceve Armatura -4 (fino ad un minimo di 1) per il resto del turno."
+   },
+   "img": "assets/cards/chill.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Effetto blu: i nemici con Resistenza al Ghiaccio non sono influenzati.",
+   "guid": "2eb8e0",
+   "img_lang": "it"
+  },
+  {
+   "id": "mist_form",
+   "set": "ll",
+   "type": "spell",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Forma di Nebbia",
+   "name_en": "Mist Form",
+   "name_powered_it": "Velo di Nebbia",
+   "name_powered_en": "Veil of Mist",
+   "basic": [
+    [
+     "move",
+     4
+    ],
+    [
+     "special",
+     "terrain_all",
+     {
+      "cost": 2,
+      "blocked": [
+       "hills",
+       "mountain"
+      ]
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "veil_of_mist"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Movimento 4. Il costo di Movimento di tutti i terreni, inclusi i laghi, è 2. Non puoi entrare nelle colline e montagne per il resto di questo turno.",
+    "powered": "Tutte le tue Unità guadagnano tutte le resistenze. Il tuo eroe ignora la prima Ferita inflitta dai nemici in questo turno. Inoltre ignora qualsiasi effetto addizionale di quella ferita."
+   },
+   "img": "assets/cards/mist_form.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e1",
+   "img_lang": "it"
+  },
+  {
+   "id": "snowstorm",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Tempesta di Neve",
+   "name_en": "Snowstorm",
+   "name_powered_it": "Tormenta",
+   "name_powered_en": "Blizzard",
+   "basic": [
+    [
+     "attack",
+     5,
+     "ice",
+     "ranged"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "take_wound",
+     {
+      "n": 1
+     }
+    ],
+    [
+     "attack",
+     8,
+     "ice",
+     "siege"
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Attacco di Ghiaccio a Distanza 5.",
+    "powered": "Ricevi una Ferita. Attacco di Ghiaccio d'Assedio 8."
+   },
+   "img": "assets/cards/snowstorm.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e4",
+   "img_lang": "it"
+  },
+  {
+   "id": "space_bending",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Imbrigliare lo Spazio",
+   "name_en": "Space Bending",
+   "name_powered_it": "Imbrigliare il Tempo",
+   "name_powered_en": "Time Bending",
+   "basic": [
+    [
+     "special",
+     "space_bending"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "time_bending"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "In questo turno, puoi muovere in spazi ed esplorare nuove tessere che si trovano a 2 spazi lontano da te come se fossero adiacenti. Ignora qualsiasi spazio che scavalchi in questo modo. Il tuo movimento non provoca nemici infuriati in questo turno.",
+    "powered": "Alla fine del tuo turno, metti da parte questa carta per il resto del Round. Riprendi in mano tutte le altre carte che hai giocato in questo turno (non quelle scartate o gettate via). Salta la parte \"pesca nuove carte\" del tuo fine turno. Fai immediatamente un altro turno."
+   },
+   "img": "assets/cards/space_bending.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e2",
+   "img_lang": "it"
+  },
+  {
+   "id": "mana_bolt",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Saetta di Mana",
+   "name_en": "Mana Bolt",
+   "name_powered_it": "Fulmine di Mana",
+   "name_powered_en": "Mana Thunderbolt",
+   "basic": [
+    [
+     "choice",
+     [
+      [
+       [
+        "pay_mana",
+        "blue",
+        [
+         [
+          "attack",
+          8,
+          "ice"
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "red",
+        [
+         [
+          "attack",
+          7,
+          "cold"
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "white",
+        [
+         [
+          "attack",
+          6,
+          "ice",
+          "ranged"
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "green",
+        [
+         [
+          "attack",
+          5,
+          "ice",
+          "siege"
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "pay_mana",
+        "blue",
+        [
+         [
+          "attack",
+          11,
+          "ice"
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "red",
+        [
+         [
+          "attack",
+          10,
+          "cold"
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "white",
+        [
+         [
+          "attack",
+          9,
+          "ice",
+          "ranged"
+         ]
+        ]
+       ]
+      ],
+      [
+       [
+        "pay_mana",
+        "green",
+        [
+         [
+          "attack",
+          8,
+          "ice",
+          "siege"
+         ]
+        ]
+       ]
+      ]
+     ]
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Quando giochi questa carta, paga un mana. Se hai pagato blu, Attacco di Ghiaccio 8. Se hai pagato rosso, Attacco di Fuoco Freddo 7. Se hai pagato bianco, Attacco di Ghiaccio a Distanza 6. Se hai pagato verde, Attacco di Ghiaccio d'Assedio 5.",
+    "powered": "Quando giochi questa carta, paga un mana. Se hai pagato blu, Attacco di Ghiaccio 11. Se hai pagato rosso, Attacco di Fuoco Freddo 10. Se hai pagato bianco, Attacco di Ghiaccio a Distanza 9. Se hai pagato verde, Attacco di Ghiaccio d'Assedio 8."
+   },
+   "img": "assets/cards/mana_bolt.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e3",
+   "img_lang": "it"
+  },
+  {
+   "id": "mind_read",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "white",
+   "name_it": "Leggere la Mente",
+   "name_en": "Mind Read",
+   "name_powered_it": "Rubare la Mente",
+   "name_powered_en": "Mind Steal",
+   "basic": [
+    [
+     "special",
+     "mind_read",
+     {
+      "steal": false
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "mind_read",
+     {
+      "steal": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": true,
+   "text_it": {
+    "basic": "Scegli un colore. Guadagni un cristallo del colore scelto nel tuo Inventario. Ogni altro giocatore deve scartare un Incantesimo o una carta Azione di quel colore dalla propria mano, oppure rivelare la propria mano per mostrare che non ne possiede.",
+    "powered": "Lo stesso dell'effetto base. In aggiunta a questo, puoi decidere di rubare in maniera permanente una delle carte Azione (non Incantesimo) scartate in questo modo e aggiungerla alla tua mano."
+   },
+   "img": "assets/cards/mind_read.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8f5",
+   "img_lang": "it"
+  },
+  {
+   "id": "expose",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "white",
+   "name_it": "Esposizione",
+   "name_en": "Expose",
+   "name_powered_it": "Esposizione di Massa",
+   "name_powered_en": "Mass Expose",
+   "basic": [
+    [
+     "special",
+     "strip",
+     {
+      "targets": "one",
+      "fort": true,
+      "resist": true
+     }
+    ],
+    [
+     "attack",
+     2,
+     "phys",
+     "ranged"
+    ]
+   ],
+   "powered": [
+    [
+     "choice",
+     [
+      [
+       [
+        "special",
+        "strip",
+        {
+         "targets": "all",
+         "fort": true
+        }
+       ]
+      ],
+      [
+       [
+        "special",
+        "strip",
+        {
+         "targets": "all",
+         "resist": true
+        }
+       ]
+      ]
+     ]
+    ],
+    [
+     "attack",
+     3,
+     "phys",
+     "ranged"
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Il nemico bersaglio perde tutte le fortificazioni e resistenze in questo combattimento. Attacco a Distanza 2.",
+    "powered": "I nemici perdono tutte le fortificazioni in questo combattimento, oppure i nemici perdono tutte le resistenze in questo combattimento. Attacco a Distanza 3."
+   },
+   "img": "assets/cards/expose.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e5",
+   "img_lang": "it"
+  },
+  {
+   "id": "call_to_arms",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "white",
+   "name_it": "Chiamata alle Armi",
+   "name_en": "Call to Arms",
+   "name_powered_it": "La Gloria Chiama",
+   "name_powered_en": "Call to Glory",
+   "basic": [
+    [
+     "special",
+     "use_offer_unit"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "recruit_free_from_offer"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "Puoi usare un'abilità di una Unità presente nell'offerta Unità in questo turno, come se fosse una delle tue unità reclutate. Non puoi assegnare danno a questa Unità.",
+    "powered": "Recluta gratuitamente una Unità qualsiasi dall'offerta Unità. (Se hai raggiunto il tuo limite di Comando, devi prima sciogliere una delle tue Unità)."
+   },
+   "img": "assets/cards/call_to_arms.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e8",
+   "img_lang": "it"
+  },
+  {
+   "id": "charm",
+   "set": "ll",
+   "type": "spell",
+   "hero": "",
+   "color": "white",
+   "name_it": "Affascinare",
+   "name_en": "Charm",
+   "name_powered_it": "Possedere",
+   "name_powered_en": "Possess",
+   "basic": [
+    [
+     "influence",
+     4
+    ],
+    [
+     "special",
+     "charm_bonus"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "possess"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Influenza 4. Se la usi durante l'interazione, allora guadagni un cristallo di un colore qualsiasi nel tuo Inventario oppure ottieni uno sconto di 3 punti sul costo di una Unità.",
+    "powered": "Un nemico non attacca. Nella fase Attacco guadagni Attacco pari al suo Attacco includendo gli elementi (se ce ne sono), ma ignori le abilità speciali. Puoi colpire solo gli altri nemici con quell'attacco."
+   },
+   "img": "assets/cards/charm.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e6",
+   "img_lang": "it"
+  },
+  {
+   "id": "whirlwind",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "white",
+   "name_it": "Turbine",
+   "name_en": "Whirlwind",
+   "name_powered_it": "Tornado",
+   "name_powered_en": "Tornado",
+   "basic": [
+    [
+     "special",
+     "enemy_no_attack",
+     {
+      "targets": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "destroy_enemy",
+     {
+      "phase": "attack"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Il nemico bersaglio non attacca in questo combattimento.",
+    "powered": "Gioca questa carta solo nella fase di Attacco del combattimento. Distruggi il nemico bersaglio."
+   },
+   "img": "assets/cards/whirlwind.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e7",
+   "img_lang": "it"
+  },
+  {
+   "id": "wings_of_wind",
+   "set": "base",
+   "type": "spell",
+   "hero": "",
+   "color": "white",
+   "name_it": "Ali del Vento",
+   "name_en": "Wings of Wind",
+   "name_powered_it": "Ali della Notte",
+   "name_powered_en": "Wings of Night",
+   "basic": [
+    [
+     "special",
+     "wings_of_wind",
+     {
+      "max": 5
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "enemy_no_attack",
+     {
+      "targets": 1,
+      "extra_targets_move": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Quando giochi questa carta, spendi 1-5 punti Movimento e muovi di uno spazio rivelato per ciascuno sulla mappa. Devi terminare il tuo movimento su uno spazio sicuro. Muovere in questo modo non provoca nemici infuriati.",
+    "powered": "Il nemico bersaglio non attacca in questo combattimento. Puoi avere come bersaglio nemici addizionali: paga 1 punto Movimento per il secondo nemico, 2 punti Movimento per il terzo nemico, ecc."
+   },
+   "img": "assets/cards/wings_of_wind.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "",
+   "guid": "2eb8e9",
+   "img_lang": "it"
+  },
+  {
+   "id": "poison_breath",
+   "set": "fan",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Soffio Velenoso",
+   "name_en": "Poison Breath",
+   "name_powered_it": "Soffio Vitale",
+   "name_powered_en": "Breath of Life",
+   "basic": [
+    [
+     "special",
+     "poison_attack",
+     {
+      "n": 4
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "breath_of_life"
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "Attacco 4 Velenoso.",
+    "powered": "Cura tutte le Ferite di un'Unità. Se un'Unità è stata distrutta dall'inizio del tuo ultimo turno, puoi riportarla nell'area Unità del suo giocatore originale."
+   },
+   "img": "assets/cards/poison_breath.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Rise of the Forgemaster (fan). Attacco velenoso contro nemici: meccanica fan.",
+   "guid": "20b391",
+   "img_lang": "en"
+  },
+  {
+   "id": "restoration_rotf",
+   "set": "fan",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Ristabilirsi",
+   "name_en": "Restoration",
+   "name_powered_it": "Rinascere",
+   "name_powered_en": "Rebirth",
+   "basic": [
+    [
+     "special",
+     "heal_by_terrain",
+     {
+      "n": 4,
+      "terrain": "forest",
+      "n_terrain": 6,
+      "discard": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "heal_by_terrain",
+     {
+      "n": 4,
+      "terrain": "forest",
+      "n_terrain": 6,
+      "discard": true
+     }
+    ],
+    [
+     "special",
+     "ready_unit_levels",
+     {
+      "levels": 4,
+      "terrain": "forest",
+      "terrain_levels": 6
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "Cura 4. Se sei in una foresta, invece Cura 6. In questo turno puoi curare anche le Ferite nella tua pila degli scarti.",
+    "powered": "Lo stesso dell'effetto base. Inoltre rendi Pronte Unità fino a 4 livelli complessivi; se sei in una foresta, invece fino a 6 livelli."
+   },
+   "img": "assets/cards/restoration_rotf.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Versione Rise of the Forgemaster (fan) di Ristabilirsi.",
+   "guid": "995f43",
+   "img_lang": "en",
+   "replaces": "restoration"
+  },
+  {
+   "id": "hone_senses",
+   "set": "fan",
+   "type": "spell",
+   "hero": "",
+   "color": "green",
+   "name_it": "Affinare i Sensi",
+   "name_en": "Hone Senses",
+   "name_powered_it": "Trance",
+   "name_powered_en": "Trance",
+   "basic": [
+    [
+     "special",
+     "mana_any",
+     {
+      "n": 2,
+      "same": true,
+      "basic_only": true
+     }
+    ],
+    [
+     "special",
+     "card_play_bonus",
+     {
+      "n": 1
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "fan_rotf",
+     {
+      "what": "trance"
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "Ottieni due segnalini mana di un colore base a scelta. Fino alla fine del turno, ogni volta che giochi una carta dalla mano (non di lato e non come parte di un altro effetto), aggiungile un bonus di +1.",
+    "powered": "Gioca come azione del turno. Puoi rigirare uno dei tuoi segnalini Abilità girati. Metti sotto il mazzo fino a 2 carte dalla tua pila degli scarti. Ricarica tutte le tue pozioni. Il tuo limite di mano aumenta di 2 la prossima volta che peschi."
+   },
+   "img": "assets/cards/hone_senses.webp",
+   "copies": 1,
+   "impl": false,
+   "note": "Rise of the Forgemaster (fan): pozioni.",
+   "guid": "4bf1a4",
+   "img_lang": "en"
+  },
+  {
+   "id": "blinding_light",
+   "set": "fan",
+   "type": "spell",
+   "hero": "",
+   "color": "white",
+   "name_it": "Luce Accecante",
+   "name_en": "Blinding Light",
+   "name_powered_it": "Catena di Fulmini",
+   "name_powered_en": "Chain Lightning",
+   "basic": [
+    [
+     "special",
+     "enemy_attack_reduce_all",
+     {
+      "n": 4
+     }
+    ],
+    [
+     "special",
+     "multi_attack",
+     {
+      "values": [
+       4
+      ],
+      "kind": "melee",
+      "exclude_first_target": true
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "multi_attack",
+     {
+      "values": [
+       8,
+       4,
+       2,
+       1
+      ],
+      "kind": "ranged",
+      "penalty_wound": true
+     }
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Riduci di 4 tutti gli attacchi di un nemico. Attacco 4 contro un secondo nemico.",
+    "powered": "Attacco a Distanza 8. Attacco a Distanza 4 contro un secondo nemico, 2 contro un terzo, 1 contro un quarto. Se usi questo incantesimo su meno di quattro nemici, ricevi una Ferita."
+   },
+   "img": "assets/cards/blinding_light.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Rise of the Forgemaster (fan).",
+   "guid": "8eac5c",
+   "img_lang": "en"
+  },
+  {
+   "id": "frenzy",
+   "set": "fan",
+   "type": "spell",
+   "hero": "",
+   "color": "red",
+   "name_it": "Frenesia",
+   "name_en": "Frenzy",
+   "name_powered_it": "Sembianze Spettrali",
+   "name_powered_en": "Spectral Guise",
+   "basic": [
+    [
+     "special",
+     "frenzy_unit",
+     {
+      "bonus": 3
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "spectral_guise"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": false,
+   "interactive": false,
+   "text_it": {
+    "basic": "Gioca questa carta prima dell'inizio del combattimento. Rendi Pronta un'Unità: quell'Unità ottiene +3 all'Attacco. Non puoi assegnare danni a quell'Unità in questo turno.",
+    "powered": "Gioca questa carta solo nella fase di Movimento. Ignora tutti gli effetti della tua posizione sul tracciato Reputazione in questo turno. Ottieni Influenza 10 o Attacco 9 in qualsiasi momento di questo turno. Reputazione -2."
+   },
+   "img": "assets/cards/frenzy.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Rise of the Forgemaster (fan).",
+   "guid": "7c0a57",
+   "img_lang": "en"
+  },
+  {
+   "id": "offering_rotf",
+   "set": "fan",
+   "type": "spell",
+   "hero": "",
+   "color": "red",
+   "name_it": "Offerta",
+   "name_en": "Offering",
+   "name_powered_it": "Sacrificio",
+   "name_powered_en": "Sacrifice",
+   "basic": [
+    [
+     "crystal",
+     "basic"
+    ],
+    [
+     "special",
+     "offering_rotf"
+    ]
+   ],
+   "powered": [
+    [
+     "special",
+     "sacrifice"
+    ]
+   ],
+   "side": true,
+   "combat_only": false,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Ottieni un cristallo di un colore base nel tuo Inventario. Puoi scartare una carta di qualsiasi colore per ottenere un cristallo di quel colore; puoi farlo due volte.",
+    "powered": "Scegli verde o bianco, poi rosso o blu. Ottieni Attacco d'Assedio 4 (verde) o Attacco a Distanza 6 (bianco) per ogni coppia di cristalli di questi due colori nel tuo Inventario. L'Attacco è di Fuoco (rosso) o di Ghiaccio (blu). Poi converti tutte queste coppie di cristalli in gettoni mana."
+   },
+   "img": "assets/cards/offering_rotf.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Versione Rise of the Forgemaster (fan) di Offerta.",
+   "guid": "b4ce88",
+   "img_lang": "en",
+   "replaces": "offering"
+  },
+  {
+   "id": "phantom_image",
+   "set": "fan",
+   "type": "spell",
+   "hero": "",
+   "color": "blue",
+   "name_it": "Immagine Fantasma",
+   "name_en": "Phantom Image",
+   "name_powered_it": "Assassino Fantasma",
+   "name_powered_en": "Phantasmal Killer",
+   "basic": [
+    [
+     "attack",
+     3,
+     "ice"
+    ],
+    [
+     "special",
+     "delayed_effect",
+     {
+      "effect": [
+       "attack",
+       3,
+       "ice"
+      ]
+     }
+    ]
+   ],
+   "powered": [
+    [
+     "attack",
+     7,
+     "ice"
+    ]
+   ],
+   "side": true,
+   "combat_only": true,
+   "combat_only_powered": true,
+   "interactive": false,
+   "text_it": {
+    "basic": "Attacco di Ghiaccio 3. Ottieni Attacco di Ghiaccio 3 in qualsiasi momento di questo turno.",
+    "powered": "Attacco di Ghiaccio 7."
+   },
+   "img": "assets/cards/phantom_image.webp",
+   "copies": 1,
+   "impl": true,
+   "note": "Rise of the Forgemaster (fan).",
+   "guid": "81b086",
+   "img_lang": "en"
+  }
+ ]
+}

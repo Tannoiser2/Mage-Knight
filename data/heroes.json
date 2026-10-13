@@ -1,0 +1,527 @@
+{
+ "_notes": {
+  "colour": "Colore principale (sfere sulla carta Eroe: due del primo colore e una del secondo). dummy_crystals = cristalli iniziali del giocatore Neutrale con questo eroe.",
+  "figure": "OBJ con Y in alto, base centrata nell'origine; bbox in unità del modello (raggio della base ≈1.04, altezza ≈2.4–3.0). In TTS la figura è scalata a 0.9 e una tessera (scala 2.25) misura ≈7.2 unità di larghezza: il raggio di un esagono in TTS ≈1.38 unità → una figura alta ≈2.4 unità è alta ≈1.7 raggi di esagono. Texture da assegnare in codice (materiali rimossi).",
+  "sets": "base = gioco base; wolfhawk = Lost Legion (set ll), krang = espansione Krang; tezla = Shades of Tezla."
+ },
+ "heroes": {
+  "arythea": {
+   "id": "arythea",
+   "name_it": "Arythea",
+   "name_en": "Arythea",
+   "set": "base",
+   "colour": "red",
+   "dummy_crystals": [
+    "red",
+    "red",
+    "white"
+   ],
+   "figure": {
+    "obj": "assets/models/hero_arythea.obj",
+    "texture": "assets/models/hero_arythea.webp",
+    "bbox": {
+     "min": [
+      -1.04,
+      -0.0,
+      -1.04
+     ],
+     "max": [
+      1.211,
+      2.605,
+      1.04
+     ],
+     "verts": 11061,
+     "faces": 18595
+    }
+   },
+   "token": "assets/tokens/hero_arythea_token.webp",
+   "standee": "assets/tokens/hero_arythea_standee.webp",
+   "marker": "assets/tokens/hero_arythea_marker.webp",
+   "shield": "assets/tokens/hero_arythea_shield.webp",
+   "turn_order": "assets/tokens/hero_arythea_order.webp",
+   "card": "assets/tokens/hero_arythea_card.webp"
+  },
+  "goldyx": {
+   "id": "goldyx",
+   "name_it": "Goldyx",
+   "name_en": "Goldyx",
+   "set": "base",
+   "colour": "green",
+   "dummy_crystals": [
+    "green",
+    "green",
+    "blue"
+   ],
+   "figure": {
+    "obj": "assets/models/hero_goldyx.obj",
+    "texture": "assets/models/hero_goldyx.webp",
+    "bbox": {
+     "min": [
+      -1.324,
+      0.0,
+      -1.04
+     ],
+     "max": [
+      1.199,
+      2.74,
+      1.238
+     ],
+     "verts": 18659,
+     "faces": 24487
+    }
+   },
+   "token": "assets/tokens/hero_goldyx_token.webp",
+   "standee": "assets/tokens/hero_goldyx_standee.webp",
+   "marker": "assets/tokens/hero_goldyx_marker.webp",
+   "shield": "assets/tokens/hero_goldyx_shield.webp",
+   "turn_order": "assets/tokens/hero_goldyx_order.webp",
+   "card": "assets/tokens/hero_goldyx_card.webp"
+  },
+  "norowas": {
+   "id": "norowas",
+   "name_it": "Norowas",
+   "name_en": "Norowas",
+   "set": "base",
+   "colour": "white",
+   "dummy_crystals": [
+    "white",
+    "white",
+    "green"
+   ],
+   "figure": {
+    "obj": "assets/models/hero_norowas.obj",
+    "texture": "assets/models/hero_norowas.webp",
+    "bbox": {
+     "min": [
+      -1.04,
+      0.0,
+      -1.04
+     ],
+     "max": [
+      1.04,
+      3.025,
+      1.04
+     ],
+     "verts": 14607,
+     "faces": 25249
+    }
+   },
+   "token": "assets/tokens/hero_norowas_token.webp",
+   "standee": "assets/tokens/hero_norowas_standee.webp",
+   "marker": "assets/tokens/hero_norowas_marker.webp",
+   "shield": "assets/tokens/hero_norowas_shield.webp",
+   "turn_order": "assets/tokens/hero_norowas_order.webp",
+   "card": "assets/tokens/hero_norowas_card.webp"
+  },
+  "tovak": {
+   "id": "tovak",
+   "name_it": "Tovak",
+   "name_en": "Tovak",
+   "set": "base",
+   "colour": "blue",
+   "dummy_crystals": [
+    "blue",
+    "blue",
+    "red"
+   ],
+   "figure": {
+    "obj": "assets/models/hero_tovak.obj",
+    "texture": "assets/models/hero_tovak.webp",
+    "bbox": {
+     "min": [
+      -1.618,
+      0.0,
+      -1.04
+     ],
+     "max": [
+      1.04,
+      2.405,
+      1.04
+     ],
+     "verts": 16529,
+     "faces": 24109
+    }
+   },
+   "token": "assets/tokens/hero_tovak_token.webp",
+   "standee": "assets/tokens/hero_tovak_standee.webp",
+   "marker": "assets/tokens/hero_tovak_marker.webp",
+   "shield": "assets/tokens/hero_tovak_shield.webp",
+   "turn_order": "assets/tokens/hero_tovak_order.webp",
+   "card": "assets/tokens/hero_tovak_card.webp"
+  },
+  "braevalar": {
+   "id": "braevalar",
+   "name_it": "Braevalar",
+   "name_en": "Braevalar",
+   "set": "tezla",
+   "colour": "blue",
+   "dummy_crystals": [
+    "blue",
+    "blue",
+    "green"
+   ],
+   "figure": {
+    "obj": "assets/models/hero_braevalar.obj",
+    "texture": "assets/models/hero_braevalar.webp",
+    "bbox": {
+     "min": [
+      -1.04,
+      -0.0,
+      -1.04
+     ],
+     "max": [
+      1.04,
+      2.717,
+      1.04
+     ],
+     "verts": 8377,
+     "faces": 16456
+    }
+   },
+   "token": "assets/tokens/hero_braevalar_token.webp",
+   "standee": "assets/tokens/hero_braevalar_standee.webp",
+   "marker": "assets/tokens/hero_braevalar_marker.webp",
+   "shield": "assets/tokens/hero_braevalar_shield.webp",
+   "turn_order": "assets/tokens/hero_braevalar_order.webp",
+   "card": "assets/tokens/hero_braevalar_card.webp"
+  },
+  "krang": {
+   "id": "krang",
+   "name_it": "Krang",
+   "name_en": "Krang",
+   "set": "krang",
+   "colour": "red",
+   "dummy_crystals": [
+    "red",
+    "red",
+    "green"
+   ],
+   "figure": {
+    "obj": "assets/models/hero_krang.obj",
+    "texture": "assets/models/hero_krang.webp",
+    "bbox": {
+     "min": [
+      -1.04,
+      -0.0,
+      -1.04
+     ],
+     "max": [
+      1.658,
+      2.607,
+      1.107
+     ],
+     "verts": 11552,
+     "faces": 19779
+    }
+   },
+   "token": "assets/tokens/hero_krang_token.webp",
+   "standee": "assets/tokens/hero_krang_standee.webp",
+   "marker": "assets/tokens/hero_krang_marker.webp",
+   "shield": "assets/tokens/hero_krang_shield.webp",
+   "turn_order": "assets/tokens/hero_krang_order.webp",
+   "card": "assets/tokens/hero_krang_card.webp"
+  },
+  "wolfhawk": {
+   "id": "wolfhawk",
+   "name_it": "Wolfhawk",
+   "name_en": "Wolfhawk",
+   "set": "ll",
+   "colour": "white",
+   "dummy_crystals": [
+    "white",
+    "white",
+    "blue"
+   ],
+   "figure": {
+    "obj": "assets/models/hero_wolfhawk.obj",
+    "texture": "assets/models/hero_wolfhawk.webp",
+    "bbox": {
+     "min": [
+      -1.04,
+      -0.0,
+      -1.04
+     ],
+     "max": [
+      1.04,
+      2.517,
+      1.04
+     ],
+     "verts": 11603,
+     "faces": 19316
+    }
+   },
+   "token": "assets/tokens/hero_wolfhawk_token.webp",
+   "standee": "assets/tokens/hero_wolfhawk_standee.webp",
+   "marker": "assets/tokens/hero_wolfhawk_marker.webp",
+   "shield": "assets/tokens/hero_wolfhawk_shield.webp",
+   "turn_order": "assets/tokens/hero_wolfhawk_order.webp",
+   "card": "assets/tokens/hero_wolfhawk_card.webp"
+  }
+ },
+ "models": {
+  "hero_arythea": {
+   "obj": "assets/models/hero_arythea.obj",
+   "bbox": {
+    "min": [
+     -1.04,
+     -0.0,
+     -1.04
+    ],
+    "max": [
+     1.211,
+     2.605,
+     1.04
+    ],
+    "verts": 11061,
+    "faces": 18595
+   },
+   "tts_scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "up": "y",
+   "texture": "assets/models/hero_arythea.webp"
+  },
+  "hero_goldyx": {
+   "obj": "assets/models/hero_goldyx.obj",
+   "bbox": {
+    "min": [
+     -1.324,
+     0.0,
+     -1.04
+    ],
+    "max": [
+     1.199,
+     2.74,
+     1.238
+    ],
+    "verts": 18659,
+    "faces": 24487
+   },
+   "tts_scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "up": "y",
+   "texture": "assets/models/hero_goldyx.webp"
+  },
+  "hero_norowas": {
+   "obj": "assets/models/hero_norowas.obj",
+   "bbox": {
+    "min": [
+     -1.04,
+     0.0,
+     -1.04
+    ],
+    "max": [
+     1.04,
+     3.025,
+     1.04
+    ],
+    "verts": 14607,
+    "faces": 25249
+   },
+   "tts_scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "up": "y",
+   "texture": "assets/models/hero_norowas.webp"
+  },
+  "hero_tovak": {
+   "obj": "assets/models/hero_tovak.obj",
+   "bbox": {
+    "min": [
+     -1.618,
+     0.0,
+     -1.04
+    ],
+    "max": [
+     1.04,
+     2.405,
+     1.04
+    ],
+    "verts": 16529,
+    "faces": 24109
+   },
+   "tts_scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "up": "y",
+   "texture": "assets/models/hero_tovak.webp"
+  },
+  "hero_braevalar": {
+   "obj": "assets/models/hero_braevalar.obj",
+   "bbox": {
+    "min": [
+     -1.04,
+     -0.0,
+     -1.04
+    ],
+    "max": [
+     1.04,
+     2.717,
+     1.04
+    ],
+    "verts": 8377,
+    "faces": 16456
+   },
+   "tts_scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "up": "y",
+   "texture": "assets/models/hero_braevalar.webp"
+  },
+  "hero_krang": {
+   "obj": "assets/models/hero_krang.obj",
+   "bbox": {
+    "min": [
+     -1.04,
+     -0.0,
+     -1.04
+    ],
+    "max": [
+     1.658,
+     2.607,
+     1.107
+    ],
+    "verts": 11552,
+    "faces": 19779
+   },
+   "tts_scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "up": "y",
+   "texture": "assets/models/hero_krang.webp"
+  },
+  "hero_wolfhawk": {
+   "obj": "assets/models/hero_wolfhawk.obj",
+   "bbox": {
+    "min": [
+     -1.04,
+     -0.0,
+     -1.04
+    ],
+    "max": [
+     1.04,
+     2.517,
+     1.04
+    ],
+    "verts": 11603,
+    "faces": 19316
+   },
+   "tts_scale": [
+    0.9,
+    0.9,
+    0.9
+   ],
+   "up": "y",
+   "texture": "assets/models/hero_wolfhawk.webp"
+  },
+  "city_red": {
+   "obj": "assets/models/city_red.obj",
+   "bbox": {
+    "min": [
+     -1.042,
+     -0.0,
+     -1.042
+    ],
+    "max": [
+     1.042,
+     2.078,
+     1.042
+    ],
+    "verts": 4256,
+    "faces": 3171
+   },
+   "tts_scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "up": "y",
+   "texture": "assets/models/city_red.webp"
+  },
+  "city_green": {
+   "obj": "assets/models/city_green.obj",
+   "bbox": {
+    "min": [
+     -1.042,
+     -0.0,
+     -1.042
+    ],
+    "max": [
+     1.042,
+     2.078,
+     1.042
+    ],
+    "verts": 4256,
+    "faces": 3171
+   },
+   "tts_scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "up": "y",
+   "texture": "assets/models/city_green.webp"
+  },
+  "city_blue": {
+   "obj": "assets/models/city_blue.obj",
+   "bbox": {
+    "min": [
+     -1.042,
+     -0.0,
+     -1.042
+    ],
+    "max": [
+     1.042,
+     2.078,
+     1.042
+    ],
+    "verts": 4256,
+    "faces": 3171
+   },
+   "tts_scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "up": "y",
+   "texture": "assets/models/city_blue.webp"
+  },
+  "city_white": {
+   "obj": "assets/models/city_white.obj",
+   "bbox": {
+    "min": [
+     -1.042,
+     -0.0,
+     -1.042
+    ],
+    "max": [
+     1.042,
+     2.078,
+     1.042
+    ],
+    "verts": 4256,
+    "faces": 3171
+   },
+   "tts_scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "up": "y",
+   "texture": "assets/models/city_white.webp"
+  }
+ }
+}
