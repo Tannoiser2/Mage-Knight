@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/rotf_dark_dealings.webp-7ed186ae1318ca07ee0fd
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.8
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

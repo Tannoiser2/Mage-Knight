@@ -759,6 +759,14 @@ func _make_token(type: String, color: String, up: bool) -> Node3D:
 	spin.add_child(mi)
 	root.set_meta("up", up)
 	_paint_token(mi, type, color, up)
+	# Miniatura 3D facoltativa (assets/miniatures/<tipo>.glb, generata con Meshy): sta in piedi sul segnalino,
+	# visibile solo quando il nemico è scoperto.
+	var mini: Node3D = MKMiniatures.enemy(type, 0.55, TOKEN_R * 1.8)
+	if mini != null:
+		mini.name = "mini"
+		mini.position.y = TOKEN_H / 2.0
+		mini.visible = up
+		spin.add_child(mini)
 	return root
 
 
@@ -780,12 +788,16 @@ func _flip_token(n: Node3D, type: String, color: String, up: bool, anim: bool) -
 	var mi: MeshInstance3D = spin.get_node("disc")
 	if not anim:
 		_paint_token(mi, type, color, up)
+		if spin.has_node("mini"):
+			spin.get_node("mini").visible = up
 		return
 	var tw := create_tween()
 	tw.tween_property(spin, "position:y", TOKEN_H / 2.0 + 0.5, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tw.parallel().tween_property(spin, "rotation:x", PI / 2.0, 0.2)
 	tw.tween_callback(func():
 		_paint_token(mi, type, color, up)
+		if spin.has_node("mini"):
+			spin.get_node("mini").visible = up
 		spin.rotation.x = -PI / 2.0)
 	tw.tween_property(spin, "rotation:x", 0.0, 0.2)
 	tw.parallel().tween_property(spin, "position:y", TOKEN_H / 2.0, 0.25).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)

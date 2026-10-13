@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/site_keep.webp-7f384950e93e498e0e09d6b696b5cf
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.8
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

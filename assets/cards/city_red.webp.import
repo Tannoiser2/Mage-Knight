@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/city_red.webp-3dfed7bce9ebcf3f14a5088c4b2c4b9
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.8
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

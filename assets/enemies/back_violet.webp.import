@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/back_violet.webp-49981a9ad42d362ae03a39da757c
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.8
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

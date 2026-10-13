@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/rotf_training.webp-7cf631a0cf19f795f08cf1d765
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.8
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

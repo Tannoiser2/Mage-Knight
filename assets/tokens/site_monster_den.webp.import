@@ -15,9 +15,9 @@ dest_files=["res://.godot/imported/site_monster_den.webp-48853b946a97673ae792465
 
 [params]
 
-compress/mode=0
+compress/mode=1
 compress/high_quality=false
-compress/lossy_quality=0.7
+compress/lossy_quality=0.8
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1

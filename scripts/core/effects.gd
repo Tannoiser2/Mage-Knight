@@ -439,7 +439,12 @@ static func can(eng, e, ctx: Dictionary) -> bool:
 			return e.size() > 3 and any_can(eng, e[3], ctx)
 		"pay_mana":
 			var need: String = str(e[1]) if e.size() > 1 else "any"
-			if MKMana.sources_for(eng, p, need, ctx.get("_mana_used", [])).is_empty():
+			var used_m: Array = ctx.get("_mana_used", [])
+			var dice_u := 0
+			for u in used_m:
+				if str(u).begins_with("die:"):
+					dice_u += 1
+			if MKMana.sources_for(eng, p, need, used_m, dice_u).is_empty():
 				return false
 			return e.size() < 3 or (e[2] is Array and (e[2].is_empty() or any_can(eng, e[2], ctx)))
 		"discard":

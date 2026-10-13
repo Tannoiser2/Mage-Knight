@@ -146,17 +146,24 @@ func show_home() -> void:
 	vb.position = Vector2(96, 400)
 	vb.add_theme_constant_override("separation", 16)
 	p.add_child(vb)
-	var items := [
-		["NUOVA PARTITA", show_new_game, true],
-		["GIOCA ONLINE", show_online, false],
-		["REGOLE", show_rules, false],
-	]
+	var items := []
+	if MKController.has_save():
+		items.append(["CONTINUA PARTITA", _on_continue, true])
+	items.append(["NUOVA PARTITA", show_new_game, not MKController.has_save()])
+	items.append(["GIOCA ONLINE", show_online, false])
+	items.append(["REGOLE", show_rules, false])
 	if not OS.has_feature("web"):
 		items.append(["ESCI", func(): get_tree().quit(), false])
 	for it in items:
 		var b := MKUI.big_button(it[0], 460, it[2], 78)
 		b.pressed.connect(it[1])
 		vb.add_child(b)
+	if MKController.has_save():
+		var sl := MKUI.label(MKController.save_summary(), 19, Color("#cbbf9f"), MKUI.font_italic)
+		vb.add_child(sl)
+		vb.move_child(sl, 1)
+	msg = MKUI.label("", 22, MKUI.RED, MKUI.font_bold)
+	vb.add_child(msg)
 	var credits := MKUI.label("Adattamento non ufficiale per uso personale · Mage Knight di Vlaada Chvátil · © WizKids · F11 schermo intero", 17, Color("#8a8070"))
 	credits.anchor_top = 1.0
 	credits.anchor_bottom = 1.0
@@ -376,6 +383,19 @@ func _cycle(i: int, k: int) -> void:
 	_refresh_new_game()
 
 
+func _on_continue() -> void:
+	if main != null and not main.resume_game():
+		MKController.clear_save()
+		show_home()
+		if msg:
+			msg.text = "Impossibile riprendere la partita salvata."
+
+
+## Configurazione che la schermata Nuova partita avvierebbe (usata anche dalla sala online).
+func current_config() -> Dictionary:
+	return config()
+
+
 ## Configurazione per il motore (SPEC §4).
 func config() -> Dictionary:
 	var pl := []
@@ -437,21 +457,50 @@ func _info_page(title: String, body: String) -> void:
 
 
 func show_online() -> void:
+	var lp := "res://scripts/net/online_lobby.gd"
+	if ResourceLoader.exists(lp):
+		var sc = load(lp)
+		if sc is Script and (sc as Script).can_instantiate():
+			_store()
+			var lobby_node = sc.new()
+			if lobby_node is Control:
+				if "cfg" in lobby_node:
+					lobby_node.set("cfg", current_config())
+				if main != null:
+					main.show_screen(lobby_node)
+				else:
+					add_child(lobby_node)
+				return
 	_info_page("Gioca online",
-		"Il gioco online arriverà presto.\n\n" +
-		"Chi crea la stanza sceglierà scenario ed eroi; gli amici entreranno con un codice di 4 lettere. " +
+		"Il gioco online non è ancora disponibile in questa versione.\n\n" +
+		"Chi crea la stanza sceglierà scenario ed eroi; gli amici entreranno con un codice. " +
 		"I posti liberi saranno guidati dall'IA. Tutti i dispositivi eseguono la stessa partita in parallelo " +
 		"(stesso seme, stesse azioni), sincronizzati tramite Firebase.")
 
 
 func show_rules() -> void:
-	_info_page("Regole",
-		"[b]In breve.[/b] Ogni round è un Giorno o una Notte. Nel tuo turno o [b]riposi[/b], oppure ti " +
-		"[b]muovi[/b] (anche esplorando nuove tessere) e poi compi [b]un'azione[/b]: interagire con un sito, " +
-		"combattere, reclutare Unità.\n" +
-		"Le carte danno Movimento, Influenza, Attacco, Blocco e Guarigione; il mana della Fonte e i Cristalli " +
-		"le potenziano. Sconfiggere nemici dà Fama; con la Fama sali di livello e ottieni Abilità e Azioni avanzate.\n\n" +
-		"[i]Il riassunto completo delle regole, con gli esempi, comparirà qui.[/i]")
+	var p := _new_page()
+	_title_block(p, true)
+	var panel := PanelContainer.new()
+	panel.add_theme_stylebox_override("panel", MKUI.frame_style(0.92, 10))
+	panel.position = Vector2(80, 180)
+	panel.custom_minimum_size = Vector2(1240, 0)
+	p.add_child(panel)
+	var vb := VBoxContainer.new()
+	vb.add_theme_constant_override("separation", 14)
+	panel.add_child(vb)
+	vb.add_child(MKUI.title("Regole in breve", 40, MKUI.GOLD))
+	var sc := ScrollContainer.new()
+	sc.custom_minimum_size = Vector2(1200, 700)
+	sc.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	vb.add_child(sc)
+	var r := MKUI.rich(21)
+	r.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	r.text = MKScreens.scenario_text(SCENARIOS[scenario]["id"]) + "\n\n" + MKScreens.RULES_IT
+	sc.add_child(r)
+	var b := MKUI.big_button("INDIETRO", 280)
+	b.pressed.connect(show_home)
+	vb.add_child(b)
 
 
 # ================================================================== widget
