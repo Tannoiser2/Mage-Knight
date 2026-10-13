@@ -44,10 +44,42 @@ con le stesse impostazioni. Altre opzioni: `nemici`, `siti`, `--rifai <id>`, `--
 Costo indicativo: un credito Meshy per ogni compito, testo → 3D ne usa due (anteprima + texture);
 controlla il saldo prima di lanciare tutto.
 
+## Compressione (automatica)
+I `.glb` scaricati da Meshy pesano 15–180 MB: texture 2k/4k (colore, normal map, metallic/roughness) e,
+per i modelli **testo → 3D**, da 0,5 a 5 milioni di triangoli (il limite di poligoni vale solo per
+immagine → 3D). Per questo `genera_miniature.py`, subito dopo lo scaricamento, li comprime con
+[glTF Transform](https://gltf-transform.dev) (via `npx`, serve Node.js; nessun credito Meshy):
+1. se i triangoli sono più del doppio del previsto: `weld` + `simplify` (si arriva a ~18 000 triangoli
+   per i nemici e 20–40 000 per i siti: le cuciture delle UV impediscono di scendere oltre senza
+   rovinare la texture);
+2. `resize` delle texture a 1024 px; poi normal map e metallic/roughness a 512 px (con Pillow);
+3. l'originale resta in `meshy/originali/` (escluso da git), se un giorno servisse rifarla meglio.
+
+Risultato: 0,5–1,4 MB per modello (villaggio 2,2 MB), 25 MB in tutto per 33 miniature.
+Per comprimere a mano i `.glb` già presenti (gratis, non chiama Meshy):
+```
+python3 meshy/genera_miniature.py --comprimi              # tutti quelli > 3 MB (+ mappe a 512 px)
+python3 meshy/genera_miniature.py --comprimi --rifai medusa   # forza anche uno già leggero
+```
+Equivalente a mano: `npx --yes @gltf-transform/cli@4.1.1 resize in.glb out.glb --width 1024 --height 1024`
+(preceduto da `weld` e `simplify --ratio 0.01 --error 0.02` se i triangoli sono troppi).
+
+**Dopo il primo import in Godot** rilancia `--comprimi`: imposta i file `.import` di
+`assets/miniatures/` (texture estratte in WebP con perdita invece che senza perdita, niente LOD né mesh
+d'ombra per i `.glb`) e poi riapri Godot o esegui `godot --headless --path . --import`. Senza questo
+passo il `.pck` per il web cresce di parecchie decine di MB (texture salvate senza perdita).
+
 ## Come le usa il gioco
 `scripts/ui/miniatures.gd` (`MKMiniatures`): `MKMiniatures.load_for(id)` restituisce la miniatura
 normalizzata (altezza fissa, appoggiata al piano, centrata, rivolta verso chi guarda) oppure `null`.
 Id: il tipo di nemico (`high_dragon`, `minotaur`…) e `site_keep`, `site_mage_tower`,
 `site_monastery`, `site_village`. I nemici coperti non mostrano mai la miniatura (non si rivela chi
 sono). Dopo aver aggiunto i `.glb` riapri il progetto in Godot (o rifai la build: la action di GitHub
-li importa da sola). Tieni d'occhio il peso: ogni `.glb` di Meshy pesa 1–5 MB.
+li importa da sola). Tieni d'occhio il peso (vedi «Compressione»).
+
+Sul tavolo (`scripts/ui/table3d.gd`): la miniatura del nemico sta in piedi **subito dietro il suo
+segnalino** rispetto alla telecamera (così i valori stampati restano leggibili) e gira con la
+telecamera; quelle dei siti (villaggio, monastero, fortezza, torre magica) stanno sul lato destro
+dell'esagono, sempre visibili (il monastero bruciato sparisce). Nel menu di gioco c'è
+**Miniature 3D: Sì/No** (si ricorda in `user://mk_settings.cfg`). Verifica visiva:
+`tests/mini_shot.gd` (tutti i tipi di nemico scoperti, i siti, notte, telecamera ruotata, menu).

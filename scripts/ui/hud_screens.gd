@@ -562,6 +562,17 @@ static func game_menu(v) -> void:
 			v.ctrl.set_speed(k)
 			game_menu(v), 124, 44, v.ctrl.speed == k, 18)
 		hb.add_child(b)
+	vb.add_child(MKUI.label("Miniature 3D", 20, MKUI.GOLD, MKUI.font_bold))
+	var hm := HBoxContainer.new()
+	hm.add_theme_constant_override("separation", 6)
+	vb.add_child(hm)
+	for on in [true, false]:
+		hm.add_child(MKHud.btn("Sì" if on else "No", func():
+			if v.table != null:
+				v.table.set_miniatures(on)
+			else:
+				MKMiniatures.set_enabled(on)
+			game_menu(v), 124, 44, MKMiniatures.enabled == on, 18))
 	vb.add_child(HSeparator.new())
 	vb.add_child(MKUI.big_button("RIPRENDI", 520, true, 62))
 	vb.get_child(vb.get_child_count() - 1).pressed.connect(func(): v.close_modal("screen"))

@@ -244,7 +244,9 @@ static func explore_value(eng, p: int, level: int = 2) -> float:
 						core_next += 1
 				var frac = float(core_next) / float(maxi(1, eng.s.map.tile_deck.size()))
 				var lv_f = (1.0 if level >= 3 else 0.5) * C.T("explore_lv")
-				v += lv_f * (C.T("explore_city") + 2.0 * frac + C.T("explore_r") * float(int(eng.s.round)) + 1.5 * float(missing - 1))
+				# competitive: the cities (fame, leadership, early conquest) are a race - reveal them sooner
+				var ec = C.T("explore_city") + (C.T("explore_comp") if eng.is_competitive() else 0.0)
+				v += lv_f * (ec + 2.0 * frac + C.T("explore_r") * float(int(eng.s.round)) + 1.5 * float(missing - 1))
 	return v
 
 # ================================================================ power / feasibility
@@ -721,7 +723,9 @@ static func strategic(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Array:
 ## to assault it. Stored in mem.siege ("" = none).
 static func siege_target(eng, p: int, ctx: Dictionary, mem: Dictionary) -> String:
 	mem["siege"] = ""
-	if int(ctx.level) < 3 or not str(eng.s.scn.get("mode", "")) in ["solo", "coop"]:
+	var lvl = int(ctx.level)
+	var mode = str(eng.s.scn.get("mode", ""))
+	if lvl < 2 or (lvl < 3 and not mode in ["solo", "coop"]):
 		return ""
 	if not eng.s.scn.get("cities_enterable", true):
 		return ""
@@ -740,17 +744,19 @@ static func siege_target(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Strin
 			best = k
 	if best == "":
 		return ""
-	var early = false
-	if int(eng.s.round) < int(C.T("siege_round")):
-		# earlier only when the typical assault already defeats someone at an acceptable cost
-		var h2: Dictionary = eng.hex(best)
-		var alts = site_models(eng, p, best, "assault", false)
-		if alts.is_empty() or alts[0][1].is_empty():
-			return ""
-		var est = siege_estimate(eng, p, best, alts[0][1], ctx, mem)
-		early = int(est.kills) >= 1 and float(est.score) > C.T("siege_early")
-		if not early:
-			return ""
+	# commit only when a typical assault already defeats someone at an acceptable cost (later in the game
+	# a higher cost is accepted); otherwise the hero keeps building up instead of camping by the walls
+	var alts = site_models(eng, p, best, "assault", false)
+	if alts.is_empty() or alts[0][1].is_empty():
+		return ""
+	var est = siege_estimate(eng, p, best, alts[0][1], ctx, mem)
+	var thr = C.T("siege_early") if int(eng.s.round) < int(C.T("siege_round")) else C.T("siege_thr")
+	if lvl < 3:
+		thr = minf(C.T("siege_early"), thr + C.T("siege_l2"))   # Normale: a more cautious siege
+	if not mode in ["solo", "coop"]:
+		thr = maxf(thr, C.T("siege_comp"))   # competitive: the city is only worth its fame and leadership
+	if int(est.kills) < 1 or float(est.score) <= thr:
+		return ""
 	mem["siege"] = best
 	return best
 
@@ -855,7 +861,7 @@ static func siege_estimate(eng, p: int, k: String, models: Array, ctx: Dictionar
 ## defeating at least its weakest defender in one assault (the siege can take several turns).
 static func city_siege(eng, p: int, k: String, models: Array, pw: float, level: int, ctx: Dictionary = {}, mem: Dictionary = {}) -> float:
 	var bonus = CB.site_bonus(eng, p, "city", k)
-	if level >= 3 and C.T("siege_sim") > 0.5:
+	if level >= 2 and C.T("siege_sim") > 0.5:
 		var est = siege_estimate(eng, p, k, models, ctx, mem)
 		var fame0 = 0.0
 		for m0 in models:

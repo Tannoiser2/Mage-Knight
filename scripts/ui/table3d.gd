@@ -19,6 +19,13 @@ const TH := 0.09                         # spessore delle tessere (faccia superi
 const TOKEN_R := 0.40
 const TOKEN_H := 0.05
 const FIG_H := 0.95                      # altezza delle figure degli eroi
+const MINI_H := 0.5                      # altezza delle miniature dei nemici
+const MINI_W := 0.55                     # ingombro massimo in pianta
+const MINI_OFS := Vector3(0, -TOKEN_H, -0.44)  # in piedi subito dietro il segnalino: la faccia resta leggibile
+const SITE_H := 0.48                     # altezza delle miniature dei siti (vedi SITE_SIZE)
+const SITE_OFS := Vector3(0.62, 0, -0.1) # sul lato destro dell'esagono (eroe e segnalini restano visibili)
+const SITE_SIZE := {"village": [0.42, 0.6], "monastery": [0.46, 0.6], "keep": [0.5, 0.58], "mage_tower": [0.66, 0.5]}
+const SITE_MINIS := ["village", "monastery", "keep", "mage_tower"]
 const KINDS := {
 	"move": Color("#59d98a"), "explore": Color("#ffd36b"), "target": Color("#ff5a48"),
 	"attack": Color("#ff5a48"), "danger": Color("#ff9a3a"), "select": Color("#f2ecd8"),
@@ -51,6 +58,8 @@ var hero_nodes := {}      # indice giocatore -> nodo
 var city_nodes := {}      # esagono -> nodo
 var shield_nodes := {}    # "i|esagono|n" -> nodo
 var ruin_nodes := {}      # esagono -> nodo
+var site_nodes := {}      # "esagono|sito" -> miniatura 3D del sito (assets/miniatures/site_*.glb)
+var _mini_yaw := 0.0      # angolo della telecamera per cui sono orientate le miniature
 var lanterns := {}        # indice giocatore -> OmniLight3D (di notte)
 var hl := {}              # chiave -> {kind, color, label, nodes:[...]}
 var hl_hex := {}          # esagono -> chiave dell'evidenziazione (anche i 7 esagoni di un posto)
@@ -449,6 +458,7 @@ func refresh(state: Dictionary) -> void:
 	_sync_heroes(anim)
 	_sync_shields(anim)
 	_sync_ruins()
+	_sync_sites()
 	_update_bounds()
 	if _first:
 		_first = false
@@ -761,10 +771,10 @@ func _make_token(type: String, color: String, up: bool) -> Node3D:
 	_paint_token(mi, type, color, up)
 	# Miniatura 3D facoltativa (assets/miniatures/<tipo>.glb, generata con Meshy): sta in piedi sul segnalino,
 	# visibile solo quando il nemico è scoperto.
-	var mini: Node3D = MKMiniatures.enemy(type, 0.55, TOKEN_R * 1.8)
+	var mini: Node3D = MKMiniatures.enemy(type, MINI_H, MINI_W) if MKMiniatures.enabled else null
 	if mini != null:
 		mini.name = "mini"
-		mini.position.y = TOKEN_H / 2.0
+		_place_mini(mini)
 		mini.visible = up
 		spin.add_child(mini)
 	return root
@@ -789,7 +799,7 @@ func _flip_token(n: Node3D, type: String, color: String, up: bool, anim: bool) -
 	if not anim:
 		_paint_token(mi, type, color, up)
 		if spin.has_node("mini"):
-			spin.get_node("mini").visible = up
+			spin.get_node("mini").visible = up and MKMiniatures.enabled
 		return
 	var tw := create_tween()
 	tw.tween_property(spin, "position:y", TOKEN_H / 2.0 + 0.5, 0.2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
@@ -797,7 +807,7 @@ func _flip_token(n: Node3D, type: String, color: String, up: bool, anim: bool) -
 	tw.tween_callback(func():
 		_paint_token(mi, type, color, up)
 		if spin.has_node("mini"):
-			spin.get_node("mini").visible = up
+			spin.get_node("mini").visible = up and MKMiniatures.enabled
 		spin.rotation.x = -PI / 2.0)
 	tw.tween_property(spin, "rotation:x", 0.0, 0.2)
 	tw.parallel().tween_property(spin, "position:y", TOKEN_H / 2.0, 0.25).set_trans(Tween.TRANS_BOUNCE).set_ease(Tween.EASE_OUT)
@@ -1144,6 +1154,86 @@ func _sync_ruins() -> void:
 			ruin_nodes.erase(key)
 
 
+
+## Miniature 3D dei siti (villaggio, monastero, fortezza, torre magica) in un angolo dell'esagono,
+## sempre visibili (il monastero bruciato sparisce). Ci sono solo se esiste il .glb.
+func _sync_sites() -> void:
+	var seen := {}
+	if MKMiniatures.enabled:
+		var H := _map_hex()
+		for k in H:
+			var h = H[k]
+			if not (h is Dictionary):
+				continue
+			var site := MKUI.norm(h.get("site", ""))
+			if not (site in SITE_MINIS) or bool(h.get("burned", false)):
+				continue
+			var key := "%s|%s" % [k, site]
+			seen[key] = true
+			if site_nodes.has(key):
+				continue
+			var sz: Array = SITE_SIZE.get(site, [SITE_H, 0.6])
+			var n: Node3D = MKMiniatures.site(site, sz[0], sz[1])
+			if n == null:
+				continue
+			n.set_meta("hex", k)
+			pieces_root.add_child(n)
+			site_nodes[key] = n
+			_place_site(n)
+	for key in site_nodes.keys():
+		if not seen.has(key):
+			site_nodes[key].queue_free()
+			site_nodes.erase(key)
+
+
+## La miniatura di un nemico sta dietro il suo segnalino rispetto alla telecamera (non copre i valori
+## stampati) ed è rivolta verso chi guarda; si riorienta quando la telecamera gira attorno al tavolo.
+func _place_mini(m: Node3D) -> void:
+	var y := deg_to_rad(_mini_yaw)
+	if not m.has_meta("r"):
+		var ab := MKMiniatures.scene_aabb(m)
+		m.set_meta("r", maxf(ab.size.x, ab.size.z) / 2.0)
+	# le miniature larghe si allontanano un po' di più, così il bordo non copre i valori
+	var d := maxf(absf(MINI_OFS.z), TOKEN_R + float(m.get_meta("r")) * 0.75 - 0.08)
+	m.position = Vector3(-sin(y), 0, -cos(y)) * d + Vector3(0, MINI_OFS.y + TOKEN_H / 2.0, 0)
+	m.rotation.y = y
+
+
+func _place_site(n: Node3D) -> void:
+	var k := str(n.get_meta("hex", ""))
+	n.position = hex_pos(k) + SITE_OFS.rotated(Vector3.UP, deg_to_rad(_mini_yaw))
+	n.rotation_degrees.y = _mini_yaw - 20.0
+
+
+func _orient_minis() -> void:
+	_mini_yaw = rig._yaw
+	for eid in enemy_nodes:
+		var m: Node3D = enemy_nodes[eid].get_node("spin").get_node_or_null("mini")
+		if m != null:
+			_place_mini(m)
+	for key in site_nodes:
+		_place_site(site_nodes[key])
+
+
+## Mostra o nasconde le miniature 3D (nemici scoperti e siti); la scelta resta in MKMiniatures.enabled.
+func set_miniatures(on: bool) -> void:
+	MKMiniatures.set_enabled(on)
+	for eid in enemy_nodes:
+		var n: Node3D = enemy_nodes[eid]
+		var spin: Node3D = n.get_node("spin")
+		var m: Node3D = spin.get_node_or_null("mini")
+		if m == null and on:
+			var e = s.get("enemies", {}).get(eid, {})
+			if e is Dictionary:
+				m = MKMiniatures.enemy(str(e.get("type", eid)), MINI_H, MINI_W)
+				if m != null:
+					m.name = "mini"
+					_place_mini(m)
+					spin.add_child(m)
+		if m != null:
+			m.visible = on and bool(n.get_meta("up"))
+	_sync_sites()
+
 # ------------------------------------------------------------------ telecamera
 
 func _update_bounds() -> void:
@@ -1350,6 +1440,8 @@ func _update_hover(sp: Vector2) -> void:
 
 func _process(delta: float) -> void:
 	_time += delta
+	if rig != null and absf(wrapf(rig._yaw - _mini_yaw, -180.0, 180.0)) > 3.0:
+		_orient_minis()
 	# le evidenziazioni pulsano piano
 	var p := 0.75 + 0.25 * sin(_time * 3.2)
 	for key in _hl_mats:

@@ -10,6 +10,7 @@ Uso:
     python3 meshy/genera_miniature.py --rifai medusa  # rigenera anche se esiste già
     python3 meshy/genera_miniature.py --elenco        # mostra l'elenco e cosa manca
     python3 meshy/genera_miniature.py --prova         # controlla tutto senza spendere crediti
+    python3 meshy/genera_miniature.py --comprimi      # solo comprime i .glb pesanti già scaricati (gratis)
     python3 meshy/genera_miniature.py --da-testo gunners medusa    # solo questi, da testo invece che da immagine
     python3 meshy/genera_miniature.py --da-immagine monks          # solo questo, da immagine anche se è in DA_TESTO
 
@@ -23,7 +24,9 @@ Siti (site_village, site_monastery, site_keep, site_mage_tower): testo → 3D co
 Il modello si salva in assets/miniatures/<id>.glb: il gioco lo usa da solo (MKMiniatures), basta
 riaprire il progetto in Godot o rifare la build (la action di GitHub importa i .glb).
 
-Modelli leggeri per il web (≈8000 triangoli i nemici, 10000 i siti). Ogni modello costa crediti:
+Modelli leggeri per il web (≈8000 triangoli i nemici, 10000 i siti). Dopo lo scaricamento ogni .glb
+viene compresso con gltf-transform (via npx, serve Node.js): texture a 1024 px e, se serve, meno
+triangoli; l'originale resta in meshy/originali/ (escluso da git). Ogni modello costa crediti:
 lo script salta quelli già presenti, a meno di --rifai. Solo libreria standard di Python.
 """
 import base64
@@ -149,6 +152,152 @@ def scarica(st, mid):
     dest = os.path.join(OUT, mid + ".glb")
     urllib.request.urlretrieve(url, dest)
     print(f"  salvato {os.path.relpath(dest)} ({os.path.getsize(dest) // 1024} KB)")
+    comprimi(dest, POLY_SITI if mid in SITI else POLY_NEMICI)
+    return True
+
+
+# ---------------------------------------------------------------- compressione (gltf-transform)
+
+GLTF = ["npx", "--yes", "@gltf-transform/cli@4.1.1"]
+ORIGINALI = os.environ.get("MINIATURE_ORIGINALI") or os.path.join(QUI, "originali")  # copie dei .glb scaricati (non vanno su git)
+TEXTURE = 1024                                 # lato massimo delle texture
+
+
+def gltf_tool():
+    if shutil.which("gltf-transform"):
+        return ["gltf-transform"]
+    return GLTF if shutil.which("npx") else None
+
+
+def conta_glb(path):
+    """(triangoli, vertici) di un .glb, leggendo solo l'intestazione JSON."""
+    import struct
+    with open(path, "rb") as f:
+        f.read(12)
+        lung, _ = struct.unpack("<II", f.read(8))
+        j = json.loads(f.read(lung))
+    acc = j.get("accessors", [])
+    tri = vert = 0
+    for m in j.get("meshes", []):
+        for p in m.get("primitives", []):
+            n = acc[p["attributes"]["POSITION"]]["count"]
+            vert += n
+            tri += (acc[p["indices"]]["count"] if "indices" in p else n) // 3
+    return tri, vert
+
+
+def riduci_mappe(path, lato=TEXTURE // 2):
+    """Normal map e metallic/roughness a `lato` px (il colore resta a TEXTURE): su una miniatura così
+    piccola non si vede differenza e il gioco pesa meno. Serve Pillow; senza, non fa nulla."""
+    try:
+        from PIL import Image
+    except ImportError:
+        return False
+    import io
+    import struct
+    with open(path, "rb") as f:
+        dati = f.read()
+    lung = struct.unpack_from("<I", dati, 12)[0]
+    j = json.loads(dati[20:20 + lung])
+    bin_off = 20 + lung + 8
+    binario = dati[bin_off:bin_off + struct.unpack_from("<I", dati, 20 + lung)[0]]
+    if len(j.get("buffers", [])) != 1:
+        return False
+    piccole = set()
+    for m in j.get("materials", []):
+        for t in (m.get("normalTexture"), m.get("pbrMetallicRoughness", {}).get("metallicRoughnessTexture")):
+            if t is not None:
+                piccole.add(j["textures"][t["index"]]["source"])
+    viste = [bytes(binario[v.get("byteOffset", 0):v.get("byteOffset", 0) + v["byteLength"]]) for v in j["bufferViews"]]
+    cambiato = False
+    for i in piccole:
+        im = j["images"][i]
+        if "bufferView" not in im:
+            continue
+        img = Image.open(io.BytesIO(viste[im["bufferView"]]))
+        if max(img.size) <= lato:
+            continue
+        img = img.convert("RGB").resize((lato, lato * img.size[1] // img.size[0]), Image.LANCZOS)
+        out = io.BytesIO()
+        img.save(out, "JPEG", quality=88)
+        viste[im["bufferView"]] = out.getvalue()
+        im["mimeType"] = "image/jpeg"
+        cambiato = True
+    if not cambiato:
+        return False
+    nuovo = bytearray()
+    for v, b in zip(j["bufferViews"], viste):
+        nuovo += b"\0" * (-len(nuovo) % 4)
+        v["byteOffset"] = len(nuovo)
+        v["byteLength"] = len(b)
+        nuovo += b
+    nuovo += b"\0" * (-len(nuovo) % 4)
+    j["buffers"][0]["byteLength"] = len(nuovo)
+    js = json.dumps(j, separators=(",", ":")).encode()
+    js += b" " * (-len(js) % 4)
+    tot = 12 + 8 + len(js) + 8 + len(nuovo)
+    with open(path, "wb") as f:
+        f.write(struct.pack("<III", 0x46546C67, 2, tot))
+        f.write(struct.pack("<II", len(js), 0x4E4F534A) + js)
+        f.write(struct.pack("<II", len(nuovo), 0x004E4942) + bytes(nuovo))
+    return True
+
+
+def imposta_import():
+    """Impostazioni di importazione di Godot per assets/miniatures: texture estratte con compressione
+    con perdita (WebP), .glb senza LOD né mesh d'ombra, così il .pck per il web resta piccolo.
+    Va rieseguito dopo che Godot ha importato i .glb nuovi (crea lui i file .import)."""
+    n = 0
+    for nome in sorted(os.listdir(OUT)):
+        if not nome.endswith((".jpg.import", ".glb.import")):
+            continue
+        p = os.path.join(OUT, nome)
+        with open(p) as f:
+            testo = f.read()
+        # .glb: niente LOD né mesh d'ombra (miniature piccole: il .pck per il web pesa la metà)
+        nuovo = testo.replace("meshes/generate_lods=true", "meshes/generate_lods=false")
+        nuovo = nuovo.replace("meshes/create_shadow_meshes=true", "meshes/create_shadow_meshes=false")
+        nuovo = nuovo.replace("compress/mode=0", "compress/mode=1").replace("compress/lossy_quality=0.7",
+                                                                           "compress/lossy_quality=0.8")
+        nuovo = nuovo.replace("detect_3d/compress_to=1", "detect_3d/compress_to=0")  # resta WebP anche nell'editor
+        if nuovo != testo:
+            with open(p, "w") as f:
+                f.write(nuovo)
+            n += 1
+    return n
+
+
+def comprimi(path, poly=POLY_NEMICI):
+    """Rende leggero un .glb di Meshy (20–180 MB → ~1–2 MB): texture a 1024 e, se i triangoli sono
+    troppi (testo → 3D ignora il limite), weld + simplify. L'originale resta in meshy/originali/."""
+    g = gltf_tool()
+    if not g:
+        print("  (gltf-transform non trovato: installa Node.js per comprimere; il file resta pesante)")
+        return False
+    os.makedirs(ORIGINALI, exist_ok=True)
+    orig = os.path.join(ORIGINALI, os.path.basename(path))
+    if not os.path.exists(orig):
+        shutil.copy2(path, orig)
+    tmp = path + ".tmp.glb"
+    try:
+        tri, vert = conta_glb(orig)
+        src = orig
+        if tri > 2 * poly:
+            ratio = max(0.001, min(1.0, 1.2 * poly / max(1, vert)))
+            for cmd in (["weld", src, tmp], ["simplify", tmp, tmp, "--ratio", f"{ratio:.4f}", "--error", "0.02"]):
+                subprocess.run(g + cmd, check=True, capture_output=True, text=True)
+            src = tmp
+        subprocess.run(g + ["resize", src, tmp, "--width", str(TEXTURE), "--height", str(TEXTURE)],
+                       check=True, capture_output=True, text=True)
+        os.replace(tmp, path)
+    except (subprocess.CalledProcessError, OSError, ValueError, KeyError) as e:
+        print(f"  compressione non riuscita: {getattr(e, 'stderr', '') or e}"[:400])
+        if os.path.exists(tmp):
+            os.remove(tmp)
+        return False
+    riduci_mappe(path)
+    t2, _ = conta_glb(path)
+    print(f"  compresso {os.path.relpath(path)} ({os.path.getsize(path) // 1024} KB, {tri} → {t2} triangoli)")
     return True
 
 
@@ -256,10 +405,14 @@ def cli_da_immagine(base, mid, img, poly):
 
 
 def cli_da_testo(base, mid, prompt, poly):
-    r = cli_compito(base, "text-to-3d", ["--mode", "preview", "--prompt", prompt], mid)
+    # senza remesh l'anteprima esce da 1–5 milioni di triangoli (e la texture a 4k): chiediamo il
+    # limite di poligoni e texture 2k, e comunque comprimi() alleggerisce il file dopo lo scaricamento
+    remesh = json.dumps({"should_remesh": True, "topology": "triangle", "target_polycount": poly})
+    r = cli_compito(base, "text-to-3d", ["--mode", "preview", "--prompt", prompt, "--data", remesh], mid)
     if not r:
         return False
-    r2 = cli_compito(base, "text-to-3d", ["--mode", "refine", "--preview-task-id", r[0]], mid)
+    r2 = cli_compito(base, "text-to-3d", ["--mode", "refine", "--preview-task-id", r[0],
+                                         "--texture-resolution", "2k"], mid)
     return cli_scarica(r2[1], mid) if r2 else False
 
 
@@ -286,6 +439,20 @@ def main():
             c = "c'è" if os.path.exists(os.path.join(OUT, mid + ".glb")) else "manca"
             r = "riferimento ok" if os.path.exists(os.path.join(RIF, mid + ".png")) else "senza riferimento"
             print(f"{mid:18} {(NEMICI.get(mid) or SITI[mid][0]):22} {c:6} {r}")
+        return
+    if "--comprimi" in argv:   # solo compressione dei .glb già scaricati (nessun credito)
+        for mid in ids:
+            p = os.path.join(OUT, mid + ".glb")
+            if not os.path.exists(p):
+                continue
+            if rifai or os.path.getsize(p) > 3 * 1024 * 1024:
+                print(f"{mid}:")
+                comprimi(p, POLY_SITI if mid in SITI else POLY_NEMICI)
+            elif riduci_mappe(p):
+                print(f"{mid}: mappe ridotte ({os.path.getsize(p) // 1024} KB)")
+        n = imposta_import()
+        if n:
+            print(f"{n} file .import aggiornati (riapri Godot o esegui godot --headless --import per applicarli)")
         return
     chiave = os.environ.get("MESHY_API_KEY", "")
     base = None if chiave else cli()

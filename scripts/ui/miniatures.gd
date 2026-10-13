@@ -10,7 +10,26 @@ extends RefCounted
 
 const DIR := "res://assets/miniatures/"
 
+const SETTINGS := "user://mk_settings.cfg"
+
 static var _cache := {}        # id -> PackedScene oppure null (non c'è)
+## Impostazione «Miniature 3D» (menu di gioco): false = solo i segnalini e le tessere.
+static var enabled: bool = _load_enabled()
+
+
+static func _load_enabled() -> bool:
+	var cf := ConfigFile.new()
+	if cf.load(SETTINGS) != OK:
+		return true
+	return bool(cf.get_value("table", "miniatures", true))
+
+
+static func set_enabled(on: bool) -> void:
+	enabled = on
+	var cf := ConfigFile.new()
+	cf.load(SETTINGS)
+	cf.set_value("table", "miniatures", on)
+	cf.save(SETTINGS)
 
 
 static func path_for(id: String) -> String:

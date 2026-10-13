@@ -39,7 +39,7 @@ const PICK_V := {
 ## Tunable weights (benchmarks may override them with AI_TUNE="name=value,...").
 static var tune := {"card_scale": 1.0, "wc": 2.0, "explore_bonus": 0.0, "pos_scale": 0.6, "fm_slope": 0.1, "rest_bias": 0.0,
 	"idle_pen": 1.0, "goal_other": 1.0, "pos_decay": 0.82, "full_alts": 0.0, "noise3": 0.12,
-	"siege_f1": 0.85, "siege_sim": 1.0, "explore_lv": 1.0, "siege_thr": -8.0, "wc_base": 0.8, "wc_slope": 0.12, "poison_f": 0.8, "explore_city": -8.0, "unit_mult": 1.0, "slot_cost": 2.0, "explore_r": 0.8, "siege_round": 4.0, "siege_v": 30.0, "siege_push": 5.0, "siege_early": -3.0, "shop_w": 0.8, "coop_fm_min": 0.55, "explore_scar": 0.0, "scar_ref": 10.0, "share_coop": 0.45, "share_comp": 1.0, "hand_q": 0.75, "heal_v": 2.4, "buy_card": 1.0, "city_prog": 0.8}
+	"siege_f1": 0.85, "siege_sim": 1.0, "explore_lv": 1.0, "siege_thr": -12.0, "wc_base": 0.8, "wc_slope": 0.12, "poison_f": 0.8, "explore_city": -8.0, "unit_mult": 1.0, "slot_cost": 2.0, "explore_r": 0.8, "siege_round": 3.0, "siege_v": 30.0, "siege_push": 5.0, "siege_early": -3.0, "shop_w": 0.8, "coop_fm_min": 0.55, "explore_scar": 0.0, "scar_ref": 10.0, "share_coop": 0.45, "share_comp": 1.0, "hand_q": 0.75, "heal_v": 2.4, "buy_card": 1.0, "city_prog": 1.2, "siege_l2": 5.0, "siege_comp": -6.0, "explore_comp": 4.0}
 static var _tune_loaded := false
 
 static func T(name: String) -> float:
