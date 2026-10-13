@@ -135,7 +135,7 @@ static func _order_chip(v, i: int, active: bool) -> Control:
 	if i != MKEngine.DUMMY and s.players[i].get("skip_next", false):
 		# gettone Ordine di Round a faccia in giù: salterà il prossimo turno
 		im.modulate = Color(0.55, 0.55, 0.65)
-		var fl := MKUI.label("⤓", 20, Color("#ff9a7a"), MKUI.font_bold)
+		var fl := MKUI.label("↓", 20, Color("#ff9a7a"), MKUI.font_bold)
 		fl.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		h.add_child(fl)
 		p.tooltip_text += " · gettone a faccia in giù: salterà il prossimo turno"

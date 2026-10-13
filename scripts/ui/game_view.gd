@@ -541,6 +541,14 @@ func show_zoom(path: String, text := "", sz := Vector2(330, 462)) -> void:
 	var im := MKHud.image(path, sz)
 	im.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	hb.add_child(im)
+	# Le carte (azioni, incantesimi, artefatti, unità, tattiche) sono in italiano: il testo accanto
+	# ripeterebbe quello stampato. Restano solo le righe sullo stato (unità ferite, segnalini…).
+	if path.contains("assets/cards/"):
+		var keep := []
+		for ln in text.split("\n"):
+			if ln.begins_with("[i]Stato") or ln.begins_with("[b]Segnalino"):
+				keep.append(ln)
+		text = "\n".join(keep)
 	if text != "":
 		var r := MKUI.rich(20)
 		r.custom_minimum_size = Vector2(280, 0)

@@ -29,6 +29,9 @@ const SITE_SIZE := {
 	"dungeon": [0.3, 0.95], "tomb": [0.42, 0.9], "ruins": [0.36, 0.95], "camp": [0.4, 1.05],
 	"maze": [0.32, 1.05], "labyrinth": [0.5, 1.0], "pyramid": [0.55, 0.95], "ziggurat": [0.45, 1.0],
 }
+## Quota (frazione dell'altezza) da affondare nella tessera: il sotterraneo è un'entrata con scale che
+## scendono, va appoggiato a filo del terreno e non deve "galleggiare".
+const SITE_SINK := {"dungeon": 0.3}
 const SITE_MINIS := ["village", "monastery", "keep", "mage_tower", "dungeon", "tomb", "ruins", "camp",
 	"maze", "labyrinth", "pyramid", "ziggurat"]
 ## Con la miniatura del sito al centro, segnalini ed eroi stanno nella fascia davanti (verso +Z).
@@ -1245,6 +1248,7 @@ func _sync_sites() -> void:
 			if n == null:
 				continue
 			n.set_meta("hex", k)
+			n.set_meta("site", site)
 			pieces_root.add_child(n)
 			site_nodes[key] = n
 			_place_site(n)
@@ -1265,7 +1269,9 @@ func _place_mini(m: Node3D) -> void:
 ## Le strutture dei siti non si muovono mai: centro dell'esagono, orientamento fisso.
 func _place_site(n: Node3D) -> void:
 	var k := str(n.get_meta("hex", ""))
-	n.position = hex_pos(k) + Vector3(0, 0.002, 0)
+	var site := str(n.get_meta("site", ""))
+	var sink: float = float(SITE_SINK.get(site, 0.0)) * MKMiniatures.scene_aabb(n).size.y
+	n.position = hex_pos(k) + Vector3(0, 0.002 - sink, 0)
 	n.rotation = Vector3.ZERO
 
 
