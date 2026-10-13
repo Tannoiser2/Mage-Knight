@@ -69,7 +69,7 @@ static func provokes(eng, p: int, from: String, to: String) -> bool:
 		var nh: Dictionary = eng.hex(nk)
 		if nh.is_empty() or not nh.rampage or nh.enemies.is_empty():
 			continue
-		if MKHex.adjacent(nk, to):
+		if eng.rampage_threatens(nk, to):
 			return true
 	return false
 
@@ -107,7 +107,7 @@ static func reach(eng, p: int, budget: int) -> Dictionary:
 			for nk in MKHex.neighbors(cur):
 				if eng._hex_blocked(p, nk) != "":
 					continue
-				var c: int = eng.move_cost(nk)
+				var c: int = eng.move_cost(nk, cur)
 				if c >= 999:
 					continue
 				var nd: int = d + c
@@ -156,6 +156,8 @@ static func dist_map(eng, p: int, src: String, cap: int = 40) -> Dictionary:
 				var c: int = eng.terrain_cost(h.t, nk)
 				if c >= 999:
 					continue
+				if eng.has_wall(cur, nk):
+					c += 1
 				var nd: int = d + c
 				if nd > cap:
 					continue
@@ -1069,7 +1071,8 @@ static func plan(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary:
 		if other_hero_at(eng, p, k) and k != here:
 			pass
 		# adventure sites
-		if action_free and st in MKEngine.ADVENTURE_SITES and not late:
+		# (the AI does not explore mazes / labyrinths: the Move payment after entering is not modelled)
+		if action_free and st in MKEngine.ADVENTURE_SITES and not st in MKSitesExp.MAZE_SITES and not late:
 			var ok = true
 			if st in ["monster_den", "spawning_grounds"] and h.conquered:
 				ok = false
@@ -1307,7 +1310,7 @@ static func _altar_mission(eng, p: int, ctx: Dictionary, k: String, d: int, mite
 static func _interact_mission(eng, p: int, ctx: Dictionary, k: String, d: int, mitems: Array, strat: Array) -> Dictionary:
 	var h: Dictionary = eng.hex(k)
 	var st = str(h.get("site", ""))
-	if not st in ["village", "monastery", "keep", "mage_tower", "city"]:
+	if not st in ["village", "monastery", "keep", "mage_tower", "city", "camp"]:
 		return {}
 	var t: Dictionary = eng.s.turn
 	if d > 0 and (t.acted or not eng.can_still_move(p)):
@@ -1408,6 +1411,8 @@ static func _interaction_site_at(eng, p: int, k: String) -> String:
 		"city":
 			if h.conquered:
 				return "city"
+		"camp":
+			return "camp"
 	return ""
 
 static func _purchases(eng, p: int, ctx: Dictionary, k: String, site: String) -> Array:
@@ -1423,13 +1428,19 @@ static func _purchases(eng, p: int, ctx: Dictionary, k: String, site: String) ->
 		var ud: Dictionary = MKDB.units.get(id, {})
 		var rec: Array = ud.get("recruit", [])
 		var ok = false
+		var extra = 0
 		if site == "city":
 			ok = col == "white" or "city" in rec
+		elif site == "camp":
+			extra = MKSitesExp.camp_surcharge(ud)
+			ok = extra >= 0
 		else:
 			ok = site in rec
 		if not ok:
 			continue
-		var cost = int(ud.get("cost", 0))
+		if MKSpecialsExp.recruit_check(eng, p, id) != "":
+			continue
+		var cost = int(ud.get("cost", 0)) + maxi(0, extra)
 		for m in eng.mods_named("recruit_discount"):
 			cost -= int(m.get("n", 0))
 		cost = maxi(0, cost)
@@ -1549,8 +1560,10 @@ static func decide(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary:
 		if eng.check(a) == "":
 			return a
 		var remaining = 0
+		var pk: String = eng.P(p).pos
 		for k in path:
-			remaining += eng.move_cost(k)
+			remaining += eng.move_cost(k, pk)
+			pk = k
 		if m.kind == "explore":
 			remaining += eng.explore_cost(p)
 		for ma in m.get("move_acts", []):

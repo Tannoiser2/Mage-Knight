@@ -97,7 +97,7 @@ static func list(eng) -> Array:
 		for nk in MKHex.neighbors(pl.pos):
 			var a6 := {"t": "move", "to": nk}
 			if eng.check(a6) == "":
-				out.append({"a": a6, "label": "Muovi in %s (%s) costo %d" % [nk, eng._hex_label(nk), eng.move_cost(nk)], "group": "move"})
+				out.append({"a": a6, "label": "Muovi in %s (%s) costo %d" % [nk, eng._hex_label(nk), eng.move_cost(nk, pl.pos)], "group": "move"})
 		if int(t.pool.move) >= 2:
 			for sl in eng.explorable_slots(p):
 				out.append({"a": {"t": "explore", "slot": sl}, "label": "Esplora una nuova tessera (%s)" % sl, "group": "move"})
@@ -179,7 +179,7 @@ static func _combat(eng, p: int, out: Array) -> void:
 			for e in c.enemies:
 				if MKCombat.targetable(eng, e):
 					tg.append(e.eid)
-			if not s.turn.pool.attack.is_empty() and not tg.is_empty():
+			if (not s.turn.pool.attack.is_empty() or MKCombatExp.has_target_bonus(eng)) and not tg.is_empty():
 				var n := tg.size()
 				var lim := mini(n, 6)
 				for mask in range(1, 1 << lim):

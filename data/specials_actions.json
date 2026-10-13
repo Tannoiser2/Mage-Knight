@@ -635,5 +635,19 @@
    "rotf_savage_harvesting"
   ],
   "kind": "mod"
+ },
+ "skill_flip": {
+  "desc": "Gira il segnalino Abilità che ha prodotto l'effetto: resta inutilizzabile finché non viene rigirato. unflip='rest' = rigirato trascorrendo un turno a riposare; 'green' = rigirato pagando un mana verde (azione speciale nel proprio turno).",
+  "used_by": [
+   "krang_battle_frenzy",
+   "krang_arcane_disguise"
+  ],
+  "label_it": "gira il segnalino"
+ },
+ "staff_next": {
+  "desc": "Interno: seconda opzione del Bastone Druidico potenziato (dopo la prima).",
+  "used_by": [
+   "druidic_staff"
+  ]
  }
 }

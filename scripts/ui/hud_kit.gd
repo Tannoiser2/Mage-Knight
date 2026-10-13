@@ -15,13 +15,13 @@ const ABIL_IT := {
 	"poison": ["Velenoso", "Ogni Ferita all'eroe ne aggiunge una negli scarti; un'unità ferita riceve 2 Ferite."],
 	"paralyze": ["Paralizzante", "Un'unità ferita è distrutta; se l'eroe è ferito scarta le carte non-Ferita."],
 	"summon": ["Evocatore", "In fase di blocco evoca un nemico che attacca al suo posto."],
-	"defend": ["Difensore", "Aumenta l'armatura di un altro nemico attaccato."],
-	"vampiric": ["Vampirico", "Ogni Ferita inflitta gli aumenta l'armatura."],
-	"elusive": ["Elusivo", "Armatura più alta se non viene bloccato."],
-	"cumbersome": ["Ingombrante", "Si può spendere Movimento per ridurne l'attacco."],
+	"defend": ["Difensore", "Quando attacchi, aggiunge il suo valore all'Armatura di un nemico attaccato (anche se stesso), una volta per combattimento."],
+	"vampiric": ["Vampirico", "Ogni Ferita che infligge (all'eroe o a un'Unità) gli dà Armatura +1 per il resto del combattimento."],
+	"elusive": ["Elusivo", "Usa l'Armatura più alta; nella fase di Attacco quella più bassa se tutti i suoi attacchi sono stati bloccati."],
+	"cumbersome": ["Ingombrante", "Nella fase di Blocco puoi spendere Movimento: ogni punto riduce di 1 il suo attacco (a 0 conta come bloccato)."],
 	"arcane_immunity": ["Immunità arcana", "Ignora gli effetti non di attacco/blocco."],
 	"assassinate": ["Assassinio", "Il suo danno non si può assegnare alle unità."],
-	"faction_reward": ["Ricompensa di fazione", ""],
+	"faction_reward": ["Fazione", "Nemico di fazione di Shades of Tezla: conta solo negli scenari delle fazioni (non usati qui)."],
 }
 const RESIST_IT := {"phys": "Resistenza fisica", "fire": "Resistenza al Fuoco", "ice": "Resistenza al Ghiaccio"}
 const COLOR_IT := {"red": "rosso", "blue": "blu", "green": "verde", "white": "bianco", "gold": "oro", "black": "nero"}
@@ -303,7 +303,12 @@ static func enemy_tip(type: String) -> String:
 	var tr := []
 	for x in enemy_traits(d):
 		tr.append(x[0])
-	var s := "%s · Armatura %d · Attacco %s · Fama %d" % [d.get("name_it", type), int(d.get("armor", 0)), " + ".join(at) if not at.is_empty() else "—", int(d.get("fame", 0))]
+	var arm := str(int(d.get("armor", 0)))
+	if int(d.get("elusive_armor", 0)) > 0:
+		arm = "%d/%d" % [int(d.get("elusive_armor", 0)), int(d.get("armor", 0))]
+	var s := "%s · Armatura %s · Attacco %s · Fama %d" % [d.get("name_it", type), arm, " + ".join(at) if not at.is_empty() else "—", int(d.get("fame", 0))]
+	if int(d.get("rep", 0)) != 0:
+		s += " · Reputazione %+d se sconfitto" % int(d.get("rep", 0))
 	if not tr.is_empty():
 		s += " · " + ", ".join(tr)
 	return s

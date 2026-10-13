@@ -185,6 +185,7 @@ static func pay(eng, p: int, sources: Array, needs: Array) -> Array:
 	tok_rm.reverse()
 	for i in tok_rm:
 		pl.tokens.remove_at(i)
+	MKSpecialsExp.after_pay(eng, p, paid)
 	return paid
 
 ## Human readable label of a source.

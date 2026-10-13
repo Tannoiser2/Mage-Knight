@@ -1533,14 +1533,34 @@
    "usage": "turn",
    "effect": [
     [
-     "special",
-     "battle_frenzy"
+     "choice",
+     [
+      [
+       [
+        "attack",
+        2
+       ]
+      ],
+      [
+       [
+        "attack",
+        4
+       ],
+       [
+        "special",
+        "skill_flip",
+        {
+         "unflip": "rest"
+        }
+       ]
+      ]
+     ]
     ]
    ],
    "text_it": "Una volta per turno:\nAttacco 2.\nPuoi girare questo segnalino per ottenere invece Attacco 4 in questo turno.\nPuoi rigirarlo trascorrendo un turno a riposare.",
    "img": "assets/skills/krang_battle_frenzy.webp",
    "impl": true,
-   "note": "",
+   "note": "Girata (Attacco 4) resta inutilizzabile finché Krang non trascorre un turno a riposare.",
    "guid": "0fbcfe"
   },
   {
@@ -1609,6 +1629,13 @@
        [
         "special",
         "ignore_reputation"
+       ],
+       [
+        "special",
+        "skill_flip",
+        {
+         "unflip": "green"
+        }
        ]
       ]
      ]
@@ -1617,7 +1644,7 @@
    "text_it": "Una volta per turno:\nInfluenza 2, oppure gira questo segnalino per ignorare tutti gli effetti della tua posizione sul tracciato Reputazione per questo turno.\nPuoi rigirarlo in qualsiasi turno pagando un Mana verde.",
    "img": "assets/skills/krang_arcane_disguise.webp",
    "impl": true,
-   "note": "",
+   "note": "Girata resta inutilizzabile finché non si paga un mana verde (azione speciale in qualsiasi momento del proprio turno).",
    "guid": "91c8a0"
   },
   {

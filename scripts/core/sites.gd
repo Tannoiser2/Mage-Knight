@@ -25,6 +25,8 @@ static func interaction_site(eng, p: int) -> String:
 		"city":
 			if h.conquered:
 				return "city"
+		"camp":
+			return "camp"
 	return ""
 
 static func can_interact(eng, p: int) -> String:
@@ -95,6 +97,8 @@ static func unit_recruitable_here(eng, p: int, uid: String) -> bool:
 		if col == "white":
 			return true
 		return "city" in rec
+	if site == "camp":
+		return MKSitesExp.camp_surcharge(ud) >= 0
 	return site in rec
 
 # ================================================================ checks
@@ -118,7 +122,7 @@ static func check(eng, p: int, a: Dictionary) -> String:
 			if eng.command_free(p) <= 0:
 				if a.get("disband", null) == null or eng.find_unit(p, a.disband) == null:
 					return "Non hai Comando libero: indica un'unità da congedare"
-			return ""
+			return MKSpecialsExp.recruit_check(eng, p, id)
 		"buy":
 			var e2 := can_interact(eng, p)
 			if e2 != "":
@@ -143,6 +147,8 @@ static func check(eng, p: int, a: Dictionary) -> String:
 				return "Qui non c'è un sito avventura"
 			if st in ["monster_den", "spawning_grounds"] and h.conquered:
 				return "Sito già conquistato"
+			if st in MKSitesExp.MAZE_SITES:
+				return MKSitesExp.site_check(eng, p, h)
 			if st == "ruins":
 				if str(h.get("ruins", "")) == "":
 					return "Le rovine sono già state esplorate"
@@ -212,6 +218,8 @@ static func _altar_color(rd: Dictionary) -> String:
 
 static func unit_cost(eng, p: int, id: String) -> int:
 	var c := int(MKDB.units.get(id, {}).get("cost", 0))
+	if interaction_site(eng, p) == "camp":
+		c += maxi(0, MKSitesExp.camp_surcharge(MKDB.units.get(id, {})))
 	for m in eng.mods_named("recruit_discount"):
 		c -= int(m.get("n", 0))
 	c -= MKSpecials.unit_cost_mod(eng, p, id)
@@ -326,7 +334,11 @@ static func do(eng, p: int, a: Dictionary) -> void:
 				for eid in eng.hex(str(k)).enemies:
 					eids.append(eid)
 			eng.add_log("challenge", "%s sfida i nemici scatenati" % eng.pname(p), {"p": p, "enemies": eids})
-			MKCombat.start(eng, eids, {"kind": "challenge"})
+			var wh: Array = []
+			for k in a.hexes:
+				if eng.has_wall(pl.pos, str(k)):
+					wh.append(str(k))
+			MKCombat.start(eng, eids, {"kind": "challenge", "wall_hexes": wh})
 		"disband":
 			var u = eng.find_unit(p, a.uid)
 			eng.remove_unit(p, u)
@@ -407,6 +419,9 @@ static func _enter_adventure(eng, p: int) -> void:
 	var st: String = h.site
 	var eids: Array = []
 	var first: bool = not h.conquered
+	if st in MKSitesExp.MAZE_SITES:
+		MKSitesExp.enter(eng, p)
+		return
 	match st:
 		"dungeon":
 			var e1: String = eng.draw_enemy("brown", true, "")
@@ -484,6 +499,9 @@ static func conquer(eng, p: int, k: String) -> void:
 static func adventure_won(eng, p: int, k: String, c: Dictionary) -> void:
 	var h: Dictionary = eng.hex(k)
 	var st: String = h.site
+	if st in MKSitesExp.MAZE_SITES:
+		MKSitesExp.won(eng, p, k)
+		return
 	var first: bool = not h.conquered
 	var rw: Array = eng.s.turn.rewards
 	match st:
@@ -671,6 +689,7 @@ static func _skill_label(id: String) -> String:
 
 static func add_skill(eng, p: int, id: String) -> void:
 	eng.P(p).skills.append({"id": id, "used_round": false, "used_turn": false, "flipped": false})
+	MKSpecialsExp.on_skill_gained(eng, p, id)
 	eng.add_log("skill_gain", "%s ottiene l'abilità %s" % [eng.pname(p), _skill_label(id)], {"p": p, "skill": id})
 	var d: Dictionary = MKDB.skills.get(id, {})
 	if d.get("usage", "") == "passive":

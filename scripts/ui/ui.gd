@@ -52,7 +52,7 @@ const SITE_IT := {
 	"glade": "Radura magica", "magical_glade": "Radura magica", "mine": "Miniera di cristalli",
 	"crystal_mine": "Miniera di cristalli", "city": "Città", "portal": "Portale",
 	"rampaging": "Predoni orchi", "orcs": "Predoni orchi", "draconum": "Draconum",
-	"camp": "Accampamento", "maze": "Labirinto", "labyrinth": "Labirinto",
+	"camp": "Campo Profughi", "maze": "Dedalo", "labyrinth": "Labirinto",
 }
 
 static var _tex := {}

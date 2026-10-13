@@ -351,3 +351,42 @@ s.result = {scores:[{fame, achievements:{knowledge,loot,leader,conqueror,adventu
 ```
 **Carte non implementate**: `MKDB.card_ok(id)/unit_ok/skill_ok` sono false se la carta ha `impl:false` o usa un
 `special`/`mod` assente da `MKSpecials.implemented()`; tali carte/unità/abilità non entrano in mazzi e offerte.
+
+### Espansioni (agente EXPANSIONS) — `scripts/core/specials_exp.gd`, `combat_exp.gd`, `sites_exp.gd`
+**Contenuti.** `cfg.options.content`: `"base"` | `"ll"` | `"tezla"` (cumulativi) → `MKDB.CONTENT_SETS`:
+base = `["base"]`; ll = `["base","ll","ue","promo","krang"]`; tezla = ll + `"tezla"` (`options.sets` esplicito ha la
+precedenza; i set `fan` e `apocalypse` restano fuori). Un eroe porta sempre le sue carte base e le sue abilità, qualunque
+sia il contenuto. Tessere usate: Campagna 12–14 e Centrali 9–10 (l'accampamento di Volkare e le tessere Apocalypse
+Dragon restano escluse da `_tile_supported`).
+**Moduli.** `MKSpecialsExp` (speciali delle espansioni + hook del motore; `MKSpecials.obj(metodo)` cerca prima in
+specials.gd e poi in specials_exp.gd, quindi `sp_/can_/res_` funzionano allo stesso modo), `MKCombatExp` (abilità dei
+nemici: Elusivo, Difensore, Ingombrante, Assassinio, Vampirico, Evocatore multiplo, mura, Unità unica nel dedalo, attacchi
+a bersaglio singolo, Attirare il fuoco), `MKSitesExp` (Campo Profughi, Dedalo/Labirinto, testo delle regole delle
+espansioni per la schermata Regole).
+**API.** `move_cost(hk, from := "")` (+1 se c'è un muro tra `from` e `hk`; `MKSpecialsExp.space_cost` applica Sentieri
+Druidici), `has_wall(a, b)`, `MKEngine.wall_key(a, b)`, `rampage_threatens(esagono_nemico, verso)`. `MKCombat.armor_of` =
+`MKCombatExp.armor_full` (armatura elusiva/vampirica/difesa ricevuta + bonus Difensore potenziale, prudente per l'IA);
+il controllo dell'attacco usa `armor_core` + `defend_extra` (valore esatto per il gruppo).
+**Azioni aggiunte** `{t:"sp", name:…}`: `cumbersome` {eid, attack} (spendi 1 Movimento: attacco −1, a 0 = bloccato),
+`maze_path` {cost: 2|4|6}, `chaos_rotate` (Signore del Caos: rotazione gratuita a inizio turno), `enh_token` (prendi il
+gettone di Potenziamento del Mana di un alleato), `nv_coop` {eid} (Vendetta della Natura cooperativa).
+**Dati.** `MKDB.enemies[id]` += `elusive_armor`, `faction`, `summon_n` (Evocatore di Draghi = 2); `MKDB.tiles[id].walls`
+= {dirkey: [dirkey…]} (muri interni alla tessera).
+**Stato `s` (campi aggiunti)**
+```
+s.map.walls = {"k1|k2": true}                         muri sulla mappa (chiavi ordinate)
+s.map.hex[k].maze_paths = {"2"|"4"|"6": i}           sentieri conquistati di Dedalo/Labirinto
+s.inter = [{id, owner, mode, …}]                       parte "per gli altri" delle abilità interattive (Ululato,
+        Soppressione/Potenziamento del Mana {colors, hit | color, taken}, Vendetta della Natura {used_by});
+        tolta all'inizio del turno successivo del proprietario
+s.familiars_q = [[i, uid]]                             mantenimento dei Famigli Magici a inizio round
+s.turn += maze {hex, stage:"unit"|"pay"|"fight", unit, cost}, recruited_uids, defeated_types, basic_spent,
+          box_revealed, box_used, chaos_rot
+s.players[i] += kept_enemies:[tipo] (Burattinaio); units[] += token (Famigli Magici);
+          skills[] += chaos, chaos_last, chaos_free (Signore del Caos)
+s.combat += units_only (uid dell'unica Unità ammessa nel dedalo); enemies[] += elusive_armor, vamp, defend_bonus,
+          defend_used, tbonus:[{n, elem, kind}] (attacchi a bersaglio singolo); attacks[] += draw_fire (Truppe d'Assalto)
+```
+Mod nuovi in `s.turn.mods`: `wolfs_howl{n}`, `mana_enhancement`, `shapeshift{from,to,card}`, `crystal_on_move{times,used}`,
+`reduce_space_cost{n,min,terrain,hex}`, `banner_command`. Correzione: alla salita di livello il Comando tiene conto di
+`extra_command` (Legami di Lealtà).

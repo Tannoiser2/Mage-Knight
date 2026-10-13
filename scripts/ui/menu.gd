@@ -14,15 +14,23 @@ const SCENARIOS := [
 	{"id": "full_conquest", "n": "Conquista Totale", "players": [2, 4],
 		"d": "Da 2 a 4 eroi in competizione per la Fama: si esplora, si combatte e si conquistano le città. Alla fine vince chi ha più Fama (con i titoli)."},
 ]
-const HEROES := ["arythea", "goldyx", "norowas", "tovak"]
+const HEROES := ["arythea", "goldyx", "norowas", "tovak", "wolfhawk", "krang", "braevalar"]
 const HERO_SUB := {
 	"arythea": "la Signora del Sangue", "goldyx": "il Drago Cristallino", "norowas": "il Signore degli Elfi",
-	"tovak": "il Cavaliere Nero",
+	"tovak": "il Cavaliere Nero", "wolfhawk": "la Cacciatrice (La Legione Perduta)", "krang": "lo Sciamano Orco (Krang)",
+	"braevalar": "il Druido Mutaforma (Shades of Tezla)",
 }
+## Contenuti della partita (MKDB.CONTENT_SETS): tessere, nemici, carte, unità e rovine delle espansioni.
+const CONTENTS := [
+	{"id": "base", "n": "Base", "d": "Solo il gioco base."},
+	{"id": "ll", "n": "+ La Legione Perduta", "d": "Tessere con Campo Profughi, Dedalo, Labirinto, Miniere Profonde e mura; nuovi nemici, carte, Unità e Rovine."},
+	{"id": "tezla", "n": "+ Shades of Tezla", "d": "Come sopra, più i nemici di Shades of Tezla (Vampirico, Difensore…) nelle pile."},
+]
 const LEVELS := ["Facile", "Normale", "Difficile"]
 
 var main
 var scenario := 0
+var content := 0
 ## posti: {on, hero, ai, level(1..3), name}
 var seats := [
 	{"on": true, "hero": "arythea", "ai": false, "level": 2, "name": "Giocatore 1"},
@@ -35,6 +43,7 @@ var bg_table: MKTable3D
 var page: Control
 var msg: Label
 var _scen_desc: RichTextLabel
+var _content_desc: Label
 var _seats_box: HBoxContainer
 
 
@@ -44,6 +53,7 @@ func _ready() -> void:
 	if main != null and main.menu_state.has("seats"):
 		scenario = int(main.menu_state["scenario"])
 		seats = main.menu_state["seats"].duplicate(true)
+		content = clampi(int(main.menu_state.get("content", 0)), 0, CONTENTS.size() - 1)
 	_build_background()
 	show_home()
 
@@ -54,7 +64,7 @@ func _exit_tree() -> void:
 
 func _store() -> void:
 	if main != null:
-		main.menu_state = {"scenario": scenario, "seats": seats.duplicate(true)}
+		main.menu_state = {"scenario": scenario, "seats": seats.duplicate(true), "content": content}
 
 
 ## Tavolo 3D di sfondo (non interattivo) che ruota piano, scurito ai bordi.
@@ -197,7 +207,24 @@ func show_new_game() -> void:
 	_scen_desc = MKUI.rich(22)
 	_scen_desc.custom_minimum_size = Vector2(1700, 60)
 	vb.add_child(_scen_desc)
-	vb.add_child(HSeparator.new())
+	var crow := HBoxContainer.new()
+	crow.add_theme_constant_override("separation", 18)
+	vb.add_child(crow)
+	crow.add_child(MKUI.title("Contenuti", 28, MKUI.GOLD))
+	var cnames := []
+	for c in CONTENTS:
+		cnames.append(c["n"])
+	var seg := _segmented(cnames, content, func(k):
+		content = k
+		_refresh_new_game(), 300)
+	for k in seg.get_child_count():
+		(seg.get_child(k) as Button).tooltip_text = CONTENTS[k]["d"]
+	crow.add_child(seg)
+	_content_desc = MKUI.label("", 17, Color("#cbbf9f"), MKUI.font_italic)
+	_content_desc.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	_content_desc.custom_minimum_size = Vector2(560, 0)
+	_content_desc.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	crow.add_child(_content_desc)
 	vb.add_child(MKUI.title("Eroi", 32, MKUI.GOLD))
 	_seats_box = HBoxContainer.new()
 	_seats_box.add_theme_constant_override("separation", 18)
@@ -252,6 +279,8 @@ func _refresh_new_game() -> void:
 	var r := _range()
 	var pl := "1 eroe" if r[1] == 1 else ("%d–%d eroi" % [r[0], r[1]])
 	_scen_desc.text = "[b]%s[/b] · %s\n[i]%s[/i]" % [sc["n"], pl, sc["d"]]
+	if _content_desc != null:
+		_content_desc.text = CONTENTS[content]["d"]
 	if msg:
 		msg.text = ""
 	for c in _seats_box.get_children():
@@ -407,7 +436,7 @@ func config() -> Dictionary:
 			nm += " (IA)"
 		pl.append({"hero": st["hero"], "ctrl": "ai" if st["ai"] else "human", "ai_level": int(st["level"]), "name": nm})
 	return {"scenario": SCENARIOS[scenario]["id"], "seed": 1 + randi() % 2000000000, "players": pl,
-		"options": {"set": "base"}}
+		"options": {"content": CONTENTS[content]["id"]}}
 
 
 func _on_start() -> void:
