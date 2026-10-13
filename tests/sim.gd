@@ -163,6 +163,10 @@ func choose(e: MKEngine, av: Array) -> Dictionary:
 				w = 2.0
 			"plunder", "burn":
 				w = 0.2
+			"pvp_attack", "coop":
+				w = 25.0
+			"pvp":
+				w = 6.0 if str(a.get("op", "")) != "pass" else 1.5
 			"discard":
 				w = 0.15
 			"next":

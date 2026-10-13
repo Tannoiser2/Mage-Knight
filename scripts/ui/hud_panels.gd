@@ -129,6 +129,13 @@ static func _order_chip(v, i: int, active: bool) -> Control:
 	var t := MKUI.label(str(eng.tactic_number(tac)) if tac != "" else "–", 20, MKUI.GOLD_LIGHT, MKUI.font_bold)
 	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	h.add_child(t)
+	if i != MKEngine.DUMMY and s.players[i].get("skip_next", false):
+		# gettone Ordine di Round a faccia in giù: salterà il prossimo turno
+		im.modulate = Color(0.55, 0.55, 0.65)
+		var fl := MKUI.label("⤓", 20, Color("#ff9a7a"), MKUI.font_bold)
+		fl.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		h.add_child(fl)
+		p.tooltip_text += " · gettone a faccia in giù: salterà il prossimo turno"
 	p.gui_input.connect(func(ev):
 		if MKGameView._is_click(ev) and i != MKEngine.DUMMY:
 			var pos := str(s.players[i].get("pos", ""))
@@ -647,6 +654,12 @@ static func action_buttons(v) -> Array:
 				out.append(MKHud.btn(lbl, func(): MKScreens.confirm(v, "Saccheggiare il villaggio?", "Reputazione −1; peschi 2 carte.", func(): v.submit(a)), 0, 44))
 			"challenge":
 				out.append(MKHud.btn(lbl, func(): v.submit(a), 0, 44))
+			"pvp_attack":
+				var foe := MKPvP.other_here(eng, v.actor())
+				out.push_front(MKHud.btn("⚔ Attacca %s" % eng.pname(foe), func(): MKScreens.confirm(v, "Attaccare %s?" % eng.pname(foe),
+					"Combattimento tra giocatori (è la tua azione del turno): prima gli attacchi a distanza e d'assedio, poi il corpo a corpo, alternandovi. Vince chi costringe l'altro a ritirarsi.", func(): v.submit(a)), 0, 48, true))
+			"coop":
+				out.push_front(MKHud.btn("⚑ " + lbl, func(): v.submit(a), 0, 48, true))
 			"heal", "sp", "tactic_use":
 				if s.combat == null or t == "sp":
 					var b := MKHud.btn(lbl, func(): v.submit(a), 0, 44)
@@ -661,7 +674,9 @@ static func action_buttons(v) -> Array:
 			"end_turn":
 				var must_discard: bool = eng.card_rule_open(v.actor()) and eng.has_non_wound(v.actor())
 				var b2 := MKHud.btn("TERMINA IL TURNO", func():
-					if must_discard:
+					if eng.check({"t": "pvp_attack"}) == "":
+						MKScreens.confirm(v, "Terminare il turno qui?", "Sei nello spazio di %s: terminare qui il movimento è automaticamente un attacco (combattimento tra giocatori)." % eng.pname(MKPvP.other_here(eng, v.actor())), func(): v.submit(a))
+					elif must_discard:
 						MKScreens.confirm(v, "Terminare il turno?", "Non hai giocato nessuna carta: per regola dovrai scartarne una dalla mano prima di pescare.", func(): v.submit(a))
 					else:
 						v.submit(a), 0, 52, true, 22)

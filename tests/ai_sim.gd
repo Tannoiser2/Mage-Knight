@@ -162,7 +162,7 @@ func play(scn: String, heroes: Array, seed: int, level: int, quiet: bool) -> Dic
 					kinds["combat_won"] = int(kinds.get("combat_won", 0)) + 1
 				if kk == "combat_end":
 					kinds["fame_in_combat"] = int(kinds.get("fame_in_combat", 0)) + int(le.get("fame", 0))
-				if kk in ["combat_start", "enemy_defeated", "rest", "conquer", "recruit", "reveal", "turn", "wound", "knockout", "retreat", "gain_card", "skill_gain", "end_turn"]:
+				if kk in ["combat_start", "enemy_defeated", "rest", "conquer", "recruit", "reveal", "turn", "wound", "knockout", "retreat", "gain_card", "skill_gain", "end_turn", "pvp_start", "pvp_end", "coop_start", "coop_end"]:
 					kinds[kk] = int(kinds.get(kk, 0)) + 1
 		if trace:
 			printerr("#%d p%d %s %s" % [n, p, JSON.stringify(a), "" if res.ok else "RIFIUTATA " + res.err])

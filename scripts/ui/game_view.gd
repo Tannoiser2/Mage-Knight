@@ -746,7 +746,9 @@ func _state_modals() -> void:
 func _build_center() -> void:
 	for c in center_holder.get_children():
 		c.queue_free()
-	if s.combat != null:
+	if s.combat != null and s.get("pvp", null) != null:
+		MKPvPPanel.build(self, center_holder)
+	elif s.combat != null:
 		MKCombatPanel.build(self, center_holder)
 	elif site_open and local():
 		MKCombatPanel.build_site(self, center_holder)

@@ -631,7 +631,9 @@ static func finish(eng) -> void:
 	var won := false
 	match c.kind:
 		"assault":
-			if any_def and defenders_all or (not any_def and true):
+			if c.get("coop", false):
+				pass   # assalto cooperativo: conquista/ritirata decise da MKCoop alla fine
+			elif any_def and defenders_all or (not any_def and true):
 				won = true
 				MKSites.conquer(eng, p, site)
 			else:

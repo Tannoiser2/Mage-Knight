@@ -999,6 +999,9 @@ func _start_player_turn(p: int) -> void:
 		sk.used_turn = false
 		if sk.get("active_until_turn", false):
 			sk.active_until_turn = false
+	if MKPvP.skip_turn(self, p):
+		_finish_turn_now()
+		return
 	add_log("turn", "Turno di %s" % pname(p), {"p": p, "round": s.round})
 	# skip turn if nothing left and round end already announced
 	if pl.deck.is_empty() and pl.hand.is_empty():
@@ -1454,7 +1457,7 @@ func _check_move(p: int, to: String) -> String:
 		return "Terreno invalicabile"
 	if c > int(s.turn.pool.move):
 		return "Punti Movimento insufficienti (servono %d)" % c
-	return ""
+	return MKPvP.move_block(self, p, to)
 
 func _do_move(p: int, to: String) -> void:
 	var pl: Dictionary = P(p)
@@ -1486,6 +1489,8 @@ func _do_move(p: int, to: String) -> void:
 				provoked.append(eid)
 	var assault := false
 	var defenders: Array = []
+	if provoked.is_empty() and MKPvP.keep_attack(self, p, to):
+		return
 	if h.site in FORTIFIED_SITES and not _is_safe_fortified(p, to):
 		assault = true
 		if h.site == "keep" and int(h.owner) >= 0 and int(h.owner) != p and h.enemies.is_empty():
@@ -1722,7 +1727,7 @@ func actor() -> int:
 	return -1
 
 # ================================================================ apply / check
-const _STR_FIELDS := ["t", "card", "mode", "side", "slot", "id", "eid", "what", "name", "opt", "kind"]
+const _STR_FIELDS := ["t", "card", "mode", "side", "slot", "id", "eid", "what", "name", "opt", "kind", "op", "city"]
 const _INT_FIELDS := ["uid", "ability", "attack", "disband"]
 
 ## Validates field types and returns a clean copy ({"_err": msg} on error).
@@ -1800,7 +1805,19 @@ func check(a0: Dictionary) -> String:
 		return "Nessun giocatore di turno"
 	if s.turn.get("ending", false):
 		return "Il turno sta terminando"
+	if s.get("pvp", null) != null:
+		var ge := MKPvP.gate(self, p, a)
+		if ge != "":
+			return ge
+	if t in ["site", "altar", "burn", "challenge", "recruit", "buy"] and MKPvP.crowded(self, p):
+		return "Nel tuo spazio c'è un altro eroe: non puoi compiere altre azioni"
 	match t:
+		"pvp_attack":
+			return MKPvP.check_attack(self, p)
+		"pvp":
+			return "" if s.get("pvp", null) != null else "Nessun combattimento tra giocatori in corso"
+		"coop":
+			return MKCoop.check_propose(self, p, str(a.get("city", "")))
 		"play":
 			return _check_play(p, a)
 		"move":
@@ -1868,6 +1885,12 @@ func _do(a: Dictionary) -> void:
 		return
 	var p := actor()
 	match t:
+		"pvp_attack":
+			MKPvP.start(self, p)
+		"pvp":
+			MKPvP.do_op(self, p, a)
+		"coop":
+			MKCoop.propose(self, p, str(a.city))
 		"play":
 			_do_play(p, a)
 		"move":
@@ -1904,6 +1927,12 @@ func _resolve(pend: Dictionary, v) -> void:
 		return
 	if h.begins_with("sp:"):
 		MKSpecials.resolve(self, pend, v)
+		return
+	if h.begins_with("pvp:"):
+		MKPvP.resolve(self, pend, v)
+		return
+	if h.begins_with("coop:"):
+		MKCoop.resolve(self, pend, v)
 		return
 	match h:
 		"rest_card", "rest_wound":
@@ -1942,6 +1971,9 @@ func _resume_loop() -> void:
 			continue
 		if s.combat != null and s.combat.get("phase", "") == "end":
 			MKCombat.finish(self)
+			continue
+		if s.combat == null and s.get("coop", null) != null and str(s.coop.stage) == "combat":
+			MKCoop.after_combat(self)
 			continue
 		return
 
@@ -2341,7 +2373,8 @@ func has_non_wound(p: int) -> bool:
 
 ## Only wounds in hand and nothing played yet: the only legal option is resting.
 func wounds_only_lock(p: int) -> bool:
-	return card_rule_open(p) and not has_non_wound(p)
+	# (solo finché si può ancora riposare: dopo un movimento o un'azione non c'è più nulla da forzare)
+	return card_rule_open(p) and not has_non_wound(p) and not s.turn.get("moved", false) and not s.turn.get("acted", false)
 
 func _check_end_turn(p: int) -> String:
 	if s.combat != null:
@@ -2351,6 +2384,8 @@ func _check_end_turn(p: int) -> String:
 	return ""
 
 func _do_end_turn(p: int) -> void:
+	if MKPvP.auto_attack(self, p):
+		return
 	s.turn.ending = true
 	s.turn.end_step = 0
 	add_log("end_turn", "%s termina il turno" % pname(p), {"p": p})
@@ -2474,6 +2509,8 @@ func _continue_end_turn() -> bool:
 			if (s.announced_by != -1 or s.game_end_pending) and not t.get("no_final_consume", false):
 				s.final_turns.erase(str(p))
 			_check_objectives(p)
+			if MKPvP.sub_turn_end(self) or MKCoop.sub_turn_end(self):
+				return true
 			_advance()
 			return true
 	return false

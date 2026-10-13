@@ -29,6 +29,18 @@ Tabletop Simulator «Mage Knight Plus (Highly Scripted)» e non vanno distribuit
   segnalini dei nemici con le **miniature 3D generate con Meshy** (tutti i 29 tipi di nemico del gioco
   base, più villaggio, monastero, castello e torre della magia). Si possono spegnere dal menu di gioco
   (*Miniature 3D: Sì/No*).
+- **Combattimento tra giocatori** (Conquista Totale; nel menu *Combattimento tra giocatori: Sì/No*): chi
+  entra nello spazio di un altro eroe può attaccarlo (fermarsi lì è già un attacco). Il difensore sceglie se
+  affrontarlo *completamente* (gioca subito il suo turno successivo, con dado e abilità, poi lo salta) o
+  *parzialmente*; poi ci si alternano attacchi a distanza/d'assedio e corpo a corpo, bloccando a turno; con
+  i danni si feriscono eroe e unità, si rubano Artefatti o si costringe l'avversario a ritirarsi (Fama a chi
+  vince se ha livello o Fama inferiori). Il pannello funziona per entrambi: in hotseat compare *Passa il
+  dispositivo*, online agisce il posto del difensore. L'IA attacca quando la sua mano è nettamente superiore.
+- **Assalto cooperativo alla città** (Cooperazione Totale): accanto a una città si invitano gli alleati
+  adiacenti e si propone quanti difensori affronterà ciascuno; se tutti accettano, i difensori vengono
+  distribuiti a caso, ognuno combatte i suoi, la città cade se sono tutti sconfitti (capo = più Scudi) e
+  gli invitati saltano il turno successivo. Gli alleati IA propongono, accettano e si avvicinano alle città
+  dove un compagno aspetta.
 - **Salvataggio automatico**: dal menu, *Continua partita*.
 
 ## Comandi
@@ -110,8 +122,9 @@ scripts/core/             motore delle regole (nessuna dipendenza dall'interfacc
                           combattimento, siti, mana, speciali, IA (ai*.gd)
 scripts/net/              Firebase (REST), partita online in lockstep, stanza d'attesa
 scripts/ui/               menu, tavolo 3D, interfaccia di gioco, controller
-tests/                    engine_test, qa_test (regole), sim (partite casuali), ai_sim (IA), ui_play/qa_ui
-                          (interfaccia con screenshot), online_play (online con Firebase finto)
+tests/                    engine_test, qa_test (regole), pvp_test (giocatore contro giocatore e assalto
+                          cooperativo), sim (partite casuali), ai_sim (IA), ui_play/qa_ui/pvp_ui (interfaccia
+                          con screenshot), online_play (online con Firebase finto)
 tools/                    estrazione di dati e immagini dal modulo TTS, carte base in italiano
 meshy/                    generazione delle miniature
 docs/SPEC.md              specifica tecnica
@@ -123,6 +136,16 @@ docs/SPEC.md              specifica tecnica
 - Solitario/cooperativo: +1 per carta rimasta nel mazzo del Neutrale e +5 se il round non è stato
   annunciato solo in caso di vittoria (confermato).
 - Sotterraneo: con il dado oro/nero si prende un incantesimo, altrimenti un artefatto (dalla carta del sito).
-- Non ancora presenti: combattimento tra giocatori, assalto cooperativo a una città, pesca delle tessere
-  dalla scatola a mazzo esaurito, saccheggio fuori dal proprio turno.
+- Combattimento tra giocatori: consentito di default in Conquista Totale/Blitz, mai in Prima Ricognizione
+  e nei cooperativi; nessun divieto nel primo round (il regolamento non lo prevede). Gli effetti speciali
+  che colpiscono i nemici (distruggere, ridurre l'Armatura, impedire l'attacco…) non si possono usare contro
+  le unità dell'avversario, e il difensore non può usare effetti "prima del turno" (es. saccheggio).
+  Con il danno di un attacco a distanza non si ruba e non si costringe alla ritirata (solo corpo a corpo).
+  L'aggressore che pareggia torna nello spazio da cui è entrato; se non è sicuro, Ritirata Forzata.
+- Assalto cooperativo: l'ingresso in città dei partecipanti non costa Movimento; non si possono sfidare
+  altri nemici scatenati adiacenti oltre a quelli provocati; servono almeno 2 difensori; al massimo 3
+  proposte per turno; non disponibile negli scenari competitivi (le regole lo permettono "se d'accordo").
+- I gettoni Ordine di Round a faccia in giù restano tali anche a cavallo della fine del round (il turno
+  saltato può essere il primo del round successivo).
+- Non ancora presenti: pesca delle tessere dalla scatola a mazzo esaurito, saccheggio fuori dal proprio turno.
 - Nomi italiani dei nemici: traduzioni (i segnalini non hanno testo).

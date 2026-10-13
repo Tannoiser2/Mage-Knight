@@ -81,6 +81,10 @@ static func list(eng) -> Array:
 	# --- tactic activations
 	for u2 in MKSites._tactic_uses(eng, p):
 		out.append({"a": {"t": "tactic_use", "opt": u2.opt}, "label": u2.label, "group": "tactic"})
+	if s.get("pvp", null) != null and cb != null:
+		var ok_list: Array = out.filter(func(x): return eng.check(x.a) == "")
+		MKPvP.avail(eng, p, ok_list)
+		return ok_list
 	if cb != null:
 		_combat(eng, p, out)
 		return out
@@ -103,6 +107,10 @@ static func list(eng) -> Array:
 				out.append({"a": {"t": "explore", "slot": sl}, "label": "Esplora una nuova tessera (%s)" % sl, "group": "move"})
 	# --- site actions
 	_sites(eng, p, out)
+	# --- combattimento tra giocatori / assalto cooperativo
+	if eng.check({"t": "pvp_attack"}) == "":
+		out.append({"a": {"t": "pvp_attack"}, "label": "Attacca %s (combattimento tra giocatori)" % eng.pname(MKPvP.other_here(eng, p)), "group": "combat"})
+	MKCoop.avail(eng, p, out)
 	# --- optional discard (equivalent to discarding before drawing at end of turn)
 	var seen_d := {}
 	for iid in pl.hand:
@@ -140,7 +148,7 @@ static func _sites(eng, p: int, out: Array) -> void:
 		var nh: Dictionary = eng.hex(nk)
 		if not nh.is_empty() and nh.rampage and not nh.enemies.is_empty():
 			ramp.append(nk)
-	if not ramp.is_empty() and MKSites._action_free(eng, p) == "":
+	if not ramp.is_empty() and MKSites._action_free(eng, p) == "" and not MKPvP.crowded(eng, p):
 		for k in ramp:
 			var names: Array = []
 			for eid in eng.hex(k).enemies:

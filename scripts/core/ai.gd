@@ -29,6 +29,7 @@ const C = preload("res://scripts/core/ai_cards.gd")
 const CB = preload("res://scripts/core/ai_combat.gd")
 const TU = preload("res://scripts/core/ai_turn.gd")
 const PE = preload("res://scripts/core/ai_pending.gd")
+const PV = preload("res://scripts/core/ai_pvp.gd")
 
 ## Time budget per decision (µs) by level; the web build is slower, callers may lower it.
 static var budget_us = {1: 60000, 2: 120000, 3: 150000}
@@ -134,14 +135,24 @@ static func _ctx(eng, p: int, level: int, t0: int) -> Dictionary:
 static func _decide(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary:
 	var s: Dictionary = eng.s
 	if s.pending != null:
+		var hd = str(s.pending.get("handler", ""))
+		if hd.begins_with("pvp:") or hd.begins_with("coop:"):
+			return PV.pending(eng, p, ctx, mem)
 		return PE.decide(eng, p, ctx, mem)
 	if s.phase == "tactics":
 		return TU.choose_tactic(eng, p, ctx)
 	if s.phase != "turn":
 		return {}
+	if s.get("pvp", null) != null and s.combat != null:
+		mem["productive"] = true
+		mem.erase("intent")
+		return PV.decide(eng, p, ctx, mem)
 	if s.combat != null:
 		mem["productive"] = true
 		return CB.decide(eng, p, ctx, mem)
+	var hk = PV.turn_hook(eng, p, ctx, mem)
+	if not hk.is_empty() and eng.check(hk) == "":
+		return hk
 	return TU.decide(eng, p, ctx, mem)
 
 ## Safe legal action when the planner fails.
@@ -157,6 +168,10 @@ static func _fallback(eng, p: int, forced: bool) -> Dictionary:
 		if not s.tactics_avail.is_empty():
 			return {"t": "tactic", "id": s.tactics_avail[0]}
 		return {}
+	if s.get("pvp", null) != null and s.combat != null:
+		for a3 in [{"t": "pvp", "op": "pass"}, {"t": "pvp", "op": "block"}, {"t": "pvp", "op": "strike"}]:
+			if eng.check(a3) == "":
+				return a3
 	if s.combat != null:
 		var c: Dictionary = s.combat
 		if c.phase == "damage":

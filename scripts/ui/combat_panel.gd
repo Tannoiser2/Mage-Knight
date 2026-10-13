@@ -34,6 +34,8 @@ static func build(v, holder: Control) -> void:
 	var kind: String = {"assault": "Assalto", "provoke": "Provocazione", "challenge": "Sfida", "site": "Combattimento nel sito", "burn": "Incendio del monastero"}.get(str(c.get("kind", "")), "Combattimento")
 	if c.get("assault", false):
 		kind = "Assalto"
+	if c.get("coop", false):
+		kind = "Assalto cooperativo"
 	var who := eng.pname(int(s.turn.get("player", 0)))
 	head.add_child(MKUI.title("⚔ %s" % kind, 26, MKUI.GOLD_LIGHT))
 	head.add_child(MKUI.label("— " + who, 20, MKUI.MUTED, MKUI.font_italic))
@@ -63,6 +65,9 @@ static func build(v, holder: Control) -> void:
 		notes.append("Le unità non partecipano")
 	if c.get("night_rules", false):
 		notes.append("Regole notturne per il mana")
+	if c.get("coop", false) and s.get("coop", null) != null:
+		var co: Dictionary = s.coop
+		notes.append("Assalto cooperativo: affronti solo i nemici assegnati (%d di %d partecipanti)" % [int(co.idx) + 1, co.order.size()])
 	var hint := _phase_hint(phase)
 	if not notes.is_empty() or hint != "":
 		var nl := MKUI.label(" · ".join(notes + [hint]) if not notes.is_empty() else hint, 18, Color("#d9c9a0"), MKUI.font_italic)

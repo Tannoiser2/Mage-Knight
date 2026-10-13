@@ -23,6 +23,9 @@ const LEVELS := ["Facile", "Normale", "Difficile"]
 
 var main
 var scenario := 0
+## Combattimento tra giocatori negli scenari competitivi (Conquista completa)
+var pvp_on := true
+var _pvp_row: Control
 ## posti: {on, hero, ai, level(1..3), name}
 var seats := [
 	{"on": true, "hero": "arythea", "ai": false, "level": 2, "name": "Giocatore 1"},
@@ -44,6 +47,7 @@ func _ready() -> void:
 	if main != null and main.menu_state.has("seats"):
 		scenario = int(main.menu_state["scenario"])
 		seats = main.menu_state["seats"].duplicate(true)
+		pvp_on = bool(main.menu_state.get("pvp", true))
 	_build_background()
 	show_home()
 
@@ -54,7 +58,7 @@ func _exit_tree() -> void:
 
 func _store() -> void:
 	if main != null:
-		main.menu_state = {"scenario": scenario, "seats": seats.duplicate(true)}
+		main.menu_state = {"scenario": scenario, "seats": seats.duplicate(true), "pvp": pvp_on}
 
 
 ## Tavolo 3D di sfondo (non interattivo) che ruota piano, scurito ai bordi.
@@ -197,6 +201,15 @@ func show_new_game() -> void:
 	_scen_desc = MKUI.rich(22)
 	_scen_desc.custom_minimum_size = Vector2(1700, 60)
 	vb.add_child(_scen_desc)
+	var pr := HBoxContainer.new()
+	pr.add_theme_constant_override("separation", 14)
+	var pl_ := MKUI.label("Combattimento tra giocatori:", 22, MKUI.GOLD, MKUI.font_bold)
+	pr.add_child(pl_)
+	pr.add_child(_segmented(["Sì", "No"], 0 if pvp_on else 1, func(k): pvp_on = k == 0, 110))
+	var pn := MKUI.label("gli eroi possono attaccarsi entrando nello stesso spazio", 18, MKUI.MUTED, MKUI.font_italic)
+	pr.add_child(pn)
+	_pvp_row = pr
+	vb.add_child(pr)
 	vb.add_child(HSeparator.new())
 	vb.add_child(MKUI.title("Eroi", 32, MKUI.GOLD))
 	_seats_box = HBoxContainer.new()
@@ -252,6 +265,8 @@ func _refresh_new_game() -> void:
 	var r := _range()
 	var pl := "1 eroe" if r[1] == 1 else ("%d–%d eroi" % [r[0], r[1]])
 	_scen_desc.text = "[b]%s[/b] · %s\n[i]%s[/i]" % [sc["n"], pl, sc["d"]]
+	if _pvp_row != null:
+		_pvp_row.visible = sc["id"] in ["full_conquest", "blitz_conquest"]
 	if msg:
 		msg.text = ""
 	for c in _seats_box.get_children():
@@ -406,8 +421,11 @@ func config() -> Dictionary:
 		if st["ai"]:
 			nm += " (IA)"
 		pl.append({"hero": st["hero"], "ctrl": "ai" if st["ai"] else "human", "ai_level": int(st["level"]), "name": nm})
+	var opts := {"set": "base"}
+	if SCENARIOS[scenario]["id"] in ["full_conquest", "blitz_conquest"]:
+		opts["pvp"] = pvp_on
 	return {"scenario": SCENARIOS[scenario]["id"], "seed": 1 + randi() % 2000000000, "players": pl,
-		"options": {"set": "base"}}
+		"options": opts}
 
 
 func _on_start() -> void:

@@ -1069,7 +1069,7 @@ static func plan(eng, p: int, ctx: Dictionary, mem: Dictionary) -> Dictionary:
 		if other_hero_at(eng, p, k) and k != here:
 			pass
 		# adventure sites
-		if action_free and st in MKEngine.ADVENTURE_SITES and not late:
+		if action_free and st in MKEngine.ADVENTURE_SITES and not late and (k == here or not other_hero_at(eng, p, k)):
 			var ok = true
 			if st in ["monster_den", "spawning_grounds"] and h.conquered:
 				ok = false

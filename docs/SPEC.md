@@ -16,7 +16,7 @@ Repo: `/home/claude/mage-knight` (GitHub `Tannoiser2/Mage-Knight`, Pages attivo 
   `impl: true/false`. Il setup della partita usa solo le carte `impl:true` del set scelto (default `base`).
 - Scenari: *Prima ricognizione* (introduttivo), *Conquista in solitario* (con il giocatore fantoccio),
   *Conquista cooperativa* (2–4 eroi umani/IA contro le città), *Conquista completa* (competitiva, 2–4 eroi,
-  senza combattimento tra giocatori nella v1).
+  con il combattimento tra giocatori, opzionale) e l'assalto cooperativo alle città in *Cooperazione totale*.
 - IA per gli eroi non umani (alleati in cooperativa, avversari in competitiva).
 - Online su Firebase in **lockstep** (stesso seme, stesse azioni) come Kingsburg.
 - Mappa 3D ruotabile/zoomabile; figure 3D degli eroi e delle città dal modulo TTS; dove manca un modello
@@ -351,3 +351,67 @@ s.result = {scores:[{fame, achievements:{knowledge,loot,leader,conqueror,adventu
 ```
 **Carte non implementate**: `MKDB.card_ok(id)/unit_ok/skill_ok` sono false se la carta ha `impl:false` o usa un
 `special`/`mod` assente da `MKSpecials.implemented()`; tali carte/unità/abilità non entrano in mazzi e offerte.
+
+### Combattimento tra giocatori e assalto cooperativo (agente PVP-COOP) — `scripts/core/pvp.gd`, `coop.gd`, `ai_pvp.gd`
+Regolamento p. 12–13 (e p. 6–8 per spazi condivisi, gettone Ordine di Round, Ritirata Forzata).
+
+**Opzione**: `cfg.options.pvp` (bool). Predefinito: sì negli scenari competitivi tranne *Prima ricognizione*
+(`MKPvP.enabled`). Nei cooperativi non c'è mai combattimento tra giocatori.
+
+**Azioni**: `{t:"pvp_attack"}` (giocatore di turno, nello spazio di un altro eroe: è la sua azione),
+`{t:"pvp", op:"strike"|"pass"|"block"}`, `{t:"coop", city:"q,r"}` (proposta di assalto cooperativo).
+Decisioni: `pvp:mode` (difensore: `"full"`|`"partial"`), `pvp:hit` (attaccante: `"hero"`, `"u:<uid>"`, `"a:<iid>"` =
+ruba Artefatto, `"<q,r>"` = costringi alla ritirata e vinci, `"done"`), `coop:invite` (`"j,k"`|`"cancel"`),
+`coop:split` (`"2,1"` = nemici per partecipante nell'ordine della proposta | `"cancel"`), `coop:accept` (`"yes"|"no"`,
+`player` = invitato).
+
+**Stato**
+```
+s.players[i].skip_next: bool      gettone Ordine di Round a faccia in giù: il prossimo turno viene saltato
+                                  (difensore che ha affrontato completamente, invitati di un assalto cooperativo)
+s.pvp = null | {att, def, mode:"full"|"partial", phase:"ranged"|"melee", step:"mode"|"attack"|"block"|"hit"|"after",
+   striker, passes, strike:{n, elems:[…], by}|null, dmg, saved: turno (s.turn) di chi NON sta agendo, from: spazio da
+   cui l'aggressore ha attaccato, hex, fort (difensore in castello/torre: a distanza solo Assedio), result, winner, log_from}
+   s.combat = {kind:"pvp", pvp:true, phase:"ranged"|"block"|"attack", enemies:[] …} durante gli scambi
+s.turn += pvp_side | coop_side (turno "anticipato" del difensore / dell'invitato), no_final_consume, coop_tries
+s.coop_prop = null | {city, init, members:[…], split:[…], idx}          proposta in corso
+s.coop = null | {city, init, order:[giocatori in ordine di round da chi inizia], groups:{"i":[eid]}, from:{"i":hex},
+   idx, stage:"combat"|"end", saved:{"i": turno sospeso}, log_from}
+s.combat.coop = true             combattimento di un partecipante (kind "assault"): conquista/ritirata decise alla fine
+```
+**Combattimento tra giocatori**: i due turni si alternano in `s.turn` (quello inattivo sta in `s.pvp.saved`, mai due
+riferimenti allo stesso dizionario), così le carte/unità/abilità di ciascuno vanno nel proprio pool. Fase a distanza
+(inizia il difensore; contano solo `ranged`/`siege`, solo `siege` se l'aggressore attacca il difensore fortificato; il
+Blocco efficiente se lo è contro almeno un elemento dell'attacco; riduzione = metà del blocco totale) poi corpo a corpo
+(inizia l'aggressore; tutti gli attacchi, carte di lato = Attacco fisico 1; riduzione = blocco totale). Due "passa"
+consecutivi chiudono la fase; nel corpo a corpo = parità (l'aggressore torna nello spazio da cui ha attaccato). Danni:
+servono danni ≥ Armatura (unità: doppia se resistente a un elemento dell'attacco) per ogni Ferita; nel corpo a corpo 5
+danni rubano un Artefatto (scarti, area di gioco, Stendardo di un'unità ferita) e il costo di terreno non modificato
+di uno spazio sicuro adiacente costringe alla ritirata (vittoria; Fama 1 + 2 per livello in meno, oppure 1 a pari
+livello con meno Fama). KO come nel combattimento normale. *Completo*: il difensore usa un dado e le Abilità, poi
+completa il turno (`step:"after"`: cure/effetti, fine turno con pesca) e `skip_next`. *Parziale*: niente dado né
+Abilità (salvo interattive), le carte giocate vanno negli scarti, nessuna pesca, i gettoni mana restano.
+Fine turno nello spazio di un altro eroe = attacco automatico (`MKPvP.auto_attack`); se non consentito, Ritirata
+Forzata come prima. Entrare nel castello di un avversario presente = assalto (Reputazione −1) + combattimento tra
+giocatori. Non si entra nello spazio di un eroe con un movimento che provoca nemici scatenati. In uno spazio con un
+altro eroe (non portale/città conquistata) niente azioni di sito/sfide/interazione.
+**Assalto cooperativo**: proponibile da chi non ha ancora agito, adiacente a una città non conquistata (≥ 2 difensori),
+senza altri eroi nel suo spazio, con alleati disponibili (adiacenti, gettone a faccia in su, almeno una carta
+non-Ferita). Accettato da tutti: invitati `skip_next`, difensori mescolati e distribuiti (MKRng). In ordine di round da
+chi inizia, ogni partecipante entra in città gratis (Reputazione −1, provoca i nemici scatenati come un movimento
+normale) e combatte solo il suo gruppo con un turno proprio (`coop_side`, un dado della Fonte). Poi: tutti i difensori
+sconfitti = città conquistata (capo = più Scudi, a parità il primo Scudo), altrimenti tutti tornano allo spazio da cui
+hanno attaccato; infine ciascuno, in ordine, termina il turno (cure, ricompense, livelli, pesca). Hook nel motore:
+`_resume_loop` (→ `MKCoop.after_combat`), fine turno passo 6 (`MKPvP.sub_turn_end`, `MKCoop.sub_turn_end`),
+`_start_player_turn` (`MKPvP.skip_turn`), `check` (`MKPvP.gate`).
+`wounds_only_lock` ora vale solo finché il giocatore non si è mosso né ha agito (prima, dopo un combattimento senza
+carte giocate e con sole Ferite in mano, il turno non poteva più finire).
+**IA** (`ai_pvp.gd`): attacca un avversario raggiungibile solo se la mano basta con margine (Normale/Difficile) e c'è
+Fama da guadagnare o l'avversario è in testa; da difensore sceglie *parziale* (salvo mano quasi vuota); negli scambi
+gioca le carte con il miglior rapporto punti/valore; assegna i danni preferendo eroe + ritirata. In cooperativa propone
+l'assalto se la forza stimata della squadra copre la guarnigione, si avvicina a una città dove un alleato aspetta,
+accetta se ha abbastanza carte, divide i nemici in proporzione alla forza.
+UI: `scripts/ui/pvp_panel.gd` (pannello centrale con i due eroi; agisce `eng.actor()`, in hotseat prima compare
+*Passa il dispositivo*), bottoni «⚔ Attacca …» e «⚑ Proponi un assalto cooperativo…» fra le azioni, nota e titolo
+«Assalto cooperativo» nel pannello del combattimento, gettone a faccia in giù (⤓) nella barra dell'ordine, opzione
+*Combattimento tra giocatori: Sì/No* nel menu (Conquista Totale). Test: `tests/pvp_test.gd`, screenshot `tests/pvp_ui.gd`.
