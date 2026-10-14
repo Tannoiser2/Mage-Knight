@@ -169,6 +169,13 @@ func show_home() -> void:
 		var sl := MKUI.label(MKController.save_summary(), 19, Color("#cbbf9f"), MKUI.font_italic)
 		vb.add_child(sl)
 		vb.move_child(sl, 1)
+	var gx := HBoxContainer.new()
+	gx.add_theme_constant_override("separation", 10)
+	gx.add_child(MKUI.label("Spiegazioni nei suggerimenti:", 20, MKUI.GOLD, MKUI.font_bold))
+	var seg := _segmented(["Sì", "No"], 0 if MKGloss.enabled else 1, func(k): MKGloss.set_enabled(k == 0), 84)
+	seg.tooltip_text = "Nei suggerimenti spiega cosa fanno abilità dei nemici, elementi, resistenze, terreni e siti."
+	gx.add_child(seg)
+	vb.add_child(gx)
 	msg = MKUI.label("", 22, MKUI.RED, MKUI.font_bold)
 	vb.add_child(msg)
 	var credits := MKUI.label("Adattamento non ufficiale per uso personale · Mage Knight di Vlaada Chvátil · © WizKids · F11 schermo intero", 17, Color("#8a8070"))

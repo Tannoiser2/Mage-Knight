@@ -305,9 +305,9 @@ func _build_hud() -> void:
 	tip_panel.add_theme_stylebox_override("panel", MKUI.panel_style(Color(MKUI.INK, 0.88), Color(MKUI.GOLD_DARK, 0.9), 1, 6, 10))
 	tip_panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tip_panel.visible = false
-	tip_panel.custom_minimum_size = Vector2(380, 0)
+	tip_panel.custom_minimum_size = Vector2(MKGloss.TIP_W, 0)
 	tip_label = MKUI.rich(19)
-	tip_label.custom_minimum_size = Vector2(380, 0)
+	tip_label.custom_minimum_size = Vector2(MKGloss.TIP_W, 0)
 	tip_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	tip_panel.add_child(tip_label)
 	root.add_child(tip_panel)
@@ -543,10 +543,12 @@ func show_zoom(path: String, text := "", sz := Vector2(330, 462)) -> void:
 	hb.add_child(im)
 	# Le carte (azioni, incantesimi, artefatti, unità, tattiche) sono in italiano: il testo accanto
 	# ripeterebbe quello stampato. Restano solo le righe sullo stato (unità ferite, segnalini…).
+	if (path.contains("assets/cards/") or path.contains("assets/skills/")) and not text.contains(MKGloss.PREFIX):
+		text = MKGloss.append(text, MKGloss.scan(text, 4), 4)
 	if path.contains("assets/cards/"):
 		var keep := []
 		for ln in text.split("\n"):
-			if ln.begins_with("[i]Stato") or ln.begins_with("[b]Segnalino"):
+			if ln.begins_with("[i]Stato") or ln.begins_with("[b]Segnalino") or ln.begins_with(MKGloss.PREFIX):
 				keep.append(ln)
 		text = "\n".join(keep)
 	if text != "":
@@ -970,6 +972,12 @@ func _show_hex_tip(k: String, sticky: bool) -> void:
 	tip_panel.reset_size()
 	var mp := get_viewport().get_mouse_position()
 	var vs := get_viewport_rect().size
+	# troppo alto (molti nemici con molte abilità): meno spiegazioni, finché ci sta
+	var lim := 14
+	while lim > 0 and tip_label.get_content_height() + 24 > vs.y - TOP_H - 20:
+		lim -= 2
+		tip_label.text = hex_tip(k, lim)
+		tip_panel.reset_size()
 	var pos := mp + Vector2(24, 18)
 	if sticky:
 		pos = mp + Vector2(24, 18)
@@ -979,7 +987,7 @@ func _show_hex_tip(k: String, sticky: bool) -> void:
 
 
 ## Testo del suggerimento di un esagono: terreno e costo, sito, nemici con statistiche, avvisi.
-func hex_tip(k: String) -> String:
+func hex_tip(k: String, gloss_limit := 14) -> String:
 	var h := eng.hex(k)
 	if h.is_empty():
 		if _hl_action.has(k) and str(_hl_action[k].get("t", "")) == "explore":
@@ -1045,6 +1053,11 @@ func hex_tip(k: String) -> String:
 			lines.append("• " + MKHud.enemy_tip(str(e.get("type", ""))))
 		else:
 			lines.append("• Nemico coperto (%s)" % MKHud.ENEMY_COLOR_IT.get(str(e.get("color", "")), str(e.get("color", ""))))
+	var gkeys := []
+	for eid in h.get("enemies", []):
+		var ee: Dictionary = s.enemies.get(eid, {})
+		if ee.get("face_up", false):
+			gkeys.append_array(MKGloss.enemy_keys(MKDB.enemies.get(str(ee.get("type", "")), {}), site))
 	var nwall := 0
 	for nk in MKHex.neighbors(k):
 		if eng.has_wall(k, nk):
@@ -1070,6 +1083,10 @@ func hex_tip(k: String) -> String:
 				lines.append("[color=#ff7a6a]Clic: sfida questi nemici[/color]")
 			"_site":
 				lines.append("[color=#9fd0ff]Clic: interagisci con il sito[/color]")
+	gkeys.append_array(MKGloss.hex_keys(h, nwall))
+	var gb := MKGloss.block(gkeys, gloss_limit) if gloss_limit > 0 else ""
+	if gb != "":
+		lines.append(gb)
 	return "\n".join(lines)
 
 

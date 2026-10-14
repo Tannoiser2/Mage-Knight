@@ -155,7 +155,12 @@ static func _enemy_card(v, e: Dictionary, phase: String, loc: bool, av: Array) -
 	st.add_child(al)
 	st.add_child(MKUI.label("Fama %d" % int(e.get("fame", 0)), 17, MKUI.GOLD_LIGHT, MKUI.font_bold))
 	if MKCombat.is_fortified(e):
-		st.add_child(MKUI.label("Fortif.%s" % ("×2" if MKCombat.is_double_fortified(e) else ""), 15, Color("#c8b8ff"), MKUI.font_bold))
+		var dbl := MKCombat.is_double_fortified(e)
+		var fl := MKUI.label("Fortif.%s" % ("×2" if dbl else ""), 15, Color("#c8b8ff"), MKUI.font_bold)
+		fl.mouse_filter = Control.MOUSE_FILTER_PASS
+		var fk := "double_fortified" if dbl else ("fortified" if e.get("self_fort", false) else "fortified_site")
+		MKGloss.set_tip(fl, "[b]%s[/b]" % MKGloss.nome(fk) + ("\n" + MKGloss.explain(fk) if MKGloss.enabled else ""))
+		st.add_child(fl)
 	var nm := MKUI.label(str(e.get("name", "")), 20, MKUI.BONE, MKUI.font_bold)
 	nm.clip_text = true
 	nm.custom_minimum_size = Vector2(190, 0)
@@ -175,6 +180,15 @@ static func _enemy_card(v, e: Dictionary, phase: String, loc: bool, av: Array) -
 		var acol := MKHud.elem_col(el)
 		var lab := MKUI.label(txt, 18, acol, MKUI.font_bold)
 		lab.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		if val > 0:
+			lab.mouse_filter = Control.MOUSE_FILTER_PASS
+			var ak := "attack_" + el
+			var atip := "[b]%s %d[/b]" % [MKGloss.nome(ak), val]
+			if MKCombat.has_ab(e, "swift"):
+				atip += " · Rapido: per bloccarlo serve %d" % (val * 2)
+			if MKCombat.has_ab(e, "brutal"):
+				atip += " · Brutale: se non bloccato %d danni" % (val * 2)
+			MKGloss.set_tip(lab, atip + ("\n" + MKGloss.explain(ak) if MKGloss.enabled else ""))
 		ah.add_child(lab)
 		var state := ""
 		if at.get("blocked", false):
@@ -212,19 +226,32 @@ static func _enemy_card(v, e: Dictionary, phase: String, loc: bool, av: Array) -
 				var b2 := MKHud.btn(lb, func(): v.submit(a2), 0, 36, str(to) == "hero", 16)
 				b2.tooltip_text = str(x.get("label", ""))
 				g.add_child(b2)
-	# abilità e resistenze
+	# abilità e resistenze: ogni nome ha il suo suggerimento; la carta li elenca tutti
 	var tr := MKHud.enemy_traits(e)
 	if not tr.is_empty():
+		var flow := HFlowContainer.new()
+		flow.add_theme_constant_override("h_separation", 0)
+		flow.add_theme_constant_override("v_separation", 0)
+		flow.custom_minimum_size = Vector2(190, 0)
+		flow.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		vb.add_child(flow)
+		var keys := []
+		for i in range(tr.size()):
+			var t: Array = tr[i]
+			var tl := MKUI.label(str(t[0]) + (", " if i < tr.size() - 1 else ""), 16, Color("#c8b8ff"), MKUI.font_bold)
+			tl.mouse_filter = Control.MOUSE_FILTER_PASS
+			MKGloss.set_tip(tl, "[b]%s[/b]" % t[0] + (("\n" + MKGloss.PREFIX + str(t[1]) + MKGloss.SUFFIX) if MKGloss.enabled and str(t[1]) != "" else ""))
+			flow.add_child(tl)
+			keys.append(str(t[2]))
 		var names := []
-		var tips := []
 		for t in tr:
-			names.append(t[0])
-			tips.append("%s: %s" % [t[0], t[1]])
-		var tl := MKUI.label(", ".join(names), 16, Color("#c8b8ff"), MKUI.font_bold)
-		tl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		tl.custom_minimum_size = Vector2(190, 0)
-		vb.add_child(tl)
-		pc.tooltip_text = "\n".join(tips)
+			names.append(str(t[0]))
+		var all_keys := keys + MKGloss.enemy_keys(e)
+		MKGloss.set_tip(pc, MKGloss.append("[b]%s[/b]: %s" % [str(e.get("name", "")), ", ".join(names)], all_keys))
+	else:
+		var gk := MKGloss.enemy_keys(e)
+		if MKGloss.enabled and not gk.is_empty():
+			MKGloss.set_tip(pc, MKGloss.append("[b]%s[/b]" % str(e.get("name", "")), gk))
 	if defeated:
 		var dl := MKUI.label("SCONFITTO", 22, MKUI.GREEN, MKUI.font_title)
 		vb.add_child(dl)
@@ -331,6 +358,7 @@ static func build_site(v, holder: Control) -> void:
 			var info := "[b]%s[/b] (livello %d, armatura %d)\n" % [str(d.get("name_it", id)), int(d.get("level", 1)), int(d.get("armor", 0))]
 			for ab in d.get("abilities", []):
 				info += "• %s\n" % str(ab.get("text_it", ""))
+			info += MKGloss.unit_block(d)
 			im.mouse_entered.connect(func(): v.show_zoom(MKHud.unit_img(id), info, Vector2(300, 420)))
 			im.mouse_exited.connect(func(): v.hide_zoom())
 			col.add_child(im)

@@ -345,6 +345,9 @@ static func unit_widget(v, i: int, u: Dictionary, details: bool) -> Control:
 			rr.append(MKHud.RESIST_IT.get(str(r), str(r)))
 		info += "\n" + ", ".join(rr)
 	info += "\n[i]Stato: %s[/i]" % state
+	var ub := MKGloss.unit_block(d, state)
+	if ub != "":
+		info += "\n" + ub
 	if str(u.get("token", "")) != "":
 		info += "\n[b]Segnalino mana: %s[/b]" % MKMana.color_it(str(u.token))
 		var tk := ColorRect.new()

@@ -492,6 +492,9 @@ static func offers(v) -> void:
 					tip = "[b]%s[/b] · livello %d · costo %d · armatura %d" % [str(d.get("name_it", sid)), int(d.get("level", 1)), int(d.get("cost", 0)), int(d.get("armor", 0))]
 					for ab in d.get("abilities", []):
 						tip += "\n• " + str(ab.get("text_it", ""))
+					var ub := MKGloss.unit_block(d)
+					if ub != "":
+						tip += "\n" + ub
 				"skill":
 					path = MKHud.skill_img(sid)
 					tip = "[b]%s[/b]\n%s" % [str(MKDB.skills.get(sid, {}).get("name_it", sid)), str(MKDB.skills.get(sid, {}).get("text_it", ""))]
@@ -576,6 +579,19 @@ static func game_menu(v) -> void:
 			else:
 				MKMiniatures.set_enabled(on)
 			game_menu(v), 124, 44, MKMiniatures.enabled == on, 18))
+	vb.add_child(MKUI.label("Spiegazioni nei suggerimenti", 20, MKUI.GOLD, MKUI.font_bold))
+	var hx := HBoxContainer.new()
+	hx.add_theme_constant_override("separation", 6)
+	vb.add_child(hx)
+	for on in [true, false]:
+		hx.add_child(MKHud.btn("Sì" if on else "No", func():
+			MKGloss.set_enabled(on)
+			v.refresh()
+			game_menu(v), 124, 44, MKGloss.enabled == on, 18))
+	var hxl := MKUI.label("Cosa fanno abilità dei nemici, elementi, resistenze, terreni e siti.", 16, MKUI.MUTED, MKUI.font_italic)
+	hxl.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	hxl.custom_minimum_size = Vector2(500, 0)
+	vb.add_child(hxl)
 	vb.add_child(HSeparator.new())
 	vb.add_child(MKUI.big_button("RIPRENDI", 520, true, 62))
 	vb.get_child(vb.get_child_count() - 1).pressed.connect(func(): v.close_modal("screen"))

@@ -274,7 +274,7 @@ static func sep_v(h := 30.0) -> Control:
 	return c
 
 
-## Descrizione delle abilità di un nemico (lista di [nome, spiegazione]).
+## Descrizione delle abilità di un nemico: lista di [nome, spiegazione, chiave del glossario].
 static func enemy_traits(e: Dictionary) -> Array:
 	var out := []
 	for a in e.get("abilities", []):
@@ -286,9 +286,13 @@ static func enemy_traits(e: Dictionary) -> Array:
 			nm += " (%s)" % ENEMY_COLOR_IT.get(str(e["summon"]), str(e["summon"]))
 		if base == "defend" and e.has("defend"):
 			nm += " %d" % int(e["defend"])
-		out.append([nm, d[1]])
+		var gk := MKGloss.ability_key(key)
+		var tx := MKGloss.testo(gk)
+		out.append([nm, tx if tx != "" else str(d[1]), gk])
 	for r in e.get("resist", []):
-		out.append([RESIST_IT.get(str(r), "Resistenza " + str(r)), "Gli attacchi di questo tipo valgono la metà."])
+		var rk := "resist_" + str(r)
+		var rt := MKGloss.testo(rk)
+		out.append([RESIST_IT.get(str(r), "Resistenza " + str(r)), rt if rt != "" else "Gli attacchi di questo tipo valgono la metà.", rk])
 	return out
 
 
